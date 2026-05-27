@@ -1,0 +1,533 @@
+/* client/src/pages/MyMedicalRecordsPage.css */
+/* Giao diện trang Hồ sơ y tế của tôi - Phong cách y tế thân thiện */
+
+
+
+:root {
+  --mmrp-primary:        #16a34a;
+  --mmrp-primary-dark:   #15803d;
+  --mmrp-primary-light:  #bbf7d0;
+  --mmrp-primary-bg:     #f0fdf4;
+  --mmrp-accent:         #059669;
+
+  --mmrp-white:          #ffffff;
+  --mmrp-border:         #d1fae5;
+  --mmrp-border-soft:    #e5e7eb;
+
+  --mmrp-text-primary:   #14532d;
+  --mmrp-text-secondary: #374151;
+  --mmrp-text-light:     #6b7280;
+  --mmrp-text-muted:     #9ca3af;
+
+  --mmrp-badge-bg:       #dcfce7;
+  --mmrp-badge-text:     #166534;
+
+  --mmrp-shadow-sm:      0 1px 3px 0 rgb(0 0 0 / 0.06);
+  --mmrp-shadow:         0 2px 8px -1px rgb(22 163 74 / 0.12), 0 1px 3px rgb(0 0 0 / 0.06);
+  --mmrp-shadow-hover:   0 6px 20px -2px rgb(22 163 74 / 0.2), 0 2px 6px rgb(0 0 0 / 0.07);
+
+  --mmrp-radius-sm:      5px;
+  --mmrp-radius:         8px;
+  --mmrp-radius-lg:      12px;
+
+  --mmrp-fs-xs:          0.72rem;
+  --mmrp-fs-sm:          0.8rem;
+  --mmrp-fs-base:        0.85rem;
+  --mmrp-fs-md:          0.95rem;
+  --mmrp-fs-lg:          1.15rem;
+  --mmrp-fs-xl:          1.4rem;
+}
+
+/* ===== LAYOUT ===== */
+.MyMedicalRecordsPage-container {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #f0fdf4 0%, #ecfdf5 60%, #f9fafb 100%);
+  padding: 1.25rem 1rem;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: var(--mmrp-fs-base);
+  color: var(--mmrp-text-secondary);
+}
+
+.MyMedicalRecordsPage-wrapper {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+/* ===== STICKY HEADER (đồng bộ MedicalRecordViewPage) ===== */
+.MyMedicalRecordsPage-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--mmrp-white);
+  border-bottom: 1px solid var(--mmrp-border-soft);
+  box-shadow: 0 2px 10px rgba(0,0,0,.05);
+}
+
+.MyMedicalRecordsPage-header-top {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.6rem 1rem;
+  flex-wrap: wrap;
+}
+
+/* Back button */
+.MyMedicalRecordsPage-btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.65rem;
+  font-size: var(--mmrp-fs-xs);
+  font-weight: 500;
+  color: var(--mmrp-text-light);
+  background: transparent;
+  border: 1px solid var(--mmrp-border-soft);
+  border-radius: var(--mmrp-radius-sm);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+.MyMedicalRecordsPage-btn-back:hover {
+  color: var(--mmrp-text-primary);
+  background: var(--mmrp-primary-bg);
+}
+.MyMedicalRecordsPage-btn-back svg {
+  font-size: 0.65rem;
+  color: inherit;
+}
+
+/* Brand */
+.MyMedicalRecordsPage-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+}
+.MyMedicalRecordsPage-brand-logo {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--mmrp-primary), var(--mmrp-accent));
+  border-radius: var(--mmrp-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.MyMedicalRecordsPage-brand-logo svg {
+  font-size: 0.85rem;
+  color: #fff;
+}
+.MyMedicalRecordsPage-brand-name {
+  font-size: var(--mmrp-fs-md);
+  font-weight: 700;
+  color: var(--mmrp-text-primary);
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+/* ===== RECORDS COUNT BADGE ===== */
+.MyMedicalRecordsPage-count-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-left: auto;
+  padding: 0.2rem 0.65rem;
+  background: var(--mmrp-badge-bg);
+  color: var(--mmrp-badge-text);
+  border-radius: 20px;
+  font-size: var(--mmrp-fs-xs);
+  font-weight: 600;
+  border: 1px solid var(--mmrp-primary-light);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ===== TABS (đồng bộ mrvp-tabs) ===== */
+.MyMedicalRecordsPage-tabs {
+  display: flex;
+  border-top: 1px solid var(--mmrp-border-soft);
+  padding: 0 1rem;
+  background: var(--mmrp-white);
+  overflow-x: auto;
+}
+
+.MyMedicalRecordsPage-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.875rem;
+  font-size: var(--mmrp-fs-sm);
+  font-weight: 600;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: var(--mmrp-text-light);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.MyMedicalRecordsPage-tab:hover {
+  color: var(--mmrp-text-primary);
+}
+.MyMedicalRecordsPage-tab.MyMedicalRecordsPage-tab--active {
+  color: var(--mmrp-primary);
+  border-bottom-color: var(--mmrp-primary);
+}
+.MyMedicalRecordsPage-tab svg {
+  font-size: 0.72rem;
+  color: inherit;
+}
+
+/* ===== LIST ===== */
+.MyMedicalRecordsPage-records-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+/* ===== RECORD CARD ===== */
+.MyMedicalRecordsPage-record-card {
+  background: var(--mmrp-white);
+  border: 1px solid var(--mmrp-border-soft);
+  border-radius: var(--mmrp-radius);
+  box-shadow: var(--mmrp-shadow-sm);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.MyMedicalRecordsPage-record-card:hover {
+  box-shadow: var(--mmrp-shadow-hover);
+  border-color: var(--mmrp-primary-light);
+  transform: translateY(-1px);
+}
+
+/* Card header */
+.MyMedicalRecordsPage-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 0.9rem;
+  background: linear-gradient(90deg, #f0fdf4, #f9fafb);
+  border-bottom: 1px solid var(--mmrp-border);
+}
+
+.MyMedicalRecordsPage-card-code {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: 'Courier New', monospace;
+  font-size: var(--mmrp-fs-sm);
+  font-weight: 700;
+  color: var(--mmrp-primary);
+  letter-spacing: 0.3px;
+}
+
+.MyMedicalRecordsPage-card-code svg {
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+.MyMedicalRecordsPage-card-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.5rem;
+  background: var(--mmrp-badge-bg);
+  color: var(--mmrp-badge-text);
+  border-radius: 20px;
+  font-size: var(--mmrp-fs-xs);
+  font-weight: 600;
+  border: 1px solid var(--mmrp-primary-light);
+}
+
+.MyMedicalRecordsPage-card-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--mmrp-primary);
+}
+
+/* Card body */
+.MyMedicalRecordsPage-card-body {
+  padding: 0.75rem 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.MyMedicalRecordsPage-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--mmrp-fs-sm);
+}
+
+.MyMedicalRecordsPage-info-item svg {
+  color: var(--mmrp-primary);
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.MyMedicalRecordsPage-info-label {
+  color: var(--mmrp-text-light);
+  font-weight: 500;
+  margin-right: 0.1rem;
+}
+
+.MyMedicalRecordsPage-info-value {
+  color: var(--mmrp-text-secondary);
+  font-weight: 600;
+}
+
+/* ===== DOCTOR highlight ===== */
+.MyMedicalRecordsPage-doctor-name {
+  color: var(--mmrp-primary-dark) !important;
+  font-weight: 700 !important;
+}
+
+/* Card footer */
+.MyMedicalRecordsPage-card-footer {
+  padding: 0.5rem 0.9rem;
+  background: #fafafa;
+  border-top: 1px solid var(--mmrp-border-soft);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* ===== BUTTON ===== */
+.MyMedicalRecordsPage-btn-view {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42rem 0.85rem;
+  font-size: var(--mmrp-fs-xs);
+  font-weight: 700;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  letter-spacing: 0.2px;
+  background: linear-gradient(135deg, var(--mmrp-primary) 0%, var(--mmrp-accent) 100%);
+  color: white;
+  border: none;
+  border-radius: var(--mmrp-radius-sm);
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgb(22 163 74 / 0.3);
+}
+
+.MyMedicalRecordsPage-btn-view:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgb(22 163 74 / 0.4);
+}
+
+.MyMedicalRecordsPage-btn-view:active {
+  transform: translateY(0);
+}
+
+.MyMedicalRecordsPage-btn-view svg:first-child {
+  font-size: 0.7rem;
+  opacity: 0.9;
+}
+
+.MyMedicalRecordsPage-btn-view svg:last-child {
+  font-size: 0.6rem;
+  opacity: 0.8;
+}
+
+/* ===== SECURITY NOTE ===== */
+.MyMedicalRecordsPage-security-note {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: var(--mmrp-fs-xs);
+  color: var(--mmrp-text-muted);
+  margin-right: auto;
+}
+
+.MyMedicalRecordsPage-security-note svg {
+  color: var(--mmrp-primary-light);
+  font-size: 0.7rem;
+}
+
+/* ===== LOADING ===== */
+.MyMedicalRecordsPage-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 300px;
+  font-size: var(--mmrp-fs-md);
+  font-weight: 600;
+  color: var(--mmrp-primary);
+}
+
+.MyMedicalRecordsPage-spin-icon {
+  font-size: 1.75rem;
+  animation: mmrp-spin 0.9s linear infinite;
+}
+
+@keyframes mmrp-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ===== EMPTY STATE ===== */
+.MyMedicalRecordsPage-empty-state {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  background: var(--mmrp-white);
+  border-radius: var(--mmrp-radius-lg);
+  border: 1.5px dashed var(--mmrp-border);
+}
+
+.MyMedicalRecordsPage-empty-icon {
+  width: 52px;
+  height: 52px;
+  background: var(--mmrp-badge-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.85rem;
+}
+
+.MyMedicalRecordsPage-empty-icon svg {
+  font-size: 1.4rem;
+  color: var(--mmrp-text-muted);
+}
+
+.MyMedicalRecordsPage-empty-state h3 {
+  font-size: var(--mmrp-fs-md);
+  font-weight: 700;
+  color: var(--mmrp-text-secondary);
+  margin: 0 0 0.4rem 0;
+}
+
+.MyMedicalRecordsPage-empty-state p {
+  font-size: var(--mmrp-fs-sm);
+  color: var(--mmrp-text-light);
+  margin: 0;
+  line-height: 1.5;
+}
+
+
+
+/* ===== TOOLBAR (search + filter) ===== */
+.MyMedicalRecordsPage-toolbar {
+  display: flex;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.MyMedicalRecordsPage-search-wrap {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.MyMedicalRecordsPage-search-icon {
+  color: var(--mmrp-text-muted);
+  font-size: 0.7rem;
+  flex: 0 0 auto;
+}
+
+.MyMedicalRecordsPage-search-input {
+  width: 100%;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--mmrp-border-soft);
+  border-radius: var(--mmrp-radius);
+  font-size: var(--mmrp-fs-sm);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: var(--mmrp-white);
+}
+
+.MyMedicalRecordsPage-search-input:focus {
+  border-color: var(--mmrp-primary);
+  box-shadow: 0 0 0 3px rgb(22 163 74 / 0.1);
+}
+
+.MyMedicalRecordsPage-filter-select {
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--mmrp-border-soft);
+  border-radius: var(--mmrp-radius);
+  font-size: var(--mmrp-fs-sm);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  background: var(--mmrp-white);
+  color: var(--mmrp-text-secondary);
+  cursor: pointer;
+  outline: none;
+}
+
+.MyMedicalRecordsPage-filter-select:focus {
+  border-color: var(--mmrp-primary);
+}
+
+/* ===== RESULT COUNT ===== */
+.MyMedicalRecordsPage-result-count {
+  font-size: var(--mmrp-fs-xs);
+  color: var(--mmrp-text-light);
+  margin: 0 0 0.6rem 0;
+}
+
+.MyMedicalRecordsPage-type-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.MyMedicalRecordsPage-type-tab {
+  border: 1px solid var(--mmrp-border-soft);
+  background: #ffffff;
+  color: var(--mmrp-text-secondary);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-size: var(--mmrp-fs-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.MyMedicalRecordsPage-type-tab.active {
+  border-color: var(--mmrp-primary);
+  color: #ffffff;
+  background: var(--mmrp-primary);
+}
+
+.MyMedicalRecordsPage-card-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.MyMedicalRecordsPage-type-badge {
+  font-size: var(--mmrp-fs-xs);
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid transparent;
+}
+
+.MyMedicalRecordsPage-type-badge.offline {
+  background: #e0f2fe;
+  border-color: #bae6fd;
+  color: #0369a1;
+}
+
+.MyMedicalRecordsPage-type-badge.online {
+  background: #fef9c3;
+  border-color: #fde68a;
+  color: #92400e;
+}

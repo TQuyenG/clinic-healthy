@@ -1,0 +1,358 @@
+/* src/pages/EquipmentPage.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --equipmentpage-primary: #4CAF50;
+  --equipmentpage-primary-dark: #2E7D32;
+  --equipmentpage-primary-light: #81C784;
+  --equipmentpage-bg-white: #ffffff;
+  --equipmentpage-bg-gray: #F1F8F4;
+  --equipmentpage-text-dark: #1f2937;
+  --equipmentpage-text-gray: #4b5563;
+  --equipmentpage-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  --equipmentpage-shadow-hover: 0 10px 15px -3px rgba(0,0,0,0.1);
+  --equipmentpage-radius: 12px;
+  --equipmentpage-transition: all 0.3s ease;
+}
+
+html, body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.equipmentpage-page {
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--equipmentpage-bg-white);
+  color: var(--equipmentpage-text-dark);
+}
+
+.equipmentpage-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+/* ==================== BANNER FULL MÀN HÌNH ==================== */
+.equipmentpage-hero {
+  height: 100vh;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+.equipmentpage-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.equipmentpage-hero h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.equipmentpage-hero-subtitle {
+  font-size: 1.25rem;
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0.95;
+}
+
+/* ==================== THỐNG KÊ (SAU BANNER) ==================== */
+.equipmentpage-stats-top {
+  background: var(--equipmentpage-bg-white);
+  padding: 3rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.equipmentpage-stats-wrap-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+.equipmentpage-stat-item-top {
+  text-align: center;
+  min-width: 150px;
+  padding: 0.5rem;
+}
+
+.equipmentpage-stat-item-top .stat-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--equipmentpage-primary-dark);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.equipmentpage-stat-item-top .stat-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--equipmentpage-text-gray);
+  text-transform: uppercase;
+}
+
+/* ==================== COMMON SECTIONS ==================== */
+.equipmentpage-section-container {
+  padding: 4rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.bg-light { background-color: var(--equipmentpage-bg-gray); }
+
+.equipmentpage-section-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+  color: var(--equipmentpage-primary-dark);
+}
+
+/* ==================== SCROLL WRAPPER ==================== */
+.scroll-wrapper-container { position: relative; width: 100%; }
+.scroll-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+  background: rgba(255, 255, 255, 0.95); border: 1px solid #e5e7eb;
+  border-radius: 50%; width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; opacity: 0; transition: all 0.3s ease;
+  color: var(--equipmentpage-primary-dark);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+@media (hover: hover) { .scroll-wrapper-container:hover .scroll-arrow { opacity: 1; } }
+@media (hover: none) {
+  .scroll-arrow { opacity: 0.8; width: 32px; height: 32px; }
+}
+.scroll-arrow:hover { background: var(--equipmentpage-primary); color: white; }
+.scroll-arrow.left { left: 5px; } .scroll-arrow.right { right: 5px; }
+.scroll-content { scrollbar-width: none; width: 100%; }
+.scroll-content::-webkit-scrollbar { display: none; }
+
+/* ==================== NÚT LỌC DANH MỤC THIẾT BỊ ==================== */
+.equipmentpage-categories-filter {
+  display: flex; 
+  flex-wrap: nowrap; 
+  overflow-x: auto;
+  scroll-snap-type: x mandatory; 
+  gap: 1rem; 
+  justify-content: flex-start;
+  margin-bottom: 2.5rem; /* Thêm margin giãn cách phần nút lọc và thẻ bên dưới */
+  padding-bottom: 1rem;
+}
+
+.equipmentpage-category-btn {
+  flex: 0 0 auto;
+  display: flex; 
+  align-items: center; 
+  gap: 8px;
+  padding: 10px 20px; 
+  
+  /* Nền trắng, text xanh, viền xanh */
+  background: var(--equipmentpage-bg-white); 
+  border: 1.5px solid var(--equipmentpage-primary);
+  color: var(--equipmentpage-primary);
+  
+  border-radius: 25px;
+  cursor: pointer; 
+  transition: var(--equipmentpage-transition);
+  font-size: 0.95rem; 
+  font-weight: 600; 
+  scroll-snap-align: center;
+}
+
+.equipmentpage-category-btn svg { 
+  font-size: 1.2rem; 
+}
+
+/* Hover trạng thái chưa chọn: Nền xanh nhạt dịu */
+.equipmentpage-category-btn:hover { 
+  background: #E8F5E9; 
+  color: var(--equipmentpage-primary-dark); 
+  border-color: var(--equipmentpage-primary-dark); 
+}
+
+/* Trạng thái được chọn: Nền xanh, chữ trắng */
+.equipmentpage-category-btn.active { 
+  background: var(--equipmentpage-primary); 
+  border-color: var(--equipmentpage-primary); 
+  color: white; 
+}
+
+/* Hover trạng thái đang chọn: Xanh mờ đi xíu */
+.equipmentpage-category-btn.active:hover {
+  opacity: 0.85;
+}
+
+/* ==================== DANH SÁCH THIẾT BỊ (FLEX CUỘN NGANG) ==================== */
+.equipmentpage-equipment-grid {
+  display: flex; flex-wrap: nowrap; overflow-x: auto;
+  scroll-snap-type: x mandatory; gap: 1.5rem; padding-bottom: 1rem;
+}
+
+.equipmentpage-equipment-card {
+  flex: 0 0 350px; background: var(--equipmentpage-bg-white);
+  border-radius: var(--equipmentpage-radius); overflow: hidden;
+  box-shadow: var(--equipmentpage-shadow); transition: var(--equipmentpage-transition);
+  scroll-snap-align: center; display: flex; flex-direction: column;
+}
+.equipmentpage-equipment-card:hover { transform: translateY(-5px); box-shadow: var(--equipmentpage-shadow-hover); }
+
+.equipmentpage-equipment-image { position: relative; height: 220px; overflow: hidden; cursor: pointer; }
+.equipmentpage-equipment-image img { width: 100%; height: 100%; object-fit: cover; transition: var(--equipmentpage-transition); }
+.equipmentpage-equipment-card:hover .equipmentpage-equipment-image img { transform: scale(1.05); }
+
+.equipmentpage-equipment-badge {
+  position: absolute; top: 10px; right: 10px;
+  background: var(--equipmentpage-primary); color: white;
+  padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; z-index: 3;
+}
+
+.equipmentpage-equipment-overlay {
+  position: absolute; inset: 0; background: rgba(46, 125, 50, 0.6);
+  color: white; display: flex; align-items: center; justify-content: center; 
+  opacity: 0; transition: var(--equipmentpage-transition);
+  font-weight: 600; font-size: 1.1rem; z-index: 2;
+}
+.equipmentpage-equipment-image:hover .equipmentpage-equipment-overlay { opacity: 1; }
+
+.equipmentpage-equipment-content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+.equipmentpage-equipment-content h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--equipmentpage-text-dark); font-weight: 800; }
+
+.equipmentpage-equipment-meta {
+  display: flex; gap: 15px; margin-bottom: 15px; color: var(--equipmentpage-primary-dark); font-size: 0.85rem; font-weight: 600;
+}
+
+.equipmentpage-equipment-features h4, .equipmentpage-equipment-applications h4 {
+  font-size: 0.95rem; margin-bottom: 8px; color: var(--equipmentpage-text-dark); font-weight: 700;
+}
+
+.equipmentpage-equipment-features ul {
+  list-style: none; margin-bottom: 15px; color: var(--equipmentpage-text-gray); font-size: 0.85rem; padding: 0;
+}
+.equipmentpage-equipment-features li { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 4px;}
+.check-icon { color: var(--equipmentpage-primary); margin-top: 2px; flex-shrink: 0;}
+
+.equipmentpage-application-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto;}
+.equipmentpage-app-tag { background: #e5e7eb; color: var(--equipmentpage-text-dark); padding: 4px 10px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; }
+
+/* ==================== CAM KẾT CHẤT LƯỢNG ==================== */
+.equipmentpage-quality-grid {
+  display: flex; flex-wrap: nowrap; overflow-x: auto;
+  scroll-snap-type: x mandatory; gap: 1.5rem; padding-bottom: 1rem;
+}
+.equipmentpage-quality-card {
+  flex: 0 0 280px; background: var(--equipmentpage-bg-white); padding: 2rem;
+  border-radius: var(--equipmentpage-radius); transition: var(--equipmentpage-transition);
+  border-bottom: 4px solid var(--equipmentpage-primary); box-shadow: var(--equipmentpage-shadow);
+  scroll-snap-align: center; text-align: center;
+}
+.equipmentpage-quality-card:hover { transform: translateY(-5px); box-shadow: var(--equipmentpage-shadow-hover); }
+
+.equipmentpage-quality-icon { font-size: 2.5rem; color: var(--equipmentpage-primary); margin-bottom: 1rem; }
+.equipmentpage-quality-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--equipmentpage-text-dark); font-weight: 700; }
+.equipmentpage-quality-card p { color: var(--equipmentpage-text-gray); line-height: 1.5; font-size: 0.9rem; }
+
+/* CTA Section */
+.equipmentpage-equipment-cta {
+  background: linear-gradient(135deg, var(--equipmentpage-primary) 0%, var(--equipmentpage-primary-dark) 100%);
+  color: white; padding: 4rem 1.5rem; text-align: center;
+}
+.equipmentpage-equipment-cta h2 { font-size: 2rem; margin-bottom: 10px; font-weight: 800;}
+.equipmentpage-equipment-cta p { font-size: 1.1rem; margin-bottom: 25px; opacity: 0.9; }
+.equipmentpage-btn-primary {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: white; color: var(--equipmentpage-primary-dark); border: none;
+  padding: 12px 30px; border-radius: 25px; font-size: 1rem; font-weight: 700;
+  cursor: pointer; transition: var(--equipmentpage-transition); text-decoration: none;
+}
+.equipmentpage-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+
+/* ==================== IMAGE MODAL ==================== */
+.equipmentpage-image-modal {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  animation: fadeIn 0.3s;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.equipmentpage-modal-content { position: relative; max-width: 90%; max-height: 90%; cursor: default; }
+.equipmentpage-modal-content img { max-width: 100%; max-height: 85vh; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+.equipmentpage-modal-close {
+  position: absolute; top: -40px; right: 0; background: transparent; color: white;
+  border: none; font-size: 3rem; cursor: pointer; width: 50px; height: 50px;
+  display: flex; align-items: center; justify-content: center; transition: transform 0.3s;
+}
+.equipmentpage-modal-close:hover { transform: rotate(90deg); }
+
+/* ==================== RESPONSIVE (MOBILE CHỐNG TRÀN) ==================== */
+@media (max-width: 768px) {
+  .equipmentpage-section-container { padding: 2.5rem 0; width: 100%; overflow: hidden;}
+  
+  .equipmentpage-hero { height: 70vh; padding: 4rem 1.5rem; min-height: auto;}
+  .equipmentpage-hero h1 { font-size: 2.2rem; }
+  .equipmentpage-hero-subtitle { font-size: 1.05rem; }
+  .equipmentpage-section-title { font-size: 1.5rem; margin-bottom: 1.5rem;}
+
+  .equipmentpage-stats-top { padding: 2rem 0; }
+  .equipmentpage-stat-item-top { min-width: 120px; }
+  .equipmentpage-stat-item-top .stat-number { font-size: 2.2rem; }
+  .equipmentpage-stat-item-top .stat-label { font-size: 0.8rem; }
+  .equipmentpage-stats-wrap-grid { gap: 1.5rem; }
+
+  /* Ép kích thước Grid lướt ngang nhỏ lại để hiển thị ~3 card trên màn hình */
+  .equipmentpage-categories-filter { margin-bottom: 1.5rem; gap: 0.75rem;}
+  .equipmentpage-category-btn { padding: 8px 15px; font-size: 0.85rem;}
+
+  .equipmentpage-equipment-grid { gap: 0.75rem; }
+  .equipmentpage-equipment-card { flex: 0 0 45vw; }
+  
+  .equipmentpage-quality-grid { gap: 0.75rem; }
+  .equipmentpage-quality-card { flex: 0 0 40vw; padding: 1.5rem 1rem;}
+
+  /* Card Nội Dung */
+  .equipmentpage-equipment-image { height: 130px; }
+  .equipmentpage-equipment-content { padding: 1rem; }
+  .equipmentpage-equipment-content h3 { font-size: 0.95rem; margin-bottom: 0.5rem;}
+  .equipmentpage-equipment-meta { font-size: 0.75rem; flex-direction: column; gap: 5px; margin-bottom: 0.5rem;}
+  .equipmentpage-equipment-features h4, .equipmentpage-equipment-applications h4 { font-size: 0.85rem; margin-bottom: 5px;}
+  .equipmentpage-equipment-features ul { font-size: 0.75rem; margin-bottom: 10px;}
+  .equipmentpage-app-tag { font-size: 0.65rem; padding: 3px 8px;}
+
+  .equipmentpage-quality-icon { font-size: 1.8rem; margin-bottom: 0.5rem;}
+  .equipmentpage-quality-card h3 { font-size: 0.9rem; }
+  .equipmentpage-quality-card p { font-size: 0.75rem; }
+
+  .equipmentpage-equipment-cta h2 { font-size: 1.6rem; }
+  .equipmentpage-equipment-cta p { font-size: 0.95rem; }
+}
+
+@media (max-width: 480px) {
+  .equipmentpage-hero { height: 60vh; }
+  .equipmentpage-hero h1 { font-size: 1.8rem; }
+  .equipmentpage-stat-item-top { min-width: 100px; }
+  
+  /* Ép thành 3 thẻ trên mobile cực nhỏ */
+  .equipmentpage-equipment-card { flex: 0 0 42vw; } 
+  .equipmentpage-quality-card { flex: 0 0 38vw; }
+  
+  .equipmentpage-equipment-image { height: 110px; }
+  .equipmentpage-equipment-features { display: none; } 
+}

@@ -1,0 +1,357 @@
+/* --- VARIABLES --- */
+:root {
+  --sa-primary: #4caf50;
+  --sa-primary-dark: #388e3c;
+  --sa-pastel-bg: #e8f5e9;
+  --sa-text: #2e7d32;
+  --sa-text-light: #66bb6a;
+  --sa-border: #c8e6c9;
+  --sa-white: #ffffff;
+  --sa-gray: #f5f5f5;
+  --sa-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* --- OVERLAY & CONTAINER --- */
+.staff-assignment-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+  backdrop-filter: blur(2px);
+}
+
+.staff-assignment-modal-container {
+  background: var(--sa-white);
+  width: 90%;
+  max-width: 700px; /* Thu nhỏ chiều rộng */
+  max-height: 90vh;
+  border-radius: 12px;
+  box-shadow: var(--sa-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  animation: saSlideDown 0.3s ease-out;
+}
+
+@keyframes saSlideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* --- HEADER --- */
+.staff-assignment-modal-header {
+  background-color: var(--sa-pastel-bg);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--sa-border);
+}
+
+.staff-assignment-modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.staff-assignment-modal-icon-title {
+  font-size: 24px;
+  color: var(--sa-primary);
+}
+
+.staff-assignment-modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--sa-text);
+  font-weight: 700;
+}
+
+.staff-assignment-modal-subtitle {
+  font-size: 12px;
+  color: #666;
+}
+
+.staff-assignment-modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.staff-assignment-modal-close-btn:hover {
+  color: #d32f2f;
+}
+
+/* --- BODY & SECTIONS --- */
+.staff-assignment-modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.staff-assignment-modal-section {
+  background: var(--sa-white);
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.staff-assignment-modal-section-title {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--sa-primary-dark);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* --- GRID & INPUTS --- */
+.staff-assignment-modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.staff-assignment-modal-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.staff-assignment-modal-input-group.full-width {
+  grid-column: span 2;
+}
+
+.staff-assignment-modal-input-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+}
+
+.staff-assignment-modal-select, 
+.staff-assignment-modal-input {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+  background-color: #fafafa;
+}
+
+.staff-assignment-modal-select:focus {
+  border-color: var(--sa-primary);
+  background-color: #fff;
+}
+
+/* --- DOCTOR LIST SECTION --- */
+.staff-assignment-modal-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.staff-assignment-modal-search-box {
+  display: flex;
+  align-items: center;
+  background: #f0f0f0;
+  border-radius: 20px;
+  padding: 5px 12px;
+  width: 200px;
+}
+
+.staff-assignment-modal-search-box svg {
+  color: #999;
+  font-size: 12px;
+}
+
+.staff-assignment-modal-search-box input {
+  border: none;
+  background: transparent;
+  margin-left: 8px;
+  font-size: 12px;
+  outline: none;
+  width: 100%;
+}
+
+.staff-assignment-modal-list-container {
+  border: 1px solid var(--sa-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.staff-assignment-modal-list-header {
+  display: grid;
+  grid-template-columns: 40px 2fr 1.5fr 100px; /* Checkbox - Name - Email - Status */
+  background: var(--sa-pastel-bg);
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sa-text);
+  border-bottom: 1px solid var(--sa-border);
+}
+
+.staff-assignment-modal-list-body {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.staff-assignment-modal-list-item {
+  display: grid;
+  grid-template-columns: 40px 2fr 1.5fr 100px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #f0f0f0;
+  align-items: center;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.staff-assignment-modal-list-item:hover {
+  background-color: #f9f9f9;
+}
+
+.staff-assignment-modal-list-item.selected {
+  background-color: #e8f5e9; /* Rất nhạt */
+}
+
+.staff-assignment-modal-col-checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.staff-assignment-modal-col-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+.staff-avatar-mini {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.staff-assignment-modal-col-email {
+  color: #666;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.staff-assignment-modal-col-status {
+  text-align: center;
+}
+
+/* Checkbox Styles */
+.checkbox-active { color: var(--sa-primary); font-size: 16px; }
+.checkbox-inactive { color: #ddd; font-size: 16px; }
+.badge-assigned { background: var(--sa-primary); color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; }
+.badge-unassigned { color: #ccc; }
+
+.staff-assignment-modal-empty {
+  padding: 20px;
+  text-align: center;
+  color: #999;
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* --- PAGINATION --- */
+.staff-assignment-modal-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding-top: 10px;
+}
+
+.staff-assignment-modal-pagination button {
+  background: var(--sa-white);
+  border: 1px solid #ddd;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.staff-assignment-modal-pagination button:disabled {
+  background: #f5f5f5;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.staff-assignment-modal-pagination span {
+  font-size: 12px;
+  color: #666;
+}
+
+/* --- FOOTER --- */
+.staff-assignment-modal-footer {
+  padding: 15px 20px;
+  background: #f9f9f9;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.staff-assignment-modal-summary {
+  font-size: 13px;
+  color: #555;
+}
+
+.staff-assignment-modal-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.staff-assignment-modal-btn-cancel {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  background: white;
+  color: #666;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.staff-assignment-modal-btn-save {
+  padding: 8px 20px;
+  border: none;
+  background: linear-gradient(135deg, var(--sa-primary), var(--sa-primary-dark));
+  color: white;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+}
+
+.staff-assignment-modal-btn-save:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}

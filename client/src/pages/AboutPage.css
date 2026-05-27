@@ -1,0 +1,661 @@
+/* src/pages/AboutPage.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --aboutpage-primary: #4CAF50;
+  --aboutpage-primary-dark: #2E7D32;
+  --aboutpage-primary-light: #81C784;
+  --aboutpage-bg-white: #ffffff;
+  --aboutpage-bg-gray-50: #F1F8F4;
+  --aboutpage-text-dark: #1f2937;
+  --aboutpage-text-gray: #4b5563;
+  --aboutpage-text-light: #9ca3af;
+  --aboutpage-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  --aboutpage-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --aboutpage-radius: 0.75rem;
+  --aboutpage-radius-xl: 1rem;
+  --aboutpage-transition: all 0.3s ease;
+}
+
+/* Đảm bảo toàn trang không bao giờ bị overflow ngang */
+html, body {
+  overflow-x: hidden;
+}
+
+.aboutpage-container {
+  font-family: 'Inter', sans-serif;
+  color: var(--aboutpage-text-dark);
+  background: var(--aboutpage-bg-white);
+  width: 100%;
+  overflow-x: hidden; /* Xóa sổ lỗi tràn ngang */
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* ==================== THIẾT LẬP NÚT CUỘN NGANG ==================== */
+.scroll-wrapper-container {
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+}
+
+.scroll-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e5e7eb;
+  border-radius: 50%;
+  width: 40px; 
+  height: 40px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.3s ease;
+  color: var(--aboutpage-primary-dark);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.scroll-arrow:hover {
+  background: var(--aboutpage-primary);
+  color: white;
+}
+
+@media (hover: hover) {
+  .scroll-wrapper-container:hover .scroll-arrow {
+    opacity: 1;
+  }
+}
+
+@media (hover: none) {
+  .scroll-arrow {
+    opacity: 0.8;
+    width: 32px; 
+    height: 32px;
+  }
+}
+
+.scroll-arrow.left { left: 5px; }
+.scroll-arrow.right { right: 5px; }
+
+.scroll-content { scrollbar-width: none; width: 100%; }
+.scroll-content::-webkit-scrollbar { display: none; }
+
+/* ==================== COMMON SECTIONS ==================== */
+.aboutpage-section-container {
+  padding: 4rem 0;
+  border-bottom: 1px solid #e5e7eb;
+  width: 100%;
+}
+
+.bg-light { background-color: var(--aboutpage-bg-gray-50); }
+
+.aboutpage-section-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+.aboutpage-section-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+  color: var(--aboutpage-primary-dark);
+}
+
+.aboutpage-section-title-left {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--aboutpage-primary-dark);
+}
+
+.aboutpage-section-badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  background: #E8F5E9;
+  color: var(--aboutpage-primary-dark);
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.aboutpage-section-desc {
+  font-size: 1.05rem;
+  color: var(--aboutpage-text-gray);
+  line-height: 1.6;
+}
+
+/* ==================== HERO BANNER ==================== */
+.aboutpage-hero {
+  position: relative;
+  height: 100vh;
+  min-height: 500px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  width: 100%;
+}
+
+.aboutpage-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.85), rgba(46, 125, 50, 0.85));
+}
+
+.aboutpage-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 1.5rem;
+}
+
+.aboutpage-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.aboutpage-hero-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.aboutpage-hero-subtitle {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.aboutpage-hero-description {
+  font-size: 1rem;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+/* ==================== STATS BANNER ==================== */
+.aboutpage-stats-banner {
+  background: var(--aboutpage-bg-white);
+  padding: 3rem 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+.aboutpage-stats-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.aboutpage-stat-item {
+  text-align: center;
+  flex: 1;
+  min-width: max-content;
+  padding: 0 1.5rem;
+  scroll-snap-align: center;
+}
+
+.aboutpage-stat-item h4 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+  color: var(--aboutpage-primary-dark);
+}
+
+.aboutpage-stat-item p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--aboutpage-text-gray);
+  white-space: nowrap;
+}
+
+/* ==================== MISSION & VISION ==================== */
+.aboutpage-zigzag-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 5rem;
+  width: 100%;
+}
+
+.aboutpage-zigzag-row.reverse .aboutpage-zigzag-image { order: 2; }
+.aboutpage-zigzag-row.reverse .aboutpage-zigzag-text { order: 1; }
+
+.aboutpage-zigzag-image {
+  position: relative;
+  border-radius: var(--aboutpage-radius-xl);
+  overflow: hidden;
+  box-shadow: var(--aboutpage-shadow-lg);
+  width: 100%;
+}
+
+.aboutpage-zigzag-image img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  display: block;
+}
+
+.aboutpage-zigzag-icon {
+  position: absolute;
+  bottom: -1rem;
+  right: -1rem;
+  background: white;
+  color: var(--aboutpage-primary);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.aboutpage-zigzag-row.reverse .aboutpage-zigzag-icon {
+  right: auto; left: -1rem;
+}
+
+/* ==================== GALLERY CAROUSEL (LỊCH SỬ PHÁT TRIỂN 50/50) ==================== */
+.aboutpage-gallery-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 2.5rem;
+  width: 100%;
+  background: transparent;
+  box-shadow: none;
+  padding: 0; 
+}
+
+/* Khung Ảnh Lớn */
+.aboutpage-gallery-main {
+  position: relative;
+  border-radius: var(--aboutpage-radius-xl);
+  overflow: hidden;
+  height: 400px;
+  box-shadow: var(--aboutpage-shadow);
+  width: 100%;
+}
+
+.gallery-main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: galleryFadeIn 0.5s ease-in-out;
+}
+
+@keyframes galleryFadeIn {
+  from { opacity: 0; transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.gallery-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.85);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--aboutpage-primary-dark);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+.gallery-nav-btn:hover {
+  background: var(--aboutpage-primary);
+  color: white;
+}
+.gallery-nav-btn.left { left: 1rem; }
+.gallery-nav-btn.right { right: 1rem; }
+
+/* Khung Nội Dung & Thumbnails Bên Phải */
+.aboutpage-gallery-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+.aboutpage-gallery-text {
+  animation: galleryFadeIn 0.5s ease-in-out;
+  padding-bottom: 1rem;
+}
+
+.gallery-year {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--aboutpage-primary-dark);
+  border-bottom: 4px solid var(--aboutpage-primary-light);
+  padding-bottom: 0.2rem;
+  margin-bottom: 1rem;
+}
+
+.gallery-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--aboutpage-text-dark);
+  margin-bottom: 0.8rem;
+}
+
+.gallery-desc {
+  font-size: 1rem;
+  color: var(--aboutpage-text-gray);
+  line-height: 1.6;
+}
+
+/* 3 Thumbnails Grid */
+.aboutpage-gallery-thumbnails-wrapper {
+  margin-top: auto;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1.5rem;
+  width: 100%;
+}
+
+.aboutpage-gallery-thumbnails {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Ép hiển thị đúng 3 ô */
+  gap: 1rem;
+  width: 100%;
+}
+
+.gallery-thumb {
+  height: 90px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.gallery-thumb:hover {
+  opacity: 0.8;
+}
+
+/* Ảnh đang xem (Index 0) sẽ sáng rực */
+.gallery-thumb.active {
+  opacity: 1;
+  border-color: var(--aboutpage-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+.gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-thumb-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gallery-thumb.active .gallery-thumb-overlay {
+  background: rgba(76, 175, 80, 0.2);
+}
+
+.gallery-thumb-overlay span {
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+
+/* ==================== CORE VALUES ==================== */
+.aboutpage-values-mini-row {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.aboutpage-value-mini-card {
+  flex: 0 0 140px; 
+  text-align: center;
+  padding: 0.5rem;
+  scroll-snap-align: center;
+}
+
+.aboutpage-value-mini-icon {
+  width: 45px;
+  height: 45px;
+  background: var(--aboutpage-bg-gray-50);
+  color: var(--aboutpage-primary-dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin: 0 auto 0.5rem;
+}
+
+.aboutpage-value-mini-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: var(--aboutpage-primary-dark);
+}
+
+.aboutpage-value-mini-desc {
+  font-size: 0.85rem;
+  color: var(--aboutpage-text-gray);
+  line-height: 1.3;
+}
+
+/* ==================== CARDS GRID ==================== */
+.aboutpage-horizontal-grid {
+  display: grid;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.leader-grid, .facility-grid, .doctor-grid { grid-template-columns: repeat(3, 1fr); }
+.achievement-grid { grid-template-columns: repeat(4, 1fr); }
+
+.aboutpage-mini-card {
+  background: white;
+  border-radius: var(--aboutpage-radius);
+  overflow: hidden;
+  box-shadow: var(--aboutpage-shadow);
+  border: 1px solid #f3f4f6;
+  display: flex;
+  flex-direction: column;
+}
+
+.aboutpage-mini-img-wrapper {
+  height: 280px;
+  overflow: hidden;
+}
+.aboutpage-mini-img-wrapper.achievement, .aboutpage-mini-img-wrapper.facility {
+  height: 160px;
+}
+.aboutpage-mini-img-wrapper img {
+  width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 0.3s;
+}
+
+.aboutpage-mini-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.aboutpage-mini-info.center { text-align: center; }
+
+.aboutpage-mini-name {
+  font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem; color: var(--aboutpage-primary-dark);
+}
+.aboutpage-mini-position, .aboutpage-mini-specialty, .aboutpage-mini-year {
+  font-size: 0.9rem; color: var(--aboutpage-text-gray); margin-bottom: 0.25rem;
+}
+.aboutpage-mini-position { color: var(--aboutpage-primary); font-weight: 600; }
+.aboutpage-mini-specialty svg { color: var(--aboutpage-primary); margin-right: 0.25rem;}
+
+.aboutpage-mini-icon-large {
+  font-size: 2.5rem; color: #fbbf24; text-align: center; padding: 1.5rem 0 0;
+}
+
+/* ==================== BUTTONS & FOOTER ==================== */
+.aboutpage-section-footer { text-align: center; margin-top: 2.5rem; }
+.aboutpage-btn-outline {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--aboutpage-primary); color: var(--aboutpage-primary);
+  border-radius: 2rem; font-size: 0.9rem; font-weight: 600;
+  text-decoration: none; transition: var(--aboutpage-transition);
+}
+.aboutpage-btn-outline:hover { background: var(--aboutpage-primary); color: white; }
+
+/* ==================== CTA SECTION ==================== */
+.aboutpage-cta-section {
+  background: linear-gradient(135deg, var(--aboutpage-primary), var(--aboutpage-primary-dark));
+  padding: 4rem 0; color: white; text-align: center;
+}
+.aboutpage-cta-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 1rem; }
+.aboutpage-cta-text { font-size: 1.1rem; margin-bottom: 1.5rem; opacity: 0.9; }
+.aboutpage-cta-buttons { display: flex; justify-content: center; gap: 1rem; }
+.aboutpage-btn-primary {
+  background: white; color: var(--aboutpage-primary-dark);
+  padding: 0.7rem 1.5rem; border-radius: 2rem; font-size: 0.95rem; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;
+}
+.aboutpage-btn-secondary {
+  background: transparent; color: white; border: 1px solid rgba(255,255,255,0.5);
+  padding: 0.7rem 1.5rem; border-radius: 2rem; font-size: 0.95rem; font-weight: 600; text-decoration: none;
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN (MOBILE & TABLET SIÊU GỌN - CHỐNG TRÀN)
+   ======================================================== */
+
+@media (max-width: 1024px) {
+  .aboutpage-zigzag-row { gap: 2rem; }
+  .aboutpage-hero-title { font-size: 2.5rem; }
+  .aboutpage-gallery-container { gap: 1.5rem; padding: 1.5rem; }
+  .aboutpage-gallery-main { height: 350px; }
+}
+
+@media (max-width: 768px) {
+  .aboutpage-section-container { padding: 2.5rem 0; width: 100%; overflow: hidden; }
+  .aboutpage-section-content { padding: 0 1rem; }
+  
+  .aboutpage-hero { height: auto; min-height: 350px; padding: 4rem 0; }
+  .aboutpage-hero-title { font-size: 1.8rem; line-height: 1.2; margin-bottom: 0.5rem;}
+  .aboutpage-hero-subtitle { font-size: 1.1rem; margin-bottom: 0.5rem;}
+  .aboutpage-hero-description { font-size: 0.9rem; padding: 0 1rem;}
+  .aboutpage-section-title, .aboutpage-section-title-left { font-size: 1.5rem; margin-bottom: 1.5rem; }
+
+  /* Stats */
+  .aboutpage-stats-banner { padding: 2rem 0; }
+  .aboutpage-stats-grid { gap: 0.5rem; }
+  .aboutpage-stat-item { padding: 0 0.5rem; flex: 1; }
+  .aboutpage-stat-item h4 { font-size: 1.8rem; }
+  .aboutpage-stat-item p { font-size: 0.8rem; }
+
+  /* Zigzag sang 1 cột gọn gàng */
+  .aboutpage-zigzag-row, .aboutpage-zigzag-row.reverse { grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem; }
+  .aboutpage-zigzag-image img { height: 200px; border-radius: 0.5rem;}
+  .aboutpage-zigzag-icon { width: 50px; height: 50px; font-size: 1.5rem; bottom: -0.5rem; right: -0.5rem;}
+  .aboutpage-section-desc { font-size: 0.9rem; line-height: 1.5; }
+
+  /* Lịch sử phát triển - Dàn dọc thành 1 cột để không tràn ngang */
+  .aboutpage-gallery-container { 
+    grid-template-columns: 1fr; 
+    gap: 1rem; 
+    padding: 1rem; 
+    width: 100%; 
+  }
+  .aboutpage-gallery-main { height: 220px; width: 100%; }
+  .gallery-year { font-size: 1.3rem; margin-bottom: 0.5rem;}
+  .gallery-title { font-size: 1.1rem; margin-bottom: 0.5rem;}
+  .gallery-desc { font-size: 0.85rem; }
+  .aboutpage-gallery-thumbnails-wrapper { padding-top: 1rem; }
+  .aboutpage-gallery-thumbnails { gap: 0.5rem; } /* Thu nhỏ khe hở 3 ảnh */
+  .gallery-thumb { height: 70px; }
+  .gallery-thumb-overlay span { font-size: 0.85rem; }
+
+  /* Giá trị cốt lõi */
+  .aboutpage-value-mini-card { flex: 0 0 100px; padding: 0.25rem; }
+  .aboutpage-value-mini-icon { width: 35px; height: 35px; font-size: 1rem; margin-bottom: 0.25rem; }
+  .aboutpage-value-mini-title { font-size: 0.8rem; }
+  .aboutpage-value-mini-desc { display: none; }
+
+  /* CARDS GRID CUỘN NGANG - ÉP CHỈNH LẠI FLEX TRÁNH TRÀN */
+  .aboutpage-horizontal-grid {
+    display: flex; flex-wrap: nowrap; overflow-x: auto;
+    scroll-snap-type: x mandatory; padding-bottom: 1rem; gap: 0.75rem;
+    width: 100%;
+  }
+  .aboutpage-mini-card { flex: 0 0 45%; scroll-snap-align: center; border-radius: 0.5rem; }
+  
+  .aboutpage-mini-img-wrapper { height: 160px; }
+  .aboutpage-mini-card {flex: 0 0 42%;}
+  .aboutpage-mini-img-wrapper.achievement, .aboutpage-mini-img-wrapper.facility { height: 90px; }
+  .aboutpage-mini-info { padding: 0.5rem; }
+  .aboutpage-mini-name { font-size: 0.8rem; margin-bottom: 0.15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+  .aboutpage-mini-position, .aboutpage-mini-specialty, .aboutpage-mini-year { font-size: 0.7rem; margin-bottom: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+  .aboutpage-mini-icon-large { font-size: 1.8rem; padding: 0.8rem 0 0; }
+
+  /* CTA */
+  .aboutpage-cta-title { font-size: 1.5rem; }
+  .aboutpage-cta-text { font-size: 0.9rem; }
+  .aboutpage-cta-buttons { flex-direction: column; gap: 0.5rem;}
+  .aboutpage-btn-primary, .aboutpage-btn-secondary { width: 100%; justify-content: center; font-size: 0.9rem;}
+}
+
+@media (max-width: 480px) {
+  /* Ép 3 Card mini hiển thị trên các máy rất nhỏ */
+  .aboutpage-mini-card { flex: 0 0 31vw; }
+  .aboutpage-gallery-main { height: 180px; }
+  .gallery-thumb { height: 60px; }
+  .aboutpage-mini-img-wrapper { height: 140px; }
+  .aboutpage-mini-card { flex: 0 0 35vw;}
+  .aboutpage-mini-img-wrapper.achievement, .aboutpage-mini-img-wrapper.facility { height: 70px; }
+  .aboutpage-mini-name { font-size: 0.75rem; }
+  .aboutpage-mini-position, .aboutpage-mini-specialty, .aboutpage-mini-year { font-size: 0.65rem; }
+  .aboutpage-stat-item h4 { font-size: 1.4rem; }
+}

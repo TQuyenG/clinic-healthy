@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+html, body {
+  overflow-x: clip;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+/* ========== GLOBAL UI TOKENS & COMMON COMPONENTS ========== */
+:root {
+  --ui-primary: #4CAF50;
+  --ui-primary-dark: #43A047;
+  --ui-muted: #f5f7fa;
+  --ui-border: #e6e9ec;
+  --ui-radius: 8px;
+  --ui-shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --ui-shadow-md: 0 6px 18px rgba(0,0,0,0.08);
+  --ui-text: #333;
+  --ui-subtext: #666;
+}
+
+/* Buttons */
+button, .btn {
+  font-family: inherit;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.btn-primary, button.btn-primary {
+  background: var(--ui-primary);
+  color: white;
+  border: 1px solid transparent;
+}
+.btn-primary:hover { background: var(--ui-primary-dark); transform: translateY(-1px); }
+
+.btn-secondary, button.btn-secondary {
+  background: white;
+  color: var(--ui-text);
+  border: 1px solid var(--ui-border);
+}
+.btn-secondary:hover { border-color: var(--ui-primary); color: var(--ui-primary); }
+
+.btn-link { background: transparent; border: none; color: var(--ui-primary); cursor: pointer; padding: 4px 8px; font-size: 0.9rem; }
+.btn-link:hover { text-decoration: underline; }
+
+/* Inputs & textareas */
+input[type="text"], input[type="tel"], input[type="number"], input[type="date"], select, textarea {
+  border: 1px solid var(--ui-border);
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: var(--ui-text);
+  background: white;
+  transition: border-color 0.12s ease;
+}
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--ui-primary); box-shadow: 0 2px 8px rgba(76,175,80,0.08); }
+
+textarea { resize: vertical; min-height: 80px; }
+
+/* Cards */
+.card, .panel, .profile-page-form-card, .smp-list-panel, .smp-detail-panel {
+  background: white;
+  border-radius: var(--ui-radius);
+  border: 1px solid var(--ui-border);
+  box-shadow: var(--ui-shadow-sm);
+}
+
+/* Small utilities */
+.muted { color: var(--ui-subtext); }
+.flex { display: flex; }
+.flex-center { display:flex; align-items:center; justify-content:center; }
+.gap-8 { gap: 8px; }
+.mb-8 { margin-bottom: 8px; }
+.mt-8 { margin-top: 8px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+/* =========================================================
+   GIAO DIỆN TRANG QUẢN LÝ KHUYẾN MÃI & SỰ KIỆN (THÊM MỚI)
+   ========================================================= */
+.marketing-management-page-container { padding: 20px; background-color: #f4f7f6; min-height: 100vh; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+.marketing-management-page-tabs-sm { display: flex; gap: 15px; margin-bottom: 25px; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px; }
+.marketing-management-page-tab-btn-sm { padding: 10px 25px; border: none; background: transparent; color: #636e72; font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+.marketing-management-page-tab-btn-sm:hover { background: #e8f5e9; color: #00b894; }
+.marketing-management-page-tab-btn-sm.active { background: #00b894; color: #fff; box-shadow: 0 4px 10px rgba(0, 184, 148, 0.3); }
+.marketing-management-page-toolbar { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 15px 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 20px; }
+.marketing-management-page-filters-group { display: flex; gap: 15px; align-items: center; }
+.marketing-management-page-filter-item { display: flex; align-items: center; gap: 8px; background: #f8f9fc; padding: 8px 15px; border-radius: 8px; border: 1px solid #edf2f7; }
+.marketing-management-page-search-box input { padding: 10px 15px; border: 1px solid #dfe6e9; border-radius: 8px; width: 250px; font-size: 0.95rem; outline: none; }
+.marketing-management-page-search-box input:focus { border-color: #00b894; box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1); }
+.marketing-management-page-btn-create { background: #00b894; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+.marketing-management-page-btn-create:hover { background: #019b7d; }
+.marketing-management-page-table-container { background: #fff; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); overflow: hidden; }
+.marketing-management-page-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; }
+.marketing-management-page-table th { background: #f8f9fc; color: #2d3436; font-weight: 700; padding: 15px; border-bottom: 2px solid #edf2f7; }
+.marketing-management-page-table td { padding: 15px; border-bottom: 1px solid #edf2f7; color: #4a5568; vertical-align: middle; }
+.marketing-management-page-code-tag { background: #e8f5e9; color: #00b894; padding: 6px 12px; border-radius: 6px; font-weight: bold; border: 1px dashed #00b894; display: inline-block; }
+.marketing-management-page-text-highlight { font-weight: 600; color: #2d3436; display: block; margin-bottom: 4px; }
+.marketing-management-page-text-muted-sm { font-size: 0.85rem; color: #a4b0be; }
+.marketing-management-page-badge-game { display: inline-flex; align-items: center; gap: 5px; background: #fff9e6; color: #f39c12; padding: 5px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+.marketing-management-page-badge-voucher { display: inline-flex; align-items: center; gap: 5px; background: #e3f2fd; color: #0984e3; padding: 5px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+.marketing-management-page-badge-type { padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
+.marketing-management-page-badge-type.event { background: #e1f5fe; color: #1976d2; }
+.marketing-management-page-badge-type.promotion { background: #fce4ec; color: #d81b60; }
+.marketing-management-page-badge-type.notification { background: #fff3e0; color: #f57c00; }
+.marketing-management-page-badge-popup-on { background: #e8f5e9; color: #388e3c; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+.marketing-management-page-table-thumb { width: 60px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid #eee; }
+.marketing-management-page-table-actions { display: flex; gap: 10px; }
+.marketing-management-page-btn-icon-action, .marketing-management-page-btn-icon-toggle { background: #f1f2f6; border: none; width: 32px; height: 32px; border-radius: 6px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; }
+.marketing-management-page-btn-icon-toggle { background: transparent; width: auto; }
+.marketing-management-page-btn-icon-action.edit { color: #0984e3; }
+.marketing-management-page-btn-icon-action.edit:hover { background: #0984e3; color: white; }
+.marketing-management-page-btn-icon-action.view { color: #00b894; }
+.marketing-management-page-btn-icon-action.view:hover { background: #00b894; color: white; }
+.marketing-management-page-btn-icon-action.delete { color: #d63031; }
+.marketing-management-page-btn-icon-action.delete:hover { background: #d63031; color: white; }
+
+/* Modal */
+.marketing-management-page-modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); display: flex; justify-content: center; align-items: center; z-index: 1050; backdrop-filter: blur(4px); }
+.marketing-management-page-modal-content { background: #fff; width: 750px; max-width: 95vw; max-height: 90vh; border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+.marketing-management-page-modal-header { padding: 20px 25px; background: #00b894; color: white; display: flex; justify-content: space-between; align-items: center; }
+.marketing-management-page-modal-header h3 { margin: 0; font-size: 1.25rem; }
+.marketing-management-page-modal-close-btn { background: rgba(255,255,255,0.2); border: none; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; }
+.marketing-management-page-modal-body { padding: 25px; overflow-y: auto; flex: 1; }
+.marketing-management-page-form-section-header-sm { font-size: 1.1rem; font-weight: 700; color: #2d3436; margin-bottom: 15px; border-bottom: 2px solid #f1f2f6; padding-bottom: 8px; }
+.marketing-management-page-form-row { display: flex; gap: 20px; margin-bottom: 15px; }
+.marketing-management-page-form-row.dense { gap: 15px; }
+.marketing-management-page-form-row.align-center { align-items: center; }
+.full-width { width: 100%; }
+.marketing-management-page-label-sm { display: flex; flex-direction: column; font-size: 0.9rem; font-weight: 600; color: #4a5568; gap: 6px; }
+.marketing-management-page-input-sm, .marketing-management-page-select-sm, .marketing-management-page-textarea-sm { padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; }
+.marketing-management-page-input-sm:focus { border-color: #00b894; outline: none; }
+.marketing-management-page-btn-upload-sm { background: #f1f5f9; color: #475569; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #cbd5e1; }
+.text-danger { color: #e74c3c; }
+.marketing-management-page-game-config-box-sm { background: #fffdf5; border: 1px dashed #f6e58d; padding: 20px; border-radius: 8px; margin-top: 20px; }
+.game-highlight { color: #d35400; font-weight: bold; font-size: 1.05rem; display: flex; align-items: center; cursor: pointer; }
+.marketing-management-page-modal-footer { padding: 15px 25px; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 12px; }
+.marketing-management-page-btn-secondary-sm { background: #fff; color: #475569; padding: 10px 20px; border: 1px solid #cbd5e1; border-radius: 8px; font-weight: 600; cursor: pointer; }
+.marketing-management-page-btn-primary-sm { background: #00b894; color: white; padding: 10px 25px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }

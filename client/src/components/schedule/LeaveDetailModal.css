@@ -1,0 +1,184 @@
+/* client/src/components/schedule/LeaveDetailModal.css */
+/* CSS cho Popup chi tiết đơn (Admin) */
+
+:root {
+  --color-primary: #a0d9b5;
+  --color-primary-dark: #81b997;
+  --color-primary-light: #e6f7f2;
+  --color-danger: #f4b6b6;
+  --color-danger-dark: #e09b9b;
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #4b5563;
+  --color-border: #e5e7eb;
+  --color-background-light: #f9fafb;
+  --color-background: #ffffff;
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --border-radius: 8px;
+  --transition: all 0.2s ease-in-out;
+}
+
+.leave-detail-modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1010; /* Cao hơn modal khác */
+  padding: 1rem;
+  backdrop-filter: blur(4px);
+  /* Ngăn cuộn trang bên ngoài */
+  overflow: hidden; 
+}
+
+.leave-detail-modal__content {
+  background: var(--color-background);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  width: 90%;
+  max-width: 700px; /* Rộng hơn để chứa lịch */
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.leave-detail-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.leave-detail-modal__header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.leave-detail-modal__btn-close {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+.leave-detail-modal__btn-close:hover {
+  color: var(--color-text-primary);
+}
+
+.leave-detail-modal__body {
+  padding: 1.5rem;
+  overflow-y: auto; /* Cho phép cuộn nội dung modal */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.leave-detail-modal__info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.leave-detail-modal__info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.leave-detail-modal__info-item svg {
+  font-size: 1.25rem;
+  color: var(--color-primary-dark);
+  margin-top: 0.25rem;
+}
+.leave-detail-modal__info-item label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  display: block;
+}
+.leave-detail-modal__info-item span {
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.leave-detail-modal__reason label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.leave-detail-modal__reason p {
+  background: var(--color-background-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  white-space: pre-wrap; /* Giữ định dạng xuống dòng */
+}
+
+.leave-detail-modal__calendar-preview label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.leave-detail-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-background-light);
+}
+
+.leave-detail-modal__button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.leave-detail-modal__button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.leave-detail-modal__button--danger {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+.leave-detail-modal__button--danger:hover {
+  background-color: var(--color-danger);
+  color: white;
+}
+
+.leave-detail-modal__button--approve {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+.leave-detail-modal__button--approve:hover {
+  background-color: var(--color-primary);
+  color: var(--color-text-primary);
+}

@@ -1,0 +1,127 @@
+/* client/src/components/common/Header.css */
+
+.header-component {
+  background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+  color: white;
+  padding: 10px 0;
+  font-size: 14px;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
+  position: relative;
+  z-index: 100;
+}
+
+.header-component__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-component__info {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.header-component__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.header-component__item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.header-component__icon {
+  font-size: 14px;
+  opacity: 0.95;
+  flex-shrink: 0;
+}
+
+.header-component__text {
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.header-component__welcome {
+  overflow: hidden;
+  max-width: 400px;
+  position: relative;
+  padding: 6px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  flex-shrink: 0;
+}
+
+.header-component__welcome-text {
+  display: inline-block;
+  white-space: nowrap;
+  animation: header-scroll-left 20s linear infinite;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+@keyframes header-scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.header-component__welcome:hover .header-component__welcome-text {
+  animation-play-state: paused;
+}
+
+/* ============================================
+   RESPONSIVE - Ẩn header khi màn hình nhỏ
+   ============================================ */
+
+/* Tablet - thu gọn một chút */
+@media (max-width: 1024px) {
+  .header-component {
+    padding: 8px 0;
+    font-size: 13px;
+  }
+
+  .header-component__info {
+    gap: 16px;
+  }
+
+  .header-component__welcome {
+    max-width: 300px;
+  }
+
+  .header-component__item {
+    padding: 3px 6px;
+  }
+}
+
+/* Tablet nhỏ - ẩn welcome text */
+@media (max-width: 900px) {
+  .header-component__welcome {
+    display: none;
+  }
+
+  .header-component__container {
+    justify-content: center;
+  }
+}
+
+/* Mobile - ẨN HOÀN TOÀN HEADER */
+@media (max-width: 768px) {
+  .header-component {
+    display: none;
+  }
+}

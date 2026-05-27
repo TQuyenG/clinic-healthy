@@ -1,0 +1,88 @@
+/* Navbar.module.css - Style cho Navbar */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 0;
+  z-index: 1000;
+}
+
+.navContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 20px;
+  padding: 5px 10px;
+}
+
+.searchIcon, .bellIcon {
+  font-size: 20px;
+  color: #333;
+  margin: 0 10px;
+}
+
+.searchBar input {
+  border: none;
+  outline: none;
+  width: 300px;
+  font-size: 16px;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navLinks a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.navLinks a:hover {
+  text-decoration: underline;
+}
+
+.authButton {
+  background-color: #28a745;
+  padding: 8px 16px;
+  border-radius: 5px;
+}
+
+.authButton:hover {
+  background-color: #218838;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navContainer {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .searchBar input {
+    width: 100%;
+  }
+
+  .navLinks {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

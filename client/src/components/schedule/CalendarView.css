@@ -1,0 +1,654 @@
+/* client/src/components/schedule/CalendarView.css */
+/* Giao diện được thiết kế lại theo chủ đề Bệnh viện Pastel */
+
+:root {
+  /* Màu sắc chủ đề Bệnh viện Pastel */
+  --color-primary: #a0d9b5; /* Xanh lá pastel */
+  --color-primary-dark: #81b997;
+  --color-primary-light: #e6f7f2; /* Xanh lá rất nhạt */
+  --color-warning: #fde68a; /* Vàng pastel */
+  --color-warning-dark: #d97706;
+  --color-warning-text: #92400e;
+  --color-event: #dbeafe; /* Xanh dương nhạt */
+  --color-event-border: #93c5fd; /* Xanh dương đậm */
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #4b5563;
+  --color-border: #e5e7eb;
+  --color-background-light: #f9fafb;
+  --color-background: #ffffff;
+  --color-today-bg: #fefce8; /* Vàng rất nhạt */
+  --color-red: #ef4444;
+  
+  --color-appointment: #fecaca;
+  --color-appointment-border: #f87171;
+  --color-appointment-text: #991b1b;
+  --color-appointment-service: #ffedd5;
+  --color-appointment-service-border: #fb923c;
+  --color-appointment-service-text: #c2410c;
+  --color-appointment-consultation: #e0f2fe;
+  --color-appointment-consultation-border: #38bdf8;
+  --color-appointment-consultation-text: #0369a1;
+  
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --border-radius: 8px;
+  --transition: all 0.2s ease-in-out;
+}
+
+/* ================================================= */
+/* === CSS CHO LỊCH THÁNG (MONTH VIEW) === */
+/* ================================================= */
+
+.calendar-view__container {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.calendar-view__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+.calendar-view__day-header {
+  text-align: center;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  padding: 0.75rem;
+  background: var(--color-background-light);
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.calendar-view__day {
+  aspect-ratio: 1; 
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--color-background);
+  overflow: hidden;
+}
+
+.calendar-view__day--empty {
+  border-color: transparent;
+  background-color: var(--color-background-light);
+  cursor: default;
+}
+
+.calendar-view__day--other-month {
+  color: var(--color-text-secondary);
+  opacity: 0.6;
+}
+
+.calendar-view__day--today .calendar-view__date-number {
+  background-color: var(--color-primary);
+  color: var(--color-text-primary);
+  border-radius: 50%;
+  width: 1.75rem;
+  height: 1.75rem;
+  line-height: 1.75rem;
+  text-align: center;
+}
+
+/* Trạng thái ngày */
+.calendar-view__day--working {
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary-dark);
+}
+
+.calendar-view__day--on-leave {
+  background-color: #fff7d6;
+  border-color: var(--color-warning-dark);
+}
+
+.calendar-view__day:not(.calendar-view__day--empty):hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary-dark);
+}
+
+.calendar-view__date-number {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  display: block;
+}
+
+.calendar-view__status-icons {
+  display: flex;
+  gap: 0.25rem;
+  font-size: 0.8rem; 
+  align-self: flex-end;
+}
+
+.calendar-view__icon-work {
+  color: var(--color-primary-dark);
+}
+
+.calendar-view__icon-leave {
+  color: var(--color-warning-dark);
+}
+
+.calendar-view__icon-appointment {
+  color: var(--color-appointment-text);
+}
+
+.calendar-view__icon-appointment-service {
+  color: var(--color-appointment-service-text);
+}
+
+.calendar-view__icon-appointment-consultation {
+  color: var(--color-appointment-consultation-text);
+}
+
+
+/* Chú thích */
+.calendar-view__legend {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 1rem 1.5rem; 
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.calendar-view__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.calendar-view__legend-color {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 4px;
+}
+.calendar-view__legend-color--work {
+  background-color: var(--color-primary-light);
+  border: 1px solid var(--color-primary-dark);
+}
+.calendar-view__legend-color--leave {
+  background-color: #fff7d6;
+  border: 1px solid var(--color-warning-dark);
+}
+.calendar-view__legend-color--appointment {
+  background-color: var(--color-appointment);
+  border: 1px solid var(--color-appointment-border);
+}
+
+.calendar-view__legend-color--appointment-service {
+  background-color: var(--color-appointment-service);
+  border: 1px solid var(--color-appointment-service-border);
+}
+
+.calendar-view__legend-color--appointment-consultation {
+  background-color: var(--color-appointment-consultation);
+  border: 1px solid var(--color-appointment-consultation-border);
+}
+
+
+/* ================================================= */
+/* === CSS MỚI CHO LỊCH TUẦN (WEEK VIEW) === */
+/* ================================================= */
+
+.week-calendar-view__container {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-background);
+  overflow: hidden;
+}
+
+.week-calendar-view__scroll-wrapper {
+  max-height: 70vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.week-calendar-view__grid-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-width: 900px;
+}
+
+.week-calendar-view__header-row {
+  display: flex;
+  position: sticky;
+  z-index: 10;
+  background: var(--color-background);
+  top: 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* SỬA: Xóa bỏ các header row thừa */
+/* .week-calendar-view__header-row--days { ... } */
+/* .week-calendar-view__header-row--users { ... } */
+
+
+.week-calendar-view__time-axis-header {
+  flex: 0 0 60px;
+  border-right: 1px solid var(--color-border);
+}
+
+/* Header cho 1 ngày (chế độ 1 cột) */
+.week-calendar-view__day-header {
+  flex: 1;
+  text-align: center;
+  padding: 0.75rem 0.5rem;
+  border-right: 1px solid var(--color-border);
+  height: 55px;
+  box-sizing: border-box;
+}
+.week-calendar-view__day-header:last-child {
+  border-right: none;
+}
+.week-calendar-view__day-header--today {
+  background-color: var(--color-today-bg);
+}
+.week-calendar-view__day-header--today .week-calendar-view__day-number {
+  background-color: var(--color-primary);
+  color: var(--color-text-primary);
+}
+.week-calendar-view__day-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  display: block;
+}
+.week-calendar-view__day-number {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-top: 0.25rem;
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+
+/* ======================================= */
+/* === SỬA: XÓA CSS CHO CHẾ ĐỘ NHIỀU CỘT === */
+/* ======================================= */
+/* .week-calendar-view__day-header--group { ... } */
+/* .week-calendar-view__user-header { ... } */
+/* .week-calendar-view__day-column--group { ... } */
+/* .week-calendar-view__user-column { ... } */
+/* =ANH: CSS cho cột user đã bị xóa */
+/* ======================================= */
+
+
+.week-calendar-view__body-row {
+  display: flex;
+  flex-grow: 1;
+}
+
+.week-calendar-view__time-axis {
+  flex: 0 0 60px;
+  border-right: 1px solid var(--color-border);
+  padding-top: 1.25rem;
+  position: relative;
+}
+.week-calendar-view__time-label {
+  height: 60px; 
+  text-align: right;
+  padding-right: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  position: relative;
+  top: -0.5em;
+}
+
+/* Cột 1 ngày (chế độ 1 cột) */
+.week-calendar-view__day-column {
+  flex: 1;
+  position: relative;
+  background-color: var(--color-background);
+  border-right: 1px solid var(--color-border);
+}
+.week-calendar-view__day-column:last-child {
+  border-right: none;
+}
+
+.week-calendar-view__day-column--today {
+  background-color: var(--color-today-bg);
+}
+.week-calendar-view__time-slot {
+  height: 30px; /* 30 phút */
+  border-bottom: 1px dotted var(--color-border);
+  box-sizing: border-box;
+}
+.week-calendar-view__time-slot:nth-child(2n) {
+  border-bottom-style: solid;
+}
+.week-calendar-view__time-slot--working {
+  background-color: var(--color-primary-light);
+  opacity: 0.5;
+}
+.week-calendar-view__day-column--today .week-calendar-view__time-slot--working {
+  background-color: var(--color-primary);
+  opacity: 0.2;
+}
+
+
+.week-calendar-view__event {
+  position: absolute;
+  /* SỬA: CSS cho xếp chồng ngang */
+  /* left, width, top, height sẽ được set bằng style inline */
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem; /* SỬA: Giảm padding 1 chút */
+  box-sizing: border-box;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out; 
+  opacity: 0.9;
+}
+.week-calendar-view__event:hover {
+  opacity: 1;
+  box-shadow: var(--shadow-md);
+  z-index: 50; 
+}
+
+/* Dùng màu động */
+.week-calendar-view__event--custom-color {
+  background-color: var(--event-color) !important;
+  border: 1px solid var(--event-border) !important;
+  color: var(--color-text-primary) !important;
+  z-index: 3;
+}
+.week-calendar-view__event--custom-color .week-calendar-view__event-title,
+.week-calendar-view__event--custom-color .week-calendar-view__event-time {
+   color: var(--color-text-primary);
+}
+
+/* Màu mặc định cho các loại (khi 1 user) */
+.week-calendar-view__event--schedule {
+  background-color: var(--color-event);
+  border: 1px solid var(--color-event-border);
+  color: var(--color-text-primary);
+  z-index: 2;
+}
+.week-calendar-view__event--leave {
+  background-color: #fff7d6;
+  border: 1px solid var(--color-warning-dark);
+  color: var(--color-warning-text);
+  z-index: 4; 
+}
+.week-calendar-view__event--appointment {
+  background-color: var(--color-appointment);
+  border: 1px solid var(--color-appointment-border);
+  color: var(--color-appointment-text);
+  z-index: 3;
+}
+
+.week-calendar-view__event--appointment-service {
+  background-color: var(--color-appointment-service) !important;
+  border: 1px solid var(--color-appointment-service-border) !important;
+  color: var(--color-appointment-service-text) !important;
+  z-index: 3;
+}
+
+.week-calendar-view__event--appointment-consultation {
+  background-color: var(--color-appointment-consultation) !important;
+  border: 1px solid var(--color-appointment-consultation-border) !important;
+  color: var(--color-appointment-consultation-text) !important;
+  z-index: 3;
+}
+
+/* CSS cho Avatar/Tên user (luôn hiển thị) */
+.week-calendar-view__event-user {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+.week-calendar-view__event-user img {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.week-calendar-view__event-user span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.week-calendar-view__event-title {
+  font-weight: 600;
+  font-size: 0.8rem; 
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.week-calendar-view__event-time {
+  font-size: 0.8rem;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.week-calendar-view__current-time-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-red);
+  z-index: 20;
+}
+.week-calendar-view__current-time-marker {
+  position: absolute;
+  right: 105%; 
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--color-red);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  z-index: 21;
+}
+
+/* Chú thích Lịch Tuần */
+.week-calendar-view__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-background-light);
+}
+.week-calendar-view__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+.week-calendar-view__legend-color {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 4px;
+}
+/* Màu chú thích mặc định */
+.week-calendar-view__legend-color--work {
+  background-color: var(--color-primary-light);
+  opacity: 0.5;
+  border: 1px solid var(--color-border);
+}
+.week-calendar-view__legend-color--event-work {
+  background-color: var(--color-event);
+  border: 1px solid var(--color-event-border);
+}
+.week-calendar-view__legend-color--event-leave {
+  background-color: var(--color-warning);
+  border: 1px solid var(--color-warning-dark);
+}
+.week-calendar-view__legend-color--event-appointment {
+  background-color: var(--color-appointment);
+  border: 1px solid var(--color-appointment-border);
+}
+
+.week-calendar-view__legend-color--event-appointment-service {
+  background-color: var(--color-appointment-service);
+  border: 1px solid var(--color-appointment-service-border);
+}
+
+.week-calendar-view__legend-color--event-appointment-consultation {
+  background-color: var(--color-appointment-consultation);
+  border: 1px solid var(--color-appointment-consultation-border);
+}
+
+/* ================================================= */
+/* === MÀU SẮC SỰ KIỆN (ĐÃ THỐNG NHẤT) === */
+/* ================================================= */
+
+/* === LỊCH TUẦN - EVENT COLORS === */
+
+/* Lịch làm việc cố định — Xanh lá */
+.week-calendar-view__event--schedule {
+  background-color: var(--color-primary-light);
+  border: 1px solid var(--color-primary-dark);
+  color: var(--color-primary-dark);
+  z-index: 2;
+}
+.week-calendar-view__event--schedule .week-calendar-view__event-title,
+.week-calendar-view__event--schedule .week-calendar-view__event-time {
+  color: var(--color-primary-dark);
+}
+
+/* Lịch làm việc linh hoạt — Xanh dương nhạt */
+.week-calendar-view__event--flexible {
+  background-color: var(--color-event);
+  border: 1px solid var(--color-event-border);
+  color: var(--color-text-primary);
+  z-index: 2;
+}
+.week-calendar-view__event--flexible .week-calendar-view__event-title,
+.week-calendar-view__event--flexible .week-calendar-view__event-time {
+  color: var(--color-text-primary);
+}
+
+/* Tăng ca — Tím */
+.week-calendar-view__event--overtime {
+  background-color: #ddd6fe;
+  border: 1px solid #a78bfa;
+  color: #5b21b6;
+  z-index: 3;
+}
+.week-calendar-view__event--overtime .week-calendar-view__event-title,
+.week-calendar-view__event--overtime .week-calendar-view__event-time {
+  color: #5b21b6;
+}
+
+/* Lịch hẹn — Đỏ nhạt */
+.week-calendar-view__event--appointment {
+  background-color: var(--color-appointment);
+  border: 1px solid var(--color-appointment-border);
+  color: var(--color-appointment-text);
+  z-index: 3;
+}
+
+.week-calendar-view__event--appointment.week-calendar-view__event--appointment-service {
+  background-color: var(--color-appointment-service) !important;
+  border-color: var(--color-appointment-service-border) !important;
+  color: var(--color-appointment-service-text) !important;
+}
+
+.week-calendar-view__event--appointment.week-calendar-view__event--appointment-consultation {
+  background-color: var(--color-appointment-consultation) !important;
+  border-color: var(--color-appointment-consultation-border) !important;
+  color: var(--color-appointment-consultation-text) !important;
+}
+
+/* Lịch nghỉ — Vàng */
+.week-calendar-view__event--leave {
+  background-color: var(--color-warning);
+  border: 1px solid var(--color-warning-dark);
+  color: #92400e;
+  z-index: 4;
+}
+.week-calendar-view__event--leave .week-calendar-view__event-title,
+.week-calendar-view__event--leave .week-calendar-view__event-time {
+  color: var(--color-warning-text);
+}
+
+/* Màu động theo user (chỉ áp dụng cho schedule/flexible/overtime, KHÔNG áp dụng cho leave/appointment) */
+.week-calendar-view__event--custom-color {
+  background-color: var(--event-color) !important;
+  border: 1px solid var(--event-border) !important;
+  color: var(--color-text-primary) !important;
+  z-index: 3;
+}
+.week-calendar-view__event--custom-color .week-calendar-view__event-title,
+.week-calendar-view__event--custom-color .week-calendar-view__event-time {
+  color: var(--color-text-primary);
+}
+
+/* === LỊCH TUẦN - LEGEND COLORS === */
+/* Đồng bộ hoàn toàn với màu event */
+
+.week-calendar-view__legend-color--work {
+  background-color: var(--color-primary-light);
+  opacity: 0.5;
+  border: 1px solid var(--color-border);
+}
+
+/* Lịch làm việc cố định */
+.week-calendar-view__legend-color--event-schedule {
+  background-color: var(--color-primary-light);
+  border: 1px solid var(--color-primary-dark);
+}
+
+/* Lịch linh hoạt */
+.week-calendar-view__legend-color--event-flexible {
+  background-color: var(--color-event);
+  border: 1px solid var(--color-event-border);
+}
+
+/* Tăng ca — tím */
+.week-calendar-view__legend-color--event-overtime {
+  background-color: #ddd6fe;
+  border: 1px solid #a78bfa;
+}
+
+/* Lịch hẹn — đỏ nhạt */
+.week-calendar-view__legend-color--event-appointment {
+  background-color: var(--color-appointment);
+  border: 1px solid var(--color-appointment-border);
+}
+
+/* Lịch nghỉ — vàng */
+.week-calendar-view__legend-color--event-leave {
+  background-color: #fff7d6;
+  border: 1px solid var(--color-warning-dark);
+}
+
+/* === LỊCH THÁNG - LEGEND COLORS === */
+
+/* Tăng ca — tím (icon + legend month view) */
+.calendar-view__legend-color--overtime {
+  background-color: #ddd6fe;
+  border: 1px solid #a78bfa;
+}
+.calendar-view__icon-overtime {
+  color: #7c3aed;
+}

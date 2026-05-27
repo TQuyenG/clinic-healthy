@@ -1,0 +1,963 @@
+/* ==================== BIẾN MÀU CHUNG ==================== */
+:root {
+  --pastel-green: #5fab5b;
+  --pastel-light-green: #d1f5ea;
+  --white: #ffffff;
+  --success-green: #60cf4a;
+  --success-dark: #519237;
+  --danger-red: #ef4444;
+  --danger-dark: #dc2626;
+  --text-dark: #374151;
+  --text-medium: #6b7280;
+  --text-light: #9ca3af;
+  --border-light: #e5e7eb;
+  --bg-light: #f9fafb;
+  --shadow-light: rgba(0, 0, 0, 0.08);
+  --shadow-medium: rgba(0, 0, 0, 0.15);
+}
+
+/* ==================== CONTAINER CHÍNH ==================== */
+.sys-settings-container {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-light);
+  min-height: 100vh;
+}
+
+.sys-settings-main-content {
+  width: 100%;
+  height: 100%;
+}
+
+/* ==================== HEADER (KHÔNG DÍNH) ==================== */
+.sys-settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: white;
+  color: var(--text-dark);
+  border-bottom: 2px solid var(--pastel-green);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.sys-settings-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sys-settings-header-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pastel-light-green);
+  border-radius: 8px;
+  font-size: 18px;
+  color: var(--pastel-green);
+}
+
+.sys-settings-header-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-dark);
+}
+
+.sys-settings-header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.sys-settings-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sys-settings-btn-primary {
+  background: var(--pastel-green);
+  color: white;
+}
+
+.sys-settings-btn-primary:hover {
+  background: var(--success-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(95, 171, 91, 0.3);
+}
+
+.sys-settings-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.sys-settings-btn-secondary {
+  background: white;
+  color: var(--pastel-green);
+  border: 1px solid var(--pastel-green);
+}
+
+.sys-settings-btn-secondary:hover {
+  background: var(--pastel-light-green);
+}
+
+.sys-settings-export-dropdown {
+  position: relative;
+}
+
+.sys-settings-export-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  min-width: 180px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.sys-settings-export-dropdown:hover .sys-settings-export-menu {
+  display: block;
+}
+
+.sys-settings-export-menu button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  color: var(--text-dark);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.sys-settings-export-menu button:hover {
+  background: var(--pastel-light-green);
+  color: var(--pastel-green);
+}
+
+/* ==================== TAB BAR (STICKY) ==================== */
+.sys-settings-tab-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: white;
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 16px;
+}
+
+/* Khi scroll xuống 70px, di chuyển lên 70px và cố định */
+.sys-settings-tab-bar.scrolled {
+  top: 70px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sys-settings-tab-bar .sys-settings-header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 0;
+}
+
+.sys-settings-tab-list-horizontal {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 24px;
+  margin: 0;
+  list-style: none;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.sys-settings-tab-list-horizontal::-webkit-scrollbar {
+  height: 3px;
+}
+
+.sys-settings-tab-list-horizontal::-webkit-scrollbar-thumb {
+  background: var(--pastel-green);
+  border-radius: 3px;
+}
+
+.sys-settings-tab-horizontal {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: none;
+  background: transparent;
+  color: var(--text-medium);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  position: relative;
+}
+
+.sys-settings-tab-horizontal:hover:not(:disabled) {
+  background: var(--pastel-light-green);
+  color: var(--pastel-green);
+}
+
+.sys-settings-tab-horizontal[aria-selected="true"] {
+  background: var(--pastel-green);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(95, 171, 91, 0.3);
+}
+
+.sys-settings-tab-horizontal:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.sys-settings-tab-horizontal svg {
+  font-size: 14px;
+}
+
+/* ==================== CONTENT AREA ==================== */
+.sys-settings-content-area {
+  padding: 16px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.sys-settings-tab-panel {
+  animation: fadeIn 0.3s ease;
+}
+
+/* ==================== TOAST NOTIFICATIONS ==================== */
+.sys-settings-toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+  pointer-events: none;
+}
+
+.sys-settings-toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: 10px;
+  background-color: var(--white);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  animation: slideInRight 0.3s ease, fadeOut 0.3s ease 3.7s;
+  font-size: 0.95rem;
+  font-weight: 500;
+  min-width: 320px;
+  pointer-events: auto;
+}
+
+.sys-settings-toast-success {
+  color: #4eb267;
+  border-left: 4px solid #4eb267;
+}
+
+.sys-settings-toast-error {
+  color: #b91c1c;
+  border-left: 4px solid #b91c1c;
+}
+
+.sys-settings-toast svg:first-child {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.sys-settings-toast span {
+  flex: 1;
+}
+
+.sys-settings-toast-close {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.sys-settings-toast-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== SECTION ==================== */
+.sys-settings-section {
+  background-color: var(--white);
+  border-radius: 6px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px var(--shadow-light);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.sys-settings-section:hover {
+  box-shadow: 0 2px 8px var(--shadow-medium);
+}
+
+.sys-settings-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background: var(--pastel-light-green);
+  color: var(--text-dark);
+  cursor: pointer;
+  user-select: none;
+  border-left: 4px solid var(--pastel-green);
+}
+
+.sys-settings-section-header:hover {
+  background: #c5f0e5;
+}
+
+.sys-settings-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-dark);
+}
+
+.sys-settings-section-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sys-settings-section-save-inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--pastel-green);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sys-settings-section-save-inline:hover {
+  background: var(--success-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(95, 171, 91, 0.3);
+}
+
+.sys-settings-section-save-inline:active {
+  transform: translateY(0);
+}
+
+.sys-settings-section-content {
+  padding: 14px 16px;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ==================== GRID & CARD ==================== */
+.sys-settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.sys-settings-card {
+  background: var(--white);
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.sys-settings-card h4 {
+  margin-bottom: 10px;
+  color: var(--pastel-green);
+  font-weight: 600;
+  font-size: 13px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+/* ==================== FORM ELEMENTS ==================== */
+.sys-settings-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--text-dark);
+  font-size: 12px;
+}
+
+.sys-settings-input,
+.sys-settings-textarea,
+.sys-settings-select {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid var(--border-light);
+  border-radius: 5px;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  margin-bottom: 10px;
+}
+
+.sys-settings-input:focus,
+.sys-settings-textarea:focus,
+.sys-settings-select:focus {
+  outline: none;
+  border-color: var(--pastel-green);
+  box-shadow: 0 0 0 3px rgba(95, 171, 91, 0.1);
+}
+
+.sys-settings-textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+/* ==================== BUTTONS ==================== */
+.sys-settings-btn-group {
+  display: flex;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.sys-settings-btn-add,
+.sys-settings-btn-delete {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.sys-settings-btn-add {
+  background: var(--success-green);
+  color: white;
+}
+
+.sys-settings-btn-add:hover {
+  background: var(--success-dark);
+  transform: translateY(-1px);
+}
+
+.sys-settings-btn-delete {
+  background: var(--danger-red);
+  color: white;
+}
+
+.sys-settings-btn-delete:hover {
+  background: var(--danger-dark);
+  transform: translateY(-1px);
+}
+
+/* ==================== ICON PICKER ==================== */
+.sys-settings-icon-picker {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.sys-settings-icon-picker-trigger {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-light);
+  border-radius: 5px;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.sys-settings-icon-picker-trigger:hover {
+  border-color: var(--pastel-green);
+}
+
+.sys-settings-icon-picker-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-height: 280px;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.sys-settings-icon-picker-search {
+  padding: 10px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.sys-settings-icon-picker-search input {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid var(--border-light);
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+.sys-settings-icon-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+  gap: 6px;
+  padding: 10px;
+}
+
+.sys-settings-icon-picker-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 1px solid var(--border-light);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sys-settings-icon-picker-item:hover {
+  background: var(--pastel-light-green);
+  border-color: var(--pastel-green);
+  transform: scale(1.05);
+}
+
+.sys-settings-icon-picker-item svg {
+  font-size: 18px;
+  color: var(--text-dark);
+}
+
+/* ==================== RICH TEXT EDITOR TOOLBAR ==================== */
+.rich-text-area {
+  margin-bottom: 12px;
+}
+
+.rich-text-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  background: #f5f5f5;
+  border: 1px solid var(--border-light);
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+}
+
+.toolbar-btn {
+  padding: 6px 10px;
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+  transition: all 0.2s ease;
+  min-width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toolbar-btn:hover {
+  background: var(--pastel-light-green);
+  border-color: var(--pastel-green);
+}
+
+.toolbar-btn:active {
+  transform: scale(0.95);
+}
+
+.toolbar-divider {
+  color: #ddd;
+  margin: 0 4px;
+}
+
+.rich-text-area .sys-settings-textarea {
+  border-radius: 0 0 5px 5px;
+  border-top: none;
+  margin-bottom: 4px;
+}
+
+.rich-text-help {
+  padding: 4px 8px;
+  background: #fafafa;
+  border-radius: 4px;
+}
+
+/* ==================== ICON PICKER MODAL ==================== */
+.sys-settings-icon-picker-modal {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  z-index: 1000;
+  min-width: 400px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.sys-settings-icon-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+  gap: 6px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+/* ========== IMAGE PREVIEW STYLING ========== */
+.sys-settings-preview-img {
+  max-width: 100%;
+  max-height: 200px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border: 2px solid var(--border-light);
+  border-radius: 6px;
+  padding: 8px;
+  background: var(--bg-light);
+  margin: 8px 0;
+  display: block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.sys-settings-image-options {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 8px;
+  padding: 8px;
+  background: var(--bg-light);
+  border-radius: 6px;
+}
+
+.sys-settings-image-options label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--text-medium);
+}
+
+.sys-settings-image-options input[type="radio"] {
+  cursor: pointer;
+}
+
+.sys-settings-file-input {
+  width: 100%;
+  padding: 8px;
+  border: 2px dashed var(--border-light);
+  border-radius: 6px;
+  background: var(--bg-light);
+  cursor: pointer;
+  font-size: 13px;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
+}
+
+.sys-settings-file-input:hover {
+  border-color: var(--pastel-green);
+  background: var(--pastel-light-green);
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 1400px) {
+  .sys-settings-container {
+    padding: 0;
+  }
+  
+  .sys-settings-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  
+  .sys-settings-card {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .sys-settings-header {
+    padding: 14px 20px;
+  }
+  
+  .sys-settings-header-title {
+    font-size: 18px;
+  }
+  
+  .sys-settings-tab-list-horizontal {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .sys-settings-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+  }
+  
+  .sys-settings-section-content {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 992px) {
+  .sys-settings-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+  }
+  
+  .sys-settings-card {
+    padding: 12px;
+  }
+  
+  .sys-settings-section-title {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sys-settings-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 16px;
+  }
+
+  .sys-settings-header-actions {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .sys-settings-header-title {
+    font-size: 16px;
+  }
+  
+  .sys-settings-header-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  .sys-settings-tab-list-horizontal {
+    padding: 10px 12px;
+    gap: 6px;
+  }
+  
+  .sys-settings-tab-horizontal {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .sys-settings-content-area {
+    padding: 12px;
+  }
+
+  .sys-settings-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .sys-settings-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .sys-settings-section-actions {
+    width: 100%;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  
+  .sys-settings-section-content {
+    padding: 12px;
+  }
+  
+  .sys-settings-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .sys-settings-input,
+  .sys-settings-textarea,
+  .sys-settings-select {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+  
+  .sys-settings-preview-img {
+    max-height: 150px;
+  }
+}
+
+@media (max-width: 576px) {
+  .sys-settings-header {
+    padding: 10px 12px;
+  }
+  
+  .sys-settings-header-left {
+    gap: 8px;
+  }
+  
+  .sys-settings-header-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  
+  .sys-settings-header-title {
+    font-size: 15px;
+  }
+  
+  .sys-settings-tab-horizontal {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+  
+  .sys-settings-content-area {
+    padding: 10px;
+  }
+  
+  .sys-settings-section-header {
+    padding: 10px;
+  }
+  
+  .sys-settings-section-title {
+    font-size: 13px;
+  }
+  
+  .sys-settings-section-content {
+    padding: 10px;
+  }
+  
+  .sys-settings-card {
+    padding: 10px;
+  }
+  
+  .sys-settings-label {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  
+  .sys-settings-input,
+  .sys-settings-textarea,
+  .sys-settings-select {
+    font-size: 13px;
+    padding: 6px 8px;
+    margin-bottom: 10px;
+  }
+  
+  .sys-settings-btn {
+    padding: 5px 10px;
+    font-size: 11px;
+    gap: 4px;
+  }
+  
+  .sys-settings-preview-img {
+    max-height: 120px;
+  }
+  
+  .sys-settings-icon-picker-grid {
+    grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  }
+}
+
+@media (max-width: 400px) {
+  .sys-settings-header-title {
+    font-size: 14px;
+  }
+  
+  .sys-settings-tab-horizontal {
+    font-size: 10px;
+    padding: 4px 6px;
+  }
+  
+  .sys-settings-section-actions {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .sys-settings-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

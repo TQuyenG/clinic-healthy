@@ -1,0 +1,410 @@
+.patient-management-page {
+  padding: 4px;
+  color: var(--up-text, #111827);
+}
+
+.patient-management-page__hero,
+.patient-management-page__header,
+.patient-management-page__toolbar,
+.patient-management-page__table-shell,
+.patient-management-page__pagination,
+.patient-management-page__modal,
+.patient-management-page__summary-card {
+  background: var(--up-surface, #fff);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(148,163,184,0.08);
+}
+
+.patient-management-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+
+.patient-management-page__eyebrow {
+  margin: 0 0 6px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--up-muted, #6b7280);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.patient-management-page__title {
+  margin: 0;
+  font-size: 18px;
+  color: #15803d;
+}
+
+.patient-management-page__header-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.patient-management-page__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.12s ease;
+}
+
+.patient-management-page__button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.patient-management-page__button-primary {
+  background: #111827;
+  color: #fff;
+}
+
+.patient-management-page__button-primary:hover:not(:disabled) {
+  background: #0f172a;
+}
+
+.patient-management-page__button-secondary {
+  background: #fff;
+  border-color: transparent;
+  color: #334155;
+}
+
+.patient-management-page__button-secondary:hover:not(:disabled) {
+  background: #f1f5f9;
+  color: #111827;
+}
+
+.patient-management-page__subtitle {
+  margin: 10px 0 0;
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 720px;
+}
+
+.patient-management-page__summary-grid {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.patient-management-page__summary-card {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.patient-management-page__summary-card span {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.patient-management-page__summary-card strong {
+  font-size: 15px;
+}
+
+.patient-management-page__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 6px 8px;
+  margin-bottom: 6px;
+  border: 1px solid transparent;
+}
+
+.patient-management-page__search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  padding: 0 10px;
+  min-height: 36px;
+  border-radius: 6px;
+  background: var(--up-surface, #fff);
+  border: 1px solid rgba(148,163,184,0.08);
+}
+
+.patient-management-page__search input,
+.patient-management-page__filter select,
+.patient-management-page__form input,
+.patient-management-page__form textarea,
+.patient-management-page__form select {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #1f2937;
+  font: inherit;
+  font-size: 12px;
+}
+
+.patient-management-page__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.patient-management-page__filter,
+.patient-management-page__reset {
+  min-height: 40px;
+  border-radius: 8px;
+  background: #f8fafc;
+  padding: 0 12px;
+  display: flex;
+  font-size: 11px;
+  gap: 8px;
+}
+
+.patient-management-page__filter select {
+  min-width: 160px;
+}
+
+.patient-management-page__reset {
+  border: none;
+  color: #0f172a;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.patient-management-page__table-shell {
+  padding: 14px;
+  overflow-x: auto;
+  margin-bottom: 10px;
+}
+
+.patient-management-page__table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 980px;
+}
+
+.patient-management-page__table th,
+.patient-management-page__table td {
+  padding: 7px 6px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid #eaeef2;
+  font-size: 12px;
+}
+
+.patient-management-page__table th {
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.patient-management-page__person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.patient-management-page__person img {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #e2e8f0;
+}
+
+.patient-management-page__person div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.patient-management-page__person span {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.patient-management-page__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.patient-management-page__stack span {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.patient-management-page__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.patient-management-page__badge--active { background: #dcfce7; color: #166534; }
+.patient-management-page__badge--inactive { background: #fee2e2; color: #991b1b; }
+
+.patient-management-page__action,
+.patient-management-page__pagination button,
+.patient-management-page__modal-header button {
+  border: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+.patient-management-page__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #ecfdf5;
+  color: #047857;
+  font-weight: 600;
+}
+
+.patient-management-page__state {
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  color: #64748b;
+}
+
+.patient-management-page__pagination {
+  margin-top: 10px;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.patient-management-page__pagination button {
+  padding: 9px 14px;
+  border-radius: 8px;
+  background: #0f172a;
+  color: white;
+}
+
+.patient-management-page__pagination button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.patient-management-page__modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.52);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 50;
+}
+
+.patient-management-page__modal {
+  width: min(760px, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.patient-management-page__modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.patient-management-page__modal-header h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.patient-management-page__modal-header button {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.patient-management-page__detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.patient-management-page__detail-grid div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.patient-management-page__detail-grid span {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.patient-management-page__detail-grid strong {
+  color: #0f172a;
+  font-size: 15px;
+}
+
+@media (max-width: 1080px) {
+  .patient-management-page__hero,
+  .patient-management-page__toolbar {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .patient-management-page {
+    padding: 8px;
+  }
+
+  .patient-management-page__summary-grid,
+  .patient-management-page__detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .patient-management-page__search,
+  .patient-management-page__filter,
+  .patient-management-page__reset {
+    width: 100%;
+  }
+
+  .patient-management-page__action {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .patient-management-page__table-shell,
+  .patient-management-page__pagination,
+  .patient-management-page__modal,
+  .patient-management-page__summary-card {
+    border-radius: 10px;
+  }
+
+  .patient-management-page__modal-backdrop {
+    padding: 12px;
+  }
+}

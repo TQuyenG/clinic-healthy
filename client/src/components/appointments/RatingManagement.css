@@ -1,0 +1,498 @@
+/* ===== [BƯỚC 3.2] APPOINTMENT FEEDBACK MANAGEMENT STYLES =====
+   client/src/components/appointments/AppointmentFeedbackManagement.css */
+
+.appointment-feedback-management {
+  padding: 12px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  min-height: 420px;
+}
+
+/* ===== HEADER ===== */
+.appointment-feedback-header h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.appointment-feedback-subtitle {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+}
+.appointment-feedback-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+/* ===== FILTERS ===== */
+.appointment-feedback-filters {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+  background: white;
+  padding: 10px 12px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  flex-wrap: wrap;
+}
+
+.appointment-feedback-filter-icon {
+  color: #0066cc;
+  font-size: 16px;
+}
+
+.appointment-feedback-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.appointment-feedback-filter-group label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #555;
+  white-space: nowrap;
+}
+
+.appointment-feedback-filter-group select {
+  padding: 6px 10px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  font-size: 13px;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.appointment-feedback-filter-group select:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+/* ===== LOADING ===== */
+.appointment-feedback-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 12px;
+  background: white;
+  border-radius: 8px;
+  gap: 10px;
+}
+
+.appointment-feedback-spinner {
+  font-size: 22px;
+  color: #0066cc;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.appointment-feedback-loading p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+/* ===== FEEDBACK LIST ===== */
+.appointment-feedback-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ===== FEEDBACK CARD ===== */
+.appointment-feedback-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.appointment-feedback-card:hover {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  border-color: #d0d0d0;
+}
+
+/* Card Header */
+.appointment-feedback-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.appointment-feedback-card-patient h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 2px 0;
+}
+
+.appointment-feedback-date {
+  font-size: 11px;
+  color: #999;
+}
+
+.appointment-feedback-status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.appointment-feedback-status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.appointment-feedback-status-approved {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.appointment-feedback-status-hidden {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Card Body */
+.appointment-feedback-card-body {
+  padding: 12px;
+}
+
+.appointment-feedback-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+@media (max-width: 768px) {
+  .appointment-feedback-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+.appointment-feedback-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.appointment-feedback-info-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+}
+
+.appointment-feedback-info-value {
+  font-size: 13px;
+  color: #333;
+}
+
+/* Rating Section */
+.appointment-feedback-rating-section {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.appointment-feedback-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.appointment-feedback-stars {
+  display: flex;
+  gap: 3px;
+}
+
+.appointment-feedback-stars span {
+  display: inline-flex;
+  font-size: 16px;
+}
+
+.appointment-feedback-rating-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  margin-left: 6px;
+}
+
+/* Review */
+.appointment-feedback-review {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.appointment-feedback-review-text {
+  font-size: 13px;
+  color: #333;
+  margin: 0;
+  line-height: 1.5;
+  font-style: italic;
+  background-color: #f8f9fa;
+  padding: 8px;
+  border-left: 3px solid #0066cc;
+  border-radius: 4px;
+}
+
+/* Admin Note */
+.appointment-feedback-admin-note {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f0f4f8;
+  border-radius: 6px;
+  border-left: 3px solid #ff9800;
+}
+
+.appointment-feedback-admin-note strong {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.appointment-feedback-admin-note p {
+  font-size: 13px;
+  color: #333;
+  margin: 0;
+}
+
+.appointment-feedback-admin-note-edit {
+  margin-bottom: 15px;
+}
+
+.appointment-feedback-admin-note-edit textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  resize: vertical;
+  min-height: 80px;
+  margin-bottom: 8px;
+}
+
+.appointment-feedback-admin-note-edit textarea:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.appointment-feedback-char-count {
+  font-size: 12px;
+  color: #999;
+  text-align: right;
+}
+
+/* Card Footer */
+.appointment-feedback-card-footer {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  flex-wrap: wrap;
+}
+
+/* Buttons */
+.appointment-feedback-btn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.appointment-feedback-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.appointment-feedback-btn-edit {
+  background-color: #0066cc;
+  color: white;
+}
+
+.appointment-feedback-btn-edit:hover:not(:disabled) {
+  background-color: #0052a3;
+}
+
+.appointment-feedback-btn-approve {
+  background-color: #28a745;
+  color: white;
+}
+
+.appointment-feedback-btn-approve:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.appointment-feedback-btn-hide {
+  background-color: #dc3545;
+  color: white;
+}
+
+.appointment-feedback-btn-hide:hover:not(:disabled) {
+  background-color: #c82333;
+}
+
+.appointment-feedback-btn-save {
+  background-color: #28a745;
+  color: white;
+}
+
+.appointment-feedback-btn-save:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.appointment-feedback-btn-cancel {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.appointment-feedback-btn-cancel:hover:not(:disabled) {
+  background-color: #dee2e6;
+}
+
+.appointment-feedback-spinner-small {
+  animation: spin 1s linear infinite;
+}
+
+/* ===== EMPTY STATE ===== */
+.appointment-feedback-empty {
+  background: white;
+  padding: 28px 12px;
+  border-radius: 8px;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+}
+
+/* ===== PAGINATION ===== */
+
+.appointment-feedback-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 8px;
+  background: white;
+  border-radius: 8px;
+}
+
+.appointment-feedback-pagination button {
+  padding: 6px 10px;
+  border: 1px solid #d0d0d0;
+  background-color: white;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.appointment-feedback-pagination button:hover:not(:disabled) {
+  background-color: #0066cc;
+  color: white;
+  border-color: #0066cc;
+}
+
+.appointment-feedback-pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.appointment-feedback-page-info {
+  font-size: 14px;
+  color: #666;
+  min-width: 100px;
+  text-align: center;
+}
+
+/* ===== NO ACCESS ===== */
+.appointment-feedback-no-access {
+  background: white;
+  padding: 40px 20px;
+  border-radius: 8px;
+  text-align: center;
+  color: #dc3545;
+  font-size: 16px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .appointment-feedback-management {
+    padding: 15px;
+  }
+
+  .appointment-feedback-filters {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .appointment-feedback-filter-group {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .appointment-feedback-filter-group select {
+    width: 100%;
+  }
+
+  .appointment-feedback-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .appointment-feedback-card-footer {
+    flex-direction: column;
+  }
+
+  .appointment-feedback-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .appointment-feedback-pagination {
+    flex-direction: column;
+  }
+}

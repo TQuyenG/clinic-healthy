@@ -1,0 +1,686 @@
+/* client/src/components/MessageItem.css */
+
+:root {
+  /* Bảng màu (Giữ nguyên - đã rất hợp lý) */
+  --messageitem-primary: #7cb342;
+  --messageitem-primary-light: #aed581;
+  --messageitem-primary-dark: #689f38;
+  --messageitem-bg-light: #f1f8e9; /* (Pastel Green) */
+  --messageitem-bg-lighter: #f9fbe7;
+  --messageitem-white: #ffffff; /* (White) */
+  --messageitem-text: #2e7d32;
+  --messageitem-text-dark: #1b5e20;
+  --messageitem-text-gray: #616161;
+  --messageitem-border: #c5e1a5;
+  --messageitem-border-light: #dcedc8;
+  --messageitem-danger: #ef5350;
+  --messageitem-info: #42a5f5;
+  --messageitem-shadow-sm: 0 1px 2px rgba(76, 175, 80, 0.05);
+  --messageitem-shadow-md: 0 2px 4px rgba(76, 175, 80, 0.1);
+  --messageitem-shadow-lg: 0 4px 10px rgba(76, 175, 80, 0.15);
+
+  /* Bo góc (Thu nhỏ) */
+  --messageitem-radius-sm: 4px;
+  --messageitem-radius-md: 6px;
+  --messageitem-radius-lg: 10px;
+}
+
+/* ===== MESSAGE CONTAINER ===== */
+.messageitem-container {
+  display: flex;
+  margin-bottom: 0.6rem; 
+  width: 100%;
+  max-width: 100%;
+  animation: messageitem-fadeInUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* THÊM KHỐI MỚI NÀY VÀO NGAY DƯỚI CONTAINER ĐỂ BẮT ĐOẠN HÀNG NGANG */
+.messageitem-content-group {
+  display: flex;
+  align-items: flex-end; /* Sát chân dòng cuối giống messenger */
+  max-width: 75%;
+}
+
+.messageitem-other .messageitem-content-group {
+  flex-direction: row;
+}
+
+.messageitem-my .messageitem-content-group {
+  flex-direction: row;
+}
+
+@keyframes messageitem-fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.messageitem-container.messageitem-my {
+  margin-left: auto;
+  justify-content: flex-end;
+}
+
+.messageitem-container.messageitem-other {
+  margin-right: auto;
+  justify-content: flex-start;
+}
+
+/* ===== AVATAR ===== */
+.messageitem-avatar {
+  width: 28px; /* Thu nhỏ */
+  height: 28px; /* Thu nhỏ */
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid var(--messageitem-border); /* Thu nhỏ */
+  box-shadow: var(--messageitem-shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.messageitem-avatar:hover {
+  transform: scale(1.1);
+  border-color: var(--messageitem-primary);
+}
+
+.messageitem-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid var(--messageitem-border);
+  box-shadow: var(--messageitem-shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.messageitem-other .messageitem-avatar {
+  margin-right: 0.5rem; /* Cách bong bóng chat bên phải */
+}
+
+.messageitem-my .messageitem-avatar {
+  margin-left: 0.5rem; /* Cách bong bóng chat bên trái */
+}
+
+/* ===== CONTENT WRAPPER ===== */
+.messageitem-content-wrapper {
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem; /* Thu nhỏ */
+  position: relative;
+  min-width: 0;
+  max-width: calc(100% - 36px);
+}
+
+.messageitem-my .messageitem-content-wrapper {
+  align-items: flex-end;
+}
+
+.messageitem-other .messageitem-content-wrapper {
+  align-items: flex-start;
+}
+
+.messageitem-sender-name {
+  font-size: 0.65rem; /* Thu nhỏ */
+  color: var(--messageitem-text);
+  font-weight: 600;
+  padding: 0 0.5rem; /* Thu nhỏ */
+  opacity: 0.8;
+}
+
+/* ===== MESSAGE BUBBLE ===== */
+.messageitem-bubble {
+  padding: 0.5rem 0.75rem; /* Thu nhỏ */
+  border-radius: var(--messageitem-radius-md);
+  position: relative;
+  word-wrap: break-word;
+  box-shadow: var(--messageitem-shadow-sm);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: blur(8px);
+}
+
+.messageitem-my .messageitem-bubble {
+  background: linear-gradient(135deg, var(--messageitem-primary) 0%, var(--messageitem-primary-dark) 100%);
+  color: var(--messageitem-white);
+  border-bottom-right-radius: 4px;
+  box-shadow: var(--messageitem-shadow-md);
+}
+
+.messageitem-other .messageitem-bubble {
+  background: var(--messageitem-white);
+  color: var(--messageitem-text-dark);
+  border-bottom-left-radius: 4px;
+  border: 1px solid var(--messageitem-border-light);
+}
+
+.messageitem-bubble:hover {
+  box-shadow: var(--messageitem-shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* ===== TEXT MESSAGE ===== */
+.messageitem-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.messageitem-text-content {
+  margin: 0;
+  line-height: 1.45; /* Thu nhỏ */
+  font-size: 0.8rem; /* Thu nhỏ */
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.messageitem-reply-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.5rem; /* Thu nhỏ */
+  background: rgba(124, 179, 66, 0.12);
+  border-left: 2px solid var(--messageitem-primary); /* Thu nhỏ */
+  border-radius: var(--messageitem-radius-sm);
+  font-size: 0.7rem; /* Thu nhỏ */
+  opacity: 0.9;
+}
+
+.messageitem-my .messageitem-reply-preview {
+  background: rgba(255, 255, 255, 0.15);
+  border-left-color: rgba(255, 255, 255, 0.5);
+}
+
+.messageitem-reply-preview i {
+  font-size: 0.7rem;
+}
+
+/* ===== IMAGE MESSAGE ===== */
+.messageitem-image {
+  max-width: 250px; /* Thu nhỏ */
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.messageitem-image-caption {
+  margin: 0;
+  font-size: 0.78rem; /* Thu nhỏ */
+  line-height: 1.4;
+  opacity: 0.95;
+}
+
+.messageitem-image-img {
+  width: 100%;
+  max-height: 350px; /* Thu nhỏ */
+  object-fit: cover;
+  border-radius: var(--messageitem-radius-md);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+  border: 1px solid transparent; /* Thu nhỏ */
+}
+
+.messageitem-image-img:hover {
+  transform: scale(1.03);
+  box-shadow: var(--messageitem-shadow-lg);
+  border-color: var(--messageitem-primary-light);
+}
+
+.messageitem-image-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem; /* Thu nhỏ */
+  background: linear-gradient(135deg, var(--messageitem-bg-lighter), var(--messageitem-bg-light));
+  border-radius: var(--messageitem-radius-md);
+  color: var(--messageitem-text-gray);
+  border: 1px dashed var(--messageitem-border); /* Thu nhỏ */
+}
+
+.messageitem-image-error i {
+  font-size: 1.5rem; /* Thu nhỏ */
+  margin-bottom: 0.5rem;
+  opacity: 0.4;
+  color: var(--messageitem-primary-light);
+}
+
+.messageitem-image-error span {
+  font-size: 0.7rem; /* Thu nhỏ */
+  font-weight: 500;
+}
+
+/* ===== FILE MESSAGE ===== */
+.messageitem-file {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Thu nhỏ */
+  padding: 0.4rem 0.5rem; /* Thu nhỏ */
+  min-width: 220px; /* Thu nhỏ */
+  background: rgba(124, 179, 66, 0.05);
+  border-radius: var(--messageitem-radius-sm);
+}
+
+.messageitem-my .messageitem-file {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.messageitem-file-icon {
+  width: 34px; /* Thu nhỏ */
+  height: 34px; /* Thu nhỏ */
+  border-radius: var(--messageitem-radius-sm);
+  background: var(--messageitem-bg-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem; /* Thu nhỏ */
+  flex-shrink: 0;
+  box-shadow: var(--messageitem-shadow-sm);
+}
+
+.messageitem-my .messageitem-file-icon {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--messageitem-white);
+}
+
+.messageitem-other .messageitem-file-icon {
+  color: var(--messageitem-primary);
+}
+
+.messageitem-file-icon .fa-file-pdf { color: var(--messageitem-danger); }
+.messageitem-file-icon .fa-file-word { color: var(--messageitem-info); }
+.messageitem-file-icon .fa-file-excel { color: var(--messageitem-primary); }
+.messageitem-file-icon .fa-file-powerpoint { color: #ff9800; }
+.messageitem-file-icon .fa-file-archive { color: #9c27b0; }
+
+.messageitem-file-info {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem; /* Thu nhỏ */
+}
+
+.messageitem-file-name {
+  margin: 0;
+  font-size: 0.75rem; /* Thu nhỏ */
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: inherit;
+}
+
+.messageitem-file-size {
+  margin: 0;
+  font-size: 0.65rem; /* Thu nhỏ */
+  opacity: 0.7;
+  font-weight: 500;
+}
+
+.messageitem-file-download {
+  width: 28px; /* Thu nhỏ */
+  height: 28px; /* Thu nhỏ */
+  border-radius: 50%;
+  background: var(--messageitem-bg-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--messageitem-primary);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  font-size: 0.8rem; /* Thu nhỏ */
+  box-shadow: var(--messageitem-shadow-sm);
+}
+
+.messageitem-file-download:hover {
+  background: var(--messageitem-primary);
+  color: var(--messageitem-white);
+  transform: scale(1.1);
+  box-shadow: var(--messageitem-shadow-md);
+}
+
+.messageitem-my .messageitem-file-download {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--messageitem-white);
+}
+
+/* ===== VOICE MESSAGE ===== */
+.messageitem-voice {
+  padding: 0.2rem; /* Thu nhỏ */
+}
+
+.messageitem-voice-audio {
+  width: 220px; /* Thu nhỏ */
+  height: 30px; /* Thu nhỏ */
+  outline: none;
+  border-radius: var(--messageitem-radius-sm);
+}
+
+.messageitem-voice-audio::-webkit-media-controls-panel {
+  background: rgba(124, 179, 66, 0.1);
+  border-radius: var(--messageitem-radius-sm);
+}
+
+.messageitem-my .messageitem-voice-audio::-webkit-media-controls-panel {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ===== SYSTEM MESSAGE ===== */
+.messageitem-container.messageitem-system-wrapper {
+  max-width: 100%;
+  justify-content: center;
+  margin: 0.8rem 0; /* Thu nhỏ */
+}
+
+.messageitem-system {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem; /* Thu nhỏ */
+  padding: 0.4rem 0.8rem; /* Thu nhỏ */
+  background: linear-gradient(135deg, var(--messageitem-bg-light), var(--messageitem-bg-lighter));
+  border-radius: var(--messageitem-radius-lg);
+  font-size: 0.7rem; /* Thu nhỏ */
+  color: var(--messageitem-text);
+  margin: 0 auto;
+  border: 1px solid var(--messageitem-border-light);
+  font-weight: 600;
+  box-shadow: var(--messageitem-shadow-sm);
+}
+
+.messageitem-system i {
+  font-size: 0.7rem; /* Thu nhỏ */
+  color: var(--messageitem-primary);
+}
+
+/* ===== MESSAGE META ===== */
+.messageitem-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.2rem; /* Thu nhỏ */
+  font-size: 0.62rem; /* Thu nhỏ */
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+.messageitem-time {
+  white-space: nowrap;
+}
+
+.messageitem-status {
+  display: flex;
+  align-items: center;
+}
+
+.messageitem-status i {
+  font-size: 0.7rem; /* Thu nhỏ */
+}
+
+.messageitem-status.messageitem-status-sent {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.messageitem-status.messageitem-status-read {
+  color: #a5d6a7;
+}
+
+.messageitem-other .messageitem-status {
+  color: var(--messageitem-text-gray);
+}
+
+/* ===== MESSAGE ACTIONS ===== */
+.messageitem-actions {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  gap: 0.2rem;
+  background: var(--messageitem-white);
+  border-radius: var(--messageitem-radius-lg);
+  padding: 0.2rem;
+  box-shadow: 0 3px 10px rgba(124, 179, 66, 0.2);
+  z-index: 10;
+  opacity: 0;
+  animation: messageitem-actionsSlideIn 0.3s ease-out forwards;
+  border: 1px solid var(--messageitem-border-light);
+}
+
+@keyframes messageitem-actionsSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.messageitem-my .messageitem-actions {
+  right: calc(100% + 8px); 
+}
+
+.messageitem-other .messageitem-actions {
+  left: calc(100% + 8px); 
+}
+
+.messageitem-action-button {
+  width: 26px; /* Thu nhỏ */
+  height: 26px; /* Thu nhỏ */
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-size: 0.75rem; /* Thu nhỏ */
+  color: var(--messageitem-text-gray);
+}
+
+.messageitem-action-button:hover {
+  background: var(--messageitem-bg-light);
+  color: var(--messageitem-text);
+  transform: scale(1.15);
+}
+
+.messageitem-action-button.messageitem-action-reply:hover {
+  background: #e3f2fd;
+  color: var(--messageitem-info);
+}
+
+.messageitem-action-button.messageitem-action-delete:hover {
+  background: #ffebee;
+  color: var(--messageitem-danger);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .messageitem-container {
+  display: flex;
+  margin-bottom: 0.6rem; 
+  width: 100%;
+  max-width: 100%;
+  animation: messageitem-fadeInUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.messageitem-container.messageitem-my {
+  justify-content: flex-end; /* Tin nhắn của mình ép sang phải */
+}
+
+.messageitem-container.messageitem-other {
+  justify-content: flex-start; /* Tin nhắn đối phương ép sang trái */
+}
+
+.messageitem-content-group {
+  display: flex;
+  align-items: flex-end; 
+  max-width: 75%;
+}
+
+.other-group {
+  flex-direction: row;
+}
+
+.my-group {
+  flex-direction: row;
+}
+
+  .messageitem-image {
+    max-width: 220px; /* Thu nhỏ */
+  }
+
+  .messageitem-file {
+    min-width: 200px;
+  }
+
+  .messageitem-voice-audio {
+    width: 200px;
+  }
+
+  .messageitem-avatar {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .messageitem-container {
+    max-width: 90%;
+    gap: 0.35rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .messageitem-avatar {
+    width: 26px;
+    height: 26px;
+  }
+
+  .messageitem-bubble {
+    padding: 0.45rem 0.65rem; /* Thu nhỏ */
+  }
+
+  .messageitem-text-content {
+    font-size: 0.78rem; /* Thu nhỏ */
+  }
+
+  .messageitem-sender-name {
+    font-size: 0.65rem;
+    padding: 0 0.4rem;
+  }
+
+  .messageitem-image {
+    max-width: 180px; /* Thu nhỏ */
+  }
+
+  .messageitem-file {
+    min-width: 170px; /* Thu nhỏ */
+    padding: 0.35rem;
+    gap: 0.5rem;
+  }
+
+  .messageitem-file-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .messageitem-file-name {
+    font-size: 0.75rem;
+  }
+
+  .messageitem-file-size {
+    font-size: 0.65rem;
+  }
+
+  .messageitem-file-download {
+    width: 26px;
+    height: 26px;
+    font-size: 0.75rem;
+  }
+
+  .messageitem-voice-audio {
+    width: 170px;
+    height: 28px;
+  }
+
+  .messageitem-actions {
+    top: -5px;
+    padding: 0.15rem;
+  }
+
+  .messageitem-action-button {
+    width: 24px;
+    height: 24px;
+    font-size: 0.7rem;
+  }
+
+  .messageitem-meta {
+    font-size: 0.6rem;
+  }
+
+  .messageitem-system {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  .messageitem-container,
+  .messageitem-bubble,
+  .messageitem-avatar,
+  .messageitem-actions,
+  .messageitem-action-button {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .messageitem-actions {
+    display: none !important;
+  }
+
+  .messageitem-bubble {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+  }
+}
+
+.messageitem-reply-preview {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.08);
+  border-left: 3px solid rgba(255,255,255,0.6);
+  border-radius: 4px;
+  padding: 5px 8px;
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+
+.messageitem-reply-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.messageitem-reply-sender {
+  font-weight: 700;
+  color: inherit;
+  opacity: 0.9;
+  font-size: 11px;
+}
+
+.messageitem-reply-text {
+  opacity: 0.75;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}

@@ -1,0 +1,1337 @@
+/* ============================================
+   APPOINTMENT MANAGEMENT PAGE - RESPONSIVE DESIGN
+   Màu chủ đạo: Trắng + Xanh lá nhạt
+   Prefix: appointment-management-*
+   ============================================ */
+/* ============================================
+  APPOINTMENT MANAGEMENT PAGE - RESPONSIVE DESIGN
+  Prefix: appointment-management-*
+  ============================================ */
+
+/* === CSS VARIABLES === */
+:root {
+  --apt-primary: #4caf50;
+  --apt-primary-light: #60a963;
+  --apt-primary-lighter: #e8f5e9;
+  --apt-primary-dark: #388e3c;
+  --apt-accent: #66bb6a;
+  --apt-danger: #e53935;
+    --apt-danger-light: #dc2626;
+    --apt-warning: #d97706;
+  --apt-warning-light: #fff3e0;
+  --apt-info: #1976d2;
+  --apt-info-light: #e3f2fd;
+  --apt-gray: #757575;
+  --apt-gray-light: #f5f5f5;
+  --apt-border: #c8e6c9;
+  --apt-bg: #ffffff;
+  --apt-white: #ffffff;
+  --apt-text: #212121;
+  --apt-text-secondary: #616161;
+  --apt-shadow-sm: 0 1px 4px rgba(76, 175, 80, 0.12);
+  --apt-shadow-md: 0 2px 12px rgba(76, 175, 80, 0.18);
+  --apt-shadow-lg: 0 8px 32px rgba(0,0,0,0.15);
+  --apt-radius: 10px;
+    --apt-radius-sm: 8px;
+  --apt-radius-xs: 5px;
+  --apt-transition: all 0.22s ease;
+    --apt-font-xs: clamp(10px, 1.1vw, 11px);
+    --apt-font-sm: clamp(11px, 1.2vw, 13px);
+    --apt-font-base: clamp(12px, 1.3vw, 14px);
+    --apt-font-lg: clamp(13px, 1.6vw, 17px);
+    --apt-font-xl: clamp(16px, 2vw, 21px);
+}
+
+/* === RESET & BASE === */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* === CONTAINER === */
+.admin-appt-page-container {
+  width: 100%;
+  max-width: 100%;
+  padding: clamp(8px, 2vw, 20px);
+  background: var(--apt-bg);
+  min-height: 100vh;
+}
+
+.admin-appt-page-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* === LOADING === */
+.admin-appt-page-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 400px;
+  color: var(--apt-primary);
+  font-size: var(--apt-font-base);
+  background: transparent;
+  color: inherit;
+  gap: 10px;
+}
+
+/* === HEADER === */
+.appointment-management-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  background: var(--apt-white);
+  border: 1px solid var(--apt-border);
+  border-radius: var(--apt-radius);
+  box-shadow: var(--apt-shadow-sm);
+  flex-wrap: wrap;
+}
+
+.appointment-management-header-content {
+  flex: 1;
+  min-width: 200px;
+}
+
+.appointment-management-header-content h1 {
+  font-size: var(--apt-font-xl);
+  font-weight: 700;
+  color: var(--apt-text);
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+
+.appointment-management-header-content p {
+  font-size: var(--apt-font-sm);
+  color: var(--apt-text-secondary);
+  margin: 0;
+}
+
+.appointment-management-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.appointment-management-doctor-selector {
+  padding: 8px 10px;
+  font-size: var(--apt-font-sm);
+  border: 1.5px solid var(--apt-border);
+  border-radius: var(--apt-radius-sm);
+  background-color: var(--apt-white);
+  color: var(--apt-primary-dark);
+  outline: none;
+  cursor: pointer;
+  transition: var(--apt-transition);
+  min-width: 150px;
+  max-width: 240px;
+  z-index: 100;
+  position: relative;
+}
+
+.appointment-management-doctor-selector:hover {
+  border-color: var(--apt-primary);
+  background: var(--apt-primary-lighter);
+}
+
+.appointment-management-doctor-selector:focus {
+  border-color: var(--apt-primary);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+/* === BUTTONS - HEADER === */
+.appointment-management-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: clamp(6px, 1vw, 8px) clamp(10px, 1.5vw, 14px);
+  font-size: var(--apt-font-sm);
+  font-weight: 500;
+  border: none;
+  border-radius: var(--apt-radius-sm);
+  cursor: pointer;
+  transition: var(--apt-transition);
+  white-space: nowrap;
+}
+
+.appointment-management-btn-export {
+  background: var(--apt-primary);
+  color: var(--apt-white);
+}
+
+.appointment-management-btn-export:hover {
+  background: var(--apt-primary-dark);
+  box-shadow: var(--apt-shadow-md);
+  transform: translateY(-1px);
+}
+
+.appointment-management-btn-export-secondary {
+  background: var(--apt-white);
+  color: var(--apt-primary-dark);
+  border: 1px solid var(--apt-border);
+}
+
+.appointment-management-btn-export-secondary:hover {
+  background: var(--apt-primary-lighter);
+  color: var(--apt-primary-dark);
+}
+
+.appointment-management-btn-reset {
+  background: var(--apt-white);
+  color: var(--apt-gray);
+  border: 1.5px solid var(--apt-border);
+}
+
+.appointment-management-btn-reset:hover {
+  background: var(--apt-gray-light);
+  border-color: var(--apt-gray);
+}
+
+/* === STATS GRID === */
+.appointment-management-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(8px, 1vw, 10px);
+  margin-bottom: clamp(10px, 1.5vw, 14px);
+}
+
+.appointment-management-stat-card {
+  background: var(--apt-white);
+  border-radius: var(--apt-radius);
+  padding: clamp(8px, 1.1vw, 11px);
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 1vw, 10px);
+  box-shadow: var(--apt-shadow-sm);
+  border: 1px solid var(--apt-border);
+  transition: var(--apt-transition);
+  min-width: 0;
+  overflow: hidden;
+}
+
+.appointment-management-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--apt-shadow-md);
+  border-color: var(--apt-primary-light);
+}
+
+.appointment-management-stat-icon {
+  width: clamp(28px, 3.2vw, 38px);
+  height: clamp(28px, 3.2vw, 38px);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(12px, 1.7vw, 16px);
+  flex-shrink: 0;
+  color: var(--apt-white);
+}
+
+.appointment-management-icon-total    { background: #66bb6a; }
+.appointment-management-icon-pending  { background: #ffb74d; }
+.appointment-management-icon-confirmed { background: #64b5f6; }
+.appointment-management-icon-upcoming { background: #4dd0e1; }
+.appointment-management-icon-waiting-pay { background: #ffca28; }
+.appointment-management-icon-waiting-exam { background: #81c784; }
+.appointment-management-icon-in-progress { background: #ba68c8; }
+.appointment-management-icon-waiting-result { background: #8e7cc3; }
+.appointment-management-icon-completed  { background: #4caf50; }
+.appointment-management-icon-passed     { background: #ff8a65; }
+.appointment-management-icon-cancelled  { background: #e57373; }
+.appointment-management-icon-unpaid     { background: #ff7043; }
+.appointment-management-icon-paid       { background: #4db6ac; }
+.appointment-management-icon-online     { background: #7986cb; }
+.appointment-management-icon-offline    { background: #9575cd; }
+.appointment-management-icon-record     { background: #607d8b; }
+
+.appointment-management-stat-card-empty {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.appointment-management-stat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.appointment-management-stat-label {
+  font-size: clamp(9px, 1vw, 11px);
+  color: var(--apt-text-secondary);
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.appointment-management-stat-value {
+  font-size: clamp(13px, 1.8vw, 18px);
+  font-weight: 700;
+  color: var(--apt-primary-dark);
+  line-height: 1;
+}
+
+@media (max-width: 1199px) {
+  .appointment-management-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 639px) {
+  .appointment-management-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .appointment-management-stat-card {
+    padding: 10px 12px;
+  }
+
+  .appointment-management-stat-value {
+    font-size: 16px;
+  }
+}
+
+/* === FILTER PANEL === */
+.appointment-management-filter-panel {
+  background: var(--apt-white);
+  border-radius: var(--apt-radius);
+  padding: clamp(10px, 1.6vw, 16px);
+  margin-bottom: clamp(10px, 1.5vw, 14px);
+  box-shadow: var(--apt-shadow-sm);
+  border: 1px solid var(--apt-border);
+}
+
+.appointment-management-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
+  gap: clamp(8px, 1.1vw, 10px);
+  margin-bottom: 12px;
+}
+
+.appointment-management-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.appointment-management-filter-group label {
+  font-size: clamp(10px, 1.2vw, 12px);
+  font-weight: 600;
+  color: var(--apt-primary-dark);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.appointment-management-filter-group input,
+.appointment-management-filter-group select {
+  padding: clamp(6px, 1vw, 8px) clamp(8px, 1.2vw, 11px);
+  font-size: var(--apt-font-sm);
+  border: 1.5px solid var(--apt-border);
+  border-radius: var(--apt-radius-sm);
+  outline: none;
+  transition: var(--apt-transition);
+  background: var(--apt-white);
+  color: var(--apt-text);
+  width: 100%;
+}
+
+.appointment-management-filter-group input:focus,
+.appointment-management-filter-group select:focus {
+  border-color: var(--apt-primary);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+  background: var(--apt-primary-lighter);
+}
+
+.appointment-management-filter-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--apt-border);
+}
+
+.appointment-management-filter-result {
+  font-size: var(--apt-font-sm);
+  color: var(--apt-text-secondary);
+}
+
+.appointment-management-filter-result strong {
+  color: var(--apt-primary-dark);
+  font-weight: 700;
+}
+
+/* === FILTER LAYOUT: 2 ROWS === */
+/* === FILTER LAYOUT: 2 ROWS === */
+.appointment-management-filter-row-1 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr));
+  gap: clamp(8px, 1.1vw, 10px);
+  margin-bottom: 12px !important;
+}
+
+.appointment-management-filter-row-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  gap: clamp(8px, 1.1vw, 10px);
+  margin-bottom: 0 !important;
+}
+
+/* === TABLE === */
+.admin-appt-page-table-container {
+  background: var(--apt-white);
+  border-radius: var(--apt-radius);
+  overflow-x: auto;
+  box-shadow: var(--apt-shadow-sm);
+  border: 1px solid var(--apt-border);
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin-appt-page-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--apt-font-sm);
+  min-width: 860px;
+}
+
+.admin-appt-page-sortable-th {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+.admin-appt-page-sortable-th:hover {
+  background: transparent;
+  color: inherit;
+  box-shadow: none;
+}
+
+.admin-appt-page-sortable-th:hover svg {
+  color: inherit;
+}
+
+.admin-appt-page-table thead {
+  background: var(--apt-primary);
+  color: var(--apt-white);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.admin-appt-page-table thead th {
+  padding: clamp(9px, 1.2vw, 13px) clamp(8px, 1vw, 12px);
+  text-align: left;
+  font-weight: 600;
+  font-size: clamp(10px, 1.1vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+  color: var(--apt-white);
+}
+
+.admin-appt-page-sortable-th {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.admin-appt-page-sortable-th:hover {
+  background: var(--apt-primary-dark);
+  color: var(--apt-white);
+}
+
+.admin-appt-page-sortable-th:hover svg {
+  color: var(--apt-white);
+}
+
+.admin-appt-page-sortable-th:hover {
+  box-shadow: inset 0 -3px 0 var(--apt-primary-dark);
+}
+
+.admin-appt-page-table tbody tr {
+  border-bottom: 1px solid var(--apt-border);
+  transition: background-color 0.18s ease;
+}
+
+.admin-appt-page-table tbody tr:hover {
+  background-color: var(--apt-primary-lighter);
+}
+
+.admin-appt-page-table tbody td {
+  padding: clamp(8px, 1.2vw, 13px) clamp(8px, 1vw, 12px);
+  vertical-align: middle;
+  color: var(--apt-text);
+  font-size: var(--apt-font-sm);
+}
+
+.admin-appt-page-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+/* Zebra striping - xanh lá cực nhạt */
+.admin-appt-page-table tbody tr:nth-child(even) {
+  background-color: #f1f8e9;
+}
+.admin-appt-page-table tbody tr:nth-child(even):hover {
+  background-color: var(--apt-primary-lighter);
+}
+
+/* === PATIENT / DOCTOR / DATETIME === */
+.admin-appt-page-patient-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-appt-page-patient-info .amp-fw-bold {
+  font-weight: 600;
+  color: var(--apt-text);
+  font-size: var(--apt-font-base);
+}
+
+.admin-appt-page-patient-info .amp-text-muted {
+  font-size: var(--apt-font-xs);
+  color: var(--apt-text-secondary);
+}
+
+.admin-appt-page-doctor-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--apt-primary-dark);
+  font-weight: 500;
+  font-size: var(--apt-font-sm);
+}
+
+.admin-appt-page-service-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.admin-appt-page-service-name {
+  font-weight: 600;
+  color: var(--apt-text);
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.admin-appt-page-linked-meta {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.admin-appt-page-linked-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: var(--apt-font-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.admin-appt-page-linked-chip-child {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.admin-appt-page-linked-chip-parent {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.admin-appt-page-linked-text {
+  font-size: var(--apt-font-xs);
+  color: var(--apt-text-secondary);
+  line-height: 1.4;
+}
+
+.admin-appt-page-datetime-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 3px;
+  font-size: var(--apt-font-sm);
+  color: var(--apt-text);
+}
+
+/* === STATUS BADGES === */
+.admin-appt-page-status-badge,
+.amp-payment-status-badge,
+.amp-medical-record-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 9px;
+  border-radius: 20px;
+  font-size: clamp(10px, 1.1vw, 11px);
+  font-weight: 600;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+
+/* Appointment Status */
+.amp-status-pending    { background: #fff3e0; color: #bf360c; }
+.amp-status-confirmed  { background: #e3f2fd; color: #0d47a1; }
+.amp-status-upcoming   { background: #e8f5e9; color: #1b5e20; }
+.amp-status-waiting-pay { background: #fff8e1; color: #8d6e00; }
+.amp-status-waiting-exam { background: #e8f5e9; color: #2e7d32; }
+.amp-status-in-progress{ background: #e1f5fe; color: #01579b; }
+.amp-status-waiting-result { background: #ede7f6; color: #5e35b1; }
+.amp-status-completed  { background: #e8f5e9; color: #2e7d32; }
+.amp-status-passed     { background: #fce4ec; color: #880e4f; }
+.amp-status-cancelled  { background: #ffebee; color: #b71c1c; }
+
+/* Payment Status */
+.amp-payment-unpaid        { background: #ffebee; color: #b71c1c; }
+.amp-payment-paid-online   { background: #e8f5e9; color: #1b5e20; }
+.amp-payment-paid-clinic   { background: #e3f2fd; color: #0d47a1; }
+.amp-payment-refunded      { background: #fff3e0; color: #e65100; }
+.amp-payment-not-required  { background: #f5f5f5; color: #616161; }
+
+/* Medical Record */
+.amp-has-record { background: #e8f5e9; color: #2e7d32; }
+.amp-no-record  { background: #f5f5f5; color: #9e9e9e; }
+
+/* Payment method & date */
+.payment-method-info { margin-top: 3px; }
+.paid-date-info      { margin-top: 2px; }
+
+/* === ACTION BUTTONS - Differentiated === */
+.admin-appt-page-action-buttons {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Base action button */
+.admin-appt-page-btn-action {
+  height: clamp(28px, 3vw, 34px);
+  min-width: clamp(28px, 3vw, 34px);
+  padding: 0 clamp(5px, 0.8vw, 8px);
+  border: none;
+  border-radius: var(--apt-radius-xs);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: var(--apt-transition);
+  font-size: clamp(11px, 1.3vw, 13px);
+  font-weight: 500;
+  flex-shrink: 0;
+  white-space: nowrap;
+  text-decoration: none;
+  position: relative;
+}
+
+.admin-appt-page-btn-action .amp-btn-label {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .admin-appt-page-btn-action .amp-btn-label {
+    display: inline;
+  }
+}
+
+/* Xem chi tiết - Xanh dương */
+.amp-btn-view {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+.amp-btn-view:hover {
+  background: #1565c0;
+  color: var(--apt-white);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(21,101,192,0.25);
+}
+
+/* Xác nhận lịch - Xanh lá */
+.appointment-management-action-confirm {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+.appointment-management-action-confirm:hover {
+  background: #2e7d32;
+  color: var(--apt-white);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(46,125,50,0.25);
+}
+
+/* Xác nhận thanh toán - Xanh lục nhạt */
+.appointment-management-action-payment {
+  background: #e0f2f1;
+  color: #00695c;
+}
+.appointment-management-action-payment:hover {
+  background: #00695c;
+  color: var(--apt-white);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0,105,92,0.25);
+}
+
+/* Nhập kết quả / hoàn thành - Cam */
+.appointment-management-action-complete {
+  background: #fff3e0;
+  color: #e65100;
+}
+.appointment-management-action-complete:hover {
+  background: #e65100;
+  color: var(--apt-white);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(230,81,0,0.25);
+}
+
+/* Lập hồ sơ y tế - Hồng */
+.appointment-management-action-medical {
+  background: #fce4ec;
+  color: #880e4f;
+}
+.appointment-management-action-medical:hover {
+  background: #880e4f;
+  color: var(--apt-white);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(136,14,79,0.25);
+}
+
+/* Hủy lịch - Đỏ */
+.appointment-management-action-cancel {
+  background: var(--apt-danger-light);
+  color: var(--apt-white);
+}
+.appointment-management-action-cancel:hover {
+  background: var(--apt-danger);
+  color: var(--apt-white);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(229,57,53,0.25);
+}
+
+/* Reset mã - Tím */
+.amp-btn-reset {
+  background: #f3e5f5;
+  color: #6a1b9a;
+}
+.amp-btn-reset:hover {
+  background: #6a1b9a;
+  color: var(--apt-white);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(106,27,154,0.25);
+}
+
+.admin-appt-page-btn-action:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* === EXPANDED ROW === */
+.amp-row-expanded {
+  background-color: #f1f8e9 !important;
+}
+
+.admin-appt-page-expanded-row td {
+  padding: clamp(12px, 2vw, 20px) !important;
+  background: #f9fbe7;
+  border-left: 4px solid var(--apt-primary);
+}
+
+.admin-appt-page-result-content {
+  font-size: var(--apt-font-base);
+  line-height: 1.8;
+}
+
+.admin-appt-page-result-content p {
+  margin: 6px 0;
+}
+
+.admin-appt-page-result-content strong {
+  color: var(--apt-primary-dark);
+  font-weight: 600;
+}
+
+.admin-appt-page-linked-section {
+  margin: 10px 0 14px;
+  padding: 12px;
+  border-radius: var(--apt-radius-sm);
+  background: #ffffff;
+  border: 1px solid var(--apt-border);
+}
+
+.admin-appt-page-linked-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--apt-font-sm);
+  font-weight: 700;
+  color: var(--apt-primary-dark);
+  margin-bottom: 10px;
+}
+
+.admin-appt-page-linked-note {
+  font-size: var(--apt-font-base);
+  color: var(--apt-text-secondary);
+}
+
+.admin-appt-page-linked-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-appt-page-linked-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border-radius: var(--apt-radius-xs);
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+}
+
+.admin-appt-page-linked-item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.admin-appt-page-linked-code {
+  font-weight: 700;
+  color: var(--apt-primary-dark);
+}
+
+.admin-appt-page-linked-service {
+  font-size: var(--apt-font-sm);
+  color: var(--apt-text);
+  word-break: break-word;
+}
+
+.admin-appt-page-linked-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  font-size: var(--apt-font-xs);
+  color: var(--apt-text-secondary);
+}
+
+/* === MODALS === */
+.admin-appt-page-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: clamp(10px, 3vw, 24px);
+}
+
+.admin-appt-page-modal-content {
+  background: var(--apt-white);
+  border-radius: var(--apt-radius);
+  width: 100%;
+  max-width: min(600px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--apt-shadow-lg);
+  animation: modalIn 0.22s ease;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(-16px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.admin-appt-page-modal-header {
+  padding: clamp(14px, 2vw, 22px) clamp(14px, 2.5vw, 26px);
+  border-bottom: 1.5px solid var(--apt-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--apt-primary-lighter);
+  border-radius: var(--apt-radius) var(--apt-radius) 0 0;
+}
+
+.admin-appt-page-modal-header h5 {
+  margin: 0;
+  font-size: clamp(15px, 2vw, 19px);
+  font-weight: 700;
+  color: var(--apt-primary-dark);
+}
+
+.amp-close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--apt-text-secondary);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: var(--apt-transition);
+  flex-shrink: 0;
+}
+
+.amp-close-btn:hover {
+  background: var(--apt-danger-light);
+  color: var(--apt-danger);
+}
+
+.admin-appt-page-modal-body {
+  padding: clamp(14px, 2.5vw, 26px);
+}
+
+.admin-appt-page-appointment-summary {
+  background: var(--apt-primary-lighter);
+  border: 1px solid var(--apt-border);
+  padding: clamp(10px, 1.5vw, 16px);
+  border-radius: var(--apt-radius-sm);
+  margin-bottom: 18px;
+}
+
+.admin-appt-page-appointment-summary p {
+  margin: 6px 0;
+  font-size: var(--apt-font-base);
+  color: var(--apt-text);
+}
+
+.admin-appt-page-confirmation-text {
+  font-size: var(--apt-font-base);
+  margin-bottom: 10px;
+}
+
+.admin-appt-page-form-group {
+  margin-bottom: 16px;
+}
+
+.admin-appt-page-form-group label {
+  display: block;
+  font-size: var(--apt-font-sm);
+  font-weight: 600;
+  color: var(--apt-primary-dark);
+  margin-bottom: 6px;
+}
+
+.admin-appt-page-form-group input,
+.admin-appt-page-form-group select,
+.admin-appt-page-form-group textarea {
+  width: 100%;
+  padding: clamp(8px, 1.2vw, 11px) clamp(10px, 1.5vw, 14px);
+  font-size: var(--apt-font-base);
+  border: 1.5px solid var(--apt-border);
+  border-radius: var(--apt-radius-sm);
+  outline: none;
+  transition: var(--apt-transition);
+  background: var(--apt-white);
+  color: var(--apt-text);
+}
+
+.admin-appt-page-form-group input:focus,
+.admin-appt-page-form-group select:focus,
+.admin-appt-page-form-group textarea:focus {
+  border-color: var(--apt-primary);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+  background: var(--apt-primary-lighter);
+}
+
+.admin-appt-page-form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.admin-appt-page-modal-footer {
+  padding: clamp(10px, 1.5vw, 16px) clamp(14px, 2.5vw, 26px);
+  border-top: 1.5px solid var(--apt-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Modal Buttons */
+.admin-appt-page-btn {
+  padding: clamp(7px, 1vw, 10px) clamp(14px, 2vw, 24px);
+  font-size: var(--apt-font-base);
+  font-weight: 600;
+  border: none;
+  border-radius: var(--apt-radius-sm);
+  cursor: pointer;
+  transition: var(--apt-transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+
+.amp-btn-secondary {
+  background: #eeeeee;
+  color: #424242;
+  border: 1px solid #bdbdbd;
+}
+.amp-btn-secondary:hover {
+  background: #e0e0e0;
+}
+
+.amp-btn-primary {
+  background: var(--apt-primary);
+  color: var(--apt-white);
+}
+.amp-btn-primary:hover {
+  background: var(--apt-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--apt-shadow-md);
+}
+
+.amp-btn-danger {
+  background: var(--apt-danger);
+  color: var(--apt-white);
+}
+.amp-btn-danger:hover {
+  background: #b71c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(229,57,53,0.3);
+}
+
+/* === UTILITY === */
+.text-wrap {
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.amp-text-muted { color: var(--apt-text-secondary); }
+.amp-fw-bold    { font-weight: 600; }
+.amp-text-primary { color: var(--apt-primary-dark); }
+.amp-text-danger  { color: var(--apt-danger); }
+.amp-text-success { color: #2e7d32; }
+.amp-mb-2 { margin-bottom: 8px; }
+.amp-small { font-size: var(--apt-font-xs); }
+.amp-text-decoration-none { text-decoration: none; }
+.amp-ms-1 { margin-left: 4px; }
+.amp-me-1 { margin-right: 4px; }
+.amp-d-flex { display: flex; }
+.amp-align-items-center { align-items: center; }
+.amp-mt-1 { margin-top: 4px; }
+
+/* Spinner */
+.amp-fa-spin {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.amp-animate-fade-down {
+  animation: fadeIn 0.28s ease-out;
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+
+/* Desktop: 2 rows / 3 columns */
+@media (min-width: 1200px) {
+  .appointment-management-stats-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .appointment-management-header {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .appointment-management-header-actions {
+    width: auto;
+    margin-left: auto;
+    justify-content: flex-end;
+  }
+
+  .appointment-management-doctor-selector {
+    max-width: 240px;
+    width: auto;
+  }
+}
+
+/* Tablet: 2 columns */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .admin-appt-page-container {
+    padding: 12px;
+  }
+
+  .appointment-management-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .appointment-management-stat-card {
+    padding: 10px 12px;
+  }
+
+  .appointment-management-stat-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .appointment-management-filter-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .appointment-management-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .admin-appt-page-table {
+    min-width: 980px;
+  }
+}
+
+/* Mobile: 1 column stats, table remains scrollable until small phones */
+@media (max-width: 767px) {
+  .admin-appt-page-container {
+    padding: 10px;
+  }
+
+  .appointment-management-header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .appointment-management-header-actions {
+    width: 100%;
+    justify-content: flex-start;
+    margin-left: 0;
+  }
+
+  .appointment-management-doctor-selector {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .admin-appt-page-linked-item {
+    flex-direction: column;
+  }
+
+  .admin-appt-page-linked-item-meta {
+    justify-content: flex-start;
+  }
+
+  .appointment-management-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .appointment-management-stat-card {
+    padding: 10px 12px;
+  }
+
+  .appointment-management-filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-appt-page-table-container {
+    overflow-x: auto;
+  }
+
+  .admin-appt-page-table {
+    min-width: 760px;
+  }
+
+  .appointment-management-filter-grid,
+  .appointment-management-filter-row-1,
+  .appointment-management-filter-row-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .appointment-management-header-content h1 {
+    font-size: 18px;
+  }
+
+  .appointment-management-header-content p {
+    font-size: 12px;
+  }
+
+  .admin-appt-page-btn-action {
+    font-size: 11px;
+  }
+
+  .appointment-management-btn {
+    font-size: 12px;
+    padding: 7px 12px;
+  }
+
+  .appointment-management-header-actions .appointment-management-btn,
+  .appointment-management-header-actions .appointment-management-doctor-selector {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* Small phones: convert table to card layout */
+@media (max-width: 639px) {
+  .admin-appt-page-table-container {
+    overflow-x: visible;
+  }
+
+  .admin-appt-page-table {
+    display: block;
+    min-width: unset;
+  }
+
+  .admin-appt-page-table thead {
+    display: none;
+  }
+
+  .admin-appt-page-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .admin-appt-page-table tbody tr {
+    display: block;
+    border: 1.5px solid var(--apt-border);
+    border-radius: var(--apt-radius-sm);
+    padding: 12px;
+    background: var(--apt-white);
+    box-shadow: var(--apt-shadow-sm);
+    border-bottom: 1.5px solid var(--apt-border) !important;
+  }
+
+  .admin-appt-page-table tbody tr:nth-child(even) {
+    background: #f9fbe7;
+  }
+
+  .admin-appt-page-table tbody tr:hover {
+    background: var(--apt-primary-lighter);
+  }
+
+  .admin-appt-page-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 6px 0;
+    border-bottom: 1px solid #f0f4e8;
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  .admin-appt-page-table tbody td:last-child {
+    border-bottom: none;
+    padding-top: 8px;
+  }
+
+  .admin-appt-page-table tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--apt-primary-dark);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+    width: 85px;
+    padding-top: 2px;
+  }
+
+  .admin-appt-page-action-buttons {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    margin-left: auto;
+  }
+
+  .admin-appt-page-expanded-row {
+    margin-top: -10px !important;
+    border-top: none !important;
+  }
+
+  .admin-appt-page-expanded-row td {
+    display: block !important;
+    padding: 12px !important;
+    border-radius: 0 0 var(--apt-radius-sm) var(--apt-radius-sm);
+  }
+
+  .admin-appt-page-modal-overlay {
+    padding: 10px;
+    align-items: flex-end;
+  }
+
+  .admin-appt-page-modal-content {
+    border-radius: var(--apt-radius) var(--apt-radius) 0 0;
+    max-height: 85vh;
+  }
+
+  .admin-appt-page-modal-footer {
+    flex-direction: column-reverse;
+  }
+
+  .admin-appt-page-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Label text bên trong action buttons */
+.amp-btn-label {
+  font-size: clamp(9px, 1vw, 11px);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* Ẩn label khi màn hình rất nhỏ */
+@media (max-width: 480px) {
+  .amp-btn-label {
+    display: none;
+  }
+}
+
+/* Scrollbar tùy chỉnh cho table */
+.admin-appt-page-table-container::-webkit-scrollbar {
+  height: 5px;
+}
+.admin-appt-page-table-container::-webkit-scrollbar-track {
+  background: var(--apt-primary-lighter);
+}
+.admin-appt-page-table-container::-webkit-scrollbar-thumb {
+  background: var(--apt-primary-light);
+  border-radius: 4px;
+}
+.admin-appt-page-table-container::-webkit-scrollbar-thumb:hover {
+  background: var(--apt-primary);
+}

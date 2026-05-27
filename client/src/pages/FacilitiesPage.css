@@ -1,0 +1,248 @@
+/* src/pages/FacilitiesPage.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --facilitiespage-primary: #4CAF50;
+  --facilitiespage-primary-dark: #2E7D32;
+  --facilitiespage-bg-white: #ffffff;
+  --facilitiespage-bg-gray: #F1F8F4;
+  --facilitiespage-text-dark: #1f2937;
+  --facilitiespage-text-gray: #4b5563;
+  --facilitiespage-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  --facilitiespage-radius: 12px;
+  --facilitiespage-transition: all 0.3s ease;
+}
+
+html, body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.facilitiespage-page {
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.facilitiespage-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+/* ==================== BANNER FULL MÀN HÌNH (NẰM ĐẦU TIÊN) ==================== */
+.facilitiespage-hero {
+  height: 100vh; /* Trải đầy màn hình */
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+.facilitiespage-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.facilitiespage-hero h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.facilitiespage-hero-subtitle {
+  font-size: 1.25rem;
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0.95;
+}
+
+/* ==================== THỐNG KÊ (NẰM SAU BANNER - WRAP & CENTER) ==================== */
+.facilitiespage-stats-top {
+  background: var(--facilitiespage-bg-white);
+  padding: 3rem 0; /* Tăng padding để thoáng hơn */
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.facilitiespage-stats-wrap-grid {
+  display: flex;
+  flex-wrap: wrap; /* Cho phép xuống hàng */
+  justify-content: center; /* Luôn canh giữa */
+  align-items: center;
+  gap: 3rem; /* Tăng khoảng cách giữa các số */
+}
+
+.facilitiespage-stat-item-top {
+  text-align: center;
+  min-width: 150px;
+  padding: 0.5rem;
+}
+
+.facilitiespage-stat-item-top .stat-number {
+  font-size: 3rem; /* Chữ số to rõ */
+  font-weight: 800;
+  color: var(--facilitiespage-primary-dark);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.facilitiespage-stat-item-top .stat-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--facilitiespage-text-gray);
+  text-transform: uppercase;
+}
+
+
+/* ==================== COMMON SECTIONS ==================== */
+.facilitiespage-section-container {
+  padding: 4rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.bg-light { background-color: var(--facilitiespage-bg-gray); }
+
+.facilitiespage-section-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+  color: var(--facilitiespage-primary-dark);
+}
+
+/* ==================== SCROLL WRAPPER ==================== */
+.scroll-wrapper-container { position: relative; width: 100%; }
+.scroll-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+  background: rgba(255, 255, 255, 0.9); border: 1px solid #ddd;
+  border-radius: 50%; width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; opacity: 0; transition: all 0.3s;
+  color: var(--facilitiespage-primary-dark);
+}
+@media (hover: hover) { .scroll-wrapper-container:hover .scroll-arrow { opacity: 1; } }
+.scroll-arrow.left { left: 5px; } .scroll-arrow.right { right: 5px; }
+.scroll-content { scrollbar-width: none; width: 100%; }
+.scroll-content::-webkit-scrollbar { display: none; }
+
+/* ==================== GRIDS ==================== */
+.facilitiespage-amenities-grid, .facilitiespage-facilities-grid, .facilitiespage-gallery-grid {
+  display: flex; flex-wrap: nowrap; overflow-x: auto;
+  scroll-snap-type: x mandatory; gap: 1.5rem; padding-bottom: 1rem;
+}
+
+/* KHU VỰC TIỆN ÍCH - PHÓNG TO ICON */
+.facilitiespage-amenity-item {
+  flex: 0 0 180px; /* Thẻ to hơn một chút */
+  padding: 2rem 1.5rem; 
+  background: white;
+  border-radius: var(--facilitiespage-radius); 
+  text-align: center;
+  scroll-snap-align: center; 
+  box-shadow: var(--facilitiespage-shadow);
+}
+
+.facilitiespage-amenity-icon { 
+  width: 75px; /* Tăng kích thước vòng tròn */
+  height: 75px; 
+  font-size: 2.5rem; /* Tăng kích thước icon */
+  color: var(--facilitiespage-primary); 
+  margin: 0 auto 1rem auto; /* Căn giữa */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--facilitiespage-bg-gray);
+  border-radius: 50%;
+}
+
+.facilitiespage-amenity-item span {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+/* CÁC THẺ CARD KHÁC */
+.facilitiespage-facility-card {
+  flex: 0 0 350px; background: white; overflow: hidden;
+  border-radius: var(--facilitiespage-radius); box-shadow: var(--facilitiespage-shadow);
+}
+
+.facilitiespage-facility-image { height: 200px; position: relative; overflow: hidden; cursor: pointer; }
+.facilitiespage-facility-image img { width: 100%; height: 100%; object-fit: cover; }
+.facilitiespage-facility-overlay {
+  position: absolute; inset: 0; background: rgba(46, 125, 50, 0.6);
+  color: white; display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s;
+}
+.facilitiespage-facility-image:hover .facilitiespage-facility-overlay { opacity: 1; }
+
+.facilitiespage-facility-content { padding: 1.5rem; }
+.facilitiespage-facility-icon { font-size: 1.8rem; color: var(--facilitiespage-primary); margin-bottom: 0.5rem; }
+
+.facilitiespage-gallery-item {
+  flex: 0 0 280px; height: 180px; position: relative; border-radius: 8px; overflow: hidden;
+}
+.facilitiespage-gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+.facilitiespage-gallery-caption {
+  position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6);
+  color: white; padding: 0.5rem; font-size: 0.8rem; text-align: center;
+}
+
+/* Modal */
+.facilitiespage-image-modal {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+}
+.facilitiespage-modal-content img { max-width: 90%; max-height: 85vh; border-radius: 8px; }
+.facilitiespage-modal-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 2rem; background: none; border: none; cursor: pointer; }
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .facilitiespage-hero { height: 70vh; }
+  .facilitiespage-hero h1 { font-size: 2.2rem; }
+  .facilitiespage-hero-subtitle { font-size: 1.05rem; }
+  
+  .facilitiespage-stats-top { padding: 2rem 0; }
+  .facilitiespage-stat-item-top { min-width: 120px; }
+  .facilitiespage-stat-item-top .stat-number { font-size: 2.2rem; }
+  .facilitiespage-stat-item-top .stat-label { font-size: 0.8rem; }
+  .facilitiespage-stats-wrap-grid { gap: 1.5rem; }
+
+  /* Ép hiện ít nhất 3 card mini trên mobile */
+  .facilitiespage-amenity-item { flex: 0 0 31vw; padding: 1.5rem 0.5rem; }
+  /* Icon tiện ích trên điện thoại thu lại một chút nhưng vẫn to hơn bản cũ */
+  .facilitiespage-amenity-icon { width: 55px; height: 55px; font-size: 1.8rem; margin-bottom: 0.5rem; }
+  .facilitiespage-amenity-item span { font-size: 0.85rem; }
+
+  .facilitiespage-facility-card { flex: 0 0 45vw; }
+  .facilitiespage-gallery-item { flex: 0 0 31vw; height: 100px; }
+  
+  .facilitiespage-facility-image { height: 120px; }
+  .facilitiespage-facility-content h3 { font-size: 0.9rem; margin: 0; }
+  .facilitiespage-facility-content p { display: none; }
+}
+
+@media (max-width: 480px) {
+  .facilitiespage-hero { height: 60vh; }
+  .facilitiespage-hero h1 { font-size: 1.8rem; }
+  .facilitiespage-stat-item-top { min-width: 100px; }
+  
+  .facilitiespage-amenity-item, .facilitiespage-gallery-item { flex: 0 0 32vw; }
+  .facilitiespage-facility-card { flex: 0 0 32vw; }
+  
+  /* Cân đối lại icon trên màn siêu nhỏ */
+  .facilitiespage-amenity-icon { width: 45px; height: 45px; font-size: 1.4rem; }
+  .facilitiespage-amenity-item span { font-size: 0.75rem; }
+}

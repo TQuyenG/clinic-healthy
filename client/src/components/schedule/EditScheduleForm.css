@@ -1,0 +1,299 @@
+/* client/src/components/schedule/EditScheduleForm.css */
+
+.edit-schedule-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   HEADER
+============================================ */
+.edit-schedule-form .form-header {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.edit-schedule-form .form-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 8px 0;
+}
+
+.edit-schedule-form .form-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+}
+
+/* ============================================
+   INFO BOX
+============================================ */
+.edit-schedule-form .info-box {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+  border: 2px solid #e2e8f0;
+}
+
+.edit-schedule-form .info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.edit-schedule-form .info-row:last-child {
+  border-bottom: none;
+}
+
+.edit-schedule-form .info-label {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.edit-schedule-form .info-value {
+  font-size: 14px;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+/* ============================================
+   FORM GROUPS
+============================================ */
+.edit-schedule-form .form-group {
+  margin-bottom: 20px;
+}
+
+.edit-schedule-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.edit-schedule-form .form-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.edit-schedule-form .label-icon {
+  font-size: 16px;
+}
+
+.edit-schedule-form .form-input,
+.edit-schedule-form .form-select,
+.edit-schedule-form .form-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.edit-schedule-form .form-input:focus,
+.edit-schedule-form .form-select:focus,
+.edit-schedule-form .form-textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.edit-schedule-form .form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.edit-schedule-form .input-hint {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.edit-schedule-form .char-count {
+  text-align: right;
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+/* ============================================
+   DURATION DISPLAY
+============================================ */
+.edit-schedule-form .duration-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: #ede9fe;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.edit-schedule-form .duration-icon {
+  font-size: 20px;
+}
+
+.edit-schedule-form .duration-text {
+  font-size: 14px;
+  color: #4338ca;
+}
+
+.edit-schedule-form .duration-text strong {
+  font-weight: 700;
+}
+
+/* ============================================
+   CHANGES PREVIEW
+============================================ */
+.edit-schedule-form .changes-preview {
+  background: #fef3c7;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+  border: 2px solid #fbbf24;
+}
+
+.edit-schedule-form .changes-preview h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #92400e;
+  margin: 0 0 12px 0;
+}
+
+.edit-schedule-form .changes-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.edit-schedule-form .change-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.edit-schedule-form .change-label {
+  font-weight: 600;
+  color: #78350f;
+  min-width: 100px;
+}
+
+.edit-schedule-form .change-old {
+  padding: 4px 8px;
+  background: white;
+  border-radius: 4px;
+  color: #ef4444;
+  text-decoration: line-through;
+}
+
+.edit-schedule-form .change-arrow {
+  color: #f59e0b;
+  font-weight: 700;
+}
+
+.edit-schedule-form .change-new {
+  padding: 4px 8px;
+  background: white;
+  border-radius: 4px;
+  color: #10b981;
+  font-weight: 600;
+}
+
+/* ============================================
+   FORM ACTIONS
+============================================ */
+.edit-schedule-form .form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.edit-schedule-form .btn-submit,
+.edit-schedule-form .btn-cancel {
+  flex: 1;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.edit-schedule-form .btn-submit {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+}
+
+.edit-schedule-form .btn-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+}
+
+.edit-schedule-form .btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.edit-schedule-form .btn-cancel {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.edit-schedule-form .btn-cancel:hover:not(:disabled) {
+  background: #e2e8f0;
+}
+
+/* ============================================
+   SPINNER
+============================================ */
+.edit-schedule-form .spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   RESPONSIVE
+============================================ */
+@media (max-width: 640px) {
+  .edit-schedule-form .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .edit-schedule-form .form-actions {
+    flex-direction: column;
+  }
+
+  .edit-schedule-form .change-item {
+    flex-wrap: wrap;
+  }
+
+  .edit-schedule-form .change-label {
+    width: 100%;
+    margin-bottom: 4px;
+  }
+}

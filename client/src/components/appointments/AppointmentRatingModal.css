@@ -1,0 +1,316 @@
+/* ===== [BƯỚC 3.1] APPOINTMENT RATING MODAL STYLES =====
+   client/src/components/appointments/AppointmentRatingModal.css */
+
+/* ===== OVERLAY ===== */
+.appointment-rating-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== MODAL CONTENT ===== */
+.appointment-rating-modal-content {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease-in-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ===== HEADER ===== */
+.appointment-rating-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #e9ecef;
+  background-color: #f8f9fa;
+}
+
+.appointment-rating-modal-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.appointment-rating-modal-btn-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.appointment-rating-modal-btn-close:hover:not(:disabled) {
+  color: #333;
+}
+
+.appointment-rating-modal-btn-close:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ===== BODY ===== */
+.appointment-rating-modal-body {
+  padding: 25px 20px;
+}
+
+/* ===== APPOINTMENT INFO ===== */
+.appointment-rating-info {
+  background-color: #f0f4f8;
+  border: 1px solid #d1e7f5;
+  border-radius: 8px;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+}
+
+.appointment-rating-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.appointment-rating-info-row:last-child {
+  margin-bottom: 0;
+}
+
+.appointment-rating-label {
+  font-weight: 600;
+  color: #555;
+}
+
+.appointment-rating-value {
+  color: #333;
+  text-align: right;
+  flex: 1;
+  margin-left: 10px;
+}
+
+/* ===== RATING SECTION ===== */
+.appointment-rating-section {
+  margin-bottom: 25px;
+}
+
+.appointment-rating-section-label {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+/* ===== STARS ===== */
+.appointment-rating-stars {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.appointment-rating-star {
+  cursor: default;
+  transition: transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.appointment-rating-star.interactive {
+  cursor: pointer;
+}
+
+.appointment-rating-star.interactive:hover {
+  transform: scale(1.15);
+}
+
+.appointment-rating-display {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* ===== TEXTAREA ===== */
+.appointment-rating-textarea {
+  width: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  padding: 12px;
+  resize: vertical;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.appointment-rating-textarea:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.appointment-rating-textarea:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  color: #999;
+}
+
+.appointment-rating-char-count {
+  text-align: right;
+  font-size: 12px;
+  color: #999;
+  margin-top: 5px;
+}
+
+/* ===== ERROR MESSAGE ===== */
+.appointment-rating-error {
+  background-color: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 6px;
+  color: #856404;
+  padding: 12px 15px;
+  margin-top: 15px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ===== FOOTER ===== */
+.appointment-rating-modal-footer {
+  display: flex;
+  gap: 12px;
+  padding: 15px 20px;
+  border-top: 1px solid #e9ecef;
+  background-color: #f8f9fa;
+  justify-content: flex-end;
+}
+
+/* ===== BUTTONS ===== */
+.appointment-rating-btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.appointment-rating-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.appointment-rating-btn-cancel {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.appointment-rating-btn-cancel:hover:not(:disabled) {
+  background-color: #dee2e6;
+}
+
+.appointment-rating-btn-submit {
+  background-color: #0066cc;
+  color: white;
+}
+
+.appointment-rating-btn-submit:hover:not(:disabled) {
+  background-color: #0052a3;
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+}
+
+.appointment-rating-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .appointment-rating-modal-content {
+    width: 95%;
+    max-width: none;
+    max-height: 95vh;
+  }
+
+  .appointment-rating-modal-header {
+    padding: 15px;
+  }
+
+  .appointment-rating-modal-title {
+    font-size: 18px;
+  }
+
+  .appointment-rating-modal-body {
+    padding: 15px;
+  }
+
+  .appointment-rating-modal-footer {
+    flex-direction: column;
+  }
+
+  .appointment-rating-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .appointment-rating-stars {
+    gap: 8px;
+  }
+
+  .appointment-rating-star {
+    width: 40px;
+    height: 40px;
+  }
+}

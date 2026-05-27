@@ -1,0 +1,128 @@
+/* client/src/components/Toast.css */
+
+.toast {
+  position: fixed;
+  bottom: 96px;
+  right: 20px;
+  background: white;
+  border-radius: 8px;
+  padding: 16px 20px;
+  min-width: 300px;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  z-index: 40000;
+  animation: slideInRight 0.3s ease;
+  border-left: 4px solid #2196F3;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+}
+
+/* Success - Xanh lá */
+.toast--success {
+  border-left-color: #4CAF50;
+}
+
+.toast--success .toast__icon {
+  color: #4CAF50;
+  font-size: 18px;
+}
+
+/* Error - Đỏ */
+.toast--error {
+  border-left-color: #F44336;
+}
+
+.toast--error .toast__icon {
+  color: #F44336;
+  font-size: 18px;
+}
+
+/* Warning - Cam */
+.toast--warning {
+  border-left-color: #FF9800;
+}
+
+.toast--warning .toast__icon {
+  color: #FF9800;
+  font-size: 18px;
+}
+
+/* Info - Xanh dương */
+.toast--info {
+  border-left-color: #2196F3;
+}
+
+.toast--info .toast__icon {
+  color: #2196F3;
+  font-size: 18px;
+}
+
+.toast__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.toast__message {
+  flex: 1;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.toast__close {
+  background: transparent;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+.toast__close:hover {
+  color: #333;
+}
+
+/* Móvel */
+@media (max-width: 480px) {
+  .toast {
+    bottom: 96px;
+    right: 16px;
+    left: 16px;
+    min-width: auto;
+    max-width: none;
+  }
+  
+  .toast__message {
+    font-size: 13px;
+  }
+}

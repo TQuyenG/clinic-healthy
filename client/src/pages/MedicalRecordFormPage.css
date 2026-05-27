@@ -1,0 +1,1690 @@
+/* client/src/pages/MedicalRecordFormPage.css */
+/* Giao diện trang Nhập Hồ sơ Y tế */
+
+:root {
+  /* Màu chủ đạo (Xanh lá y tế) */
+  --mrfp-primary: #22c55e; /* green-500 */
+  --mrfp-primary-dark: #16a34a; /* green-600 */
+  --mrfp-primary-light: #dcfce7; /* green-100 */
+  --mrfp-bg: #f0fdf4; /* green-50 (Màu nền pastel) */
+
+  /* Màu chữ */
+  --mrfp-text-primary: #1f2937; /* gray-800 */
+  --mrfp-text-secondary: #4b5563; /* gray-600 */
+  --mrfp-text-light: #6b7280; /* gray-500 */
+
+  /* Màu nền & Viền (Theo style thu nhỏ) */
+  --mrfp-card-bg: #ffffff;
+  --mrfp-border: #e5e7eb; /* gray-200 */
+  --mrfp-input-bg: #f9fafb; /* gray-50 */
+  
+  /* Màu Cảnh báo */
+  --mrfp-warning-bg: #fef9c3; /* yellow-100 */
+  --mrfp-warning-text: #854d0e; /* yellow-800 */
+  --mrfp-danger: #991b1b; /* red-800 */
+  
+  /* Kích thước (Thu nhỏ) */
+  --mrfp-radius: 6px;
+  --mrfp-font-size-base: 0.875rem; /* 14px */
+  --mrfp-font-size-small: 0.8rem;
+  --mrfp-input-padding: 0.6rem 0.75rem;
+  --mrfp-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+/* === MAIN LAYOUT === */
+.medical-record-form-page-container {
+  background-color: var(--mrfp-bg);
+  min-height: 100vh;
+  padding: 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: var(--mrfp-font-size-base);
+  color: var(--mrfp-text-secondary);
+}
+
+.medical-record-form-page-form {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* === HEADER === */
+.medical-record-form-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: var(--mrfp-card-bg);
+  border-radius: var(--mrfp-radius);
+  border: 1px solid var(--mrfp-border);
+  box-shadow: var(--mrfp-shadow);
+}
+
+.medical-record-form-page-header-content h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--mrfp-text-primary);
+  margin: 0 0 0.25rem 0;
+}
+.medical-record-form-page-header-content p {
+  font-size: 0.9rem;
+  margin: 0;
+  color: var(--mrfp-text-light);
+}
+
+.medical-record-form-page-btn-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.25rem;
+  font-size: var(--mrfp-font-size-base);
+  font-weight: 600;
+  background-color: var(--mrfp-primary);
+  color: white;
+  border: none;
+  border-radius: var(--mrfp-radius);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+.medical-record-form-page-btn-submit:hover {
+  background-color: var(--mrfp-primary-dark);
+}
+.medical-record-form-page-btn-submit:disabled {
+  background-color: var(--mrfp-border);
+  color: var(--mrfp-text-light);
+  cursor: not-allowed;
+}
+
+.medical-record-form-page-btn-secondary {
+  background-color: #e2e8f0;
+  color: #0f172a;
+}
+
+.medical-record-form-page-btn-secondary:hover {
+  background-color: #cbd5e1;
+}
+
+/* === INFO CARD === */
+.medical-record-form-page-info-card {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.medical-record-form-page-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: var(--mrfp-bg);
+  padding: 0.75rem 1rem;
+  border-radius: var(--mrfp-radius);
+  border: 1px solid var(--mrfp-primary-light);
+}
+.medical-record-form-page-info-icon {
+  font-size: 1.25rem;
+  color: var(--mrfp-primary);
+}
+.medical-record-form-page-info-text {
+  display: flex;
+  flex-direction: column;
+}
+.medical-record-form-page-info-text label {
+  font-size: var(--mrfp-font-size-small);
+  font-weight: 500;
+  color: var(--mrfp-text-light);
+}
+.medical-record-form-page-info-text span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--mrfp-text-primary);
+}
+
+/* === CARD (Layout chung) === */
+.medical-record-form-page-card {
+  background-color: var(--mrfp-card-bg);
+  border-radius: var(--mrfp-radius);
+  border: 1px solid var(--mrfp-border);
+  box-shadow: var(--mrfp-shadow);
+  overflow: visible; /* cho phép dropdown/overlay hiển thị (was hidden) */
+  min-width: 0;
+}
+.medical-record-form-page-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--mrfp-text-primary);
+  margin: 0;
+  padding: 0.75rem 1rem;
+  background-color: var(--mrfp-input-bg);
+  border-bottom: 1px solid var(--mrfp-border);
+}
+.medical-record-form-page-card-title svg {
+  color: var(--mrfp-primary);
+}
+
+/* === MAIN GRID === */
+.medical-record-form-page-main-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+.medical-record-form-page-vitals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+.medical-record-form-page-left-col,
+.medical-record-form-page-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+/* === FORM GROUP (Chung) === */
+.medical-record-form-page-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+.medical-record-form-page-card .medical-record-form-page-form-group-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+.medical-record-form-page-form-group.full-span {
+  grid-column: 1 / -1;
+}
+.medical-record-form-page-form-group label {
+  font-weight: 600;
+  color: var(--mrfp-text-primary);
+  font-size: var(--mrfp-font-size-base);
+}
+
+/* Form Controls (Input, Textarea - Thu nhỏ) */
+.medical-record-form-page-input,
+.medical-record-form-page-textarea {
+  width: 100%;
+  padding: var(--mrfp-input-padding);
+  font-size: var(--mrfp-font-size-base);
+  font-family: 'Inter', sans-serif;
+  color: var(--mrfp-text-primary);
+  background-color: var(--mrfp-card-bg);
+  border: 1px solid var(--mrfp-border);
+  border-radius: var(--mrfp-radius);
+  transition: all 0.2s ease;
+}
+.medical-record-form-page-textarea {
+  resize: vertical;
+}
+.medical-record-form-page-input:focus,
+.medical-record-form-page-textarea:focus {
+  outline: none;
+  border-color: var(--mrfp-primary);
+  box-shadow: 0 0 0 2px var(--mrfp-primary-light);
+  background-color: var(--mrfp-card-bg);
+}
+/* Highlight trường quan trọng */
+.medical-record-form-page-textarea.medical-record-form-page-highlight {
+  border-width: 1px;
+  border-color: var(--mrfp-primary);
+  background-color: var(--mrfp-bg);
+}
+
+/* === PRESCRIPTION (Đơn thuốc) === */
+.medical-record-form-page-prescription-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+.medical-record-form-page-prescription-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  padding-top: 0.25rem;
+}
+.medical-record-form-page-prescription-row .input-small {
+  flex-basis: 68px;
+  flex-shrink: 0;
+}
+.medical-record-form-page-prescription-row .input-large {
+  flex-grow: 1;
+}
+
+.medical-record-form-page-prescription-name-picker {
+  flex: 2.8 1 320px;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.medical-record-form-page-prescription-name-input {
+  min-width: 0;
+  flex: 1 1 auto;
+  box-sizing: border-box;
+}
+
+.medical-record-form-page-prescription-suggestion-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 100000;
+  margin: 0;
+  padding: 0.35rem;
+  list-style: none;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid #dbe4f0;
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+  max-height: 240px;
+  overflow-y: auto;
+  backdrop-filter: blur(6px);
+}
+.medical-record-form-page-prescription-row .input-small {
+  max-width: 90px;
+}
+.medical-record-form-page-prescription-row .medical-record-form-page-prescription-name-field {
+  flex: 2.2 1 180px;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.medical-record-form-page-prescription-row .medical-record-form-page-prescription-unit-field {
+  flex: 0 0 66px;
+  width: 80px;
+  height: 50px;
+}
+.medical-record-form-page-prescription-row .medical-record-form-page-prescription-field {
+  flex: 0 0 auto;
+}
+.medical-record-form-page-prescription-row .medical-record-form-page-prescription-field.input-large {
+  flex: 1 1 150px;
+  min-width: 120px;
+}
+.medical-record-form-page-prescription-field-hint {
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: #64748b;
+}
+.medical-record-form-page-prescription-row .input-small .medical-record-form-page-input,
+.medical-record-form-page-prescription-row .input-small > input {
+  max-width: 76px;
+  width: 100%;
+  height: 44px;
+  padding: 0.45rem 0.55rem;
+}
+.medical-record-form-page-prescription-row .medical-record-form-page-prescription-name-field .medical-record-form-page-prescription-name-input {
+  min-height: 40px;
+  width: 100%;
+}
+.medical-record-form-page-prescription-row .input-large > .medical-record-form-page-input,
+.medical-record-form-page-prescription-row .input-large > input {
+  min-width: 0;
+  height: 30px;
+  padding: 0.6rem 0.75rem;
+  box-sizing: border-box;
+}
+.medical-record-form-page-prescription-suggestion-item {
+  padding: 0.75rem 0.85rem;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--mrfp-text-primary);
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.medical-record-form-page-prescription-suggestion-item:hover {
+  background: #f0fdf4;
+  transform: translateY(-1px);
+}
+
+.medical-record-form-page-prescription-suggestion-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.medical-record-form-page-prescription-suggestion-price {
+  color: #166534;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.medical-record-form-page-prescription-suggestion-meta {
+  margin-top: 0.25rem;
+  font-size: 0.82rem;
+  color: #64748b;
+}
+
+.medical-record-form-page-prescription-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.medical-record-form-page-prescription-field-label {
+  font-size: 0.75rem;
+  color: #475569;
+  font-weight: 700;
+}
+
+/* Ensure small/large helpers keep widths */
+.medical-record-form-page-prescription-row .input-small {
+  flex-basis: 82px;
+}
+.medical-record-form-page-prescription-row .input-large {
+  flex: 1 1 10px;
+  min-width: 120px;
+}
+
+.medical-record-form-page-prescription-label {
+  display: block;
+  font-size: 0.78rem;
+  color: #374151;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+@media (max-width: 1200px) {
+  .medical-record-form-page-prescription-row {
+    flex-wrap: wrap;
+  }
+
+  .medical-record-form-page-prescription-row .medical-record-form-page-prescription-name-field {
+    flex: 1 1 100%;
+    min-width: 100%;
+  }
+
+  .medical-record-form-page-prescription-row .medical-record-form-page-prescription-field.input-large {
+    flex: 1 1 100%;
+  }
+
+  .medical-record-form-page-prescription-row .medical-record-form-page-prescription-unit-field,
+  .medical-record-form-page-prescription-row .input-small {
+    flex: 1 1 68px;
+    max-width: 88px;
+  }
+}
+
+@media (max-width: 768px) {
+  .medical-record-form-page-prescription-list {
+    padding: 0.75rem;
+  }
+
+  .medical-record-form-page-prescription-row {
+    gap: 0.4rem;
+  }
+
+  .medical-record-form-page-prescription-row .medical-record-form-page-prescription-name-field,
+  .medical-record-form-page-prescription-row .medical-record-form-page-prescription-field.input-large,
+  .medical-record-form-page-prescription-row .medical-record-form-page-prescription-unit-field,
+  .medical-record-form-page-prescription-row .input-small {
+    flex: 1 1 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .medical-record-form-page-prescription-row .medical-record-form-page-prescription-name-field .medical-record-form-page-prescription-name-input,
+  .medical-record-form-page-prescription-row .medical-record-form-page-input {
+    width: 100%;
+  }
+
+  .medical-record-form-page-prescription-field-hint {
+    font-size: 0.72rem;
+  }
+}
+
+.medical-record-form-page-prescription-name-field .medical-record-form-page-input {
+  min-width: 0;
+  width: 100%;
+}
+
+/* Embedded in consultation room: force one column and compact sizing */
+.main-layout.inroom-panel-open .medical-record-form-page-container {
+  padding: 0.5rem !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-header {
+  position: sticky;
+  /* leave extra top so navbar doesn't cover sticky header */
+  top: calc(5px + 8px);
+  z-index: 20;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  background: #ffffff;
+  /* stronger shadow to separate from content */
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.12);
+  /* no rounded corners in embedded/tab panel */
+  border-radius: 0;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-header-content h1 {
+  font-size: 1.15rem;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-header-content p,
+.main-layout.inroom-panel-open .medical-record-form-page-info-text label,
+.main-layout.inroom-panel-open .medical-record-form-page-info-text span,
+.main-layout.inroom-panel-open .medical-record-form-page-form-group label,
+.main-layout.inroom-panel-open .medical-record-form-page-card-title,
+.main-layout.inroom-panel-open .medical-record-form-page-file-group label,
+.main-layout.inroom-panel-open .medical-record-form-page-prescription-field-label,
+.main-layout.inroom-panel-open .medical-record-form-page-prescription-field-hint,
+.main-layout.inroom-panel-open .medical-record-form-page-alert-box,
+.main-layout.inroom-panel-open .medical-record-form-page-btn-add,
+.main-layout.inroom-panel-open .medical-record-form-page-btn-submit {
+  font-size: 0.78rem;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-main-grid,
+.main-layout.inroom-panel-open .medical-record-form-page-info-card,
+.main-layout.inroom-panel-open .medical-record-form-page-card .medical-record-form-page-form-group-grid-2,
+.main-layout.inroom-panel-open .medical-record-form-page-vitals-grid,
+.main-layout.inroom-panel-open .medical-record-form-page-left-col,
+.main-layout.inroom-panel-open .medical-record-form-page-right-col {
+  grid-template-columns: 1fr !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.75rem !important;
+}
+
+/* Put vitals card before results in embedded panel only (does not affect standalone page) */
+.main-layout.inroom-panel-open .medical-record-form-page-vitals-card {
+  order: -1;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-info-item,
+.main-layout.inroom-panel-open .medical-record-form-page-form-group,
+.main-layout.inroom-panel-open .medical-record-form-page-card,
+.main-layout.inroom-panel-open .medical-record-form-page-file-group,
+.main-layout.inroom-panel-open .medical-record-form-page-subservice-root {
+  width: 100% !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-card-title {
+  padding: 0.65rem 0.8rem !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-input,
+.main-layout.inroom-panel-open .medical-record-form-page-textarea,
+.main-layout.inroom-panel-open .medical-record-form-page-file-uploader,
+.main-layout.inroom-panel-open .medical-record-form-page-btn-submit,
+.main-layout.inroom-panel-open .medical-record-form-page-btn-add {
+  width: 100% !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-card .medical-record-form-page-form-group-grid-2 {
+  padding: 0.8rem !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-right-col .medical-record-form-page-form-group,
+.main-layout.inroom-panel-open .medical-record-form-page-file-group,
+.main-layout.inroom-panel-open .medical-record-form-page-alert-box {
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-vitals-grid > .medical-record-form-page-form-group,
+.main-layout.inroom-panel-open .medical-record-form-page-main-grid > * {
+  min-width: 0 !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-vitals-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 0.55rem !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-vitals-grid .medical-record-form-page-form-group,
+.main-layout.inroom-panel-open .medical-record-form-page-vitals-grid .medical-record-form-page-form-group.full-span {
+  width: 100% !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-vitals-grid .medical-record-form-page-form-group label {
+  font-size: 0.72rem;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-vitals-grid .medical-record-form-page-input,
+.main-layout.inroom-panel-open .medical-record-form-page-vitals-grid .medical-record-form-page-textarea {
+  padding: 0.5rem 0.6rem !important;
+  font-size: 0.78rem !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-vitals-grid .medical-record-form-page-form-group.full-span {
+  grid-column: 1 / -1 !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-prescription-list {
+  padding: 0.75rem !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-prescription-row {
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 0.5rem !important;
+  padding-top: 0 !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-prescription-row > div {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-prescription-row .medical-record-form-page-prescription-name-field,
+.main-layout.inroom-panel-open .medical-record-form-page-prescription-row .medical-record-form-page-prescription-unit-field,
+.main-layout.inroom-panel-open .medical-record-form-page-prescription-row .input-small,
+.main-layout.inroom-panel-open .medical-record-form-page-prescription-row .input-large {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-prescription-row .medical-record-form-page-prescription-field-label {
+  font-size: 0.7rem !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-prescription-row .medical-record-form-page-input {
+  height: 38px !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-prescription-row .medical-record-form-page-btn-remove {
+  align-self: flex-end;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-subservice-root {
+  padding: 10px !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-subservice-header {
+  flex-direction: column !important;
+  align-items: stretch !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-subservice-header-actions {
+  justify-content: flex-start !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-subservice-summary {
+  grid-template-columns: 1fr !important;
+  padding: 0.5rem !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-subservice-row {
+  padding: 10px !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-subservice-row-line1,
+.main-layout.inroom-panel-open .medical-record-form-page-subservice-row-line2,
+.main-layout.inroom-panel-open .medical-record-form-page-subservice-row-line3 {
+  padding-left: 0 !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-subservice-row-line1 {
+  flex-direction: column !important;
+  align-items: stretch !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-subservice-row-line2 {
+  align-items: flex-start !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-subservice-row-line3-controls {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-subservice-row-actions,
+.main-layout.inroom-panel-open .medical-record-form-page-subservice-btn-schedule,
+.main-layout.inroom-panel-open .medical-record-form-page-subservice-btn-remove {
+  width: 100% !important;
+}
+
+.main-layout.inroom-panel-open .medical-record-form-page-subservice-service-field {
+  min-height: 42px !important;
+  padding: 8px 10px !important;
+}
+
+
+
+
+
+
+.medical-record-form-page-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: var(--mrfp-radius);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+.medical-record-form-page-btn-remove {
+  background-color: var(--mrfp-border);
+  color: var(--mrfp-danger);
+}
+.medical-record-form-page-btn-remove:hover {
+  background-color: #fee2e2; /* red-100 */
+}
+.medical-record-form-page-btn-remove:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.medical-record-form-page-btn-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 1rem 1rem 1rem;
+  padding: 0.5rem 1rem;
+  font-size: var(--mrfp-font-size-small);
+  font-weight: 600;
+  color: var(--mrfp-primary-dark);
+  background-color: var(--mrfp-primary-light);
+  border: 1px solid var(--mrfp-primary-light);
+  border-radius: var(--mrfp-radius);
+  cursor: pointer;
+}
+.medical-record-form-page-btn-add:hover {
+  background-color: var(--mrfp-primary);
+  color: white;
+}
+
+/* === RIGHT COL (Tái khám & Upload) === */
+.medical-record-form-page-right-col .medical-record-form-page-card {
+  padding-bottom: 1rem; /* Thu nhỏ padding dưới */
+}
+.medical-record-form-page-right-col .medical-record-form-page-form-group {
+  padding: 1rem;
+}
+
+/* Cảnh báo */
+.medical-record-form-page-alert-box {
+  display: flex;
+  gap: 0.5rem;
+  background-color: var(--mrfp-warning-bg);
+  color: var(--mrfp-warning-text);
+  padding: 0.75rem;
+  margin: 1rem;
+  border-radius: var(--mrfp-radius);
+  font-size: var(--mrfp-font-size-small);
+}
+.medical-record-form-page-alert-box svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* File Upload */
+.medical-record-form-page-file-group {
+  padding: 0 1rem 1rem 1rem;
+}
+.medical-record-form-page-file-group label {
+  font-weight: 600;
+  color: var(--mrfp-text-primary);
+  font-size: var(--mrfp-font-size-base);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.medical-record-form-page-file-uploader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--mrfp-card-bg);
+  border: 1px dashed var(--mrfp-primary);
+  border-radius: var(--mrfp-radius);
+  color: var(--mrfp-primary-dark);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.medical-record-form-page-file-uploader:hover {
+  background-color: var(--mrfp-bg);
+}
+.medical-record-form-page-file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  margin-top: 0.75rem;
+  max-height: 150px;
+  overflow-y: auto;
+}
+.medical-record-form-page-file-item {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.5rem;
+  background-color: var(--mrfp-input-bg);
+  border-radius: var(--mrfp-radius);
+  font-size: var(--mrfp-font-size-small);
+}
+/* Đánh dấu file mới */
+.medical-record-form-page-file-item.new {
+  background-color: var(--mrfp-primary-light);
+}
+.medical-record-form-page-file-item svg {
+  color: var(--mrfp-text-light);
+  flex-shrink: 0;
+}
+.medical-record-form-page-file-name {
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.medical-record-form-page-file-item button {
+  background: none;
+  border: none;
+  color: var(--mrfp-danger);
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+}
+
+/* === SLOT PICKER (dùng trong SubServiceInline) === */
+
+.mrfp-slot-picker {
+  width: 100%;
+  margin-top: 4px;
+}
+
+/* Hàng chọn ngày */
+.mrfp-slot-date-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.mrfp-slot-date-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 62px;
+  padding: 7px 6px;
+  border: 1.5px solid #d1d5db;
+  background: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.18s ease;
+  text-align: center;
+}
+
+.mrfp-slot-date-btn:hover {
+  border-color: #22c55e;
+  background: #f0fdf4;
+}
+
+.mrfp-slot-date-btn.active {
+  border-color: #22c55e;
+  background: #22c55e;
+  color: #fff;
+  box-shadow: 0 3px 8px rgba(34,197,94,0.25);
+}
+
+.mrfp-slot-date-weekday {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  opacity: 0.75;
+  margin-bottom: 2px;
+}
+
+.mrfp-slot-date-num {
+  font-size: 15px;
+  font-weight: 800;
+  display: block;
+}
+
+.mrfp-slot-date-input {
+  padding: 7px 10px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #374151;
+  background: #fff;
+  cursor: pointer;
+  outline: none;
+  min-width: 42px;
+  height: 52px;
+}
+
+.mrfp-slot-date-input:focus {
+  border-color: #22c55e;
+}
+
+/* Grid slots */
+.mrfp-slot-grid-area {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.mrfp-slot-loading {
+  text-align: center;
+  padding: 16px;
+  color: #6b7280;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.mrfp-slot-empty {
+  text-align: center;
+  padding: 14px;
+  color: #d97706;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.mrfp-slot-section {
+  margin-bottom: 12px;
+}
+
+.mrfp-slot-section:last-child {
+  margin-bottom: 0;
+}
+
+.mrfp-slot-section-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.mrfp-slot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 6px;
+}
+
+.mrfp-slot-btn {
+  padding: 7px 6px;
+  border: 1.5px solid #d1d5db;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.18s ease;
+  color: #374151;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.mrfp-slot-btn:hover {
+  border-color: #22c55e;
+  color: #16a34a;
+  background: #f0fdf4;
+}
+
+.mrfp-slot-btn.active {
+  background: #22c55e;
+  color: #fff;
+  border-color: #22c55e;
+  box-shadow: 0 2px 6px rgba(34,197,94,0.3);
+}
+
+.mrfp-slot-spin {
+  animation: mrfp-subservice-spin 1s linear infinite;
+}
+
+/* Preview modal / summary component tweaks */
+.mrvp-file-list {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.mrvp-file-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.5rem;
+  background: var(--mrfp-input-bg);
+  border-radius: 8px;
+  min-width: 0;
+}
+.mrvp-file-thumb {
+  width: 56px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+  border: 1px solid var(--mrfp-border);
+}
+.mrvp-file-dl {
+  color: var(--mrfp-primary-dark);
+  margin-left: 8px;
+}
+.mrvp-file-name {
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mrvp-meta-sub {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--mrfp-text-light);
+}
+
+/* Hint khi chưa chọn dịch vụ */
+.mrfp-slot-picker-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #6b7280;
+  padding: 10px 12px;
+  background: #f1f5f9;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  margin-top: 4px;
+}
+
+
+/* Controls row dưới slot picker */
+.medical-record-form-page-subservice-row-line3-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.medical-record-form-page-subservice-row-do-now {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #065f46;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.medical-record-form-page-subservice-row-do-now input {
+  margin-right: 6px;
+  width: 16px;
+  height: 16px;
+}
+
+/* Responsive slot picker */
+@media (max-width: 480px) {
+  .mrfp-slot-grid {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  }
+
+  .mrfp-slot-date-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+
+  .mrfp-slot-date-btn {
+    min-width: 54px;
+    flex-shrink: 0;
+  }
+
+  .mrfp-slot-date-input {
+    flex-shrink: 0;
+  }
+
+  .medical-record-form-page-subservice-row-line3-controls {
+    flex-wrap: wrap;
+  }
+}
+
+
+
+.medical-record-form-page-subservice-root {
+  border: 1px solid #e5e7eb;
+  padding: 14px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+  overflow: visible;
+}
+
+.medical-record-form-page-subservice-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.medical-record-form-page-subservice-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.medical-record-form-page-subservice-subtitle {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.medical-record-form-page-subservice-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.medical-record-form-page-subservice-subtitle {
+  margin-top: 0.35rem;
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.medical-record-form-page-subservice-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+  padding: 0 1rem 0.25rem 1rem;
+}
+
+.medical-record-form-page-subservice-summary-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 0.75rem 0.85rem;
+  min-width: 0;
+}
+
+.medical-record-form-page-subservice-summary-item--highlight {
+  background: #ecfdf5;
+  border-color: #bbf7d0;
+}
+
+.medical-record-form-page-subservice-summary-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.medical-record-form-page-subservice-summary-item strong {
+  display: block;
+  color: #0f172a;
+  font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.medical-record-form-page-subservice-summary-item small {
+  display: block;
+  margin-top: 0.2rem;
+  color: #64748b;
+  font-size: 0.78rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.medical-record-form-page-subservice-count {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #ecfeff;
+  color: #0f766e;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: 1px solid #bff4f3;
+}
+
+.medical-record-form-page-subservice-btn-add-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 10px;
+  background: #dcfce7;
+  color: #166534;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.medical-record-form-page-subservice-btn-add-row:hover {
+  background: #bbf7d0;
+}
+
+.medical-record-form-page-subservice-rows {
+  margin-top: 12px;
+}
+
+.medical-record-form-page-subservice-empty {
+  color: #6b7280;
+  padding: 12px;
+  text-align: center;
+}
+
+/* === SUBSERVICE ROW - 3 STACKED LINES === */
+.medical-record-form-page-subservice-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  background: #fafafa;
+  position: relative;
+  overflow: visible;
+}
+
+/* Hàng 1: index + tên dịch vụ + nút xóa */
+.medical-record-form-page-subservice-row-line1 {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.medical-record-form-page-subservice-row-name-wrap {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+/* Hàng 2: giá + badge */
+.medical-record-form-page-subservice-row-line2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-left: 46px; /* align with name field */
+}
+
+.medical-record-form-page-subservice-row-price {
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Hàng 3: datetime + checkboxes + buttons */
+.medical-record-form-page-subservice-row-line3 {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-left: 46px; /* align with name field */
+}
+
+
+
+.medical-record-form-page-subservice-row-index {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0f766e;
+  color: white;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+
+
+.medical-record-form-page-subservice-service-field {
+  width: 100%;
+  text-align: left;
+  border: 1px dashed #cbd5e1;
+  background: #ffffff;
+  color: #0f172a;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.medical-record-form-page-subservice-service-field.placeholder {
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.medical-record-form-page-subservice-service-field.has-value {
+  border-style: solid;
+  border-color: #bbf7d0;
+  background: #f8fff9;
+}
+
+.medical-record-form-page-subservice-row-meta {
+  color: #6b7280;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.medical-record-form-page-subservice-required-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  width: fit-content;
+}
+
+.medical-record-form-page-subservice-required-badge.is-required {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.medical-record-form-page-subservice-required-badge.is-optional {
+  background: #f8fafc;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+/* row-controls kept for backwards compat but not used in new layout */
+.medical-record-form-page-subservice-row-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.medical-record-form-page-subservice-row-datetime {
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  min-width: 190px;
+}
+
+.medical-record-form-page-subservice-row-required {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #374151;
+  font-weight: 600;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+}
+
+
+
+.medical-record-form-page-subservice-row-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.medical-record-form-page-subservice-btn-schedule.is-primary {
+  background: #16a34a;
+}
+
+.medical-record-form-page-subservice-btn-schedule.is-primary:hover {
+  background: #15803d;
+}
+
+.medical-record-form-page-subservice-btn-schedule {
+  min-height: 36px;
+}
+
+
+
+.medical-record-form-page-subservice-btn-schedule {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.medical-record-form-page-subservice-btn-remove {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.medical-record-form-page-subservice-btn-schedule:disabled,
+.medical-record-form-page-subservice-btn-remove:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.medical-record-form-page-subservice-picker {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  min-width: 280px;
+  max-width: 600px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
+  overflow: hidden;
+}
+
+.medical-record-form-page-subservice-picker-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.medical-record-form-page-subservice-picker-input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+}
+
+.medical-record-form-page-subservice-picker-list {
+  max-height: 320px;
+  overflow: auto;
+}
+
+.medical-record-form-page-subservice-picker-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  padding: 12px;
+  border: none;
+  border-bottom: 1px solid #f3f4f6;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.medical-record-form-page-subservice-picker-item:hover {
+  background: #f8fafc;
+}
+
+.medical-record-form-page-subservice-picker-item:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.medical-record-form-page-subservice-picker-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.medical-record-form-page-subservice-picker-item-top strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.medical-record-form-page-subservice-picker-meta-inline {
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 500;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.medical-record-form-page-subservice-picker-item-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2px;
+}
+
+.medical-record-form-page-subservice-picker-action {
+  align-self: flex-start;
+  color: #16a34a;
+  font-weight: 800;
+}
+
+.medical-record-form-page-subservice-picker-empty {
+  padding: 12px;
+  color: #6b7280;
+  text-align: center;
+}
+
+.medical-record-form-page-subservice-spin {
+  animation: mrfp-subservice-spin 1s linear infinite;
+}
+
+@keyframes mrfp-subservice-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .medical-record-form-page-subservice-header {
+    flex-direction: column;
+  }
+
+  .medical-record-form-page-subservice-row-line2,
+  .medical-record-form-page-subservice-row-line3 {
+    padding-left: 0;
+  }
+
+  .medical-record-form-page-subservice-picker {
+    width: 100%;
+  }
+
+  .medical-record-form-page-subservice-row-datetime {
+    width: 100%;
+    min-width: 0;
+    flex: 1 1 100%;
+  }
+
+  .medical-record-form-page-subservice-row-line3 {
+    flex-wrap: wrap;
+  }
+}
+
+.medical-record-form-page-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 400px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--mrfp-primary-dark);
+}
+.medical-record-form-page-spin-icon {
+  font-size: 2rem;
+  animation: mrfp-spin 1s linear infinite;
+}
+.medical-record-form-page-spin-icon-small {
+  font-size: 0.9rem;
+  animation: mrfp-spin 1s linear infinite;
+}
+@keyframes mrfp-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* === RESPONSIVE (Thu gọn) === */
+@media (max-width: 900px) {
+  .medical-record-form-page-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .medical-record-form-page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  .medical-record-form-page-info-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .medical-record-form-page-card .medical-record-form-page-form-group-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .medical-record-form-page-prescription-row {
+    flex-wrap: wrap;
+  }
+  .medical-record-form-page-prescription-row .input-large {
+    flex-basis: 100%;
+    order: 4;
+  }
+  .medical-record-form-page-prescription-row .medical-record-form-page-btn-icon {
+    order: 5;
+  }
+}
+
+.mrfp-preview-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  background: rgba(15, 23, 42, 0.72);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+/* When embedded panel is open, make preview overlay sit above the panel */
+.main-layout.inroom-panel-open .mrfp-preview-overlay {
+  align-items: flex-start;
+  padding-top: 1rem;
+  z-index: 12000;
+}
+
+.mrfp-preview-modal {
+  width: min(920px, 100%);
+  max-height: none;
+  overflow: visible;
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  margin: auto;
+}
+
+.mrfp-preview-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.mrfp-preview-header h3 {
+  margin: 0 0 0.25rem 0;
+  color: var(--mrfp-text-primary);
+}
+
+.mrfp-preview-header p {
+  margin: 0;
+  color: var(--mrfp-text-light);
+}
+
+.mrfp-preview-close {
+  border: none;
+  background: #e2e8f0;
+  color: #334155;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.mrfp-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.mrfp-preview-card {
+  border: 1px solid var(--mrfp-border);
+  border-radius: 12px;
+  background: var(--mrfp-input-bg);
+  padding: 1rem;
+}
+
+.mrfp-preview-card h4 {
+  margin: 0 0 0.75rem 0;
+  color: var(--mrfp-text-primary);
+}
+
+.mrfp-preview-full {
+  grid-column: 1 / -1;
+}
+
+.mrfp-preview-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--mrfp-text-primary);
+}
+
+.mrfp-preview-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 700px) {
+  .mrfp-preview-grid {
+    grid-template-columns: 1fr;
+  }
+}

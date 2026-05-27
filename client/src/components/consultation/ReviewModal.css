@@ -1,0 +1,177 @@
+/* client/src/components/consultation/ReviewModal.css */
+/* Giao diện Y tế - Pastel Green */
+
+:root {
+  --rm-color-primary: #4CAF50; /* Xanh lá y tế (chủ đạo) */
+  --rm-color-primary-dark: #45a049;
+  --rm-color-background: #FFFFFF;
+  --rm-color-bg-light: #F0F8F0; /* Xanh lá pastel rất nhạt */
+  --rm-color-border: #DDEFE0; /* Border xanh nhạt */
+  --rm-color-text: #333;
+  --rm-color-text-secondary: #666;
+  --rm-color-star: #FFC107; /* Vàng */
+  --rm-color-overlay: rgba(0, 0, 0, 0.5);
+}
+
+.review-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--rm-color-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  animation: review-modal-fadeIn 0.2s ease-out;
+}
+
+.review-modal-content {
+  background-color: var(--rm-color-background);
+  border-radius: 8px;
+  width: 90%;
+  max-width: 450px; /* Thu nhỏ */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: review-modal-slideIn 0.3s ease-out;
+  border-top: 4px solid var(--rm-color-primary); /* Điểm nhấn y tế */
+}
+
+.review-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem; /* Thu nhỏ */
+  border-bottom: 1px solid var(--rm-color-border);
+}
+
+.review-modal-title {
+  margin: 0;
+  font-size: 1.15rem; /* Thu nhỏ */
+  font-weight: 600;
+  color: var(--rm-color-primary); /* Nổi bật */
+}
+
+.review-modal-btn-close-icon {
+  background: transparent;
+  border: none;
+  font-size: 1.75rem;
+  color: #aaa;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+.review-modal-btn-close-icon:hover {
+  color: #333;
+}
+
+.review-modal-body {
+  padding: 1.5rem;
+  background-color: var(--rm-color-bg-light); /* Nền xanh pastel */
+}
+
+.review-modal-label {
+  font-weight: 600;
+  font-size: 0.9rem; /* Thu nhỏ */
+  margin-bottom: 0.5rem;
+  display: block;
+  color: var(--rm-color-text-secondary);
+}
+
+.review-modal-stars-section {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.review-modal-stars-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px; /* Thu nhỏ */
+}
+
+.review-modal-star-wrapper {
+  color: var(--rm-color-star);
+  transition: transform 0.2s;
+}
+
+.review-modal-star-wrapper.interactive {
+  cursor: pointer;
+}
+
+.review-modal-star-wrapper.interactive:hover {
+  transform: scale(1.15);
+}
+
+.review-modal-textarea-section {
+  width: 100%;
+}
+
+.review-modal-textarea {
+  width: 100%;
+  padding: 0.75rem; /* Thu nhỏ */
+  border: 1px solid var(--rm-color-border);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.95rem; /* Thu nhỏ */
+  resize: vertical;
+  background-color: #fff;
+}
+
+.review-modal-textarea[readOnly] {
+  background-color: #f9f9f9;
+  color: var(--rm-color-text-secondary);
+  border-color: var(--rm-color-border);
+}
+
+.review-modal-footer {
+  padding: 1rem 1.5rem; /* Thu nhỏ */
+  border-top: 1px solid var(--rm-color-border);
+  background-color: #fff;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem; /* Thu nhỏ */
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.review-modal-footer button {
+  padding: 0.6rem 1.25rem; /* Thu nhỏ */
+  border-radius: 4px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.9rem; /* Thu nhỏ */
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.review-modal-btn-secondary {
+  background-color: #f1f1f1;
+  color: #555;
+  border: 1px solid #ddd;
+}
+.review-modal-btn-secondary:hover {
+  background-color: #e9ecef;
+}
+
+.review-modal-btn-primary {
+  background-color: var(--rm-color-primary); /* Nổi bật */
+  color: white;
+}
+.review-modal-btn-primary:hover {
+  background-color: var(--rm-color-primary-dark);
+}
+
+.review-modal-btn-primary:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+/* Animations */
+@keyframes review-modal-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes review-modal-slideIn {
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

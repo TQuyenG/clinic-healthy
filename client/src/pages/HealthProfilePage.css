@@ -1,0 +1,620 @@
+/* client/src/pages/HealthProfilePage.css */
+/* Giao diện Hồ sơ sức khỏe cá nhân - Y tế thân thiện */
+
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
+
+:root {
+  --hpp-primary:          #16a34a;
+  --hpp-primary-dark:     #15803d;
+  --hpp-primary-light:    #bbf7d0;
+  --hpp-primary-bg:       #f0fdf4;
+  --hpp-accent:           #059669;
+  --hpp-accent-soft:      #dcfce7;
+
+  --hpp-white:            #ffffff;
+  --hpp-gray-50:          #f9fafb;
+  --hpp-gray-100:         #f3f4f6;
+  --hpp-border:           #d1fae5;
+  --hpp-border-gray:      #e5e7eb;
+
+  --hpp-text-primary:     #14532d;
+  --hpp-text-dark:        #1f2937;
+  --hpp-text-secondary:   #374151;
+  --hpp-text-light:       #6b7280;
+  --hpp-text-muted:       #9ca3af;
+
+  --hpp-danger:           #ef4444;
+  --hpp-warning:          #f59e0b;
+  --hpp-info:             #3b82f6;
+
+  --hpp-shadow-xs:        0 1px 2px rgb(0 0 0 / 0.05);
+  --hpp-shadow-sm:        0 1px 4px rgb(0 0 0 / 0.07);
+  --hpp-shadow:           0 2px 8px rgb(22 163 74 / 0.1), 0 1px 3px rgb(0 0 0 / 0.06);
+  --hpp-shadow-hover:     0 4px 16px rgb(22 163 74 / 0.18), 0 2px 6px rgb(0 0 0 / 0.06);
+
+  --hpp-radius-sm:        5px;
+  --hpp-radius:           8px;
+  --hpp-radius-lg:        12px;
+
+  --hpp-fs-xs:            0.7rem;
+  --hpp-fs-sm:            0.78rem;
+  --hpp-fs-base:          0.84rem;
+  --hpp-fs-md:            0.92rem;
+  --hpp-fs-lg:            1.05rem;
+  --hpp-fs-xl:            1.25rem;
+}
+
+/* ===== BASE ===== */
+.HealthProfilePage-page {
+  min-height: 100vh;
+  background: linear-gradient(155deg, #f0fdf4 0%, #ecfdf5 55%, #f8fafc 100%);
+  padding: 1rem;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: var(--hpp-fs-base);
+  color: var(--hpp-text-secondary);
+}
+
+/* ===== LOADING ===== */
+.HealthProfilePage-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  gap: 0.75rem;
+  font-size: var(--hpp-fs-md);
+  font-weight: 600;
+  color: var(--hpp-primary);
+  background: linear-gradient(155deg, #f0fdf4, #ecfdf5);
+  min-height: 100vh;
+}
+
+.HealthProfilePage-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--hpp-primary-light);
+  border-top-color: var(--hpp-primary);
+  border-radius: 50%;
+  animation: hpp-spin 0.85s linear infinite;
+}
+
+@keyframes hpp-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== HEADER ===== */
+.HealthProfilePage-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.85rem 1rem;
+  background: var(--hpp-white);
+  border-radius: var(--hpp-radius-lg);
+  border: 1px solid var(--hpp-border);
+  box-shadow: var(--hpp-shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.HealthProfilePage-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #16a34a, #059669, #34d399);
+}
+
+.HealthProfilePage-btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.38rem 0.7rem;
+  font-size: var(--hpp-fs-sm);
+  font-weight: 600;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: var(--hpp-text-light);
+  background: var(--hpp-gray-100);
+  border: 1px solid var(--hpp-border-gray);
+  border-radius: var(--hpp-radius-sm);
+  cursor: pointer;
+  transition: all 0.18s;
+  flex-shrink: 0;
+}
+
+.HealthProfilePage-btn-back:hover {
+  background: var(--hpp-accent-soft);
+  color: var(--hpp-primary-dark);
+  border-color: var(--hpp-primary-light);
+}
+
+.HealthProfilePage-header-content {
+  flex: 1;
+}
+
+.HealthProfilePage-header-content h1 {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--hpp-fs-lg);
+  font-weight: 700;
+  color: var(--hpp-text-primary);
+  margin: 0 0 0.15rem 0;
+}
+
+.HealthProfilePage-header-content h1 svg {
+  color: var(--hpp-primary);
+  font-size: 1rem;
+}
+
+.HealthProfilePage-subtitle {
+  font-size: var(--hpp-fs-xs);
+  color: var(--hpp-text-light);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.HealthProfilePage-btn-edit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.42rem 0.85rem;
+  font-size: var(--hpp-fs-sm);
+  font-weight: 700;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  background: linear-gradient(135deg, var(--hpp-primary), var(--hpp-accent));
+  color: white;
+  border: none;
+  border-radius: var(--hpp-radius-sm);
+  cursor: pointer;
+  transition: opacity 0.18s, transform 0.15s, box-shadow 0.18s;
+  box-shadow: 0 2px 6px rgb(22 163 74 / 0.3);
+  flex-shrink: 0;
+}
+
+.HealthProfilePage-btn-edit:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgb(22 163 74 / 0.35);
+}
+
+/* ===== COMPLETION CARD ===== */
+.HealthProfilePage-completion-card {
+  background: var(--hpp-white);
+  border: 1px solid var(--hpp-border);
+  border-radius: var(--hpp-radius);
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.85rem;
+  box-shadow: var(--hpp-shadow-xs);
+}
+
+.HealthProfilePage-completion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.HealthProfilePage-completion-header h3 {
+  font-size: var(--hpp-fs-sm);
+  font-weight: 600;
+  color: var(--hpp-text-dark);
+  margin: 0;
+}
+
+.HealthProfilePage-completion-badge {
+  padding: 0.18rem 0.55rem;
+  border-radius: 20px;
+  font-size: var(--hpp-fs-xs);
+  font-weight: 700;
+  min-width: 42px;
+  text-align: center;
+}
+
+.HealthProfilePage-completion-badge.HealthProfilePage-complete {
+  background: var(--hpp-accent-soft);
+  color: var(--hpp-primary-dark);
+  border: 1px solid var(--hpp-primary-light);
+}
+
+.HealthProfilePage-completion-badge.HealthProfilePage-incomplete {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.HealthProfilePage-completion-bar {
+  height: 6px;
+  background: var(--hpp-gray-100);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.HealthProfilePage-completion-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--hpp-primary), #34d399);
+  border-radius: 99px;
+  transition: width 0.5s ease;
+}
+
+.HealthProfilePage-missing-fields-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+  margin: 0.5rem 0 0;
+  font-size: var(--hpp-fs-xs);
+  color: #92400e;
+  background: #fef9c3;
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--hpp-radius-sm);
+  border: 1px solid #fde68a;
+  line-height: 1.45;
+}
+
+.HealthProfilePage-missing-fields-note svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--hpp-warning);
+}
+
+/* ===== SECTION ===== */
+.HealthProfilePage-section {
+  background: var(--hpp-white);
+  border: 1px solid var(--hpp-border-gray);
+  border-radius: var(--hpp-radius);
+  margin-bottom: 0.75rem;
+  box-shadow: var(--hpp-shadow-xs);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.HealthProfilePage-section:hover {
+  box-shadow: var(--hpp-shadow);
+  border-color: var(--hpp-border);
+}
+
+.HealthProfilePage-section-header {
+  padding: 0.6rem 0.9rem;
+  background: linear-gradient(90deg, #f0fdf4, #f9fafb);
+  border-bottom: 1px solid var(--hpp-border);
+}
+
+.HealthProfilePage-section-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--hpp-fs-md);
+  font-weight: 700;
+  color: var(--hpp-text-primary);
+  margin: 0;
+}
+
+.HealthProfilePage-section-header h2 svg {
+  color: var(--hpp-primary);
+  font-size: 0.85rem;
+}
+
+.HealthProfilePage-section-content {
+  padding: 0.85rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+/* ===== FORM GRID ===== */
+.HealthProfilePage-form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.65rem;
+}
+
+/* ===== FORM GROUP ===== */
+.HealthProfilePage-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+
+.HealthProfilePage-form-group.HealthProfilePage-full {
+  grid-column: 1 / -1;
+}
+
+.HealthProfilePage-form-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: var(--hpp-fs-xs);
+  font-weight: 600;
+  color: var(--hpp-text-secondary);
+  letter-spacing: 0.1px;
+}
+
+.HealthProfilePage-form-group label svg {
+  color: var(--hpp-primary);
+  font-size: 0.7rem;
+}
+
+.HealthProfilePage-required {
+  color: var(--hpp-danger);
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+/* ===== INPUTS ===== */
+.HealthProfilePage-form-group input,
+.HealthProfilePage-form-group select,
+.HealthProfilePage-form-group textarea {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: var(--hpp-fs-sm);
+  color: var(--hpp-text-dark);
+  background: var(--hpp-gray-50);
+  border: 1px solid var(--hpp-border-gray);
+  border-radius: var(--hpp-radius-sm);
+  padding: 0.42rem 0.65rem;
+  transition: border-color 0.18s, box-shadow 0.18s, background 0.15s;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.HealthProfilePage-form-group input:focus,
+.HealthProfilePage-form-group select:focus,
+.HealthProfilePage-form-group textarea:focus {
+  border-color: var(--hpp-primary);
+  background: var(--hpp-white);
+  box-shadow: 0 0 0 2.5px rgb(22 163 74 / 0.14);
+}
+
+.HealthProfilePage-form-group input:disabled,
+.HealthProfilePage-form-group select:disabled,
+.HealthProfilePage-form-group textarea:disabled {
+  background: var(--hpp-gray-100);
+  color: var(--hpp-text-secondary);
+  cursor: default;
+  border-color: var(--hpp-border-gray);
+}
+
+.HealthProfilePage-form-group textarea {
+  resize: vertical;
+  min-height: 64px;
+  line-height: 1.5;
+}
+
+.HealthProfilePage-form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%236b7280' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.6rem center;
+  padding-right: 1.8rem;
+}
+
+/* ===== BMI DISPLAY ===== */
+.HealthProfilePage-bmi-display {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--hpp-gray-50);
+  border: 1.5px solid;
+  border-radius: var(--hpp-radius);
+  margin: 0.1rem 0;
+}
+
+.HealthProfilePage-bmi-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.HealthProfilePage-bmi-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  flex: 1;
+}
+
+.HealthProfilePage-bmi-label {
+  font-size: var(--hpp-fs-xs);
+  color: var(--hpp-text-light);
+  font-weight: 500;
+}
+
+.HealthProfilePage-bmi-value {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.HealthProfilePage-bmi-status {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: var(--hpp-fs-sm);
+  font-weight: 700;
+}
+
+.HealthProfilePage-bmi-status svg {
+  font-size: 0.75rem;
+}
+
+/* ===== ACTIONS ===== */
+.HealthProfilePage-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  padding: 0.85rem 0;
+  margin-top: 0.25rem;
+}
+
+.HealthProfilePage-btn-cancel {
+  padding: 0.45rem 1rem;
+  font-size: var(--hpp-fs-sm);
+  font-weight: 600;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: var(--hpp-text-light);
+  background: var(--hpp-gray-100);
+  border: 1px solid var(--hpp-border-gray);
+  border-radius: var(--hpp-radius-sm);
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.HealthProfilePage-btn-cancel:hover {
+  background: #fee2e2;
+  color: var(--hpp-danger);
+  border-color: #fca5a5;
+}
+
+.HealthProfilePage-btn-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.48rem 1.1rem;
+  font-size: var(--hpp-fs-sm);
+  font-weight: 700;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  background: linear-gradient(135deg, var(--hpp-primary), var(--hpp-accent));
+  color: white;
+  border: none;
+  border-radius: var(--hpp-radius-sm);
+  cursor: pointer;
+  transition: opacity 0.18s, transform 0.15s, box-shadow 0.18s;
+  box-shadow: 0 2px 8px rgb(22 163 74 / 0.32);
+}
+
+.HealthProfilePage-btn-save:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgb(22 163 74 / 0.4);
+}
+
+.HealthProfilePage-btn-save svg {
+  font-size: 0.78rem;
+}
+
+/* ===== IMPORTANT HIGHLIGHT ===== */
+/* Dị ứng & bệnh lý nền cần nổi bật hơn */
+.HealthProfilePage-form-group.HealthProfilePage-highlight input,
+.HealthProfilePage-form-group.HealthProfilePage-highlight textarea {
+  border-color: #fcd34d;
+  background: #fffbeb;
+}
+
+.HealthProfilePage-form-group.HealthProfilePage-highlight label {
+  color: #92400e;
+}
+
+.HealthProfilePage-form-group.HealthProfilePage-highlight label svg {
+  color: var(--hpp-warning);
+}
+
+/* ===== EMERGENCY CONTACT HIGHLIGHT ===== */
+.HealthProfilePage-form-group.HealthProfilePage-emergency input {
+  border-color: #fca5a5;
+  background: #fff5f5;
+}
+
+.HealthProfilePage-form-group.HealthProfilePage-emergency label {
+  color: #991b1b;
+}
+
+/* ===== MODAL ===== */
+.HealthProfilePage-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.48);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 9999;
+}
+
+.HealthProfilePage-modal-content {
+  width: min(520px, 100%);
+  background: var(--hpp-white);
+  border-radius: 16px;
+  border: 1px solid var(--hpp-border);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.22);
+  overflow: hidden;
+}
+
+.HealthProfilePage-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  border-bottom: 1px solid var(--hpp-border-gray);
+  background: linear-gradient(90deg, #f0fdf4, #ffffff);
+}
+
+.HealthProfilePage-modal-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--hpp-text-primary);
+}
+
+.HealthProfilePage-modal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--hpp-border-gray);
+  border-radius: 999px;
+  background: var(--hpp-gray-100);
+  color: var(--hpp-text-light);
+  cursor: pointer;
+}
+
+.HealthProfilePage-modal-body {
+  padding: 1rem 1.1rem 0.85rem;
+  color: var(--hpp-text-secondary);
+  line-height: 1.6;
+}
+
+.HealthProfilePage-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  padding: 0.85rem 1.1rem 1.1rem;
+}
+
+@media (max-width: 640px) {
+  .HealthProfilePage-header {
+    flex-wrap: wrap;
+  }
+
+  .HealthProfilePage-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .HealthProfilePage-modal-actions .HealthProfilePage-btn-cancel,
+  .HealthProfilePage-modal-actions .HealthProfilePage-btn-save {
+    width: 100%;
+  }
+}
+
+.HealthProfilePage-form-group.HealthProfilePage-emergency label svg {
+  color: var(--hpp-danger);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 540px) {
+  .HealthProfilePage-page {
+    padding: 0.75rem 0.6rem;
+  }
+  .HealthProfilePage-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .HealthProfilePage-form-row {
+    grid-template-columns: 1fr;
+  }
+  .HealthProfilePage-bmi-display {
+    flex-wrap: wrap;
+  }
+}

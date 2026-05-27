@@ -1,0 +1,193 @@
+/* client/src/components/schedule/LeaveRequestModal.css */
+/* Giao diện được thiết kế lại theo chủ đề Bệnh viện Pastel */
+
+:root {
+  /* Màu sắc chủ đề Bệnh viện Pastel */
+  --color-primary: #a0d9b5; /* Xanh lá pastel */
+  --color-primary-dark: #81b997;
+  --color-primary-light: #e6f7f2; /* Xanh lá rất nhạt */
+  --color-danger: #f4b6b6; /* Đỏ pastel */
+  --color-danger-dark: #e09b9b;
+  --color-warning: #fde68a; /* Vàng pastel */
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #4b5563;
+  --color-border: #e5e7eb;
+  --color-background-light: #f9fafb;
+  --color-background: #ffffff;
+  
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --border-radius: 8px;
+  --transition: all 0.2s ease-in-out;
+}
+
+.leave-request-modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  backdrop-filter: blur(4px);
+}
+
+.leave-request-modal__content {
+  background: var(--color-background);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow: hidden; /* Ngăn form tràn ra */
+  display: flex;
+  flex-direction: column;
+}
+
+.leave-request-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.leave-request-modal__header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.leave-request-modal__btn-close {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+.leave-request-modal__btn-close:hover {
+  color: var(--color-text-primary);
+}
+
+.leave-request-modal__body {
+  padding: 1.5rem;
+  overflow-y: auto; /* Cho phép cuộn nội dung form */
+}
+
+/* Form */
+.leave-request-modal__form-group {
+  margin-bottom: 1rem;
+}
+
+.leave-request-modal__form-group label {
+  display: block;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.leave-request-modal__form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.leave-request-modal__form-control:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.leave-request-modal__form-control--error {
+  border-color: var(--color-danger);
+}
+
+.leave-request-modal__error-text {
+  display: block;
+  color: var(--color-danger-dark);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.leave-request-modal__form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Warning Box */
+.leave-request-modal__warning-box {
+  background: var(--color-primary-light);
+  border-left: 4px solid var(--color-primary-dark);
+  padding: 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.leave-request-modal__warning-box strong {
+  color: var(--color-text-primary);
+}
+
+/* Footer */
+.leave-request-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-background-light);
+}
+
+/* Nút bấm chung */
+.leave-request-modal__button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.leave-request-modal__button--primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-primary);
+}
+.leave-request-modal__button--primary:hover {
+  background-color: var(--color-primary-dark);
+  color: white;
+}
+.leave-request-modal__button--primary:disabled {
+  background-color: var(--color-border);
+  color: var(--color-text-secondary);
+  cursor: not-allowed;
+}
+
+.leave-request-modal__button--secondary {
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+.leave-request-modal__button--secondary:hover {
+  background-color: var(--color-background-light);
+}

@@ -1,0 +1,368 @@
+/* client/src/pages/OAuthCallback.css */
+
+/* ============================================
+   CONTAINER & BOX
+   ============================================ */
+.oauth-callback-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%);
+  padding: 20px;
+}
+
+.oauth-callback-box {
+  background: white;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.15);
+  width: 100%;
+  max-width: 440px;
+  text-align: center;
+  animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   SPINNER LOADING
+   ============================================ */
+.spinner-large {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(76, 175, 80, 0.1);
+  border-top: 4px solid #4caf50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ============================================
+   SUCCESS ICON
+   ============================================ */
+.success-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #66bb6a, #4caf50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
+  animation: scaleIn 0.5s ease;
+}
+
+.success-icon svg {
+  width: 40px;
+  height: 40px;
+  stroke-width: 3;
+}
+
+/* Success checkmark animation */
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ============================================
+   ERROR ICON
+   ============================================ */
+.error-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ef5350, #e53935);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 20px rgba(239, 83, 80, 0.3);
+  animation: shake 0.5s ease;
+}
+
+.error-icon svg {
+  width: 40px;
+  height: 40px;
+  stroke-width: 3;
+}
+
+/* Error shake animation */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+/* ============================================
+   TEXT STYLES
+   ============================================ */
+.oauth-callback-box h2 {
+  margin: 0 0 0.5rem 0;
+  color: #2e7d32;
+  font-size: 1.5rem;
+  font-weight: 700;
+  animation: fadeIn 0.6s ease 0.2s both;
+}
+
+.oauth-callback-box .subtitle {
+  color: #66bb6a;
+  font-size: 0.95rem;
+  margin: 0;
+  animation: fadeIn 0.6s ease 0.4s both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   PROCESSING STATE
+   ============================================ */
+.oauth-callback-box .spinner-large {
+  /* Pulse effect cho spinner */
+  position: relative;
+}
+
+.oauth-callback-box .spinner-large::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: rgba(76, 175, 80, 0.1);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+/* ============================================
+   SUCCESS STATE
+   ============================================ */
+.oauth-callback-box .success-icon {
+  position: relative;
+}
+
+/* Ripple effect khi success */
+.oauth-callback-box .success-icon::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  border: 2px solid #4caf50;
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+/* ============================================
+   ERROR STATE
+   ============================================ */
+.oauth-callback-box .error-icon {
+  /* Error icon có animation riêng ở trên */
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .oauth-callback-container {
+    padding: 15px;
+  }
+
+  .oauth-callback-box {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .oauth-callback-box h2 {
+    font-size: 1.25rem;
+  }
+
+  .oauth-callback-box .subtitle {
+    font-size: 0.875rem;
+  }
+
+  .spinner-large {
+    width: 50px;
+    height: 50px;
+    border-width: 3px;
+  }
+
+  .success-icon,
+  .error-icon {
+    width: 70px;
+    height: 70px;
+  }
+
+  .success-icon svg,
+  .error-icon svg {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .oauth-callback-container {
+    padding: 10px;
+  }
+
+  .oauth-callback-box {
+    padding: 2rem 1.25rem;
+  }
+
+  .oauth-callback-box h2 {
+    font-size: 1.125rem;
+  }
+
+  .oauth-callback-box .subtitle {
+    font-size: 0.8rem;
+  }
+
+  .spinner-large {
+    width: 45px;
+    height: 45px;
+  }
+
+  .success-icon,
+  .error-icon {
+    width: 65px;
+    height: 65px;
+  }
+
+  .success-icon svg,
+  .error-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* ============================================
+   DARK MODE SUPPORT (Optional)
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+  .oauth-callback-container {
+    background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 50%, #388e3c 100%);
+  }
+
+  .oauth-callback-box {
+    background: #1e1e1e;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  }
+
+  .oauth-callback-box h2 {
+    color: #81c784;
+  }
+
+  .oauth-callback-box .subtitle {
+    color: #a5d6a7;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .oauth-callback-box,
+  .spinner-large,
+  .success-icon,
+  .error-icon,
+  .oauth-callback-box h2,
+  .oauth-callback-box .subtitle {
+    animation: none !important;
+  }
+
+  .oauth-callback-box .spinner-large::before,
+  .oauth-callback-box .success-icon::after {
+    animation: none !important;
+  }
+}
+
+/* Focus styles for accessibility */
+.oauth-callback-box:focus-within {
+  outline: 2px solid #4caf50;
+  outline-offset: 4px;
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+  .oauth-callback-container {
+    background: white;
+  }
+
+  .oauth-callback-box {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  .spinner-large,
+  .spinner-large::before {
+    display: none;
+  }
+}

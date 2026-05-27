@@ -1,0 +1,412 @@
+/* client/src/components/ChatInput.css */
+/* ĐÃ VIẾT LẠI ĐỂ KHỚP VỚI CLASS TRONG ChatInput.js VÀ THU NHỎ GIAO DIỆN */
+
+:root {
+  --chatinput-primary: #7cb342;
+  --chatinput-border: #dcedc8;
+  --chatinput-bg-light: #f9fbe7;
+  --chatinput-bg-white: #ffffff;
+  --chatinput-text: #33691e;
+  --chatinput-text-gray: #757575;
+  --chatinput-danger: #e57373;
+  --chatinput-info: #64b5f6;
+  --chatinput-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --chatinput-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --chatinput-radius-sm: 4px;
+  --chatinput-radius-md: 8px;
+  --chatinput-radius-lg: 12px;
+}
+
+.chatinput-container {
+  background: var(--chatinput-bg-white);
+  border-top: 1px solid var(--chatinput-border);
+  padding: 0.5rem 0.75rem; /* Thu nhỏ */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Thu nhỏ */
+}
+
+/* --- Selected Files Preview --- */
+.chatinput-selected-files-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem; /* Thu nhỏ */
+  padding: 0.5rem; /* Thu nhỏ */
+  background: var(--chatinput-bg-light);
+  border-radius: var(--chatinput-radius-md);
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.chatinput-file-preview-item {
+  position: relative;
+  width: 60px; /* Thu nhỏ */
+  height: 60px; /* Thu nhỏ */
+  border-radius: var(--chatinput-radius-sm);
+  overflow: hidden;
+  background: var(--chatinput-bg-white);
+  border: 1px solid var(--chatinput-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.chatinput-file-preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.chatinput-file-preview-icon {
+  font-size: 1.5rem; /* Thu nhỏ */
+  color: var(--chatinput-text-gray);
+}
+
+.chatinput-file-preview-name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.15rem; /* Thu nhỏ */
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 0.6rem; /* Thu nhỏ */
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chatinput-remove-file-btn {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 16px; /* Thu nhỏ */
+  height: 16px; /* Thu nhỏ */
+  border-radius: 50%;
+  background: rgba(229, 115, 115, 0.9);
+  border: none;
+  color: white;
+  font-size: 0.6rem; /* Thu nhỏ */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  z-index: 2;
+}
+
+.chatinput-remove-file-btn:hover {
+  background: var(--chatinput-danger);
+  transform: scale(1.1);
+}
+
+/* --- Recording Indicator --- */
+.chatinput-recording-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* Thu nhỏ */
+  padding: 0.5rem 0.75rem; /* Thu nhỏ */
+  background: #ffebee;
+  border-radius: var(--chatinput-radius-md);
+}
+
+.chatinput-recording-animation {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem; /* Thu nhỏ */
+  flex: 1;
+}
+
+.chatinput-recording-dot {
+  width: 10px; /* Thu nhỏ */
+  height: 10px; /* Thu nhỏ */
+  border-radius: 50%;
+  background: var(--chatinput-danger);
+  animation: chatinput-recordingPulse 1.5s infinite;
+}
+
+@keyframes chatinput-recordingPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+.chatinput-recording-text {
+  font-weight: 600;
+  color: #c62828;
+  font-size: 0.8rem; /* Thu nhỏ */
+}
+
+.chatinput-recording-time {
+  font-weight: 600;
+  color: #c62828;
+  font-size: 0.85rem; /* Thu nhỏ */
+  font-family: 'Courier New', monospace;
+}
+
+.chatinput-cancel-recording-btn {
+  padding: 0.25rem 0.6rem; /* Thu nhỏ */
+  background: white;
+  border: 1px solid var(--chatinput-border);
+  border-radius: var(--chatinput-radius-sm);
+  color: #c62828;
+  font-weight: 600;
+  font-size: 0.7rem; /* Thu nhỏ */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem; /* Thu nhỏ */
+  transition: all 0.3s;
+}
+
+.chatinput-cancel-recording-btn:hover {
+  background: #ffebee;
+}
+
+/* --- Main Input Wrapper --- */
+.chatinput-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.3rem; /* Thu nhỏ */
+  position: relative;
+}
+
+/* --- Emoji Picker --- */
+.chatinput-emoji-picker-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.chatinput-emoji-picker {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 0.5rem;
+  width: 280px; /* Thu nhỏ */
+  max-height: 300px; /* Thu nhỏ */
+  background: var(--chatinput-bg-white);
+  border-radius: var(--chatinput-radius-md);
+  box-shadow: var(--chatinput-shadow-md);
+  overflow: hidden;
+  z-index: 100;
+  animation: chatinput-slideUp 0.3s ease-out;
+}
+
+@keyframes chatinput-slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.chatinput-emoji-picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem; /* Thu nhỏ */
+  border-bottom: 1px solid var(--chatinput-border);
+}
+
+.chatinput-emoji-picker-header h4 {
+  margin: 0;
+  font-size: 0.8rem; /* Thu nhỏ */
+  font-weight: 600;
+  color: var(--chatinput-text);
+}
+
+.chatinput-close-emoji-btn {
+  padding: 0.2rem; /* Thu nhỏ */
+  background: none;
+  border: none;
+  font-size: 0.9rem; /* Thu nhỏ */
+  color: var(--chatinput-text-gray);
+  cursor: pointer;
+  border-radius: var(--chatinput-radius-sm);
+  transition: all 0.3s;
+}
+
+.chatinput-close-emoji-btn:hover {
+  background: var(--chatinput-bg-light);
+  color: var(--chatinput-text);
+}
+
+.chatinput-emoji-list {
+  padding: 0.5rem; /* Thu nhỏ */
+  max-height: 250px; /* Thu nhỏ */
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0.1rem; /* Thu nhỏ */
+}
+
+.chatinput-emoji-list::-webkit-scrollbar {
+  width: 5px;
+}
+.chatinput-emoji-list::-webkit-scrollbar-thumb {
+  background: var(--chatinput-border);
+  border-radius: 3px;
+}
+
+.chatinput-emoji-item {
+  padding: 0.25rem; /* Thu nhỏ */
+  background: none;
+  border: none;
+  font-size: 1.25rem; /* Thu nhỏ */
+  cursor: pointer;
+  border-radius: var(--chatinput-radius-sm);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chatinput-emoji-item:hover {
+  background: var(--chatinput-bg-light);
+  transform: scale(1.1);
+}
+
+/* --- Textarea --- */
+.chatinput-textarea {
+  flex: 1;
+  padding: 0.5rem 0.75rem; /* Thu nhỏ */
+  border: 1px solid var(--chatinput-border);
+  border-radius: var(--chatinput-radius-md);
+  font-size: 0.85rem; /* Thu nhỏ */
+  font-family: inherit;
+  resize: none;
+  max-height: 100px; /* Thu nhỏ */
+  overflow-y: auto;
+  transition: all 0.3s;
+}
+
+.chatinput-textarea:focus {
+  outline: none;
+  border-color: var(--chatinput-primary);
+  box-shadow: 0 0 0 3px rgba(124, 179, 66, 0.15);
+  background: var(--chatinput-bg-light);
+}
+
+.chatinput-textarea:disabled {
+  background: var(--chatinput-bg-light);
+  color: var(--chatinput-text-gray);
+  cursor: not-allowed;
+}
+
+.chatinput-textarea::-webkit-scrollbar {
+  width: 5px;
+}
+.chatinput-textarea::-webkit-scrollbar-thumb {
+  background: var(--chatinput-border);
+  border-radius: 3px;
+}
+
+/* --- Character Counter --- */
+.chatinput-char-counter {
+  position: absolute;
+  bottom: 0.3rem;
+  right: 140px; /* Điều chỉnh vị trí */
+  font-size: 0.65rem; /* Thu nhỏ */
+  color: var(--chatinput-text-gray);
+  background: var(--chatinput-bg-white);
+  padding: 0.1rem 0.25rem; /* Thu nhỏ */
+  border-radius: var(--chatinput-radius-sm);
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* --- Action Buttons --- */
+.chatinput-action-btn {
+  width: 32px; /* Thu nhỏ */
+  height: 32px; /* Thu nhỏ */
+  border: none;
+  background: var(--chatinput-bg-light);
+  border-radius: 50%;
+  color: var(--chatinput-text);
+  font-size: 0.9rem; /* Thu nhỏ */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+
+.chatinput-action-btn:hover:not(:disabled) {
+  background: var(--chatinput-border);
+  color: var(--chatinput-text);
+  transform: scale(1.05);
+}
+
+.chatinput-action-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.chatinput-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chatinput-emoji-btn:hover:not(:disabled) {
+  color: #f59e0b;
+}
+
+.chatinput-file-btn:hover:not(:disabled) {
+  color: var(--chatinput-info);
+}
+
+.chatinput-voice-btn:hover:not(:disabled) {
+  color: var(--chatinput-danger);
+}
+
+.chatinput-voice-btn.chatinput-recording {
+  background: #ffebee;
+  color: var(--chatinput-danger);
+  animation: chatinput-recordingPulse 1.5s infinite;
+}
+
+/* --- Send Button --- */
+.chatinput-send-btn {
+  background: var(--chatinput-primary);
+  color: var(--chatinput-bg-white);
+  opacity: 0.5; /* Mặc định mờ đi */
+}
+
+.chatinput-send-btn.chatinput-active {
+  opacity: 1; /* Hiển thị rõ khi active */
+}
+
+.chatinput-send-btn.chatinput-active:hover:not(:disabled) {
+  background: var(--chatinput-primary-dark);
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(124, 179, 66, 0.3);
+}
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+  .chatinput-container {
+    padding: 0.5rem 0.5rem;
+  }
+  .chatinput-wrapper {
+    gap: 0.25rem;
+  }
+  .chatinput-action-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 0.85rem;
+  }
+  .chatinput-textarea {
+    font-size: 0.8rem;
+    padding: 0.45rem 0.6rem;
+  }
+  .chatinput-char-counter {
+    right: 110px;
+  }
+  .chatinput-emoji-picker {
+    width: calc(100vw - 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .chatinput-emoji-list {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}

@@ -1,0 +1,214 @@
+/* client/src/pages/LookupResultPage.css */
+/* Giao diện Trang Tra cứu Hồ sơ Y tế (Public) */
+
+:root {
+  /* ... (Giữ nguyên các biến) ... */
+  --lrp-primary: #22c55e;
+  --lrp-primary-dark: #16a34a;
+  --lrp-primary-light: #dcfce7;
+  --lrp-bg: #f0fdf4;
+  --lrp-text-primary: #1f2937;
+  --lrp-text-secondary: #4b5563;
+  --lrp-card-bg: #ffffff;
+  --lrp-border: #e5e7eb;
+  --lrp-input-bg: #f9fafb;
+  --lrp-danger-bg: #fee2e2;
+  --lrp-danger-text: #991b1b;
+  --lrp-radius: 6px;
+  --lrp-font-size-base: 0.875rem;
+  --lrp-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+/* === MAIN LAYOUT === */
+.lookup-result-page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  background-color: var(--lrp-bg);
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+  font-size: var(--lrp-font-size-base);
+}
+
+.lookup-result-page-wrapper {
+  width: 100%;
+  max-width: 450px;
+  padding: 2rem;
+  background-color: var(--lrp-card-bg);
+  border-radius: var(--lrp-radius);
+  box-shadow: var(--lrp-shadow);
+  border: 1px solid var(--lrp-border);
+  text-align: center;
+}
+
+/* === Header === */
+.lookup-result-page-main-icon {
+  font-size: 2.5rem;
+  color: var(--lrp-primary);
+  margin-bottom: 0.5rem;
+}
+.lookup-result-page-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--lrp-text-primary);
+  margin: 0 0 0.5rem 0;
+}
+.lookup-result-page-subtitle {
+  font-size: 0.9rem;
+  color: var(--lrp-text-secondary);
+  margin: 0 0 1.5rem 0;
+  line-height: 1.6;
+}
+
+/* === Form === */
+.lookup-result-page-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+}
+.lookup-result-page-form-group {
+  display: flex;
+  flex-direction: column;
+}
+.lookup-result-page-form-group label {
+  font-size: var(--lrp-font-size-base);
+  font-weight: 600;
+  color: var(--lrp-text-primary);
+  margin-bottom: 0.375rem;
+}
+.lookup-result-page-input-wrapper {
+  position: relative;
+}
+.lookup-result-page-input-icon {
+  position: absolute;
+  top: 50%;
+  left: 0.8rem;
+  transform: translateY(-50%);
+  color: var(--lrp-text-secondary);
+  font-size: 0.8rem;
+}
+.lookup-result-page-input {
+  width: 100%;
+  padding: 0.7rem 0.8rem 0.7rem 2.3rem;
+  font-size: var(--lrp-font-size-base);
+  font-family: 'Inter', sans-serif;
+  color: var(--lrp-text-primary);
+  background-color: var(--lrp-input-bg);
+  border: 1px solid var(--lrp-border);
+  border-radius: var(--lrp-radius);
+  transition: all 0.2s ease;
+}
+.lookup-result-page-input:focus {
+  outline: none;
+  border-color: var(--lrp-primary);
+  box-shadow: 0 0 0 2px var(--lrp-primary-light);
+  background-color: var(--lrp-card-bg);
+}
+
+/* === Lỗi === */
+.lookup-result-page-error-box {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background-color: var(--lrp-danger-bg);
+  color: var(--lrp-danger-text);
+  border-radius: var(--lrp-radius);
+  font-size: var(--lrp-font-size-base);
+  font-weight: 500;
+}
+.lookup-result-page-error-box svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* === Nút Bấm === */
+.lookup-result-page-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.25rem;
+  font-size: var(--lrp-font-size-base);
+  font-weight: 600;
+  background-color: var(--lrp-primary);
+  color: white;
+  border: none;
+  border-radius: var(--lrp-radius);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.lookup-result-page-btn-primary:hover {
+  background-color: var(--lrp-primary-dark);
+}
+.lookup-result-page-btn-primary:disabled {
+  background-color: var(--lrp-border);
+  color: var(--lrp-text-secondary);
+  cursor: not-allowed;
+}
+
+.lookup-result-page-resend-wrapper {
+  text-align: center;
+  font-size: 0.8rem;
+}
+.lookup-result-page-resend-wrapper span {
+  color: var(--lrp-text-secondary);
+  margin-right: 0.5rem;
+}
+.lookup-result-page-btn-resend {
+  background: none;
+  border: none;
+  color: var(--lrp-primary-dark);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem;
+}
+.lookup-result-page-btn-resend:hover {
+  text-decoration: underline;
+}
+.lookup-result-page-btn-resend:disabled {
+  color: var(--lrp-text-secondary);
+  text-decoration: none;
+  cursor: not-allowed;
+}
+
+/* BỔ SUNG: Nút "Quên mã lịch hẹn?" */
+.lookup-result-page-recover-wrapper {
+  text-align: center;
+  border-top: 1px solid var(--lrp-border);
+  padding-top: 1rem;
+  margin-top: 0.5rem; /* Giảm margin so với gap 1rem của form */
+}
+.lookup-result-page-btn-recover {
+  background: none;
+  border: none;
+  color: var(--lrp-text-secondary);
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem;
+}
+.lookup-result-page-btn-recover:hover {
+  color: var(--lrp-text-primary);
+  text-decoration: underline;
+}
+/* KẾT THÚC BỔ SUNG */
+
+
+/* === Spinners === */
+.lookup-result-page-spin-icon {
+  font-size: 0.8rem;
+  animation: lrp-spin 1s linear infinite;
+}
+@keyframes lrp-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

@@ -1,0 +1,460 @@
+/* client/src/pages/ForumManagementPage.css */
+/* Prefix: ForumManagementPage- */
+
+:root {
+  --fmp-primary: #4CAF50;          /* Xanh lá chủ đạo */
+  --fmp-primary-dark: #388E3C;     /* Xanh đậm khi hover */
+  --fmp-primary-light: #E8F5E9;    /* Nền xanh nhạt pastel */
+  --fmp-secondary: #2196F3;        /* Xanh dương cho action phụ */
+  --fmp-danger: #E57373;           /* Đỏ pastel cho xóa/từ chối */
+  --fmp-warning: #FFB74D;          /* Cam pastel cho cảnh báo */
+  --fmp-text-main: #333333;
+  --fmp-text-sub: #666666;
+  --fmp-border: #E0E0E0;
+  --fmp-white: #FFFFFF;
+  --fmp-bg: #F9FAFB;               /* Màu nền tổng thể xám rất nhạt */
+  --fmp-radius: 6px;
+  --fmp-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ==================== LAYOUT CHÍNH ==================== */
+.ForumManagementPage-container {
+  padding: 12px;
+  background: var(--fmp-bg);
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 13px;
+  color: var(--fmp-text-main);
+}
+
+.ForumManagementPage-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ==================== HEADER ==================== */
+.ForumManagementPage-header {
+  background: var(--fmp-white);
+  padding: 10px 16px;
+  border-radius: var(--fmp-radius);
+  border: 1px solid var(--fmp-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ForumManagementPage-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--fmp-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ForumManagementPage-btn-refresh {
+  background: var(--fmp-primary-light);
+  color: var(--fmp-primary-dark);
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  border-radius: var(--fmp-radius);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.ForumManagementPage-btn-refresh:hover {
+  background: var(--fmp-primary);
+  color: var(--fmp-white);
+}
+
+/* ==================== STATS CARDS (Compact) ==================== */
+.ForumManagementPage-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.ForumManagementPage-stat-card {
+  background: var(--fmp-white);
+  padding: 10px;
+  border-radius: var(--fmp-radius);
+  border: 1px solid var(--fmp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.2s;
+}
+
+.ForumManagementPage-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--fmp-primary);
+}
+
+.ForumManagementPage-stat-icon {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+
+.ForumManagementPage-stat-info p { margin: 0; font-size: 11px; color: var(--fmp-text-sub); text-transform: uppercase; }
+.ForumManagementPage-stat-info h3 { margin: 2px 0 0 0; font-size: 18px; color: var(--fmp-text-main); }
+
+/* Màu sắc từng loại card */
+.stat-pending .ForumManagementPage-stat-icon { background: #FFF3E0; color: #F57C00; }
+.stat-approved .ForumManagementPage-stat-icon { background: #E8F5E9; color: #2E7D32; }
+.stat-hidden .ForumManagementPage-stat-icon { background: #ECEFF1; color: #607D8B; }
+.stat-reported .ForumManagementPage-stat-icon { background: #FFEBEE; color: #C62828; }
+
+/* ==================== TABS ==================== */
+.ForumManagementPage-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 4px;
+  background: var(--fmp-white);
+  border-radius: var(--fmp-radius);
+  border: 1px solid var(--fmp-border);
+  overflow-x: auto;
+}
+
+.ForumManagementPage-tab {
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  color: var(--fmp-text-sub);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  white-space: nowrap;
+  display: flex; align-items: center; gap: 6px;
+  transition: all 0.2s;
+}
+
+.ForumManagementPage-tab:hover { background: var(--fmp-bg); color: var(--fmp-primary); }
+.ForumManagementPage-tab.active { background: var(--fmp-primary-light); color: var(--fmp-primary-dark); font-weight: 600; }
+
+/* ==================== TOOLBAR (Search & Filters) ==================== */
+.ForumManagementPage-toolbar {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  background: var(--fmp-white);
+  border-radius: var(--fmp-radius);
+  border: 1px solid var(--fmp-border);
+}
+
+.ForumManagementPage-search-wrapper {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+}
+
+.ForumManagementPage-search-icon {
+  position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+  color: #999; font-size: 12px;
+}
+
+.ForumManagementPage-input {
+  width: 100%;
+  padding: 8px 12px 8px 30px;
+  border: 1px solid var(--fmp-border);
+  border-radius: 4px;
+  font-size: 13px;
+  height: 34px;
+  box-sizing: border-box;
+}
+.ForumManagementPage-input:focus { border-color: var(--fmp-primary); outline: none; }
+
+.ForumManagementPage-select {
+  padding: 0 10px;
+  height: 34px;
+  border: 1px solid var(--fmp-border);
+  border-radius: 4px;
+  font-size: 12px;
+  background: white;
+  min-width: 140px;
+  cursor: pointer;
+}
+
+.ForumManagementPage-view-toggle {
+  display: flex;
+  border: 1px solid var(--fmp-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ForumManagementPage-btn-view {
+  width: 34px; height: 34px;
+  background: white; border: none;
+  color: var(--fmp-text-sub);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.ForumManagementPage-btn-view:hover { background: var(--fmp-bg); }
+.ForumManagementPage-btn-view.active { background: var(--fmp-primary-light); color: var(--fmp-primary); }
+
+/* ==================== LIST VIEW (Cards) ==================== */
+.ForumManagementPage-list-container {
+  display: flex; flex-direction: column; gap: 8px;
+}
+
+.ForumManagementPage-card {
+  background: var(--fmp-white);
+  border: 1px solid var(--fmp-border);
+  border-radius: var(--fmp-radius);
+  overflow: hidden;
+}
+
+.ForumManagementPage-card-header {
+  padding: 10px 12px;
+  cursor: pointer;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  transition: background 0.2s;
+}
+.ForumManagementPage-card-header:hover { background: #FAFAFA; }
+
+.ForumManagementPage-card-title h3 { margin: 0 0 4px 0; font-size: 14px; color: var(--fmp-text-main); font-weight: 600; }
+.ForumManagementPage-card-meta { font-size: 11px; color: var(--fmp-text-sub); display: flex; align-items: center; gap: 6px; }
+
+.ForumManagementPage-card-body {
+  padding: 0 12px 12px 12px;
+  border-top: 1px dashed var(--fmp-border);
+  margin-top: 8px;
+  padding-top: 12px;
+  font-size: 13px;
+}
+
+.ForumManagementPage-card-content { margin-bottom: 12px; line-height: 1.5; color: #444; }
+.ForumManagementPage-img-grid { display: flex; gap: 8px; margin-bottom: 12px; }
+.ForumManagementPage-img-thumb { width: 80px; height: 80px; object-fit: cover; border-radius: 4px; border: 1px solid #eee; }
+
+/* Tags & Badges */
+.ForumManagementPage-badge { padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; }
+.badge-pending { background: #FFF3E0; color: #EF6C00; }
+.badge-approved { background: #E8F5E9; color: #2E7D32; }
+.badge-hidden { background: #ECEFF1; color: #546E7A; }
+.badge-reported { background: #FFEBEE; color: #C62828; }
+
+/* ==================== TABLE VIEW ==================== */
+.ForumManagementPage-table-wrapper {
+  background: var(--fmp-white);
+  border: 1px solid var(--fmp-border);
+  border-radius: var(--fmp-radius);
+  overflow-x: auto;
+}
+
+.ForumManagementPage-table { width: 100%; border-collapse: collapse; min-width: 800px; }
+.ForumManagementPage-table th {
+  background: var(--fmp-primary-light);
+  color: var(--fmp-primary-dark);
+  font-weight: 600;
+  text-align: left;
+  padding: 10px;
+  font-size: 12px;
+  border-bottom: 1px solid #C8E6C9;
+  white-space: nowrap;
+}
+.ForumManagementPage-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--fmp-border);
+  vertical-align: middle;
+}
+.ForumManagementPage-table tr:hover { background: #F9FAFB; }
+
+/* Buttons Action */
+.ForumManagementPage-action-group { display: flex; gap: 6px; }
+
+.ForumManagementPage-btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s;
+}
+
+.ForumManagementPage-btn.btn-primary {
+  background: #4CAF50;
+  color: white;
+  border-color: #4CAF50;
+}
+
+.ForumManagementPage-btn.btn-primary:hover {
+  background: #45a049;
+  border-color: #45a049;
+}
+
+.ForumManagementPage-btn.btn-secondary {
+  background: #f5f5f5;
+  color: #666;
+  border-color: #e0e0e0;
+}
+
+.ForumManagementPage-btn.btn-secondary:hover {
+  background: #e0e0e0;
+  border-color: #bdbdbd;
+}
+
+.ForumManagementPage-btn-icon {
+  width: 26px; height: 26px;
+  border-radius: 4px; border: 1px solid var(--fmp-border);
+  background: white; color: var(--fmp-text-sub);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.2s;
+}
+.ForumManagementPage-btn-icon:hover { border-color: var(--fmp-primary); color: var(--fmp-primary); }
+.btn-approve:hover { background: #E8F5E9; color: #2E7D32; border-color: #2E7D32; }
+.btn-reject:hover { background: #FFEBEE; color: #C62828; border-color: #C62828; }
+
+/* ==================== EXPANDED PANEL (Comments/Answers) ==================== */
+.ForumManagementPage-expanded-section {
+  background: #FAFAFA;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+  border: 1px solid #eee;
+}
+.ForumManagementPage-sub-title { font-size: 12px; font-weight: 600; color: var(--fmp-primary); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+
+.ForumManagementPage-comment-item {
+  background: white;
+  padding: 8px;
+  border-left: 2px solid var(--fmp-border);
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+.ForumManagementPage-comment-header { display: flex; justify-content: space-between; margin-bottom: 4px; color: var(--fmp-text-sub); font-size: 11px; }
+.ForumManagementPage-verified { color: var(--fmp-primary); display: inline-flex; align-items: center; gap: 2px; }
+
+/* ==================== MODAL (Compact & Clean) ==================== */
+.ForumManagementPage-modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+}
+
+.ForumManagementPage-modal {
+  background: white;
+  width: 500px;
+  max-width: 90%;
+  max-height: 90vh;
+  border-radius: 8px;
+  display: flex; flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.ForumManagementPage-modal-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--fmp-border);
+  background: var(--fmp-primary);
+  color: white;
+  display: flex; justify-content: space-between; align-items: center;
+  border-radius: 8px 8px 0 0;
+}
+.ForumManagementPage-modal-header h2 { margin: 0; font-size: 15px; font-weight: 600; }
+.ForumManagementPage-btn-close { background: none; border: none; color: white; cursor: pointer; font-size: 16px; }
+
+.ForumManagementPage-modal-body { padding: 16px; overflow-y: auto; }
+.ForumManagementPage-form-group { margin-bottom: 12px; }
+.ForumManagementPage-label { display: block; margin-bottom: 4px; font-weight: 600; font-size: 12px; color: #444; }
+.ForumManagementPage-hint { font-size: 11px; color: #888; margin-top: 2px; display: block; }
+.ForumManagementPage-textarea { min-height: 80px; resize: vertical; }
+
+.ForumManagementPage-toggle-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px; border: 1px solid var(--fmp-border); border-radius: 4px;
+  margin-bottom: 8px; cursor: pointer;
+}
+.ForumManagementPage-toggle-row:hover { background: #FAFAFA; }
+
+.ForumManagementPage-modal-footer {
+  padding: 12px 16px;
+  border-top: 1px solid var(--fmp-border);
+  display: flex; justify-content: flex-end; gap: 8px;
+  background: #F9FAFB;
+  border-radius: 0 0 8px 8px;
+}
+
+.ForumManagementPage-btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+
+/* Moderator Checkbox */
+.ForumManagementPage-mod-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ForumManagementPage-mod-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px; border: 1px solid var(--fmp-border); border-radius: 4px;
+  cursor: pointer; font-size: 12px;
+}
+.ForumManagementPage-mod-item.selected { border-color: var(--fmp-primary); background: var(--fmp-primary-light); color: var(--fmp-primary-dark); }
+
+/* ==================== CREATE BUTTONS ==================== */
+.ForumManagementPage-btn-create {
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+}
+
+.ForumManagementPage-btn-create:hover {
+  background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.4);
+  transform: translateY(-1px);
+}
+
+.ForumManagementPage-btn-create:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+}
+
+.ForumManagementPage-btn-create svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ForumManagementPage-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+  .ForumManagementPage-stats-grid { grid-template-columns: 1fr 1fr; }
+  .ForumManagementPage-toolbar { flex-direction: column; align-items: stretch; }
+  .ForumManagementPage-search-wrapper { width: 100%; }
+  .ForumManagementPage-mod-grid { grid-template-columns: 1fr; }
+}

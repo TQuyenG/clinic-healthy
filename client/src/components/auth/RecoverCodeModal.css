@@ -1,0 +1,224 @@
+/* client/src/components/auth/RecoverCodeModal.css */
+/* Giao diện Modal Khôi phục Mã Lịch hẹn */
+
+:root {
+  /* Màu chủ đạo (Xanh lá y tế) */
+  --rcm-primary: #22c55e; /* green-500 */
+  --rcm-primary-dark: #16a34a; /* green-600 */
+  --rcm-primary-light: #dcfce7; /* green-100 */
+  --rcm-bg: #f0fdf4; /* green-50 (Màu nền pastel) */
+
+  /* Màu chữ */
+  --rcm-text-primary: #1f2937; /* gray-800 */
+  --rcm-text-secondary: #4b5563; /* gray-600 */
+
+  /* Màu nền & Viền (Theo style thu nhỏ) */
+  --rcm-card-bg: #ffffff;
+  --rcm-border: #e5e7eb; /* gray-200 */
+  --rcm-input-bg: #f9fafb; /* gray-50 */
+  
+  /* Màu Lỗi/Thành công */
+  --rcm-danger-bg: #fee2e2; /* red-100 */
+  --rcm-danger-text: #991b1b; /* red-800 */
+  --rcm-success-bg: #dcfce7; /* green-100 */
+  --rcm-success-text: #065f46; /* green-800 */
+  
+  /* Kích thước (Thu nhỏ) */
+  --rcm-radius: 6px;
+  --rcm-font-size-base: 0.875rem; /* 14px */
+  --rcm-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --rcm-overlay-bg: rgba(16, 22, 19, 0.6); /* Màu overlay tối mờ */
+}
+
+/* === Lớp phủ Overlay === */
+.recover-code-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--rcm-overlay-bg);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: rcm-fadeIn 0.2s ease-out;
+}
+
+/* === Nội dung Modal === */
+.recover-code-modal-content {
+  background-color: var(--rcm-card-bg);
+  border-radius: var(--rcm-radius);
+  box-shadow: var(--rcm-shadow);
+  width: 100%;
+  max-width: 450px; /* Rộng hơn modal mật khẩu 1 chút */
+  overflow: hidden;
+  animation: rcm-slideUp 0.3s ease-out;
+}
+
+/* === Header === */
+.recover-code-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background-color: var(--rcm-bg);
+  border-bottom: 1px solid var(--rcm-primary-light);
+}
+.recover-code-modal-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--rcm-text-primary);
+  margin: 0;
+}
+.recover-code-modal-btn-close {
+  background: none;
+  border: none;
+  color: var(--rcm-text-secondary);
+  font-size: 1.25rem;
+  padding: 0.25rem;
+  cursor: pointer;
+  border-radius: var(--rcm-radius);
+  transition: all 0.2s;
+}
+.recover-code-modal-btn-close:hover {
+  background-color: var(--rcm-border);
+}
+
+/* === Body === */
+.recover-code-modal-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.recover-code-modal-text {
+  font-size: var(--rcm-font-size-base);
+  color: var(--rcm-text-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+.recover-code-modal-form-group {
+  display: flex;
+  flex-direction: column;
+}
+.recover-code-modal-form-group label {
+  font-size: var(--rcm-font-size-base);
+  font-weight: 600;
+  color: var(--rcm-text-primary);
+  margin-bottom: 0.375rem;
+}
+.recover-code-modal-input-wrapper {
+  position: relative;
+}
+.recover-code-modal-input-icon {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
+  color: var(--rcm-text-secondary);
+  font-size: 0.8rem;
+}
+.recover-code-modal-input {
+  width: 100%;
+  padding: 0.7rem 0.75rem 0.7rem 2.25rem; /* Thu nhỏ padding */
+  font-size: var(--rcm-font-size-base);
+  font-family: 'Inter', sans-serif;
+  color: var(--rcm-text-primary);
+  background-color: var(--rcm-card-bg);
+  border: 1px solid var(--rcm-border);
+  border-radius: var(--rcm-radius);
+  transition: all 0.2s ease;
+}
+.recover-code-modal-input:focus {
+  outline: none;
+  border-color: var(--rcm-primary);
+  box-shadow: 0 0 0 2px var(--rcm-primary-light);
+}
+
+/* Thông báo Lỗi/Thành công */
+.recover-code-modal-message {
+  padding: 0.75rem 1rem;
+  border-radius: var(--rcm-radius);
+  font-size: var(--rcm-font-size-base);
+  font-weight: 500;
+  line-height: 1.5;
+}
+.recover-code-modal-message.error {
+  background-color: var(--rcm-danger-bg);
+  color: var(--rcm-danger-text);
+}
+.recover-code-modal-message.success {
+  background-color: var(--rcm-success-bg);
+  color: var(--rcm-success-text);
+}
+
+
+/* === Footer (Actions) === */
+.recover-code-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+  background-color: var(--rcm-input-bg);
+  border-top: 1px solid var(--rcm-border);
+}
+
+/* Nút bấm (Thu nhỏ) */
+.recover-code-modal-btn-primary,
+.recover-code-modal-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  font-size: var(--rcm-font-size-base);
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: var(--rcm-radius);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.recover-code-modal-btn-primary {
+  background-color: var(--rcm-primary);
+  color: white;
+}
+.recover-code-modal-btn-primary:hover {
+  background-color: var(--rcm-primary-dark);
+}
+.recover-code-modal-btn-secondary {
+  background-color: var(--rcm-card-bg);
+  color: var(--rcm-text-secondary);
+  border-color: var(--rcm-border);
+}
+.recover-code-modal-btn-secondary:hover {
+  background-color: var(--rcm-border);
+}
+
+.recover-code-modal-btn-primary:disabled,
+.recover-code-modal-btn-secondary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* === Animations === */
+.recover-code-modal-spin-icon {
+  font-size: 0.8rem;
+  animation: rcm-spin 1s linear infinite;
+}
+@keyframes rcm-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rcm-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes rcm-slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

@@ -1,0 +1,233 @@
+/* client/src/components/OrganizationChart.css */
+
+.org-chart-node {
+  border-radius: 6px;
+  background: white;
+  border: 2px solid;
+  min-width: 140px;
+  max-width: 160px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.org-chart-node:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Node Header - Compact */
+.org-chart-node .node-header {
+  padding: 6px 10px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+}
+
+.org-chart-node .node-icon {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.org-chart-node .node-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Node Body - Compact */
+.org-chart-node .node-body {
+  padding: 8px 10px;
+  text-align: center;
+}
+
+.org-chart-node .node-name {
+  font-size: 12px;
+  font-weight: 400;
+  color: #333;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.org-chart-node .node-code {
+  font-size: 10px;
+  color: #666;
+  font-weight: 400;
+}
+
+.org-chart-node .node-dept-label {
+  font-size: 9px;
+  color: #888;
+  font-weight: 400;
+  font-style: italic;
+  margin-top: 3px;
+  padding-top: 3px;
+  border-top: 1px solid #F0F0F0;
+}
+
+.org-chart-node .node-stat {
+  font-size: 10px;
+  color: #666;
+  margin: 2px 0;
+}
+
+/* Admin Node */
+.org-chart-node.admin-node {
+  min-width: 160px;
+  max-width: 180px;
+  border-color: #FF9800;
+}
+
+/* Department Node */
+.org-chart-node.dept-node {
+  min-width: 150px;
+}
+
+/* Manager Node */
+.org-chart-node.manager-node {
+  min-width: 140px;
+}
+
+/* Staff Node */
+.org-chart-node.staff-node {
+  min-width: 130px;
+  border-color: #9E9E9E;
+}
+
+.staff-node .node-header {
+  background: #9E9E9E;
+}
+
+/* React Flow Custom Styles */
+.react-flow__node {
+  cursor: grab;
+}
+
+.react-flow__node:active {
+  cursor: grabbing;
+}
+
+.react-flow__handle {
+  width: 8px !important;
+  height: 8px !important;
+  background: #4CAF50;
+  border: 2px solid white;
+}
+
+.react-flow__edge {
+  pointer-events: all;
+}
+
+.react-flow__edge-path {
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.react-flow__edge.animated path {
+  stroke-dasharray: 5;
+  animation: dashdraw 0.5s linear infinite;
+}
+
+@keyframes dashdraw {
+  from {
+    stroke-dashoffset: 10;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.react-flow__controls {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.react-flow__controls-button {
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.react-flow__controls-button:hover {
+  background: #F5F5F5;
+}
+
+.react-flow__minimap {
+  border: 2px solid #E0E0E0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation for nodes */
+@keyframes nodeAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.react-flow__node {
+  animation: nodeAppear 0.3s ease-out;
+}
+
+/* Legend Styles */
+.org-chart-legend {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  z-index: 10;
+  background: white;
+  border: 2px solid #E0E0E0;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-width: 180px;
+}
+
+.org-chart-legend .legend-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.org-chart-legend .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+
+.org-chart-legend .legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.org-chart-legend .legend-label {
+  font-size: 11px;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.org-chart-legend .legend-label span {
+  font-weight: 500;
+}

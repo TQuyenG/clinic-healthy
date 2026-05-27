@@ -1,0 +1,754 @@
+/* client/src/pages/ProfilePage.css */
+/* Giao diện Trang cá nhân - Y tế thân thiện, phẳng, sang trọng */
+
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --profile-page-primary:       #16a34a;
+  --profile-page-primary-dark:  #15803d;
+  --profile-page-primary-light: #bbf7d0;
+  --profile-page-accent:        #059669;
+  --profile-page-accent-soft:   #dcfce7;
+
+  --profile-page-white:         #ffffff;
+  --profile-page-bg:            #f0fdf4;
+  --profile-page-gray-50:       #f9fafb;
+  --profile-page-gray-100:      #f3f4f6;
+  --profile-page-border:        #d1fae5;
+  --profile-page-border-gray:   #e5e7eb;
+
+  --profile-page-text-dark:     #14532d;
+  --profile-page-text-body:     #1f2937;
+  --profile-page-text-secondary:#374151;
+  --profile-page-text-light:    #6b7280;
+  --profile-page-text-muted:    #9ca3af;
+
+  --profile-page-danger:        #ef4444;
+  --profile-page-blue:          #3b82f6;
+  --profile-page-blue-soft:     #eff6ff;
+
+  --profile-page-shadow-xs:     0 1px 2px rgb(0 0 0 / 0.05);
+  --profile-page-shadow-sm:     0 1px 4px rgb(0 0 0 / 0.07);
+  --profile-page-shadow:        0 2px 8px rgb(22 163 74 / 0.1), 0 1px 3px rgb(0 0 0 / 0.06);
+  --profile-page-shadow-hover:  0 4px 16px rgb(22 163 74 / 0.16), 0 2px 6px rgb(0 0 0 / 0.06);
+
+  --profile-page-radius-sm:     5px;
+  --profile-page-radius:        8px;
+  --profile-page-radius-lg:     12px;
+
+  --profile-page-fs-xs:         0.7rem;
+  --profile-page-fs-sm:         0.78rem;
+  --profile-page-fs-base:       0.84rem;
+  --profile-page-fs-md:         0.92rem;
+  --profile-page-fs-lg:         1.05rem;
+}
+
+/* ===== CONTAINER ===== */
+.profile-page-container {
+  padding: 1rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: linear-gradient(155deg, #f0fdf4 0%, #ecfdf5 55%, #f8fafc 100%);
+  min-height: 100vh;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: var(--profile-page-fs-base);
+  color: var(--profile-page-text-secondary);
+}
+
+/* ===== LOADING ===== */
+.profile-page-loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 0.75rem;
+  background: var(--profile-page-bg);
+  font-size: var(--profile-page-fs-md);
+  font-weight: 600;
+  color: var(--profile-page-primary);
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.profile-page-spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid var(--profile-page-primary-light);
+  border-top-color: var(--profile-page-primary);
+  border-radius: 50%;
+  animation: profile-page-spin 0.85s linear infinite;
+}
+
+@keyframes profile-page-spin { to { transform: rotate(360deg); } }
+
+/* ===== HEADER ===== */
+.profile-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.85rem;
+  padding: 0.7rem 1rem;
+  background: var(--profile-page-white);
+  border-radius: var(--profile-page-radius-lg);
+  border: 1px solid var(--profile-page-border);
+  box-shadow: var(--profile-page-shadow-xs);
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-page-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #16a34a, #059669, #34d399);
+}
+
+.profile-page-btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--profile-page-gray-100);
+  color: var(--profile-page-text-light);
+  border: 1px solid var(--profile-page-border-gray);
+  padding: 0.38rem 0.75rem;
+  border-radius: var(--profile-page-radius-sm);
+  cursor: pointer;
+  font-size: var(--profile-page-fs-sm);
+  font-weight: 600;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  transition: all 0.18s;
+}
+
+.profile-page-btn-back:hover {
+  background: var(--profile-page-accent-soft);
+  color: var(--profile-page-primary-dark);
+  border-color: var(--profile-page-primary-light);
+}
+
+.profile-page-title {
+  margin: 0;
+  color: var(--profile-page-text-dark);
+  font-size: var(--profile-page-fs-lg);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.profile-page-title svg {
+  color: var(--profile-page-primary);
+  font-size: 0.95rem;
+}
+
+/* ===== CONTENT LAYOUT ===== */
+.profile-page-content {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 0.85rem;
+  margin-bottom: 0.85rem;
+  align-items: start;
+}
+
+.profile-page-main-forms {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+/* ===== AVATAR CARD ===== */
+.profile-page-avatar-card {
+  background: var(--profile-page-white);
+  padding: 1rem;
+  border-radius: var(--profile-page-radius-lg);
+  border: 1px solid var(--profile-page-border);
+  box-shadow: var(--profile-page-shadow-sm);
+  text-align: center;
+  height: fit-content;
+}
+
+.profile-page-avatar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--profile-page-border);
+}
+
+.profile-page-avatar {
+  width: 90px;
+  height: 90px;
+  background: var(--profile-page-accent-soft);
+  border: 2px solid var(--profile-page-primary-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: var(--profile-page-shadow-sm);
+}
+
+.profile-page-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-page-avatar-placeholder {
+  color: var(--profile-page-primary);
+  font-size: 2rem;
+}
+
+.profile-page-btn-change-avatar,
+.profile-page-btn-upload,
+.profile-page-btn-remove-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--profile-page-radius-sm);
+  font-size: var(--profile-page-fs-xs);
+  font-weight: 600;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  cursor: pointer;
+  transition: all 0.18s;
+  border: none;
+}
+
+.profile-page-btn-change-avatar {
+  background: linear-gradient(135deg, var(--profile-page-primary), var(--profile-page-accent));
+  color: white;
+  box-shadow: 0 2px 6px rgb(22 163 74 / 0.28);
+}
+
+.profile-page-btn-change-avatar:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.profile-page-btn-upload {
+  background: var(--profile-page-primary);
+  color: white;
+}
+
+.profile-page-btn-upload:hover:not(:disabled) { background: var(--profile-page-primary-dark); }
+.profile-page-btn-upload:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.profile-page-btn-remove-avatar {
+  background: #fff1f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.profile-page-btn-remove-avatar:hover { background: #fee2e2; }
+
+/* ===== USER INFO BLOCK ===== */
+.profile-page-user-basic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.profile-page-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: var(--profile-page-fs-xs);
+  font-weight: 600;
+  color: var(--profile-page-primary);
+  background: var(--profile-page-accent-soft);
+  padding: 0.15rem 0.5rem;
+  border-radius: 20px;
+  border: 1px solid var(--profile-page-primary-light);
+}
+
+.profile-page-not-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: var(--profile-page-fs-xs);
+  font-weight: 600;
+  color: var(--profile-page-text-muted);
+  background: var(--profile-page-gray-100);
+  padding: 0.15rem 0.5rem;
+  border-radius: 20px;
+  border: 1px solid var(--profile-page-border-gray);
+}
+
+.profile-page-role-badge {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  border-radius: 20px;
+  font-size: var(--profile-page-fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: white;
+  font-family: monospace;
+}
+
+.profile-page-role-doctor  { background: var(--profile-page-primary); }
+.profile-page-role-patient { background: #64748b; }
+.profile-page-role-staff   { background: #3b82f6; }
+.profile-page-role-admin   { background: #ef4444; }
+
+.profile-page-user-basic h2 {
+  font-size: var(--profile-page-fs-md);
+  font-weight: 700;
+  color: var(--profile-page-text-body);
+  margin: 0.1rem 0 0;
+}
+
+.profile-page-user-email {
+  font-size: var(--profile-page-fs-xs);
+  color: var(--profile-page-text-muted);
+}
+
+.profile-page-btn-view-medical-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 100%;
+  padding: 0.48rem 0.75rem;
+  background: linear-gradient(135deg, var(--profile-page-primary), var(--profile-page-accent));
+  color: white;
+  border: none;
+  border-radius: var(--profile-page-radius-sm);
+  font-size: var(--profile-page-fs-xs);
+  font-weight: 700;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  cursor: pointer;
+  transition: all 0.18s;
+  margin-top: 0.4rem;
+  box-shadow: 0 2px 6px rgb(22 163 74 / 0.28);
+}
+
+.profile-page-btn-view-medical-avatar:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgb(22 163 74 / 0.35);
+}
+
+/* ===== FORM CARDS ===== */
+.profile-page-form-card {
+  background: var(--profile-page-white);
+  border-radius: var(--profile-page-radius);
+  border: 1px solid var(--profile-page-border-gray);
+  box-shadow: var(--profile-page-shadow-xs);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.profile-page-form-card:hover {
+  box-shadow: var(--profile-page-shadow);
+  border-color: var(--profile-page-border);
+}
+
+.profile-page-card-header {
+  padding: 0.55rem 0.9rem;
+  background: linear-gradient(90deg, var(--profile-page-primary), var(--profile-page-accent));
+}
+
+.profile-page-card-header h2 {
+  margin: 0;
+  font-size: var(--profile-page-fs-sm);
+  font-weight: 700;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.profile-page-card-header h2 svg { font-size: 0.8rem; }
+
+.profile-page-card-header-password {
+  background: linear-gradient(90deg, #0369a1, #0284c7);
+}
+
+.profile-page-card-header-doctor {
+  background: linear-gradient(90deg, #14532d, #15803d);
+}
+
+.profile-page-card-header-staff {
+  background: linear-gradient(90deg, #1d4ed8, #2563eb);
+}
+
+/* ===== FORMS ===== */
+.profile-page-form {
+  padding: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.profile-page-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+.profile-page-form-group {
+  margin-bottom: 0.6rem;
+}
+
+.profile-page-form-label {
+  font-size: var(--profile-page-fs-xs);
+  font-weight: 600;
+  color: var(--profile-page-text-secondary);
+  margin-bottom: 0.28rem;
+  display: block;
+}
+
+.profile-page-form-input,
+.profile-page-form-select,
+.profile-page-form-textarea {
+  width: 100%;
+  padding: 0.42rem 0.65rem;
+  border: 1px solid var(--profile-page-border-gray);
+  border-radius: var(--profile-page-radius-sm);
+  font-size: var(--profile-page-fs-sm);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: var(--profile-page-text-body);
+  background: var(--profile-page-gray-50);
+  box-sizing: border-box;
+  transition: border-color 0.18s, box-shadow 0.18s, background 0.15s;
+  outline: none;
+}
+
+.profile-page-form-input:focus,
+.profile-page-form-select:focus,
+.profile-page-form-textarea:focus {
+  border-color: var(--profile-page-primary);
+  background: var(--profile-page-white);
+  box-shadow: 0 0 0 2.5px rgb(22 163 74 / 0.13);
+}
+
+.profile-page-form-textarea {
+  resize: vertical;
+  min-height: 60px;
+  line-height: 1.5;
+}
+
+.profile-page-form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%236b7280' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.6rem center;
+  padding-right: 1.8rem;
+}
+
+.profile-page-btn-submit {
+  width: 100%;
+  padding: 0.5rem;
+  background: linear-gradient(135deg, var(--profile-page-primary), var(--profile-page-accent));
+  color: white;
+  border: none;
+  border-radius: var(--profile-page-radius-sm);
+  font-weight: 700;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  font-size: var(--profile-page-fs-sm);
+  transition: opacity 0.18s, transform 0.15s;
+  box-shadow: 0 2px 6px rgb(22 163 74 / 0.28);
+  margin-top: 0.25rem;
+}
+
+.profile-page-btn-submit:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+/* ===== DOCTOR SECTION ===== */
+.profile-page-doctor-container {
+  grid-column: 1 / -1;
+  margin-top: 0.5rem;
+}
+
+.profile-page-doctor-section {
+  margin-bottom: 0.85rem;
+  padding: 0.85rem;
+  background: var(--profile-page-gray-50);
+  border-radius: var(--profile-page-radius);
+  border: 1px solid var(--profile-page-border-gray);
+}
+
+.profile-page-section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--profile-page-border);
+}
+
+.profile-page-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  color: var(--profile-page-text-dark);
+  font-size: var(--profile-page-fs-sm);
+  font-weight: 700;
+}
+
+.profile-page-section-title svg {
+  color: var(--profile-page-primary);
+  font-size: 0.8rem;
+}
+
+.profile-page-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.65rem;
+  width: 100%;
+}
+
+.profile-page-col-full { grid-column: 1 / -1; }
+
+.profile-page-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== ITEM CARDS ===== */
+.profile-page-item-card {
+  background: var(--profile-page-white);
+  padding: 0.55rem 0.65rem;
+  border-radius: var(--profile-page-radius-sm);
+  border: 1px solid var(--profile-page-border-gray);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.4rem;
+  box-shadow: var(--profile-page-shadow-xs);
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+.profile-page-item-card:hover {
+  border-color: var(--profile-page-primary-light);
+  box-shadow: var(--profile-page-shadow-sm);
+}
+
+.profile-page-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-size: var(--profile-page-fs-xs);
+  color: var(--profile-page-text-secondary);
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-page-item-content strong {
+  font-weight: 700;
+  color: var(--profile-page-text-body);
+  font-size: var(--profile-page-fs-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-page-item-content span {
+  font-size: 0.68rem;
+  color: var(--profile-page-text-light);
+}
+
+.profile-page-item-content small {
+  font-size: 0.65rem;
+  color: var(--profile-page-text-muted);
+}
+
+.profile-page-item-actions {
+  display: flex;
+  gap: 0.2rem;
+  flex-shrink: 0;
+}
+
+/* ===== MINI BUTTONS ===== */
+.profile-page-btn-add-mini {
+  padding: 0.22rem 0.55rem;
+  font-size: var(--profile-page-fs-xs);
+  background: var(--profile-page-white);
+  border: 1px solid var(--profile-page-primary);
+  color: var(--profile-page-primary);
+  border-radius: var(--profile-page-radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22rem;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-weight: 600;
+  transition: all 0.18s;
+}
+
+.profile-page-btn-add-mini:hover {
+  background: var(--profile-page-primary);
+  color: white;
+}
+
+.profile-page-btn-icon-edit,
+.profile-page-btn-icon-delete {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.65rem;
+  transition: all 0.18s;
+}
+
+.profile-page-btn-icon-edit {
+  background: var(--profile-page-blue-soft);
+  color: var(--profile-page-blue);
+}
+
+.profile-page-btn-icon-edit:hover { background: #dbeafe; }
+
+.profile-page-btn-icon-delete {
+  background: #fff1f2;
+  color: var(--profile-page-danger);
+}
+
+.profile-page-btn-icon-delete:hover { background: #fee2e2; }
+
+.profile-page-text-link {
+  color: var(--profile-page-primary);
+  font-size: 0.65rem;
+  text-decoration: none;
+}
+
+.profile-page-text-link:hover {
+  text-decoration: underline;
+}
+
+/* ===== ADD FORM ===== */
+.profile-page-add-form {
+  background: var(--profile-page-white);
+  padding: 0.7rem;
+  border-radius: var(--profile-page-radius-sm);
+  border: 1px dashed var(--profile-page-primary-light);
+  margin-top: 0.4rem;
+}
+
+.profile-page-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+}
+
+.profile-page-btn-save-mini {
+  padding: 0.32rem 0.75rem;
+  background: linear-gradient(135deg, var(--profile-page-primary), var(--profile-page-accent));
+  color: white;
+  border: none;
+  border-radius: var(--profile-page-radius-sm);
+  font-size: var(--profile-page-fs-xs);
+  font-weight: 700;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  box-shadow: 0 1px 4px rgb(22 163 74 / 0.25);
+}
+
+.profile-page-btn-cancel-mini {
+  padding: 0.32rem 0.75rem;
+  background: var(--profile-page-gray-100);
+  color: var(--profile-page-text-light);
+  border: 1px solid var(--profile-page-border-gray);
+  border-radius: var(--profile-page-radius-sm);
+  font-size: var(--profile-page-fs-xs);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.profile-page-btn-cancel-mini:hover {
+  background: #fee2e2;
+  color: var(--profile-page-danger);
+  border-color: #fecaca;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .profile-page-content {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-page-avatar-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+  }
+
+  .profile-page-avatar-wrapper {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+    border-right: 1px solid var(--profile-page-border);
+    padding-right: 1rem;
+  }
+
+  .profile-page-user-basic {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 900px) {
+  .profile-page-main-forms {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-page-container { padding: 0.75rem; }
+
+  .profile-page-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .profile-page-avatar-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-page-avatar-wrapper {
+    border-right: none;
+    padding-right: 0;
+    border-bottom: 1px solid var(--profile-page-border);
+    padding-bottom: 0.75rem;
+  }
+
+  .profile-page-user-basic { align-items: center; }
+
+  .profile-page-form-row { grid-template-columns: 1fr; }
+
+  .profile-page-items-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .profile-page-container { padding: 0.5rem; }
+  .profile-page-avatar { width: 80px; height: 80px; }
+  .profile-page-grid { grid-template-columns: 1fr; }
+}

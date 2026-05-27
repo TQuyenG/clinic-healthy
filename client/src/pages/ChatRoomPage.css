@@ -1,0 +1,1109 @@
+/* client/src/pages/ChatRoomPage.css */
+
+/* ===== VARIABLES (THEO CHỦ ĐỀ Y TẾ) ===== */
+:root {
+  --chatroompage-primary: #7cb342;
+  --chatroompage-primary-light: #aed581;
+  --chatroompage-primary-dark: #689f38;
+  --chatroompage-secondary: #4db6ac;
+  --chatroompage-bg-main: #f1f8e9; /* Màu nền xanh lá pastel nhạt */
+  --chatroompage-bg-light: #f9fbe7; /* Màu nền chat nhẹ hơn */
+  --chatroompage-bg-content: #ffffff; /* Màu nền trắng cho header, panel */
+  --chatroompage-text-main: #33691e;
+  --chatroompage-text-light: #558b2f;
+  --chatroompage-text-gray: #757575;
+  --chatroompage-border: #c5e1a5;
+  --chatroompage-danger: #e57373;
+  --chatroompage-warning: #ffb74d;
+  --chatroompage-success: #81c784;
+  --chatroompage-info: #64b5f6;
+  --chatroompage-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --chatroompage-shadow-md: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --chatroompage-shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --chatroompage-radius-sm: 4px;
+  --chatroompage-radius-md: 8px;
+  --chatroompage-radius-lg: 12px;
+}
+
+/* ===== MAIN CONTAINER ===== */
+.chatroompage-container {
+  display: flex;
+  flex-direction: column;
+  /* height: 100vh; */ /* Xóa hoặc bình luận dòng này */
+  height: 100%; /* <-- THAY THẾ BẰNG DÒNG NÀY */
+  /* Chúng ta cũng nên đặt một chiều cao tối thiểu phòng trường hợp layout cha không rõ ràng */
+  min-height: 600px; 
+  background: var(--chatroompage-bg-main);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px; 
+}
+
+/* ===== HEADER ===== */
+.chatroompage-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 1rem; /* Thu nhỏ padding */
+  background: var(--chatroompage-bg-content);
+  border-bottom: 1px solid var(--chatroompage-border);
+  box-shadow: var(--chatroompage-shadow-sm);
+  z-index: 100;
+}
+
+.chatroompage-header-back-button {
+  width: 32px; /* Thu nhỏ button */
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--chatroompage-bg-main);
+  border: 1px solid var(--chatroompage-border);
+  border-radius: var(--chatroompage-radius-md);
+  font-size: 0.9rem;
+  color: var(--chatroompage-text-main);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.chatroompage-header-back-button:hover {
+  background: var(--chatroompage-primary-light);
+  border-color: var(--chatroompage-primary);
+  color: var(--chatroompage-bg-content);
+}
+
+.chatroompage-header-user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex: 1;
+}
+
+.chatroompage-header-avatar {
+  width: 36px; /* Thu nhỏ avatar */
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--chatroompage-primary);
+}
+
+.chatroompage-header-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.chatroompage-header-name {
+  margin: 0;
+  font-size: 0.85rem; /* Thu nhỏ font */
+  font-weight: 600;
+  color: var(--chatroompage-text-main);
+  line-height: 1.3;
+}
+
+.chatroompage-header-status {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.7rem; /* Thu nhỏ font */
+  color: var(--chatroompage-text-gray);
+}
+
+.chatroompage-header-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--chatroompage-text-gray);
+}
+
+.chatroompage-header-status-dot.chatroompage-header-status-online {
+  background: var(--chatroompage-success);
+  box-shadow: 0 0 0 2px rgba(129, 199, 132, 0.2);
+  animation: chatroompage-pulse 2s infinite;
+}
+
+.chatroompage-header-typing-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--chatroompage-primary);
+  animation: chatroompage-pulse 1.5s infinite;
+}
+
+@keyframes chatroompage-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ===== HEADER ACTIONS ===== */
+.chatroompage-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem; /* Giảm gap */
+}
+
+.chatroompage-header-timer {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem; /* Thu nhỏ padding */
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  border-radius: var(--chatroompage-radius-md);
+  font-weight: 600;
+  font-size: 0.75rem; /* Thu nhỏ font */
+  color: var(--chatroompage-text-main);
+}
+
+.chatroompage-header-timer i {
+  font-size: 0.8rem;
+}
+
+.chatroompage-header-timer.chatroompage-header-timer-warning {
+  background: linear-gradient(135deg, #ffebee, #ffcdd2);
+  color: #c62828;
+  animation: chatroompage-timer-pulse 1s infinite;
+}
+
+@keyframes chatroompage-timer-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+.chatroompage-header-info-button,
+.chatroompage-header-report-button {
+  width: 32px; /* Thu nhỏ button */
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--chatroompage-bg-main);
+  border: 1px solid var(--chatroompage-border);
+  border-radius: var(--chatroompage-radius-md);
+  font-size: 0.85rem;
+  color: var(--chatroompage-text-main);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.chatroompage-header-info-button:hover {
+  background: var(--chatroompage-info);
+  border-color: #42a5f5;
+  color: var(--chatroompage-bg-content);
+}
+
+.chatroompage-header-report-button {
+  background: #fff3e0;
+  border-color: #ffe0b2;
+  color: #e65100;
+}
+
+.chatroompage-header-report-button:hover {
+  background: var(--chatroompage-warning);
+  border-color: #ff9800;
+  color: var(--chatroompage-bg-content);
+}
+
+.chatroompage-header-end-button {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.75rem; /* Thu nhỏ padding */
+  background: linear-gradient(135deg, var(--chatroompage-primary), var(--chatroompage-primary-dark));
+  border: none;
+  border-radius: var(--chatroompage-radius-md);
+  color: var(--chatroompage-bg-content);
+  font-weight: 600;
+  font-size: 0.75rem; /* Thu nhỏ font */
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: var(--chatroompage-shadow-sm);
+}
+
+.chatroompage-header-end-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--chatroompage-shadow-md);
+}
+
+.chatroompage-header-end-button i {
+  font-size: 0.8rem;
+}
+
+/* ===== MAIN CONTENT ===== */
+.chatroompage-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  background: var(--chatroompage-bg-light);
+}
+
+/* ===== MESSAGES AREA ===== */
+.chatroompage-messages-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--chatroompage-bg-light);
+  transition: all 0.3s ease;
+}
+
+.chatroompage-messages-area.chatroompage-messages-area-with-panel {
+  max-width: calc(100% - 300px); /* Thu nhỏ panel */
+}
+
+.chatroompage-messages-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.85rem; /* Thu nhỏ padding */
+  scroll-behavior: smooth;
+}
+
+.chatroompage-messages-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chatroompage-messages-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chatroompage-messages-list::-webkit-scrollbar-thumb {
+  background: var(--chatroompage-border);
+  border-radius: 3px;
+}
+
+/* ===== EMPTY STATE ===== */
+.chatroompage-messages-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--chatroompage-text-gray);
+  text-align: center;
+  padding: 2rem;
+}
+
+.chatroompage-messages-empty-icon {
+  font-size: 2.5rem; /* Thu nhỏ icon */
+  margin-bottom: 0.75rem;
+  opacity: 0.3;
+  color: var(--chatroompage-primary-light);
+}
+
+.chatroompage-messages-empty-title {
+  margin: 0.4rem 0;
+  font-size: 0.9rem; /* Thu nhỏ font */
+  font-weight: 600;
+  color: var(--chatroompage-text-light);
+}
+
+.chatroompage-messages-empty-subtitle {
+  font-size: 0.75rem; /* Thu nhỏ font */
+  opacity: 0.7;
+  margin: 0;
+}
+
+/* ===== TYPING INDICATOR ===== */
+.chatroompage-typing-indicator {
+  padding: 0.5rem 1rem;
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.chatroompage-typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--chatroompage-primary);
+  animation: chatroompage-typing 1.4s infinite;
+}
+
+.chatroompage-typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.chatroompage-typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes chatroompage-typing {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+  30% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* ===== INFO PANEL ===== */
+.chatroompage-info-panel {
+  width: 300px; /* Thu nhỏ panel */
+  background: var(--chatroompage-bg-content);
+  border-left: 1px solid var(--chatroompage-border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.chatroompage-info-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem; /* Thu nhỏ padding */
+  border-bottom: 1px solid var(--chatroompage-border);
+  background: linear-gradient(135deg, var(--chatroompage-bg-main), var(--chatroompage-bg-light));
+}
+
+.chatroompage-info-panel-title {
+  margin: 0;
+  font-size: 0.85rem; /* Thu nhỏ font */
+  font-weight: 600;
+  color: var(--chatroompage-text-main);
+}
+
+.chatroompage-info-panel-close {
+  width: 26px; /* Thu nhỏ button */
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  font-size: 0.9rem;
+  color: var(--chatroompage-text-gray);
+  cursor: pointer;
+  border-radius: var(--chatroompage-radius-sm);
+  transition: all 0.25s ease;
+}
+
+.chatroompage-info-panel-close:hover {
+  background: var(--chatroompage-danger);
+  color: var(--chatroompage-bg-content);
+}
+
+.chatroompage-info-panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.85rem; /* Thu nhỏ padding */
+}
+
+.chatroompage-info-panel-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chatroompage-info-panel-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chatroompage-info-panel-content::-webkit-scrollbar-thumb {
+  background: var(--chatroompage-border);
+  border-radius: 3px;
+}
+
+/* ===== INFO SECTIONS ===== */
+.chatroompage-info-section {
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--chatroompage-border);
+}
+
+.chatroompage-info-section:last-child {
+  border-bottom: none;
+}
+
+.chatroompage-info-section-title {
+  margin: 0 0 0.6rem 0;
+  font-size: 0.75rem; /* Thu nhỏ font */
+  font-weight: 700;
+  color: var(--chatroompage-text-main);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.chatroompage-info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem; /* Thu nhỏ font */
+  line-height: 1.4;
+}
+
+.chatroompage-info-label {
+  color: var(--chatroompage-text-gray);
+  font-weight: 500;
+  flex-shrink: 0;
+  margin-right: 0.75rem;
+}
+
+.chatroompage-info-value {
+  color: var(--chatroompage-text-main);
+  text-align: right;
+  font-weight: 500;
+}
+
+.chatroompage-info-item.chatroompage-info-item-total {
+  padding-top: 0.6rem;
+  border-top: 2px solid var(--chatroompage-primary-light);
+  font-weight: 700;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.chatroompage-info-price {
+  color: var(--chatroompage-primary) !important;
+  font-weight: 600;
+}
+
+.chatroompage-info-price.chatroompage-info-price-total {
+  font-size: 0.9rem; /* Thu nhỏ font */
+  font-weight: 700;
+}
+
+.chatroompage-info-medical-text {
+  margin: 0;
+  padding: 0.65rem; /* Thu nhỏ padding */
+  background: var(--chatroompage-bg-light);
+  border-left: 3px solid var(--chatroompage-primary);
+  border-radius: var(--chatroompage-radius-sm);
+  font-size: 0.75rem; /* Thu nhỏ font */
+  line-height: 1.5;
+  color: var(--chatroompage-text-light);
+  white-space: pre-wrap; /* Hiển thị xuống dòng */
+}
+
+/* ===== BADGES ===== */
+.chatroompage-info-badge {
+  padding: 0.2rem 0.5rem; /* Thu nhỏ padding */
+  border-radius: var(--chatroompage-radius-sm);
+  font-size: 0.65rem; /* Thu nhỏ font */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  display: inline-block;
+  border: 1px solid;
+}
+
+.chatroompage-info-badge.chatroompage-info-badge-type {
+  background: #e1f5fe;
+  color: #0277bd;
+  border-color: #b3e5fc;
+}
+
+.chatroompage-info-badge.chatroompage-info-badge-pending {
+  background: #fff9c4;
+  color: #f57f17;
+  border-color: #fff176;
+}
+
+.chatroompage-info-badge.chatroompage-info-badge-confirmed {
+  background: #e1f5fe;
+  color: #01579b;
+  border-color: #b3e5fc;
+}
+
+.chatroompage-info-badge.chatroompage-info-badge-in_progress {
+  background: #c8e6c9;
+  color: #2e7d32;
+  border-color: #a5d6a7;
+}
+
+.chatroompage-info-badge.chatroompage-info-badge-completed {
+  background: #e0e0e0;
+  color: #424242;
+  border-color: #bdbdbd;
+}
+
+.chatroompage-info-badge.chatroompage-info-badge-cancelled {
+  background: #ffcdd2;
+  color: #c62828;
+  border-color: #ef9a9a;
+}
+
+.chatroompage-info-badge.chatroompage-info-badge-payment-paid {
+  background: #c8e6c9;
+  color: #1b5e20;
+  border-color: #a5d6a7;
+}
+
+.chatroompage-info-badge.chatroompage-info-badge-payment-pending {
+  background: #fff9c4;
+  color: #f57f17;
+  border-color: #fff176;
+}
+
+.chatroompage-info-badge.chatroompage-info-badge-payment-refunded {
+  background: #ffcdd2;
+  color: #b71c1c;
+  border-color: #ef9a9a;
+}
+
+/* ===== INFO ACTIONS ===== */
+.chatroompage-info-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.chatroompage-info-action-button {
+  padding: 0.5rem 0.85rem; /* Thu nhỏ padding */
+  border: none;
+  border-radius: var(--chatroompage-radius-md);
+  font-weight: 600;
+  font-size: 0.75rem; /* Thu nhỏ font */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: all 0.25s ease;
+}
+
+.chatroompage-info-action-button i {
+  font-size: 0.8rem;
+}
+
+.chatroompage-info-action-button.chatroompage-info-action-view {
+  background: var(--chatroompage-bg-main);
+  color: var(--chatroompage-text-main);
+  border: 1px solid var(--chatroompage-border);
+}
+
+.chatroompage-info-action-button.chatroompage-info-action-view:hover {
+  background: var(--chatroompage-info);
+  color: var(--chatroompage-bg-content);
+  border-color: #42a5f5;
+}
+
+.chatroompage-info-action-button.chatroompage-info-action-cancel {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+.chatroompage-info-action-button.chatroompage-info-action-cancel:hover {
+  background: var(--chatroompage-danger);
+  color: var(--chatroompage-bg-content);
+  border-color: var(--chatroompage-danger);
+}
+
+/* ===== MODALS ===== */
+.chatroompage-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(51, 105, 30, 0.4); /* Overlay màu xanh lá */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+  animation: chatroompage-fadeIn 0.25s ease;
+}
+
+@keyframes chatroompage-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.chatroompage-modal-content {
+  background: var(--chatroompage-bg-content);
+  border-radius: var(--chatroompage-radius-lg);
+  width: 90%;
+  max-width: 500px; /* Thu nhỏ modal */
+  max-height: 90vh; /* Tăng max-height để vừa form */
+  overflow: hidden;
+  box-shadow: var(--chatroompage-shadow-lg);
+  animation: chatroompage-slideUp 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes chatroompage-slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.chatroompage-modal-content.chatroompage-modal-end {
+  max-width: 550px; /* Modal kết thúc to hơn 1 chút */
+}
+
+.chatroompage-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 1.25rem; /* Thu nhỏ padding */
+  border-bottom: 1px solid var(--chatroompage-border);
+  background: linear-gradient(135deg, var(--chatroompage-bg-main), var(--chatroompage-bg-light));
+  flex-shrink: 0;
+}
+
+.chatroompage-modal-title {
+  margin: 0;
+  font-size: 0.95rem; /* Thu nhỏ font */
+  font-weight: 600;
+  color: var(--chatroompage-text-main);
+}
+
+.chatroompage-modal-close {
+  width: 28px; /* Thu nhỏ button */
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  color: var(--chatroompage-text-gray);
+  cursor: pointer;
+  border-radius: var(--chatroompage-radius-sm);
+  transition: all 0.25s ease;
+}
+
+.chatroompage-modal-close:hover {
+  background: var(--chatroompage-danger);
+  color: var(--chatroompage-bg-content);
+}
+
+.chatroompage-modal-form {
+  padding: 1.25rem;
+  overflow-y: auto; /* Chỉ form scroll, header/footer cố định */
+}
+
+.chatroompage-modal-form::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chatroompage-modal-form::-webkit-scrollbar-thumb {
+  background: var(--chatroompage-border);
+  border-radius: 3px;
+}
+
+.chatroompage-modal-form-group {
+  margin-bottom: 0.85rem; /* Giảm margin */
+}
+
+.chatroompage-modal-label {
+  display: block;
+  margin-bottom: 0.35rem; /* Giảm margin */
+  font-weight: 600;
+  color: var(--chatroompage-text-main);
+  font-size: 0.75rem; /* Thu nhỏ font */
+}
+
+.chatroompage-modal-required {
+  color: var(--chatroompage-danger);
+  margin-left: 2px;
+}
+
+.chatroompage-modal-input,
+.chatroompage-modal-textarea,
+.chatroompage-modal-select {
+  width: 100%;
+  padding: 0.55rem 0.7rem; /* Thu nhỏ padding */
+  border: 1px solid var(--chatroompage-border);
+  border-radius: var(--chatroompage-radius-md);
+  font-size: 0.8rem; /* Thu nhỏ font */
+  font-family: inherit;
+  transition: all 0.25s ease;
+  background: var(--chatroompage-bg-content);
+  color: var(--chatroompage-text-main);
+}
+
+.chatroompage-modal-input:focus,
+.chatroompage-modal-textarea:focus,
+.chatroompage-modal-select:focus {
+  outline: none;
+  border-color: var(--chatroompage-primary);
+  box-shadow: 0 0 0 3px rgba(124, 179, 66, 0.15);
+  background: var(--chatroompage-bg-light);
+}
+
+.chatroompage-modal-textarea {
+  resize: vertical;
+  min-height: 60px; /* Thu nhỏ textarea */
+  line-height: 1.5;
+}
+
+.chatroompage-modal-checkbox-group {
+  margin-bottom: 0.85rem;
+}
+
+.chatroompage-modal-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.8rem; /* Thu nhỏ font */
+  color: var(--chatroompage-text-main);
+}
+
+.chatroompage-modal-checkbox {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  accent-color: var(--chatroompage-primary);
+}
+
+.chatroompage-modal-actions {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: flex-end;
+  padding: 1rem 1.25rem; /* Thu nhỏ padding */
+  border-top: 1px solid var(--chatroompage-border);
+  flex-shrink: 0;
+}
+
+.chatroompage-modal-button {
+  padding: 0.55rem 1.1rem; /* Thu nhỏ padding */
+  border: none;
+  border-radius: var(--chatroompage-radius-md);
+  font-weight: 600;
+  font-size: 0.8rem; /* Thu nhỏ font */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.25s ease;
+}
+
+.chatroompage-modal-button i {
+  font-size: 0.85rem;
+}
+
+.chatroompage-modal-button.chatroompage-modal-button-cancel {
+  background: var(--chatroompage-bg-main);
+  color: var(--chatroompage-text-main);
+  border: 1px solid var(--chatroompage-border);
+}
+
+.chatroompage-modal-button.chatroompage-modal-button-cancel:hover {
+  background: #e0e0e0;
+  color: #424242;
+  border-color: #bdbdbd;
+}
+
+.chatroompage-modal-button.chatroompage-modal-button-submit {
+  background: linear-gradient(135deg, var(--chatroompage-primary), var(--chatroompage-primary-dark));
+  color: var(--chatroompage-bg-content);
+  box-shadow: var(--chatroompage-shadow-sm);
+}
+
+.chatroompage-modal-button.chatroompage-modal-button-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--chatroompage-shadow-md);
+}
+
+/* ===== OTP VERIFICATION ===== */
+.chatroompage-otp-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--chatroompage-bg-light), var(--chatroompage-bg-main));
+  padding: 1rem;
+}
+
+.chatroompage-otp-modal {
+  background: var(--chatroompage-bg-content);
+  padding: 1.5rem; /* Thu nhỏ padding */
+  border-radius: var(--chatroompage-radius-lg);
+  box-shadow: var(--chatroompage-shadow-lg);
+  text-align: center;
+  max-width: 380px; /* Thu nhỏ modal */
+  width: 100%;
+  position: relative;
+  animation: chatroompage-slideUp 0.3s ease;
+}
+
+.chatroompage-otp-back-button {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--chatroompage-bg-main);
+  border: 1px solid var(--chatroompage-border);
+  border-radius: var(--chatroompage-radius-md);
+  font-size: 0.9rem;
+  color: var(--chatroompage-text-main);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.chatroompage-otp-back-button:hover {
+  background: var(--chatroompage-primary-light);
+  border-color: var(--chatroompage-primary);
+  color: var(--chatroompage-bg-content);
+}
+
+.chatroompage-otp-icon {
+  width: 50px; /* Thu nhỏ icon */
+  height: 50px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--chatroompage-primary), var(--chatroompage-primary-dark));
+  border-radius: 50%;
+  color: var(--chatroompage-bg-content);
+  font-size: 1.5rem;
+  box-shadow: var(--chatroompage-shadow-md);
+}
+
+.chatroompage-otp-title {
+  font-size: 1.05rem; /* Thu nhỏ font */
+  color: var(--chatroompage-text-main);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.chatroompage-otp-description {
+  font-size: 0.8rem; /* Thu nhỏ font */
+  color: var(--chatroompage-text-gray);
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.chatroompage-otp-form {
+  text-align: left;
+}
+
+.chatroompage-otp-input-group {
+  margin-bottom: 1rem;
+}
+
+.chatroompage-otp-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.75rem;
+  margin-bottom: 0.4rem;
+  color: var(--chatroompage-text-main);
+}
+
+.chatroompage-otp-input {
+  width: 100%;
+  padding: 0.65rem; /* Thu nhỏ padding */
+  font-size: 1.1rem; /* Thu nhỏ font */
+  text-align: center;
+  letter-spacing: 6px; /* Giảm spacing */
+  border: 2px solid var(--chatroompage-border);
+  border-radius: var(--chatroompage-radius-md);
+  transition: all 0.25s ease;
+  font-weight: 600;
+  color: var(--chatroompage-text-main);
+}
+
+.chatroompage-otp-input:focus {
+  outline: none;
+  border-color: var(--chatroompage-primary);
+  box-shadow: 0 0 0 3px rgba(124, 179, 66, 0.15);
+  background: var(--chatroompage-bg-light);
+}
+
+.chatroompage-otp-error {
+  color: var(--chatroompage-danger);
+  font-size: 0.75rem;
+  margin: 0.75rem 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+.chatroompage-otp-submit-button {
+  width: 100%;
+  padding: 0.7rem; /* Thu nhỏ padding */
+  font-size: 0.85rem; /* Thu nhỏ font */
+  margin-top: 0.75rem;
+  background: linear-gradient(135deg, var(--chatroompage-primary), var(--chatroompage-primary-dark));
+  color: var(--chatroompage-bg-content);
+  border: none;
+  border-radius: var(--chatroompage-radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: var(--chatroompage-shadow-sm);
+}
+
+.chatroompage-otp-submit-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--chatroompage-shadow-md);
+}
+
+.chatroompage-otp-submit-button i {
+  font-size: 0.9rem;
+}
+
+/* ===== LOADING & ERROR STATES ===== */
+.chatroompage-loading-container,
+.chatroompage-error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--chatroompage-bg-light), var(--chatroompage-bg-main));
+}
+
+.chatroompage-loading-spinner {
+  width: 40px; /* Thu nhỏ spinner */
+  height: 40px;
+  border: 4px solid var(--chatroompage-border);
+  border-top-color: var(--chatroompage-primary);
+  border-radius: 50%;
+  animation: chatroompage-spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes chatroompage-spin {
+  to { transform: rotate(360deg); }
+}
+
+.chatroompage-loading-text {
+  color: var(--chatroompage-text-light);
+  font-size: 0.85rem; /* Thu nhỏ font */
+  font-weight: 500;
+}
+
+.chatroompage-error-icon {
+  font-size: 3rem; /* Thu nhỏ icon */
+  color: var(--chatroompage-danger);
+  margin-bottom: 1rem;
+}
+
+.chatroompage-error-title {
+  color: var(--chatroompage-text-main);
+  margin-bottom: 1rem;
+  font-size: 1rem; /* Thu nhỏ font */
+  font-weight: 600;
+}
+
+.chatroompage-error-button {
+  padding: 0.6rem 1.4rem; /* Thu nhỏ padding */
+  background: linear-gradient(135deg, var(--chatroompage-primary), var(--chatroompage-primary-dark));
+  color: var(--chatroompage-bg-content);
+  border: none;
+  border-radius: var(--chatroompage-radius-md);
+  font-weight: 600;
+  font-size: 0.8rem; /* Thu nhỏ font */
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: var(--chatroompage-shadow-sm);
+}
+
+.chatroompage-error-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--chatroompage-shadow-md);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .chatroompage-header {
+    padding: 0.6rem 0.75rem;
+  }
+
+  .chatroompage-header-avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .chatroompage-header-name {
+    font-size: 0.8rem;
+  }
+
+  .chatroompage-header-end-button span {
+    display: none; /* Ẩn chữ 'Kết thúc' trên mobile */
+  }
+
+  .chatroompage-header-end-button {
+    padding: 0.4rem 0.5rem;
+  }
+
+  .chatroompage-messages-area.chatroompage-messages-area-with-panel {
+    max-width: 100%;
+  }
+
+  /* Panel thông tin sẽ trượt từ phải vào */
+  .chatroompage-info-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 320px;
+    z-index: 200;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    animation: chatroompage-slideIn 0.3s ease;
+  }
+
+  @keyframes chatroompage-slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+
+  .chatroompage-modal-content {
+    width: 95%;
+    margin: 1rem;
+    max-height: 90vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .chatroompage-header-actions {
+    gap: 0.3rem;
+  }
+
+  .chatroompage-header-info-button,
+  .chatroompage-header-report-button {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+  
+  .chatroompage-header-back-button {
+    width: 28px;
+    height: 28px;
+  }
+
+  .chatroompage-header-timer {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .chatroompage-messages-list {
+    padding: 0.5rem;
+  }
+
+  .chatroompage-info-panel {
+    max-width: 100%;
+  }
+
+  .chatroompage-otp-modal {
+    padding: 1.25rem;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+@keyframes slideInRight {
+  from { transform: translateX(100px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+@keyframes popIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}

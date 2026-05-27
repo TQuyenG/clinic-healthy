@@ -1,0 +1,272 @@
+/* client/src/components/schedule/ScheduleTableView.css */
+/* File CSS MỚI cho Chế độ xem Bảng */
+
+:root {
+  --color-primary: #a0d9b5;
+  --color-primary-dark: #81b997;
+  --color-primary-light: #e6f7f2;
+  --color-warning: #fde68a;
+  --color-warning-dark: #d97706;
+  --color-warning-text: #92400e;
+  --color-appointment: #fecaca;
+  --color-appointment-border: #f87171;
+  --color-appointment-text: #991b1b;
+  --color-appointment-service: #ffedd5;
+  --color-appointment-service-border: #fb923c;
+  --color-appointment-service-text: #c2410c;
+  --color-appointment-consultation: #e0f2fe;
+  --color-appointment-consultation-border: #38bdf8;
+  --color-appointment-consultation-text: #0369a1;
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #4b5563;
+  --color-border: #e5e7eb;
+  --color-background-light: #f9fafb;
+  --color-background: #ffffff;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --border-radius: 8px;
+}
+
+.schedule-table-view__container {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-background);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.schedule-table-view__table-wrapper {
+  overflow-x: auto;
+}
+
+.schedule-table-view__table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: collapse;
+}
+
+.schedule-table-view__table th,
+.schedule-table-view__table td {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.95rem;
+  vertical-align: middle;
+}
+
+.schedule-table-view__table th:nth-child(3),
+.schedule-table-view__table td.schedule-table-view__schedules {
+  min-width: 240px;
+}
+
+.schedule-table-view__table th:nth-child(4),
+.schedule-table-view__table td.schedule-table-view__overtimes,
+.schedule-table-view__table th:nth-child(5),
+.schedule-table-view__table td.schedule-table-view__appointments,
+.schedule-table-view__table th:nth-child(6),
+.schedule-table-view__table td.schedule-table-view__leaves {
+  min-width: 190px;
+}
+
+.schedule-table-view__table th {
+  background-color: var(--color-background-light);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.schedule-table-view__table tbody tr:hover {
+  background-color: var(--color-background-light);
+}
+
+.schedule-table-view__loading,
+.schedule-table-view__empty-state {
+  padding: 3rem;
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.schedule-table-view__empty-state svg {
+  font-size: 1.5rem;
+  color: var(--color-text-secondary);
+}
+
+/* Cột Nhân viên */
+.schedule-table-view__user-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  min-width: 200px;
+}
+.schedule-table-view__user-cell img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Cột Chi tiết */
+.schedule-table-view__details-cell {
+  color: var(--color-text-secondary);
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Badge Trạng thái */
+.schedule-table-view__badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid transparent;
+}
+
+.schedule-table-view__badge--schedules {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border-color: var(--color-primary);
+}
+.schedule-table-view__badge--leaves {
+  background-color: var(--color-warning);
+  color: #a16207;
+  border-color: var(--color-warning-dark);
+}
+.schedule-table-view__badge--appointments {
+  background-color: var(--color-appointment);
+  color: var(--color-appointment-text);
+  border-color: var(--color-appointment-border);
+}
+/* ================================================= */
+/* === BADGE MÀU SẮC CHO TỪNG LOẠI LỊCH === */
+/* (Đồng bộ với màu event trên CalendarView) */
+/* ================================================= */
+
+/* Container badges */
+.schedule-table-view__shifts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  row-gap: 10px;
+}
+
+.schedule-table-view__shift-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  white-space: normal;
+  line-height: 1.35;
+  max-width: 100%;
+}
+
+.schedule-table-view__shift-badge small {
+  font-weight: 400;
+  font-size: 0.76rem;
+  line-height: 1.25;
+}
+
+/* Lịch làm việc cố định — xanh lá (= event--schedule) */
+.schedule-table-view__shift-badge.schedule {
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary-dark);
+  color: var(--color-primary-dark);
+}
+
+/* Tăng ca — tím (= event--overtime) */
+.schedule-table-view__shift-badge.overtime {
+  background-color: #ddd6fe;
+  border-color: #a78bfa;
+  color: #5b21b6;
+}
+
+/* Lịch hẹn — đỏ nhạt (= event--appointment) */
+.schedule-table-view__shift-badge.appointment {
+  background-color: var(--color-appointment);
+  border-color: var(--color-appointment-border);
+  color: var(--color-appointment-text);
+}
+
+.schedule-table-view__shift-badge--service {
+  background-color: var(--color-appointment-service);
+  border-color: var(--color-appointment-service-border);
+  color: var(--color-appointment-service-text);
+}
+
+.schedule-table-view__shift-badge--consultation {
+  background-color: var(--color-appointment-consultation);
+  border-color: var(--color-appointment-consultation-border);
+  color: var(--color-appointment-consultation-text);
+}
+
+.schedule-table-view__shift-badge--appointment {
+  background-color: var(--color-appointment);
+  border-color: var(--color-appointment-border);
+  color: var(--color-appointment-text);
+}
+
+/* Lịch nghỉ — vàng (= event--leave) */
+.schedule-table-view__shift-badge.leave {
+  background-color: #fff7d6;
+  border-color: var(--color-warning-dark);
+  color: var(--color-warning-text);
+}
+
+/* No-data placeholder */
+.schedule-table-view__no-data {
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+}
+
+/* Row styles */
+.schedule-table-view__row:last-child td {
+  border-bottom: none;
+}
+
+.schedule-table-view__date strong {
+  font-size: 1rem;
+  color: var(--color-text-primary);
+}
+
+.schedule-table-view__date span {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+/* Wrapper scroll */
+.schedule-table-view__wrapper {
+  overflow-x: auto;
+}
+
+/* Empty row */
+.schedule-table-view__empty-row {
+  text-align: center;
+  color: var(--color-text-secondary);
+  padding: 2rem !important;
+  font-size: 0.95rem;
+}
+
+/* Empty state (khi chưa có config ca) */
+.schedule-table-view__empty {
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}

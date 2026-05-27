@@ -1,0 +1,434 @@
+.doctors-list-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.doctors-list-page__header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem 0;
+}
+
+.doctors-list-page__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.doctors-list-page__subtitle {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.doctors-list-page__filters {
+  background: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.doctors-list-page__filters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.doctors-list-page__filters-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  color: #1e293b;
+  font-weight: 700;
+  margin: 0;
+}
+
+.doctors-list-page__filters-title svg {
+  color: #10b981;
+  font-size: 0.875rem;
+}
+
+.doctors-list-page__btn-clear {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 1rem;
+  background: #fef2f2;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #dc2626;
+  transition: all 0.3s;
+}
+
+.doctors-list-page__btn-clear:hover {
+  background: #fee2e2;
+  transform: translateY(-1px);
+}
+
+.doctors-list-page__filters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.doctors-list-page__filter-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.doctors-list-page__filter-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 0.5rem;
+}
+
+.doctors-list-page__filter-input,
+.doctors-list-page__filter-select {
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #334155;
+  background: white;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+
+.doctors-list-page__filter-input:focus,
+.doctors-list-page__filter-select:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.doctors-list-page__search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.doctors-list-page__search-icon {
+  position: absolute;
+  left: 0.75rem;
+  color: #94a3b8;
+  font-size: 0.875rem;
+  pointer-events: none;
+}
+
+.doctors-list-page__search-box .doctors-list-page__filter-input {
+  padding-left: 2.25rem;
+}
+
+.doctors-list-page__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.doctors-list-page__card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.doctors-list-page__card-inner {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  width: 100%;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.doctors-list-page__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(16, 185, 129, 0.15);
+}
+
+.doctors-list-page__avatar-wrapper {
+  flex-shrink: 0;
+}
+
+.doctors-list-page__avatar {
+  width: 100px;
+  height: 140px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.doctors-list-page__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.doctors-list-page__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.doctors-list-page__name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  transition: color 0.3s;
+}
+
+.doctors-list-page__exp {
+  font-size: 0.75rem;
+  color: #94a3b8; 
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.doctors-list-page__details-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.doctors-list-page__detail-item {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.detail-label {
+  color: #64748b;
+  font-weight: 500;
+  min-width: 90px;
+}
+
+.detail-text {
+  color: #334155;
+  font-weight: 500;
+}
+
+.detail-text.highlight {
+  font-weight: 600;
+}
+
+.detail-link {
+  color: #0284c7;
+  font-weight: 600;
+  text-decoration: none;
+}
+.detail-link:hover {
+  text-decoration: underline;
+}
+
+.specialty-icon-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ================== ACTION BUTTONS (ĐÃ CẬP NHẬT 2 NÚT) ================== */
+.doctors-list-page__actions {
+  width: 100%;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  gap: 0.5rem; /* Khoảng cách 2 nút */
+}
+
+.doctors-list-page__btn-book {
+  flex: 1; /* Chia đều 50% mỗi nút */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.625rem 0.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.doctors-list-page__btn-book.chat-btn {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+.doctors-list-page__btn-book.chat-btn:hover {
+  background: #bae6fd;
+  transform: translateY(-1px);
+}
+
+.doctors-list-page__btn-book.video-btn {
+  background: #10b981;
+  color: white;
+}
+
+.doctors-list-page__btn-book.video-btn:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+/* PAGINATION */
+.doctors-list-page__pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.doctors-list-page__pagination-btn {
+  padding: 0.5rem 1rem;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #475569;
+  transition: all 0.3s;
+}
+
+.doctors-list-page__pagination-btn:hover:not(:disabled) {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+.doctors-list-page__pagination-btn--active {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+.doctors-list-page__page-numbers {
+  display: flex;
+  gap: 0.375rem;
+}
+
+/* LOADING & EMPTY STATES */
+.doctors-list-page__loading,
+.doctors-list-page__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 0.75rem;
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.doctors-list-page__spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e2e8f0;
+  border-top-color: #10b981;
+  border-radius: 50%;
+  animation: doctors-list-page-spin 1s linear infinite;
+}
+
+@keyframes doctors-list-page-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .doctors-list-page__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .doctors-list-page {
+    padding: 1rem 0.75rem;
+  }
+  .doctors-list-page__header {
+    padding: 0.5rem 0;
+  }
+  .doctors-list-page__title {
+    font-size: 1.25rem;
+  }
+  .doctors-list-page__filters {
+    padding: 1rem;
+  }
+  .doctors-list-page__filters-grid {
+    grid-template-columns: 1fr;
+  }
+  .doctors-list-page__grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .doctors-list-page__card-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .doctors-list-page__info, .doctors-list-page__details-list {
+    align-items: center;
+  }
+  .doctors-list-page__pagination {
+    flex-wrap: wrap;
+  }
+  .doctors-list-page__page-numbers {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .doctors-list-page__avatar {
+    width: 100px;
+    height: 120px;
+  }
+  .doctors-list-page__card {
+    padding: 1rem;
+  }
+  .doctors-list-page__filters-header {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+  .doctors-list-page__btn-clear {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .doctors-list-page__actions {
+    flex-direction: column; /* Xếp nút dọc nếu màn hình quá nhỏ */
+  }
+}

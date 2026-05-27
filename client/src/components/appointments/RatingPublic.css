@@ -1,0 +1,183 @@
+/* AppointmentFeedbackPublic.css */
+
+.afp-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.afp-filters {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: white;
+  padding: 10px 12px;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.afp-filters select {
+  padding: 6px 8px;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.afp-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s;
+}
+
+.afp-card:hover {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.afp-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.afp-card-header > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.afp-card-header strong {
+  font-size: 13px;
+  color: #333;
+}
+
+.afp-card-body {
+  padding: 10px 12px;
+}
+
+.afp-card-body p {
+  font-size: 12px;
+  color: #333;
+  margin: 4px 0;
+}
+
+.afp-card-body a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.afp-card-body a:hover {
+  text-decoration: underline;
+}
+
+.afp-edit-mode {
+  padding: 10px 12px;
+}
+
+.afp-card-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+}
+
+.afp-btn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s;
+}
+
+.afp-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.afp-btn-primary {
+  background: #0066cc;
+  color: white;
+}
+
+.afp-btn-primary:hover:not(:disabled) {
+  background: #0052a3;
+}
+
+.afp-btn-edit {
+  background: #17a2b8;
+  color: white;
+}
+
+.afp-btn-edit:hover:not(:disabled) {
+  background: #138496;
+}
+
+.afp-btn-delete {
+  background: #dc3545;
+  color: white;
+}
+
+.afp-btn-delete:hover:not(:disabled) {
+  background: #c82333;
+}
+
+.afp-btn-reply {
+  background: #ffc107;
+  color: #333;
+}
+
+.afp-btn-reply:hover:not(:disabled) {
+  background: #e0a800;
+}
+
+.afp-btn-send {
+  background: #28a745;
+  color: white;
+}
+
+.afp-btn-send:hover:not(:disabled) {
+  background: #218838;
+}
+
+.afp-btn-save {
+  background: #28a745;
+  color: white;
+}
+
+.afp-btn-save:hover:not(:disabled) {
+  background: #218838;
+}
+
+.afp-btn-cancel {
+  background: #e9ecef;
+  color: #495057;
+}
+
+.afp-btn-cancel:hover:not(:disabled) {
+  background: #dee2e6;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .afp-card-footer > div {
+    flex-direction: column !important;
+  }
+
+  .afp-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

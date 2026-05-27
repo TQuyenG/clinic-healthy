@@ -1,0 +1,487 @@
+/* Path: client/src/components/consultation/ConsultationRealtimeMonitor.css */
+/* ✅ REALTIME MONITOR - FULLY RESPONSIVE */
+
+:root {
+  --medical-green-light: #E6F4EA;
+  --medical-green-dark: #065f46;
+  --medical-green-primary: #10B981;
+  --medical-red-emergency: #EF4444;
+  --medical-red-light: #FEE2E2;
+  --medical-red-dark: #991B1B;
+  --medical-yellow-warning: #F59E0B;
+  --medical-yellow-light: #FFFBEB;
+  --medical-blue: #3B82F6;
+  --medical-text-primary: #1F2937;
+  --medical-text-secondary: #6B7280;
+  --medical-border: #E5E7EB;
+  --medical-bg-white: #FFFFFF;
+  --medical-bg-light-gray: #F9FAFB;
+}
+
+/* ==================== CONTAINER ==================== */
+.consultation-realtime-monitor-container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ==================== HEADER ==================== */
+.consultation-realtime-monitor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--medical-border);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.consultation-realtime-monitor-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--medical-text-primary);
+  margin: 0;
+}
+
+.consultation-realtime-monitor-title svg {
+  color: var(--medical-yellow-warning);
+  flex-shrink: 0;
+}
+
+/* LIVE indicator */
+.consultation-realtime-monitor-live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  background: var(--medical-red-light);
+  color: var(--medical-red-dark);
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.consultation-realtime-monitor-pulse-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--medical-red-emergency);
+  border-radius: 50%;
+  animation: consultation-realtime-monitor-pulse 2s infinite;
+}
+
+/* ==================== STATES ==================== */
+.consultation-realtime-monitor-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 20px;
+  text-align: center;
+  color: var(--medical-text-secondary);
+  background: var(--medical-bg-light-gray);
+  border-radius: 8px;
+}
+
+.consultation-realtime-monitor-empty-state svg {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.consultation-realtime-monitor-empty-state p {
+  font-size: 13px;
+  margin: 0;
+}
+
+.consultation-realtime-monitor-error-state {
+  color: var(--medical-red-dark);
+  background: var(--medical-red-light);
+}
+
+.consultation-realtime-monitor-spinner {
+  width: 26px;
+  height: 26px;
+  border: 3px solid var(--medical-border);
+  border-top-color: var(--medical-green-primary);
+  border-radius: 50%;
+  animation: consultation-realtime-monitor-spin 0.8s linear infinite;
+  margin-bottom: 10px;
+}
+
+/* ==================== LIST ==================== */
+.consultation-realtime-monitor-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+/* ==================== CARD ==================== */
+.consultation-realtime-monitor-card {
+  background: var(--medical-bg-white);
+  border: 1px solid var(--medical-border);
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  border-left: 4px solid var(--medical-yellow-warning);
+  transition: box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.consultation-realtime-monitor-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+}
+
+/* Card type border colors */
+.consultation-realtime-monitor-card-technical  { border-left-color: var(--medical-blue); }
+.consultation-realtime-monitor-card-behavior   { border-left-color: var(--medical-yellow-warning); }
+.consultation-realtime-monitor-card-emergency,
+.consultation-realtime-monitor-card-security   { border-left-color: var(--medical-red-emergency); }
+
+/* Card header */
+.consultation-realtime-monitor-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--medical-border);
+  background: var(--medical-bg-light-gray);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.consultation-realtime-monitor-card-icon {
+  font-size: 14px;
+  color: var(--medical-text-secondary);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.consultation-realtime-monitor-card-emergency .consultation-realtime-monitor-card-icon,
+.consultation-realtime-monitor-card-security  .consultation-realtime-monitor-card-icon {
+  color: var(--medical-red-emergency);
+}
+
+.consultation-realtime-monitor-card-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--medical-text-primary);
+  flex: 1;
+  min-width: 0;
+}
+
+.consultation-realtime-monitor-card-emergency .consultation-realtime-monitor-card-title,
+.consultation-realtime-monitor-card-security  .consultation-realtime-monitor-card-title {
+  color: var(--medical-red-emergency);
+}
+
+.consultation-realtime-monitor-card-time {
+  font-size: 11px;
+  color: var(--medical-text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Card body */
+.consultation-realtime-monitor-card-body {
+  padding: 12px 14px;
+}
+
+.consultation-realtime-monitor-card-description {
+  font-size: 13px;
+  color: var(--medical-text-primary);
+  line-height: 1.5;
+  margin: 0 0 10px 0;
+}
+
+.consultation-realtime-monitor-card-description strong {
+  font-weight: 500;
+  color: var(--medical-text-secondary);
+}
+
+.consultation-realtime-monitor-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 12px;
+  color: var(--medical-text-secondary);
+}
+
+.consultation-realtime-monitor-card-meta strong {
+  font-weight: 500;
+  color: var(--medical-text-primary);
+}
+
+/* Card actions */
+.consultation-realtime-monitor-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 14px 12px 14px;
+}
+
+.consultation-realtime-monitor-action-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--medical-border);
+  background: var(--medical-bg-white);
+  color: var(--medical-text-secondary);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.consultation-realtime-monitor-action-button:hover {
+  background: var(--medical-bg-light-gray);
+  border-color: #D1D5DB;
+  color: var(--medical-text-primary);
+}
+
+.consultation-realtime-monitor-action-button svg {
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+/* Terminate button */
+.consultation-realtime-monitor-action-terminate {
+  border-color: #FCA5A5;
+  background: var(--medical-red-light);
+  color: var(--medical-red-dark);
+}
+.consultation-realtime-monitor-action-terminate:hover {
+  background: #FEE2E2;
+  border-color: #F87171;
+}
+
+/* Resolve button */
+.consultation-realtime-monitor-action-resolve {
+  border-color: #A7F3D0;
+  background: var(--medical-green-light);
+  color: var(--medical-green-dark);
+}
+.consultation-realtime-monitor-action-resolve:hover {
+  background: #D1FAE5;
+  border-color: #6EE7B7;
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes consultation-realtime-monitor-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes consultation-realtime-monitor-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .consultation-realtime-monitor-header {
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+  }
+
+  .consultation-realtime-monitor-title {
+    font-size: 1rem;
+  }
+
+  .consultation-realtime-monitor-list {
+    gap: 10px;
+  }
+
+  .consultation-realtime-monitor-card-header {
+    padding: 9px 12px;
+  }
+
+  .consultation-realtime-monitor-card-body {
+    padding: 10px 12px;
+  }
+
+  .consultation-realtime-monitor-card-actions {
+    padding: 0 12px 10px 12px;
+    gap: 5px;
+  }
+
+  .consultation-realtime-monitor-action-button {
+    padding: 5px 9px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .consultation-realtime-monitor-title {
+    font-size: 0.95rem;
+  }
+
+  .consultation-realtime-monitor-card-actions {
+    gap: 4px;
+  }
+
+  .consultation-realtime-monitor-action-button {
+    flex: 1;
+    min-width: calc(50% - 4px);
+    justify-content: center;
+    padding: 6px 8px;
+  }
+}
+
+/* ==================== ADMIN MODALS ==================== */
+.crm-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+}
+.crm-modal-box {
+  background: white;
+  width: 100%;
+  max-width: 440px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: crm-fadeIn 0.2s ease-out;
+}
+@keyframes crm-fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.crm-modal-header {
+  padding: 12px 16px;
+  background: #f0fdf4;
+  color: #065f46;
+  font-weight: 600;
+  font-size: 14px;
+  border-bottom: 1px solid #d1fae5;
+}
+.crm-modal-body {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+}
+.crm-modal-body label {
+  font-weight: 500;
+  color: #374151;
+  font-size: 12px;
+}
+.crm-modal-body select,
+.crm-modal-body textarea {
+  width: 100%;
+  padding: 7px 9px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 13px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+.crm-modal-body select:focus,
+.crm-modal-body textarea:focus {
+  outline: none;
+  border-color: #10b981;
+}
+.crm-modal-footer {
+  padding: 10px 16px;
+  background: #f9fafb;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  border-top: 1px solid #e5e7eb;
+}
+.crm-btn-sec {
+  padding: 6px 14px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  color: #374151;
+}
+.crm-btn-primary {
+  padding: 6px 14px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.crm-btn-danger {
+  padding: 6px 14px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.crm-btn-primary:hover { background: #059669; }
+.crm-btn-danger:hover  { background: #dc2626; }
+
+/* ==================== CHAT HISTORY MODAL ==================== */
+.crm-modal-chat {
+  max-width: 560px;
+}
+.crm-modal-close-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #065f46;
+  padding: 0 4px;
+}
+.crm-modal-chat-body {
+  padding: 12px 16px;
+  max-height: 380px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #f9fafb;
+}
+.crm-chat-msg {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  font-size: 13px;
+}
+.crm-chat-msg-system {
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+.crm-chat-msg-sender {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 11px;
+  color: #374151;
+  margin-bottom: 4px;
+}
+.crm-chat-msg-time {
+  font-weight: 400;
+  color: #9ca3af;
+  font-size: 10px;
+}
+.crm-chat-msg-content {
+  color: #1f2937;
+  line-height: 1.5;
+  word-break: break-word;
+}

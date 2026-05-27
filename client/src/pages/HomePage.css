@@ -1,0 +1,1296 @@
+/* src/pages/HomePage.css */
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Colors - Green Theme */
+  --homepage-primary: #10b981;
+  --homepage-primary-dark: #059669;
+  --homepage-primary-darker: #047857;
+  --homepage-primary-light: #34d399;
+  --homepage-primary-lighter: #6ee7b7;
+  
+  --homepage-secondary: #14b8a6;
+  --homepage-accent: #84cc16;
+  
+  --homepage-bg-white: #ffffff;
+  --homepage-bg-gray-50: #f9fafb;
+  --homepage-bg-gray-100: #f3f4f6;
+  --homepage-bg-gray-900: #111827;
+  
+  --homepage-text-dark: #111827;
+  --homepage-text-gray: #6b7280;
+  --homepage-text-light: #9ca3af;
+  
+  --homepage-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  --homepage-shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+  --homepage-shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+  --homepage-shadow-xl: 0 20px 25px rgba(0,0,0,0.1);
+  
+  --homepage-radius: 0.5rem;
+  --homepage-radius-lg: 0.75rem;
+  --homepage-radius-xl: 1rem;
+  
+  --homepage-transition: all 0.3s ease;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--homepage-text-dark);
+  line-height: 1.6;
+  background: var(--homepage-bg-white);
+  scroll-behavior: smooth;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.homepage-main {
+  width: 100%;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+}
+
+.homepage-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Section Styles */
+.homepage-section-container {
+  padding: 4rem 0;
+  border-bottom: 1px solid var(--homepage-bg-gray-100);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: auto;
+}
+
+.homepage-section-title {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--homepage-text-dark);
+}
+
+.homepage-section-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #ecfdf5;
+  color: var(--homepage-primary-dark);
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.homepage-section-subtitle {
+  font-size: 1.125rem;
+  color: var(--homepage-text-gray);
+  line-height: 1.7;
+}
+
+/* Buttons */
+.homepage-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  border: none;
+  border-radius: var(--homepage-radius-lg);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--homepage-transition);
+}
+
+.homepage-btn-primary {
+  background: linear-gradient(135deg, var(--homepage-primary), var(--homepage-primary-dark));
+  color: white;
+  box-shadow: 0 4px 14px rgba(16,185,129,0.4);
+}
+
+.homepage-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16,185,129,0.5);
+}
+
+.homepage-btn-secondary {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.homepage-btn-secondary:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.homepage-btn-outline {
+  background: transparent;
+  color: var(--homepage-primary);
+  border: 2px solid var(--homepage-primary);
+}
+
+.homepage-btn-outline:hover {
+  background: var(--homepage-primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.homepage-btn-block {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Banner Slider */
+.homepage-banner-slider {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.homepage-banner-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.homepage-banner-slide.active {
+  opacity: 1;
+  transform: translateX(0);
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.homepage-banner-slide.previous {
+  opacity: 0;
+  transform: translateX(-100%);
+  z-index: 0;
+}
+
+.homepage-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(126, 168, 107, 0.9), rgba(87, 87, 87, 0.85));
+}
+
+.homepage-banner-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.homepage-banner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: var(--homepage-radius-lg);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+.homepage-badge-icon {
+  font-size: 1.25rem;
+}
+
+.homepage-banner-content h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: white;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.homepage-banner-content h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 1.25rem;
+  line-height: 1.3;
+}
+
+.homepage-banner-content p {
+  font-size: 1.125rem;
+  color: rgba(255,255,255,0.85);
+  max-width: 600px;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.homepage-banner-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.homepage-slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  transition: var(--homepage-transition);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.homepage-slider-btn:hover {
+  background: rgba(255,255,255,0.3);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.homepage-prev {
+  left: 2rem;
+}
+
+.homepage-next {
+  right: 2rem;
+}
+
+.homepage-slider-dots {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.75rem;
+  z-index: 3;
+}
+
+.homepage-dot {
+  width: 12px;
+  height: 12px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--homepage-transition);
+  border: none;
+}
+
+.homepage-dot.active {
+  background: white;
+  transform: scale(1.2);
+}
+
+/* Features Section */
+.homepage-features-section {
+  background: var(--homepage-bg-gray-50);
+  padding: 5rem 0;
+}
+
+.homepage-features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.homepage-feature-card {
+  background: white;
+  border-radius: var(--homepage-radius-xl);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: var(--homepage-shadow-md);
+  transition: var(--homepage-transition);
+  opacity: 1;
+  transform: translateY(20px);
+}
+
+.homepage-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--homepage-shadow-xl);
+}
+
+.homepage-feature-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: white;
+  box-shadow: 0 4px 14px rgba(16,185,129,0.4);
+  transition: var(--homepage-transition);
+}
+
+.homepage-feature-card:hover .homepage-feature-icon {
+  transform: scale(1.1);
+}
+
+.homepage-feature-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--homepage-text-dark);
+}
+
+.homepage-feature-card p {
+  font-size: 1rem;
+  color: var(--homepage-text-gray);
+}
+
+/* Stats Section */
+.homepage-stats-section {
+  background: linear-gradient(135deg, var(--homepage-primary) 0%, var(--homepage-secondary) 100%);
+  color: white;
+  padding: 5rem 0;
+}
+
+.homepage-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.homepage-stat-card {
+  text-align: center;
+  opacity: 1;
+  transform: scale(0.95);
+}
+
+.homepage-stat-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.homepage-stat-number {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.homepage-stat-label {
+  font-size: 1.125rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* Intro Section */
+.homepage-intro-section {
+  padding: 5rem 0;
+  background: var(--homepage-bg-white);
+}
+
+.homepage-intro-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.homepage-intro-image {
+  position: relative;
+}
+
+.homepage-intro-image img {
+  width: 100%;
+  height: 550px;
+  object-fit: cover;
+  border-radius: var(--homepage-radius-xl);
+  box-shadow: var(--homepage-shadow-xl);
+  transition: var(--homepage-transition);
+}
+
+.homepage-intro-image:hover img {
+  transform: scale(1.02);
+}
+
+.homepage-intro-badge {
+  position: absolute;
+  bottom: -1.5rem;
+  right: -1.5rem;
+  background: white;
+  border-radius: var(--homepage-radius-lg);
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--homepage-shadow-lg);
+  font-weight: 600;
+}
+
+.homepage-intro-badge svg {
+  font-size: 2.5rem;
+  color: var(--homepage-primary);
+}
+
+.homepage-intro-badge h4 {
+  font-size: 2rem;
+  color: var(--homepage-primary);
+}
+
+.homepage-intro-badge p {
+  color: var(--homepage-text-gray);
+}
+
+.homepage-intro-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.homepage-intro-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.homepage-check-icon {
+  font-size: 1.5rem;
+  color: var(--homepage-primary);
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+}
+
+.homepage-intro-item h4 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--homepage-text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.homepage-intro-item p {
+  font-size: 1rem;
+  color: var(--homepage-text-gray);
+}
+
+/* Specialties Section */
+.homepage-specialties-section {
+  background: var(--homepage-bg-gray-50);
+  padding: 5rem 0;
+}
+
+.homepage-specialties-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.homepage-specialty-card {
+  background: white;
+  border-radius: var(--homepage-radius-xl);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: var(--homepage-shadow-md);
+  transition: var(--homepage-transition);
+  opacity: 1;
+  transform: translateY(20px);
+}
+
+.homepage-specialty-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--homepage-shadow-xl);
+}
+
+.homepage-specialty-icon {
+  font-size: 3rem;
+  color: var(--homepage-primary);
+  margin-bottom: 1.5rem;
+}
+
+.homepage-specialty-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.homepage-specialty-card p {
+  font-size: 1rem;
+  color: var(--homepage-text-gray);
+  margin-bottom: 1.5rem;
+}
+
+.homepage-specialty-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--homepage-primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--homepage-transition);
+}
+
+.homepage-specialty-link:hover {
+  color: var(--homepage-primary-dark);
+  transform: translateX(5px);
+}
+
+.homepage-section-footer {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+/* Doctors Section */
+.homepage-doctors-section {
+  padding: 5rem 0;
+}
+
+.homepage-doctors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.homepage-doctor-card {
+  background: white;
+  border-radius: var(--homepage-radius-xl);
+  overflow: hidden;
+  box-shadow: var(--homepage-shadow-md);
+  transition: var(--homepage-transition);
+  opacity: 1;
+  transform: scale(0.95);
+}
+
+.homepage-doctor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--homepage-shadow-xl);
+}
+
+.homepage-doctor-image-wrapper {
+  position: relative;
+}
+
+.homepage-doctor-image {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  transition: var(--homepage-transition);
+}
+
+.homepage-doctor-card:hover .homepage-doctor-image {
+  transform: scale(1.05);
+}
+
+.homepage-doctor-rating {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background: white;
+  border-radius: 2rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 600;
+  box-shadow: var(--homepage-shadow);
+  color: var(--homepage-primary);
+}
+
+.homepage-doctor-rating svg {
+  color: #fbbf24;
+}
+
+.homepage-doctor-info {
+  padding: 1.5rem 2rem;
+}
+
+.homepage-doctor-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.homepage-doctor-specialty, .homepage-doctor-experience {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: var(--homepage-text-gray);
+  margin-bottom: 0.5rem;
+}
+
+.homepage-doctor-specialty svg, .homepage-doctor-experience svg {
+  color: var(--homepage-primary);
+}
+
+.homepage-doctor-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--homepage-primary);
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 1rem;
+  transition: var(--homepage-transition);
+}
+
+.homepage-doctor-link:hover {
+  color: var(--homepage-primary-dark);
+  transform: translateX(5px);
+}
+
+/* Testimonials Section */
+.homepage-testimonials-section {
+  background: var(--homepage-bg-gray-50);
+  padding: 5rem 0;
+}
+
+.homepage-testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.homepage-testimonial-card {
+  background: white;
+  border-radius: var(--homepage-radius-xl);
+  padding: 2rem;
+  box-shadow: var(--homepage-shadow-md);
+  position: relative;
+  transition: var(--homepage-transition);
+  opacity: 1;
+  transform: translateY(20px);
+}
+
+.homepage-testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--homepage-shadow-xl);
+}
+
+.homepage-quote-icon {
+  font-size: 3rem;
+  color: var(--homepage-primary-light);
+  position: absolute;
+  top: -1.5rem;
+  left: 2rem;
+  opacity: 0.5;
+}
+
+.homepage-testimonial-text {
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  color: var(--homepage-text-gray);
+}
+
+.homepage-testimonial-rating {
+  display: flex;
+  gap: 0.25rem;
+  color: #fbbf24;
+  margin-bottom: 1rem;
+}
+
+.homepage-testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.homepage-testimonial-author img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.homepage-testimonial-author h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+/* Booking Section */
+.homepage-booking-section {
+  background: linear-gradient(135deg, var(--homepage-bg-gray-50) 0%, white 100%);
+  padding: 5rem 0;
+}
+
+.homepage-booking-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.homepage-booking-info {
+  position: sticky;
+  top: 2rem;
+}
+
+.homepage-booking-info h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+}
+
+.homepage-booking-info p {
+  font-size: 1.125rem;
+  color: var(--homepage-text-gray);
+  margin-bottom: 2rem;
+}
+
+.homepage-booking-features {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.homepage-booking-feature {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1rem;
+  color: var(--homepage-text-dark);
+}
+
+.homepage-booking-feature svg {
+  font-size: 1.5rem;
+  color: var(--homepage-primary);
+}
+
+.homepage-contact-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.homepage-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.homepage-contact-item svg {
+  font-size: 2rem;
+  color: var(--homepage-primary);
+  margin-top: 0.25rem;
+}
+
+.homepage-contact-item h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.homepage-contact-item p {
+  font-size: 0.875rem;
+  color: var(--homepage-text-gray);
+}
+
+.homepage-booking-form {
+  background: white;
+  border-radius: var(--homepage-radius-xl);
+  padding: 2.5rem;
+  box-shadow: var(--homepage-shadow-xl);
+}
+
+.homepage-form-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--homepage-primary);
+}
+
+.homepage-form-header svg {
+  font-size: 1.5rem;
+}
+
+.homepage-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.homepage-form-group label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--homepage-text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.homepage-required {
+  color: #ef4444;
+}
+
+.homepage-form-group input,
+.homepage-form-group select {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: var(--homepage-radius-lg);
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--homepage-text-dark);
+  background: white;
+  transition: var(--homepage-transition);
+}
+
+.homepage-form-group input:focus,
+.homepage-form-group select:focus {
+  outline: none;
+  border-color: var(--homepage-primary);
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.1);
+}
+
+.homepage-form-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--homepage-text-gray);
+}
+
+.homepage-form-note svg {
+  color: var(--homepage-primary);
+}
+
+/* Spinner */
+.homepage-spinner-small {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+/* Services Sections */
+.homepage-hospital-services-section,
+.homepage-consultation-services-section {
+  background: #fafafa;
+  padding: 3.5rem 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.homepage-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+.homepage-services-grid > div {
+  width: 100%;
+}
+
+.homepage-service-card {
+  background: white;
+  border-radius: var(--homepage-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--homepage-shadow);
+  transition: var(--homepage-transition);
+  cursor: pointer;
+  opacity: 1;
+  transform: translateY(20px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid #e5e7eb;
+  max-width: 100%;
+}
+
+.homepage-service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--homepage-shadow-md);
+  border-color: var(--homepage-primary);
+}
+
+.homepage-service-image-wrapper {
+  position: relative;
+  height: 180px;
+  background: white;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.homepage-service-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--homepage-transition);
+}
+
+.homepage-service-card:hover .homepage-service-image {
+  transform: scale(1.08);
+}
+
+.homepage-service-overlay-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+  padding: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.homepage-service-price-overlay,
+.homepage-service-duration-overlay {
+  background: rgba(16, 185, 129, 0.9);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 1.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.homepage-service-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f0f9ff, #f0fdf4);
+  font-size: 3rem;
+  color: var(--homepage-primary);
+  opacity: 0.8;
+  position: relative;
+}
+
+.homepage-service-image-placeholder .placeholder-icon {
+  font-size: 3rem;
+  color: var(--homepage-primary);
+}
+
+.homepage-service-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 0.5rem;
+}
+
+.homepage-service-content h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--homepage-text-dark);
+  margin: 0;
+  line-height: 1.2;
+  min-height: 2rem;
+}
+
+.homepage-service-description {
+  font-size: 0.85rem;
+  color: var(--homepage-text-gray);
+  margin: 0;
+  line-height: 1.4;
+  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.homepage-service-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  background: var(--homepage-primary);
+  color: white;
+  border: none;
+  border-radius: var(--homepage-radius-lg);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--homepage-transition);
+  align-self: flex-start;
+}
+
+.homepage-service-btn:hover {
+  background: var(--homepage-primary-dark);
+  transform: translateX(3px);
+}
+
+.homepage-service-btn-consultation {
+  background: var(--homepage-secondary);
+}
+
+.homepage-service-btn-consultation:hover {
+  background: #0d9488;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.scale-in {
+  animation: scaleIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN 
+   ======================================================== */
+
+/* Tablet (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .homepage-section-container { padding: 3rem 0; }
+  .homepage-banner-slider { height: 60vh; min-height: 400px; }
+  .homepage-banner-content h1 { font-size: 2.75rem; }
+  .homepage-section-title { font-size: 2rem; margin-bottom: 2rem;}
+  
+  .homepage-features-grid, .homepage-stats-grid, .homepage-specialties-grid, 
+  .homepage-services-grid, .homepage-doctors-grid, .homepage-testimonials-grid { 
+    grid-template-columns: repeat(2, 1fr); gap: 1.5rem; 
+  }
+  
+  .homepage-intro-content { gap: 3rem; }
+  .homepage-booking-wrapper { gap: 3rem; }
+  .homepage-doctor-image { height: 280px; }
+  .homepage-intro-image img { height: 400px; }
+}
+
+/* Mobile (max-width: 768px) - Kích hoạt SCROLL NGANG cho các List Cards */
+@media (max-width: 768px) {
+  .homepage-section-container { padding: 2rem 0; }
+  
+  /* Cấu hình SCROLL NGANG (Vuốt màn hình) */
+  .homepage-features-grid,
+  .homepage-services-grid,
+  .homepage-specialties-grid,
+  .homepage-doctors-grid,
+  .homepage-testimonials-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 1rem; /* Nhường chỗ để hiển thị shadow card */
+    -webkit-overflow-scrolling: touch; 
+    scrollbar-width: none; /* Ẩn scrollbar Firefox */
+    gap: 1rem;
+  }
+  
+  /* Ẩn scrollbar cho Chrome/Safari */
+  .homepage-features-grid::-webkit-scrollbar,
+  .homepage-services-grid::-webkit-scrollbar,
+  .homepage-specialties-grid::-webkit-scrollbar,
+  .homepage-doctors-grid::-webkit-scrollbar,
+  .homepage-testimonials-grid::-webkit-scrollbar {
+    display: none; 
+  }
+
+  /* Định cỡ cho Card để scroll mượt mà (chừa 1 chút của card kế tiếp) */
+  .homepage-feature-card,
+  .homepage-service-card,
+  .homepage-specialty-card,
+  .homepage-doctor-card,
+  .homepage-testimonial-card {
+    flex: 0 0 75%; 
+    max-width: 320px;
+    scroll-snap-align: center;
+  }
+  
+  /* Banner thu gọn thêm */
+  .homepage-banner-slider { height: 350px; min-height: unset; }
+  .homepage-banner-content h1 { font-size: 1.8rem; line-height: 1.2; margin-bottom: 0.5rem; }
+  .homepage-banner-content h2 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .homepage-banner-content p { font-size: 0.9rem; line-height: 1.5; margin-bottom: 1rem; }
+  .homepage-banner-badge { font-size: 0.7rem; padding: 0.3rem 0.6rem; margin-bottom: 1rem; }
+  
+  .homepage-banner-buttons { flex-direction: row; width: 100%; gap: 0.75rem; }
+  .homepage-banner-buttons .homepage-btn { flex: 1; justify-content: center; padding: 0.6rem 1rem; font-size: 0.85rem;}
+  
+  /* Typography & Titles */
+  .homepage-section-title { font-size: 1.4rem; margin-bottom: 1rem;}
+  .homepage-section-subtitle { font-size: 0.9rem; }
+  
+  /* Icons thu gọn lại */
+  .homepage-feature-icon { width: 50px; height: 50px; font-size: 1.4rem; margin-bottom: 0.75rem;}
+  .homepage-specialty-icon { font-size: 1.8rem; margin-bottom: 0.75rem;}
+  
+  /* Image Heights giảm */
+  .homepage-intro-content { grid-template-columns: 1fr; gap: 1.5rem; }
+  .homepage-intro-image img { height: 260px; }
+  .homepage-intro-badge { position: relative; bottom: auto; right: auto; margin-top: 1rem; width: fit-content; padding: 0.75rem 1.25rem;}
+  .homepage-intro-badge h4 { font-size: 1.6rem; }
+  .homepage-doctor-image { height: 220px; }
+  .homepage-service-image-wrapper { height: 140px; }
+  
+  /* Form Booking (Giữ nguyên form dọc, không scroll ngang) */
+  .homepage-booking-wrapper { grid-template-columns: 1fr; gap: 1.5rem; }
+  .homepage-booking-info h2 { font-size: 1.6rem; margin-bottom: 0.5rem;}
+  .homepage-booking-info p { font-size: 0.9rem; }
+  .homepage-contact-info { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+/* Small Mobile (max-width: 480px) - Siêu bé gọn */
+@media (max-width: 480px) {
+  .homepage-container { padding: 0 1rem; }
+  .homepage-section-container { padding: 1.5rem 0; }
+  
+  /* Banner Tí Hon */
+  .homepage-banner-slider { height: 280px; }
+  .homepage-banner-content h1 { font-size: 1.25rem; }
+  .homepage-banner-content h2 { font-size: 0.85rem; }
+  .homepage-banner-content p { font-size: 0.75rem; margin-bottom: 0.75rem; }
+  .homepage-banner-badge { font-size: 0.6rem; padding: 0.25rem 0.5rem; margin-bottom: 0.5rem; }
+  .homepage-btn { padding: 0.4rem 0.8rem; font-size: 0.75rem; gap: 0.3rem;}
+  
+  /* Slider Buttons */
+  .homepage-slider-btn { width: 30px; height: 30px; font-size: 0.7rem;}
+  .homepage-prev { left: 0.5rem; }
+  .homepage-next { right: 0.5rem; }
+  .homepage-slider-dots { bottom: 0.5rem; gap: 0.5rem;}
+  .homepage-dot { width: 8px; height: 8px; }
+  
+  /* Horizontal Cards cho Mobile Nhỏ (Chiếm nhiều không gian hơn 1 chút so với tablet) */
+  .homepage-feature-card,
+  .homepage-service-card,
+  .homepage-specialty-card,
+  .homepage-doctor-card,
+  .homepage-testimonial-card {
+    flex: 0 0 82%; 
+    max-width: none;
+    padding: 1rem;
+  }
+  
+  /* Texts inside Cards */
+  .homepage-feature-card h3, .homepage-specialty-card h3 { font-size: 0.95rem; margin-bottom: 0.5rem; }
+  .homepage-feature-card p, .homepage-specialty-card p { font-size: 0.8rem; }
+  .homepage-service-content h3 { font-size: 0.85rem; min-height: auto;}
+  .homepage-service-description { font-size: 0.75rem; }
+  .homepage-service-btn { padding: 0.3rem 0.6rem; font-size: 0.7rem; }
+  
+  /* Section Titles */
+  .homepage-section-title { font-size: 1.15rem; margin-bottom: 1rem;}
+  
+  /* Stats (Cho thành lưới 2 cột, bé đi) */
+  .homepage-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; } 
+  .homepage-stat-icon { font-size: 1.8rem; margin-bottom: 0.5rem;}
+  .homepage-stat-number { font-size: 1.6rem; }
+  .homepage-stat-label { font-size: 0.8rem; }
+  
+  /* Intro & Doctor Images */
+  .homepage-doctor-image { height: 200px; }
+  .homepage-intro-image img { height: 180px; }
+  .homepage-intro-badge { padding: 0.6rem 1rem; }
+  .homepage-intro-badge h4 { font-size: 1.25rem; }
+  .homepage-intro-badge svg { font-size: 1.5rem; }
+  
+  /* Form Booking */
+  .homepage-booking-form { padding: 1rem; }
+  .homepage-form-header { font-size: 1.1rem; margin-bottom: 1rem;}
+  .homepage-form-group label { font-size: 0.8rem; }
+  .homepage-form-group input, .homepage-form-group select { padding: 0.6rem 0.8rem; font-size: 0.85rem;}
+}
+
+/* ==================== THIẾT LẬP NÚT CUỘN NGANG (SCROLL WRAPPER) ==================== */
+.scroll-wrapper-container {
+  position: relative;
+  width: 100%;
+}
+
+.scroll-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e5e7eb;
+  border-radius: 50%;
+  width: 40px; 
+  height: 40px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0; /* Ẩn mặc định, chỉ hiện khi hover */
+  transition: all 0.3s ease;
+  color: var(--homepage-primary-darker);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.scroll-arrow:hover {
+  background: var(--homepage-primary);
+  color: white;
+}
+
+/* Hiện mũi tên khi rê chuột vào khu vực container (Desktop) */
+@media (hover: hover) {
+  .scroll-wrapper-container:hover .scroll-arrow {
+    opacity: 1;
+  }
+}
+
+/* Trên mobile/tablet (không có chuột), luôn hiện mờ để gợi ý */
+@media (hover: none) {
+  .scroll-arrow {
+    opacity: 0.8;
+    width: 32px; 
+    height: 32px;
+  }
+}
+
+.scroll-arrow.left { left: 5px; }
+.scroll-arrow.right { right: 5px; }
+
+.scroll-content {
+  scrollbar-width: none; /* Firefox */
+}
+.scroll-content::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}

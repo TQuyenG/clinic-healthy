@@ -1,0 +1,576 @@
+/* Responsive and improved styles for PharmacyRetailPage
+   This file targets the `front-desk-page-*` class namespace used by the page.
+   It relies on CSS variables defined in FrontDeskPage.css which is already imported.
+*/
+
+.front-desk-page-container {
+  min-height: calc(100vh - 72px);
+  padding: 16px;
+  background: var(--frd-green-10);
+  color: var(--frd-gray-900);
+  padding-bottom: 0;
+}
+
+.front-desk-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.front-desk-page-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--frd-green-700);
+}
+
+.front-desk-page-subtitle {
+  font-size: 13px;
+  color: var(--frd-gray-700);
+}
+
+.front-desk-page-btn {
+  border: none;
+  border-radius: var(--frd-radius-sm);
+  padding: 8px 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.front-desk-page-btn-primary {
+  background: var(--frd-green-700);
+  color: var(--frd-white);
+}
+
+.medicine-import-btn-inline {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  padding: 0;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.12);
+}
+
+.medicine-import-btn-inline svg {
+  font-size: 15px;
+}
+
+.front-desk-page-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1.4fr 0.95fr;
+}
+
+.front-desk-page-grid > .front-desk-page-panel:last-child {
+  position: sticky;
+  top: 12px;
+  max-height: calc(100vh - 110px);
+}
+
+/* Panels */
+.front-desk-page-panel {
+  background: var(--frd-white);
+  border: 1px solid var(--frd-gray-200);
+  border-radius: var(--frd-radius);
+  box-shadow: var(--frd-shadow-sm);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.front-desk-page-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: var(--frd-green-50);
+  color: var(--frd-green-700);
+  font-weight: 700;
+}
+
+.front-desk-page-panel-body {
+  padding: 10px;
+  overflow: auto;
+}
+
+.front-desk-page-section-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--frd-gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+
+.front-desk-page-order-shell {
+  display: grid;
+  gap: 12px;
+}
+
+/* Prominent total / summary */
+.front-desk-page-total-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(67,160,71,0.06), rgba(239,246,255,0.02));
+  border: 1px solid var(--frd-gray-100);
+  margin-bottom: 12px;
+}
+.front-desk-page-total-label { font-size: 13px; color: var(--frd-gray-600); font-weight: 700; }
+.front-desk-page-total-amount { font-size: 20px; font-weight: 900; color: var(--frd-red-700); font-family: var(--frd-mono); }
+
+.front-desk-page-total-summary.compact {
+  padding: 10px 12px;
+  margin-bottom: 0;
+}
+
+.front-desk-page-total-summary.compact .front-desk-page-total-amount {
+  font-size: 18px;
+}
+
+/* Currency input */
+.currency-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--frd-gray-200);
+  background: linear-gradient(180deg,#fff,#fbfbfb);
+  font-size: 18px;
+  font-weight: 800;
+  text-align: right;
+  color: var(--frd-green-700);
+  font-family: var(--frd-mono);
+}
+.currency-input::placeholder { color: var(--frd-gray-400); font-weight: 600; }
+
+.currency-hint { font-size: 12px; color: var(--frd-gray-500); margin-top: 6px; }
+
+.front-desk-page-customer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.front-desk-page-payment-methods {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.front-desk-page-payment-option {
+  min-height: 46px;
+  border-radius: 12px;
+  border: 1px solid var(--frd-gray-200);
+  background: #fff;
+  color: var(--frd-gray-700);
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: var(--frd-transition);
+}
+
+.front-desk-page-payment-option.active {
+  border-color: var(--frd-green-500);
+  background: var(--frd-green-50);
+  color: var(--frd-green-700);
+  box-shadow: 0 0 0 2px rgba(67,160,71,0.08);
+}
+
+.front-desk-page-payment-note {
+  padding: 12px 13px;
+  border-radius: 12px;
+  border: 1px dashed #bfdbfe;
+  background: linear-gradient(180deg, #eff6ff, #f8fbff);
+  color: #1e3a8a;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.front-desk-page-order-actions {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 1fr;
+  gap: 8px;
+}
+
+.front-desk-page-input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--frd-gray-200);
+  border-radius: var(--frd-radius-sm);
+  outline: none;
+}
+
+/* medicine list */
+.medicine-panel-body {
+  display: grid;
+  gap: 12px;
+}
+
+.medicine-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: nowrap;
+  margin-top: 8px;
+}
+
+.medicine-panel-body {
+  padding: 8px 12px 0;
+}
+
+.medicine-search-group {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--frd-gray-200);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.medicine-search-input {
+  border: none !important;
+  background: transparent !important;
+  min-width: 0;
+  flex: 1;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+.medicine-search-input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.medicine-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.front-desk-page-panel-body .medicine-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.front-desk-page-panel-body .medicine-grid.medicine-view-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.front-desk-page-panel-body .medicine-grid.medicine-view-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.medicine-view-toggle {
+  display: inline-flex;
+  border: 1px solid var(--frd-gray-200);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.medicine-view-toggle button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: var(--frd-gray-500);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.medicine-view-toggle button.active {
+  background: var(--frd-green-700);
+  color: #fff;
+}
+
+.front-desk-page-panel .medicine-card {
+  width: 100%;
+  text-align: left;
+  padding: 14px 15px;
+  border-radius: 14px;
+  border: 1px solid var(--frd-gray-200);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--frd-white);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.medicine-card-shell {
+  position: relative;
+  display: grid;
+  gap: 8px;
+}
+
+.medicine-card-shell.out-of-stock-shell {
+  padding-bottom: 52px;
+}
+
+.front-desk-page-panel .medicine-card:hover {
+  border-color: var(--frd-green-300);
+  box-shadow: 0 8px 18px rgba(67, 160, 71, 0.08);
+  transform: translateY(-1px);
+}
+
+.front-desk-page-panel .medicine-card.medicine-card-compact {
+  padding: 12px 12px 14px;
+  border-radius: 14px;
+  min-height: 122px;
+}
+
+.front-desk-page-panel .medicine-card.medicine-card-list {
+  padding: 14px 14px 16px;
+  border-radius: 14px;
+  min-height: 118px;
+}
+
+.front-desk-page-panel .medicine-card:disabled {
+  opacity: 1;
+}
+
+.front-desk-page-panel .medicine-card.out-of-stock {
+  background: linear-gradient(180deg, #fff, #fff9f9);
+}
+
+.medicine-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.medicine-import-btn {
+  width: 100%;
+  border: 1px dashed #f59e0b;
+  background: #fffbeb;
+  color: #b45309;
+  font-weight: 800;
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: var(--frd-transition);
+}
+
+.medicine-import-btn:hover {
+  background: #fef3c7;
+  border-color: #f59e0b;
+}
+
+.medicine-card-shell .medicine-import-btn {
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+.medicine-import-btn-inline {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  padding: 0;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.12);
+}
+
+.medicine-import-btn-inline svg {
+  font-size: 15px;
+}
+
+.medicine-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.medicine-card-name {
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--frd-gray-900);
+}
+
+.medicine-card-head-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.medicine-card-price {
+  color: var(--frd-red-700) !important;
+  font-size: 15px;
+}
+
+.medicine-card-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.medicine-card-status-out {
+  color: var(--frd-teal-700);
+}
+
+.medicine-card-status-in-cart,
+.medicine-card-status-add {
+  color: var(--frd-green-700);
+}
+
+.medicine-card-meta {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--frd-gray-500);
+}
+
+.medicine-card-footnote {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--frd-gray-200);
+  font-size: 12px;
+  color: var(--frd-gray-500);
+}
+
+.front-desk-page-panel .medicine-card.medicine-card-list {
+  padding-right: 126px;
+}
+
+.front-desk-page-panel .medicine-card.medicine-card-compact {
+  min-height: 122px;
+  padding: 12px 12px 14px;
+}
+
+.front-desk-page-panel .medicine-card.medicine-card-compact .medicine-card-head {
+  min-height: 42px;
+}
+
+.front-desk-page-panel .medicine-card.medicine-card-compact .medicine-card-name {
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.front-desk-page-panel .medicine-card.medicine-card-compact .medicine-card-meta {
+  margin-top: 2px;
+}
+
+.front-desk-page-panel .medicine-card.medicine-card-compact .medicine-card-footnote {
+  display: none;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 1fr 80px 110px 36px;
+  gap: 8px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid var(--frd-gray-200);
+  border-radius: 10px;
+}
+
+.cart-item .item-name { font-weight: 700; }
+.cart-item input[type="number"] { padding: 6px; width: 100%; border-radius: 6px; border: 1px solid var(--frd-gray-200); }
+
+/* form fields spacing */
+.front-desk-page-panel .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.front-desk-page-panel .form-row .full { grid-column: 1 / -1; }
+
+/* invoice table */
+.front-desk-page-table { width: 100%; border-collapse: collapse; }
+.front-desk-page-table th, .front-desk-page-table td { padding: 8px 10px; border-bottom: 1px solid var(--frd-gray-100); }
+
+/* responsive */
+@media (max-width: 1000px) {
+  .front-desk-page-grid { grid-template-columns: 1fr; }
+  .front-desk-page-grid > .front-desk-page-panel:last-child { position: static; max-height: none; }
+  .cart-item { grid-template-columns: 1fr 70px 100px 32px; }
+  .front-desk-page-panel-header { padding: 10px; }
+  .medicine-toolbar { flex-wrap: wrap; }
+  .medicine-toolbar-actions { width: 100%; justify-content: space-between; }
+  .medicine-search-group { width: 100%; }
+  .front-desk-page-panel-body .medicine-grid.medicine-view-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+  .front-desk-page-panel .medicine-card.medicine-card-list {
+    padding-right: 14px;
+  }
+  .medicine-card-head {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 520px) {
+  .front-desk-page-title { font-size: 16px; }
+  .front-desk-page-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .front-desk-page-panel-body { padding: 8px; }
+  .front-desk-page-panel .medicine-card { padding: 11px; }
+  .medicine-toolbar { gap: 10px; }
+  .medicine-toolbar-actions { width: 100%; }
+  .medicine-toolbar-actions .front-desk-page-btn { flex: 1; justify-content: center; }
+  .medicine-view-toggle { flex-shrink: 0; }
+  .medicine-view-toggle button { width: 34px; height: 34px; }
+  .front-desk-page-panel-body .medicine-grid.medicine-view-grid {
+    grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+    gap: 8px;
+  }
+  .front-desk-page-panel .medicine-card.medicine-card-compact {
+    min-height: 108px;
+    padding: 10px;
+  }
+  .front-desk-page-panel .medicine-card.medicine-card-compact .medicine-card-name {
+    font-size: 12.5px;
+  }
+  .front-desk-page-panel .medicine-card.medicine-card-list {
+    padding-right: 12px;
+  }
+  .medicine-card-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .medicine-card-head-right {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    white-space: normal;
+  }
+  .medicine-card-actions {
+    margin-top: 8px;
+  }
+  .medicine-import-btn-inline {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+  }
+  .cart-item { grid-template-columns: 1fr 64px 84px 28px; }
+  .front-desk-page-customer-grid,
+  .front-desk-page-payment-methods,
+  .front-desk-page-order-actions { grid-template-columns: 1fr; }
+  .front-desk-page-total-summary { padding: 10px; }
+  .front-desk-page-total-amount { font-size: 18px; }
+  .currency-input { font-size: 16px; }
+}

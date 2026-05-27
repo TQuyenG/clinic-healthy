@@ -1,0 +1,242 @@
+/* client/src/pages/PaymentPage.css */
+
+:root {
+  --pp-green-primary: #4CAF50;        /* Xanh lá đậm (Nút, Text chính) */
+  --pp-green-light: #E8F5E9;          /* Xanh lá nhạt (Nền) */
+  --pp-green-hover: #388E3C;          /* Hover nút */
+  --pp-text-dark: #263238;            /* Text nội dung */
+  --pp-text-gray: #78909C;            /* Text phụ */
+  --pp-white: #FFFFFF;
+  --pp-border: #C8E6C9;               /* Viền xanh nhạt */
+  --pp-radius: 12px;
+  --pp-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
+}
+
+.payment-page-wrapper {
+  background-color: var(--pp-green-light);
+  min-height: 100vh;
+  padding: 30px 0;
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--pp-text-dark);
+}
+
+.payment-page-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 20px;
+  padding: 0 15px;
+}
+
+/* --- CARD STYLE CHUNG --- */
+.payment-page-card {
+  background: var(--pp-white);
+  border-radius: var(--pp-radius);
+  box-shadow: var(--pp-shadow);
+  overflow: hidden;
+  border: 1px solid var(--pp-border);
+}
+
+.payment-page-card-header {
+  padding: 15px 20px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-bottom: 1px solid var(--pp-border);
+  display: flex;
+  align-items: center;
+}
+
+.payment-page-card-body {
+  padding: 20px;
+}
+
+/* --- GRID PHƯƠNG THỨC THANH TOÁN --- */
+.payment-page-methods-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.payment-page-method-item {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.payment-page-method-item:hover {
+  border-color: var(--pp-green-primary);
+  background-color: #F1F8E9;
+}
+
+.payment-page-method-item.active {
+  border-color: var(--pp-green-primary);
+  background-color: #E8F5E9;
+  box-shadow: 0 0 0 1px var(--pp-green-primary);
+}
+
+.payment-page-method-item .icon { font-size: 1.5rem; margin-right: 12px; }
+.text-success { color: #2E7D32 !important; }
+.text-pink { color: #D81B60 !important; }
+.text-blue { color: #1565C0 !important; }
+.text-orange { color: #EF6C00 !important; }
+
+.payment-page-method-item .info .name { font-weight: 600; font-size: 0.95rem; }
+.payment-page-method-item .info .desc { font-size: 0.75rem; color: var(--pp-text-gray); }
+.payment-page-method-item .check { position: absolute; top: 10px; right: 10px; color: var(--pp-green-primary); }
+
+.payment-page-divider { height: 1px; background: #eee; margin: 20px 0; }
+
+/* --- CHI TIẾT THANH TOÁN (BANK) --- */
+.payment-page-detail-section {
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:translateY(0); }}
+
+.bank-transfer-layout {
+  display: flex;
+  gap: 20px;
+  background: #FAFAFA;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px dashed #ccc;
+}
+
+.qr-block { text-align: center; }
+.qr-block img { max-width: 140px; border: 1px solid #ddd; border-radius: 6px; }
+.qr-block .small-note { display: block; font-size: 0.75rem; color: #888; margin-top: 5px; }
+
+.info-block { flex: 1; font-size: 0.9rem; }
+.info-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.info-row.highlight { font-size: 1rem; border-top: 1px solid #eee; padding-top: 8px; margin-top: 8px; }
+.info-row.highlight-box { background: #fff; padding: 8px; border: 1px solid #eee; border-radius: 4px; align-items: center; }
+
+.copy-wrapper { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.copy-wrapper svg { color: #888; transition: 0.2s; }
+.copy-wrapper svg:hover { color: var(--pp-green-primary); }
+
+.auto-check-msg { margin-top: 10px; font-size: 0.85rem; color: var(--pp-green-primary); font-weight: 600; display: flex; align-items: center; gap: 6px; }
+
+/* --- CHI TIẾT THANH TOÁN (MOMO) --- */
+.momo-personal-layout { background: #FFF3E0; padding: 15px; border-radius: 8px; border: 1px dashed #FFB74D; }
+.alert-warning-box { font-size: 0.85rem; color: #EF6C00; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.qr-upload-flex { display: flex; gap: 20px; align-items: stretch; }
+.qr-side { text-align: center; }
+.qr-side img { max-width: 120px; border: 2px solid #fff; }
+.phone-tag { font-weight: bold; color: #D81B60; font-size: 0.9rem; }
+
+.upload-side { flex: 1; background: #fff; border: 2px dashed #ccc; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; min-height: 140px; }
+.upload-side:hover { border-color: #D81B60; background: #FFF0F5; }
+.upload-placeholder { text-align: center; color: #888; display: flex; flex-direction: column; align-items: center; }
+.file-preview img { max-height: 120px; border-radius: 4px; }
+.file-preview span { display: block; font-size: 0.8rem; color: var(--pp-green-primary); margin-top: 5px; text-align: center; }
+
+/* --- SUMMARY CARD (RIGHT COL) --- */
+.bg-primary-light { background: #E8F5E9 !important; color: #2E7D32 !important; }
+.summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.9rem; }
+.summary-divider { height: 1px; background: #eee; margin: 15px 0; }
+.summary-total { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.1rem; color: #D32F2F; }
+
+.payment-page-timer-widget {
+  margin-top: 15px;
+  background: #FFF8E1;
+  border: 1px solid #FFECB3;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  color: #F57F17;
+}
+.timer-icon { font-size: 1.5rem; margin-bottom: 5px; }
+.timer-text { font-size: 0.85rem; font-weight: 600; }
+.timer-countdown { font-size: 1.4rem; font-weight: 800; font-family: monospace; }
+
+/* --- ACTIONS BUTTONS --- */
+.payment-page-form-actions { display: flex; justify-content: space-between; margin-top: 25px; }
+.payment-page-btn-secondary {
+  background: #fff; border: 1px solid #ccc; padding: 10px 20px; border-radius: 6px;
+  color: #555; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px;
+}
+.payment-page-btn-secondary:hover { background: #f5f5f5; }
+
+.payment-page-btn-primary {
+  background: var(--pp-green-primary); border: none; padding: 10px 20px; border-radius: 6px;
+  color: #fff; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 3px 6px rgba(76, 175, 80, 0.3);
+}
+.payment-page-btn-primary.large { padding: 12px 30px; font-size: 1rem; }
+.payment-page-btn-primary:hover { background: var(--pp-green-hover); transform: translateY(-1px); }
+.payment-page-btn-primary:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
+
+.payment-page-spin { animation: spin 1s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* --- INVOICE SUCCESS STYLE --- */
+.payment-page-invoice-container {
+  max-width: 600px;
+  margin: 20px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+  border: 1px solid #ddd;
+}
+
+.payment-page-invoice-header {
+  background: var(--pp-green-primary);
+  color: #fff;
+  text-align: center;
+  padding: 30px 20px;
+}
+.invoice-icon-box { font-size: 3.5rem; margin-bottom: 10px; }
+.invoice-title { margin: 0; font-weight: 800; }
+.invoice-subtitle { opacity: 0.9; font-size: 0.9rem; margin-top: 5px; }
+
+.payment-page-invoice-body { padding: 30px; }
+.invoice-row-highlight { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; }
+.invoice-divider { border-bottom: 2px dashed #eee; margin: 15px 0; }
+
+.invoice-details-grid .invoice-item {
+  display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95rem;
+}
+.invoice-item .label { color: #78909C; }
+.invoice-item .value { font-weight: 600; color: #263238; text-align: right; }
+
+.invoice-total-box {
+  background: #F1F8E9; padding: 15px; border-radius: 8px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-weight: 800; font-size: 1.2rem; color: #2E7D32; margin-top: 20px;
+}
+
+.invoice-status-badge {
+  text-align: center; margin-top: 20px;
+  background: #E8F5E9; color: #2E7D32;
+  display: inline-block; padding: 5px 15px; border-radius: 20px;
+  font-size: 0.85rem; font-weight: 600; width: 100%;
+}
+
+.payment-page-invoice-actions {
+  padding: 20px 30px 30px;
+  display: flex; gap: 10px; justify-content: center;
+}
+
+/* --- PRINT MEDIA --- */
+@media print {
+  body * { visibility: hidden; }
+  .payment-page-invoice-container, .payment-page-invoice-container * { visibility: visible; }
+  .payment-page-invoice-container {
+    position: absolute; left: 0; top: 0; width: 100%;
+    box-shadow: none; border: 2px solid #000;
+    margin: 0; max-width: 100%;
+  }
+  .payment-page-invoice-actions { display: none; }
+}
+
+/* Loading & Error */
+.payment-page-loading, .payment-page-error { text-align: center; padding: 50px; font-size: 1.2rem; color: #555; }
+.payment-page-pending-box { text-align: center; padding: 50px; background: #fff; max-width: 500px; margin: 50px auto; border-radius: 12px; box-shadow: var(--pp-shadow); }
+.pending-icon { font-size: 4rem; color: #FFB300; margin-bottom: 20px; }

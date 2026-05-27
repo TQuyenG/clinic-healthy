@@ -1,0 +1,341 @@
+/* client/src/components/consultation/ConsultationStatistics.css */
+
+:root {
+  --cs-bg-main: #F8FDF8; /* Xanh lá pastel rất nhạt (Nền chính) */
+  --cs-bg-container: #FFFFFF;
+  --cs-primary: #4CAF50; /* Xanh y tế (Màu chủ đạo) */
+  --cs-primary-light: #E0F5E1; /* Xanh lá nhạt cho nền */
+  --cs-border: #DDEFE0;
+  --cs-text-primary: #2E475D; /* Chữ chính (xanh đậm/xám) */
+  --cs-text-secondary: #6c757d; /* Chữ phụ */
+  --cs-star: #FFC107;
+  --cs-shadow-light: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.consultation-statistics-container {
+  padding: 1.25rem;
+  background-color: var(--cs-bg-main);
+  border-radius: 8px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Tabs */
+.consultation-statistics-tabs-nav {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 2px solid var(--cs-border);
+  margin-bottom: 1.25rem;
+}
+
+.consultation-statistics-tab-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem; /* Thu nhỏ */
+  font-size: 0.95rem; /* Thu nhỏ */
+  font-weight: 600;
+  border: none;
+  background-color: transparent;
+  color: var(--cs-text-secondary);
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: -2px; /* Dính vào border */
+}
+
+.consultation-statistics-tab-button:hover {
+  color: var(--cs-text-primary);
+}
+
+.consultation-statistics-tab-button.active {
+  color: var(--cs-primary); /* Nổi bật */
+  border-bottom-color: var(--cs-primary);
+}
+
+/* Loading / Error */
+.consultation-statistics-message-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  background-color: var(--cs-bg-container);
+  border-radius: 6px;
+  border: 1px solid var(--cs-border);
+  color: var(--cs-text-secondary);
+  font-size: 1rem;
+  font-weight: 500;
+}
+.consultation-statistics-message-box.loading {
+  color: var(--cs-text-primary);
+}
+.consultation-statistics-spinner {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 3px solid var(--cs-border);
+  border-top-color: var(--cs-primary);
+  border-radius: 50%;
+  animation: consultation-statistics-spin 1s linear infinite;
+}
+
+/* Overview Tab */
+.consultation-statistics-stat-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.consultation-statistics-stat-card {
+  background-color: var(--cs-bg-container);
+  border: 1px solid var(--cs-border);
+  border-radius: 6px;
+  padding: 1rem; /* Thu nhỏ */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--cs-shadow-light);
+}
+
+.consultation-statistics-stat-card-icon {
+  font-size: 1.75rem; /* Thu nhỏ */
+  padding: 0.75rem;
+  border-radius: 50%;
+  background-color: var(--cs-bg-main);
+}
+
+.consultation-statistics-stat-card-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.consultation-statistics-stat-card-label {
+  font-size: 0.85rem; /* Thu nhỏ */
+  color: var(--cs-text-secondary);
+  margin: 0;
+}
+
+.consultation-statistics-stat-card-number {
+  font-size: 1.5rem; /* Thu nhỏ */
+  font-weight: 700;
+  color: var(--cs-text-primary); /* Nổi bật (đậm) */
+  margin: 0.25rem 0 0 0;
+}
+
+/* Charts */
+.consultation-statistics-charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.consultation-statistics-chart-container {
+  background-color: var(--cs-bg-container);
+  border: 1px solid var(--cs-border);
+  border-radius: 6px;
+  padding: 1rem; /* Thu nhỏ */
+  box-shadow: var(--cs-shadow-light);
+}
+
+.consultation-statistics-chart-title {
+  font-size: 1.1rem; /* Thu nhỏ */
+  color: var(--cs-text-primary);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--cs-border);
+}
+
+.consultation-statistics-chart-bars-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.consultation-statistics-chart-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.consultation-statistics-chart-bar-label {
+  font-size: 0.85rem; /* Thu nhỏ */
+  color: var(--cs-text-secondary);
+  width: 80px; /* Cố định để căn chỉnh */
+  text-transform: capitalize;
+  flex-shrink: 0;
+}
+
+.consultation-statistics-chart-bar-bg {
+  flex-grow: 1;
+  background-color: var(--cs-bg-main);
+  border-radius: 4px;
+  height: 20px; /* Thu nhỏ */
+  overflow: hidden;
+  border: 1px solid var(--cs-border);
+}
+
+.consultation-statistics-chart-bar-fg {
+  height: 100%;
+  background-color: var(--cs-primary-light);
+  border-right: 2px solid var(--cs-primary); /* Nổi bật */
+  font-size: 0.8rem;
+  color: var(--cs-text-primary);
+  font-weight: 600;
+  text-align: right;
+  padding-right: 5px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  transition: width 0.5s ease-out;
+}
+
+.consultation-statistics-no-data-small {
+  font-size: 0.9rem;
+  color: var(--cs-text-secondary);
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+
+/* Tables (Doctors, Patients) */
+.consultation-statistics-table-container {
+  background-color: var(--cs-bg-container);
+  border: 1px solid var(--cs-border);
+  border-radius: 6px;
+  overflow-x: auto;
+  box-shadow: var(--cs-shadow-light);
+}
+
+.consultation-statistics-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.consultation-statistics-table th,
+.consultation-statistics-table td {
+  padding: 0.75rem 1rem; /* Thu nhỏ */
+  font-size: 0.9rem; /* Thu nhỏ */
+  border-bottom: 1px solid var(--cs-border);
+  text-align: left;
+  color: var(--cs-text-secondary);
+}
+
+.consultation-statistics-table th {
+  background-color: var(--cs-bg-main);
+  font-weight: 600;
+  color: var(--cs-text-primary);
+  font-size: 0.85rem; /* Thu nhỏ */
+  text-transform: uppercase;
+}
+
+.consultation-statistics-table tbody tr:nth-child(even) {
+  background-color: var(--cs-bg-main);
+}
+
+.consultation-statistics-table tbody tr:hover {
+  background-color: var(--cs-primary-light);
+}
+
+.consultation-statistics-table-cell-user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.consultation-statistics-table-cell-user img {
+  width: 32px; /* Thu nhỏ */
+  height: 32px; /* Thu nhỏ */
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--cs-border);
+}
+
+.consultation-statistics-table-cell-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.consultation-statistics-table-cell-name {
+  font-weight: 600;
+  color: var(--cs-text-primary); /* Nổi bật */
+}
+
+.consultation-statistics-table-cell-subtext {
+  font-size: 0.8rem; /* Thu nhỏ */
+  color: #888;
+}
+
+.consultation-statistics-table-cell-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 600;
+  color: var(--cs-text-primary);
+}
+.consultation-statistics-table-cell-rating svg {
+  color: var(--cs-star); /* Nổi bật */
+}
+.consultation-statistics-table-cell-rating .consultation-statistics-table-cell-subtext {
+  margin-left: 0.25rem;
+  font-weight: 400;
+}
+
+.consultation-statistics-table-cell-amount {
+  font-weight: 600;
+  color: var(--cs-primary); /* Nổi bật */
+}
+
+.consultation-statistics-no-data-cell {
+  text-align: center;
+  padding: 2rem;
+  color: var(--cs-text-secondary);
+  font-style: italic;
+}
+
+@keyframes consultation-statistics-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive (Thu nhỏ cho mobile) */
+@media (max-width: 768px) {
+  .consultation-statistics-charts-grid {
+    grid-template-columns: 1fr;
+  }
+  .consultation-statistics-stat-card-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .consultation-statistics-table {
+    border: 0;
+  }
+  .consultation-statistics-table thead {
+    display: none;
+  }
+  .consultation-statistics-table tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid var(--cs-border);
+    border-radius: 6px;
+  }
+  .consultation-statistics-table td {
+    display: block;
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+    border: none;
+    border-bottom: 1px solid var(--cs-border);
+  }
+  .consultation-statistics-table td:last-child {
+    border-bottom: 0;
+  }
+  .consultation-statistics-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 1rem;
+    width: 45%;
+    padding-right: 0.5rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--cs-text-primary);
+  }
+}

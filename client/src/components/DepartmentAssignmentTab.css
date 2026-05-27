@@ -1,0 +1,390 @@
+/* client/src/components/DepartmentAssignmentTab.css */
+
+/* === CONTAINER CHÍNH === */
+.DeptAssign-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: white; /* Nền trắng sạch sẽ thay vì gradient lòe loẹt */
+  border-radius: 8px;
+  border: 1px solid #E0E0E0;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* === HEADER === */
+.DeptAssign-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #E0E0E0;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.DeptAssign-header-left h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #2E7D32; /* Xanh lá đậm */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.DeptAssign-header-left p {
+  margin: 4px 0 0 0;
+  font-size: 12px;
+  color: #666;
+}
+
+.DeptAssign-total-badge {
+  font-size: 12px;
+  background: #E8F5E9;
+  color: #2E7D32;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid #C8E6C9;
+}
+
+.DeptAssign-color-config-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  background: rgba(46, 125, 50, 0.1);
+  border: 1px solid rgba(46, 125, 50, 0.3);
+  color: #2E7D32;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.DeptAssign-color-config-btn:hover {
+  background: #2E7D32;
+  color: white;
+  border-color: #2E7D32;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(46, 125, 50, 0.2);
+}
+
+.DeptAssign-color-config-btn:active {
+  transform: translateY(0);
+}
+
+/* === TOOLBAR === */
+.DeptAssign-toolbar {
+  padding: 10px 16px;
+  background: #F9FAFB;
+  border-bottom: 1px solid #E0E0E0;
+  display: flex;
+  flex-wrap: wrap; /* Cho phép xuống dòng nếu màn hình quá bé */
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* Wrapper tìm kiếm */
+.DeptAssign-search-wrapper {
+  position: relative;
+  min-width: 250px;
+  flex: 1; /* Tự động giãn */
+  max-width: 400px;
+}
+
+.DeptAssign-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 12px;
+}
+
+.DeptAssign-search-input {
+  width: 100%;
+  padding: 8px 12px 8px 32px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  height: 36px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+.DeptAssign-search-input:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+/* Select Box */
+.DeptAssign-select {
+  padding: 0 10px;
+  height: 36px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  background: white;
+  min-width: 150px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.DeptAssign-select:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+/* Buttons */
+.DeptAssign-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 12px;
+  height: 36px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.DeptAssign-btn-primary {
+  background: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+.DeptAssign-btn-primary:hover {
+  background: #43A047;
+  border-color: #43A047;
+}
+
+.DeptAssign-btn-secondary {
+  background: white;
+  border: 1px solid #ddd;
+  color: #555;
+}
+.DeptAssign-btn-secondary:hover {
+  border-color: #4CAF50;
+  color: #4CAF50;
+}
+
+/* Separator dọc */
+.DeptAssign-divider {
+  width: 1px;
+  height: 24px;
+  background: #ddd;
+  margin: 0 4px;
+}
+
+/* === TABLE CONTENT === */
+.DeptAssign-content {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+  background: white;
+}
+
+.DeptAssign-loading,
+.DeptAssign-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #999;
+  gap: 12px;
+}
+
+.DeptAssign-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 900px;
+}
+
+.DeptAssign-table thead th {
+  background: #F1F8E9; /* Xanh rất nhạt */
+  color: #2E7D32;
+  font-weight: 600;
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 2px solid #C8E6C9;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  cursor: pointer; /* Cho phép click để sort */
+  user-select: none;
+}
+.DeptAssign-table thead th:hover {
+  background: #DCEDC8;
+}
+
+.DeptAssign-table tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #F0F0F0;
+  color: #333;
+  vertical-align: middle;
+}
+
+.DeptAssign-table tbody tr:hover {
+  background: #FAFAFA;
+}
+
+.DeptAssign-table tbody tr.DeptAssign-row-selected {
+  background: #E8F5E9;
+}
+
+/* Checkbox */
+.DeptAssign-checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #4CAF50;
+}
+
+/* User Info Cell */
+.DeptAssign-user-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.DeptAssign-user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #E0E0E0;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 12px;
+  overflow: hidden;
+}
+.DeptAssign-user-avatar img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+.DeptAssign-user-info { display: flex; flex-direction: column; }
+.DeptAssign-user-name { font-weight: 500; color: #2E7D32; }
+.DeptAssign-user-sub { font-size: 11px; color: #888; }
+
+.DeptAssign-text-code { font-family: monospace; color: #666; font-size: 12px; }
+
+/* Badges */
+.DeptAssign-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.DeptAssign-badge-dept { background: #E3F2FD; color: #1976D2; }
+.DeptAssign-badge-rank { background: #F5F5F5; color: #616161; border: 1px solid #ddd; }
+
+/* Action Button Table */
+.DeptAssign-action-btn {
+  background: transparent;
+  border: 1px solid #ddd;
+  color: #555;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.DeptAssign-action-btn:hover {
+  border-color: #4CAF50;
+  color: #4CAF50;
+  background: white;
+}
+
+/* === FOOTER === */
+.DeptAssign-footer {
+  padding: 10px 16px;
+  border-top: 1px solid #E0E0E0;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #666;
+  flex-shrink: 0;
+}
+
+.DeptAssign-selected-info {
+  color: #2E7D32;
+  font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+  background: #E8F5E9;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* === POPUP / MODAL (Dùng chung cho Edit & Bulk) === */
+.DeptAssign-modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999;
+}
+
+.DeptAssign-modal {
+  background: white;
+  border-radius: 8px;
+  width: 450px;
+  max-width: 90%;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  animation: DeptAssign-slideDown 0.3s ease-out;
+}
+
+@keyframes DeptAssign-slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.DeptAssign-modal-header {
+  padding: 16px 20px;
+  background: #4CAF50;
+  color: white;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.DeptAssign-modal-header h3 { margin: 0; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+.DeptAssign-modal-close {
+  background: transparent; border: none; color: white; cursor: pointer; font-size: 16px;
+}
+
+.DeptAssign-modal-body {
+  padding: 20px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+.DeptAssign-modal-info-box {
+  background: #F1F8E9;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #C8E6C9;
+  display: flex; align-items: center; gap: 12px;
+}
+
+.DeptAssign-form-group { display: flex; flex-direction: column; gap: 6px; }
+.DeptAssign-form-group label { font-size: 13px; font-weight: 600; color: #333; }
+.DeptAssign-modal-select {
+  padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;
+}
+.DeptAssign-modal-select:focus { border-color: #4CAF50; outline: none; }
+
+.DeptAssign-modal-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #eee;
+  display: flex; justify-content: flex-end; gap: 10px;
+  background: #FAFAFA;
+}

@@ -1,0 +1,162 @@
+/* client/src/components/finance/WorkShiftModal.css */
+
+/* Lớp phủ toàn màn hình (Background tối màu) */
+.ws-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* Màu đen mờ */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* Luôn nằm trên cùng */
+  backdrop-filter: blur(4px); /* Làm mờ nội dung phía sau */
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Khung Modal chính */
+.ws-container {
+  background: white;
+  width: 90%;
+  max-width: 600px; /* Độ rộng tối đa */
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Header */
+.ws-header {
+  padding: 20px 25px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ws-header.start {
+  background: linear-gradient(135deg, #2e7d32, #1b5e20); /* Xanh lá */
+}
+.ws-header.end {
+  background: linear-gradient(135deg, #dc3545, #a30011); /* Đỏ */
+}
+
+.ws-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Thanh thông tin nhân viên (Mới thêm) */
+.ws-info-bar {
+  background-color: #f1f3f5;
+  padding: 10px 25px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e9ecef;
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+.ws-info-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+/* Nội dung chính */
+.ws-body {
+  padding: 25px;
+}
+
+.ws-input-group {
+  margin-bottom: 20px;
+}
+
+.ws-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #212529;
+}
+
+/* Ô nhập tiền to đẹp */
+.ws-money-input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #2e7d32;
+  border: 2px solid #ced4da;
+  border-radius: 8px;
+  text-align: right;
+  transition: all 0.2s;
+}
+.ws-money-input:focus {
+  border-color: #2e7d32;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.15);
+}
+.ws-money-input.error {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+/* Phần hiển thị tiền chênh lệch */
+.ws-diff-box {
+  background: #f8f9fa;
+  border: 1px dashed #adb5bd;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+.diff-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+.diff-result {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #dee2e6;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Footer & Buttons */
+.ws-footer {
+  padding: 15px 25px;
+  background-color: #fff;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.ws-btn {
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s;
+}
+.ws-btn-cancel { background: #e9ecef; color: #495057; }
+.ws-btn-submit { background: #2e7d32; color: white; box-shadow: 0 4px 6px rgba(46, 125, 50, 0.2); }
+.ws-btn-submit.danger { background: #dc3545; box-shadow: 0 4px 6px rgba(220, 53, 69, 0.2); }
+.ws-btn:hover { opacity: 0.9; }
+
+/* Animation */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }

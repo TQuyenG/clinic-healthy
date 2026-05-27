@@ -1,0 +1,403 @@
+/* client/src/pages/PaymentSettingsPage.css */
+
+.payment-settings-wrapper {
+  background: #f8faf9;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  padding: 16px 0;
+}
+
+/* Container chính */
+.payment-settings-wrapper .container-fluid {
+  padding: 0 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Header trang */
+.payment-settings-wrapper .page-header {
+  background: white;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e8f5e9;
+}
+
+.payment-settings-wrapper .page-header h2 {
+  font-size: 1.3rem;
+  color: #2e7d32;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.payment-settings-wrapper .page-header .text-muted {
+  font-size: 0.8rem;
+  color: #757575 !important;
+  margin-left: 28px;
+  line-height: 1.4;
+}
+
+.payment-settings-wrapper .btn-save {
+  background: #43a047;
+  color: white;
+  font-size: 0.85rem;
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(67, 160, 71, 0.2);
+}
+
+.payment-settings-wrapper .btn-save:hover {
+  background: #388e3c;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(67, 160, 71, 0.3);
+}
+
+.payment-settings-wrapper .btn-save:disabled {
+  background: #a5d6a7;
+  box-shadow: none;
+  transform: none;
+  cursor: not-allowed;
+}
+
+/* Card Settings - Gọn gàng hơn */
+.payment-settings-wrapper .setting-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e8f5e9;
+  transition: all 0.2s ease;
+  height: 100%;
+}
+
+.payment-settings-wrapper .setting-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: #c8e6c9;
+}
+
+/* Card Header - Gọn hơn */
+.payment-settings-wrapper .card-header {
+  background: #f1f8e9;
+  border-bottom: 1px solid #dcedc8;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.payment-settings-wrapper .card-header h5 {
+  color: #2e7d32;
+  font-size: 0.95rem;
+  margin: 0;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Toggle switch - Đơn giản, đẹp */
+.payment-settings-wrapper .custom-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.payment-settings-wrapper .custom-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.payment-settings-wrapper .switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 24px;
+}
+
+.payment-settings-wrapper .switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.payment-settings-wrapper .custom-switch input:checked + .switch-slider {
+  background-color: #43a047;
+}
+
+.payment-settings-wrapper .custom-switch input:checked + .switch-slider:before {
+  transform: translateX(20px);
+}
+
+/* Card Body - Thu gọn */
+.payment-settings-wrapper .card-body {
+  padding: 16px;
+}
+
+.payment-settings-wrapper .card-body.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+  filter: grayscale(0.5);
+}
+
+/* Form controls - Nhỏ gọn */
+.payment-settings-wrapper .form-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #424242;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.payment-settings-wrapper .form-control,
+.payment-settings-wrapper .form-select {
+  font-size: 0.85rem;
+  padding: 8px 11px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background-color: #fafafa;
+  transition: all 0.2s ease;
+}
+
+.payment-settings-wrapper .form-control:focus,
+.payment-settings-wrapper .form-select:focus {
+  border-color: #81c784;
+  box-shadow: 0 0 0 3px rgba(129, 199, 132, 0.1);
+  background-color: #fff;
+  outline: none;
+}
+
+/* Info box - Thu gọn */
+.payment-settings-wrapper .info-box {
+  background: #e3f2fd;
+  color: #1565c0;
+  border-left: 3px solid #42a5f5;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.4;
+}
+
+/* Mode boxes - Gọn hơn */
+.payment-settings-wrapper .mode-box {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid;
+  background: #f9f9f9;
+}
+
+.payment-settings-wrapper .mode-box.personal {
+  background: #f1f8e9;
+  border-color: #c8e6c9;
+}
+
+.payment-settings-wrapper .mode-box.business {
+  background: #fff8e1;
+  border-color: #ffe082;
+}
+
+.payment-settings-wrapper .mode-box .mode-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Success indicator - Gọn */
+.payment-settings-wrapper .success-indicator {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px;
+  background: #f1f8e9;
+  border-radius: 8px;
+  border: 1px solid #c8e6c9;
+  gap: 10px;
+}
+
+.payment-settings-wrapper .success-indicator .icon {
+  width: 28px;
+  height: 28px;
+  background: #43a047;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.payment-settings-wrapper .success-indicator .content h6 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2e7d32;
+  margin: 0 0 4px 0;
+}
+
+.payment-settings-wrapper .success-indicator .content p {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Grid responsive */
+.payment-settings-wrapper .settings-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .payment-settings-wrapper .settings-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .payment-settings-wrapper .settings-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Animation nhẹ */
+.payment-settings-wrapper .animate-fade-in {
+  animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Loading state */
+.payment-settings-wrapper .spinner-border-sm {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-width: 2px;
+}
+
+/* Mobile optimization */
+@media (max-width: 639px) {
+  .payment-settings-wrapper {
+    padding: 12px 0;
+  }
+  
+  .payment-settings-wrapper .container-fluid {
+    padding: 0 12px;
+  }
+  
+  .payment-settings-wrapper .page-header {
+    padding: 14px 16px;
+  }
+  
+  .payment-settings-wrapper .page-header h2 {
+    font-size: 1.15rem;
+  }
+  
+  .payment-settings-wrapper .page-header .text-muted {
+    margin-left: 0;
+    margin-top: 6px;
+    font-size: 0.75rem;
+  }
+  
+  .payment-settings-wrapper .btn-save {
+    width: 100%;
+    justify-content: center;
+    margin-top: 12px;
+    padding: 9px 16px;
+  }
+  
+  .payment-settings-wrapper .card-header {
+    padding: 10px 14px;
+  }
+  
+  .payment-settings-wrapper .card-header h5 {
+    font-size: 0.9rem;
+  }
+  
+  .payment-settings-wrapper .card-body {
+    padding: 14px;
+  }
+  
+  .payment-settings-wrapper .form-control,
+  .payment-settings-wrapper .form-select {
+    font-size: 0.85rem;
+    padding: 9px 12px;
+  }
+  
+  .payment-settings-wrapper .custom-switch {
+    width: 40px;
+    height: 22px;
+  }
+  
+  .payment-settings-wrapper .switch-slider:before {
+    height: 16px;
+    width: 16px;
+  }
+  
+  .payment-settings-wrapper .custom-switch input:checked + .switch-slider:before {
+    transform: translateX(18px);
+  }
+}
+
+/* Tablet */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .payment-settings-wrapper .container-fluid {
+    max-width: 720px;
+  }
+}
+
+/* Desktop nhỏ */
+@media (min-width: 1024px) {
+  .payment-settings-wrapper .container-fluid {
+    max-width: 960px;
+  }
+}
+
+/* Spacing utilities */
+.payment-settings-wrapper .row.g-2 {
+  --bs-gutter-x: 0.5rem;
+  --bs-gutter-y: 0.5rem;
+}
+
+.payment-settings-wrapper .row.g-3 {
+  --bs-gutter-x: 0.75rem;
+  --bs-gutter-y: 0.75rem;
+}

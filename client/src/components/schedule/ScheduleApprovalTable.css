@@ -1,0 +1,433 @@
+/* client/src/components/schedule/ScheduleApprovalTable.css */
+
+:root {
+  --color-primary: #a0d9b5;
+  --color-primary-dark: #81b997;
+  --color-primary-light: #e6f7f2;
+  --color-danger: #f4b6b6;
+  --color-danger-dark: #e09b9b;
+  --color-success: #a0d9b5;
+  --color-success-dark: #81b997;
+  --color-warning: #fef3c7;
+  --color-warning-dark: #fbbf24;
+  --color-info: #dbeafe;
+  --color-info-dark: #3b82f6;
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #4b5563;
+  --color-border: #e5e7eb;
+  --color-background-light: #f9fafb;
+  --color-background: #ffffff;
+  
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --border-radius: 8px;
+  --transition: all 0.2s ease-in-out;
+}
+
+/* ========== WRAPPER ========== */
+.schedule-approval-table__wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-background);
+}
+
+/* ========== TABLE ========== */
+.schedule-approval-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.schedule-approval-table thead {
+  background-color: var(--color-background-light);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.schedule-approval-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.schedule-approval-table tbody tr {
+  border-bottom: 1px solid var(--color-border);
+  transition: var(--transition);
+}
+
+.schedule-approval-table tbody tr:hover {
+  background-color: var(--color-background-light);
+}
+
+.schedule-approval-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.schedule-approval-table td {
+  padding: 1rem;
+  color: var(--color-text-secondary);
+  vertical-align: middle;
+}
+
+/* ========== USER CELL ========== */
+.schedule-approval-table__user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.schedule-approval-table__user img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-border);
+}
+
+.schedule-approval-table__user span {
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+/* ========== BADGE ========== */
+.schedule-approval-table__badge {
+  display: inline-block;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.schedule-approval-table__badge.flexible {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border: 1px solid var(--color-primary);
+}
+
+.schedule-approval-table__badge.fixed {
+  background-color: var(--color-background-light);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.schedule-approval-table__badge.overtime {
+  background-color: var(--color-info);
+  color: #1e40af;
+  border: 1px solid var(--color-info-dark);
+}
+
+/* ========== ACTION BUTTONS ========== */
+.schedule-approval-table__actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.action-btn {
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: var(--transition);
+  min-width: 40px;
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.action-btn.approve {
+  background-color: var(--color-success);
+  color: white;
+}
+
+.action-btn.approve:hover:not(:disabled) {
+  background-color: var(--color-success-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.action-btn.reject {
+  background-color: var(--color-danger);
+  color: white;
+}
+
+.action-btn.reject:hover:not(:disabled) {
+  background-color: var(--color-danger-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.action-btn.view {
+  background-color: var(--color-info);
+  color: #1e40af;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+}
+
+.action-btn.view:hover:not(:disabled) {
+  background-color: #bfdbfe;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ========== LOADING & EMPTY STATE ========== */
+.schedule-editor__loading,
+.schedule-editor__empty-state {
+  padding: 3rem 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+}
+
+.schedule-editor__empty-state {
+  flex-direction: column;
+}
+
+/* ========== MODAL ========== */
+.schedule-editor__modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.schedule-editor__modal-content {
+  background: var(--color-background);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  width: 90%;
+  max-width: 600px;
+  padding: 2rem;
+  animation: slideUp 0.3s ease-in-out;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.schedule-editor__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 1rem 0;
+}
+
+.schedule-editor__modal-content p {
+  margin: 0.5rem 0;
+  color: var(--color-text-secondary);
+}
+
+.schedule-editor__modal-content pre {
+  background: #f4f4f4;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 1rem 0;
+  border: 1px solid var(--color-border);
+}
+
+.schedule-editor__form-group {
+  margin-bottom: 1.5rem;
+}
+
+.schedule-editor__label {
+  display: block;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.schedule-editor__form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: var(--transition);
+  background-color: var(--color-background);
+  font-family: inherit;
+  resize: vertical;
+}
+
+.schedule-editor__form-control:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.schedule-editor__modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.schedule-editor__button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.schedule-editor__button.primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-primary);
+}
+
+.schedule-editor__button.primary:hover:not(:disabled) {
+  background-color: var(--color-primary-dark);
+  color: white;
+}
+
+.schedule-editor__button.secondary {
+  background-color: var(--color-background-light);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.schedule-editor__button.secondary:hover:not(:disabled) {
+  background-color: var(--color-border);
+}
+
+.schedule-editor__button.danger {
+  background-color: var(--color-danger);
+  color: white;
+}
+
+.schedule-editor__button.danger:hover:not(:disabled) {
+  background-color: var(--color-danger-dark);
+}
+
+.schedule-editor__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ========== ANIMATION ========== */
+.fa-spin {
+  animation: fa-spin 1s infinite linear;
+}
+
+@keyframes fa-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .schedule-approval-table {
+    font-size: 0.85rem;
+  }
+
+  .schedule-approval-table th,
+  .schedule-approval-table td {
+    padding: 0.75rem;
+  }
+
+  .schedule-approval-table__user {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .schedule-approval-table__actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .action-btn {
+    width: 100%;
+  }
+
+  .schedule-editor__modal-content {
+    width: 95%;
+    padding: 1.5rem;
+    max-width: 95%;
+  }
+
+  .schedule-editor__title {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .schedule-approval-table th,
+  .schedule-approval-table td {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .schedule-approval-table__user img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .schedule-approval-table__badge {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .action-btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  .schedule-editor__modal-content pre {
+    font-size: 0.75rem;
+    padding: 0.75rem;
+  }
+}

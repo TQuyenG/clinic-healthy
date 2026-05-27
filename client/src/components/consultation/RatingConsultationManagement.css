@@ -1,0 +1,228 @@
+/* client/src/components/consultation/ConsultationFeedbackManagement.css */
+
+:root {
+  --cfm-primary-color: #4CAF50; /* Xanh y tế */
+  --cfm-bg-color: #F8FDF8; /* Xanh lá pastel rất nhạt */
+  --cfm-border-color: #e0f0e0;
+  --cfm-text-color: #333;
+  --cfm-text-secondary: #666;
+  --cfm-star-color: #FFC107;
+  --cfm-white-color: #FFFFFF;
+  --cfm-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.consultation-feedback-management-container {
+  padding: 1.25rem;
+  background-color: var(--cfm-bg-color);
+  border-radius: 8px;
+  font-family: 'Arial', sans-serif; /* Font thân thiện */
+}
+
+.consultation-feedback-management-title {
+  font-size: 1.5rem; /* Thu nhỏ */
+  color: var(--cfm-primary-color);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 2px solid var(--cfm-border-color);
+  padding-bottom: 0.75rem;
+}
+
+/* Filters */
+.consultation-feedback-management-filters {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: var(--cfm-white-color);
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--cfm-border-color);
+}
+
+.consultation-feedback-management-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.consultation-feedback-management-filter-group label {
+  font-size: 0.9rem; /* Thu nhỏ */
+  color: var(--cfm-text-secondary);
+  font-weight: 600;
+}
+
+.consultation-feedback-management-select {
+  padding: 0.5rem 0.75rem; /* Thu nhỏ */
+  font-size: 0.9rem; /* Thu nhỏ */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: var(--cfm-white-color);
+}
+
+/* Message Box (Loading, Error, Empty) */
+.consultation-feedback-management-message-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  background-color: var(--cfm-white-color);
+  border-radius: 6px;
+  border: 1px solid var(--cfm-border-color);
+  color: var(--cfm-text-secondary);
+  font-size: 1rem;
+  font-weight: 500;
+}
+.consultation-feedback-management-message-box.error {
+  color: #D8000C;
+  background-color: #FFD2D2;
+  border-color: #FFB5B5;
+}
+.consultation-feedback-management-spinner {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 3px solid var(--cfm-border-color);
+  border-top-color: var(--cfm-primary-color);
+  border-radius: 50%;
+  animation: consultation-feedback-management-spin 1s linear infinite;
+}
+
+/* Grid Layout */
+.consultation-feedback-management-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Card */
+.consultation-feedback-management-card {
+  background-color: var(--cfm-white-color);
+  border-radius: 6px;
+  border: 1px solid var(--cfm-border-color);
+  box-shadow: var(--cfm-shadow);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.consultation-feedback-management-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.consultation-feedback-management-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--cfm-border-color);
+}
+
+.consultation-feedback-management-star-rating {
+  display: flex;
+  gap: 3px;
+  color: var(--cfm-star-color); /* Nổi bật */
+}
+.consultation-feedback-management-star-empty {
+  color: #e0e0e0;
+}
+
+.consultation-feedback-management-status-badge {
+  font-size: 0.75rem; /* Thu nhỏ */
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+.consultation-feedback-management-status-badge.status-approved {
+  background-color: #E0F5E1;
+  color: #388E3C;
+}
+.consultation-feedback-management-status-badge.status-pending {
+  background-color: #FFF3E0;
+  color: #F57C00;
+}
+.consultation-feedback-management-status-badge.status-hidden {
+  background-color: #F5F5F5;
+  color: #757575;
+}
+
+.consultation-feedback-management-review-text {
+  padding: 1rem;
+  font-size: 0.95rem; /* Thu nhỏ */
+  color: var(--cfm-text-color);
+  line-height: 1.6;
+  flex-grow: 1;
+  margin: 0;
+  font-style: italic;
+  background-color: #fafafa;
+}
+
+.consultation-feedback-management-meta {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--cfm-border-color);
+  background-color: var(--cfm-white-color);
+}
+
+.consultation-feedback-management-user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem; /* Thu nhỏ */
+  color: var(--cfm-text-secondary);
+}
+.consultation-feedback-management-user-info:first-child {
+  margin-bottom: 0.5rem;
+}
+
+.consultation-feedback-management-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--cfm-border-color);
+  background-color: #fcfcfc;
+}
+
+.consultation-feedback-management-timestamp {
+  font-size: 0.8rem; /* Thu nhỏ */
+  color: #999;
+}
+
+.consultation-feedback-management-btn-toggle {
+  background: none;
+  border: 1px solid #ccc;
+  padding: 0.25rem 0.6rem; /* Thu nhỏ */
+  font-size: 0.8rem; /* Thu nhỏ */
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.2s ease;
+}
+.consultation-feedback-management-btn-toggle.status-approved {
+  color: var(--cfm-primary-color);
+  border-color: var(--cfm-primary-color);
+}
+.consultation-feedback-management-btn-toggle.status-approved:hover {
+  background-color: var(--cfm-primary-color);
+  color: var(--cfm-white-color);
+}
+.consultation-feedback-management-btn-toggle.status-hidden,
+.consultation-feedback-management-btn-toggle.status-pending {
+  color: #777;
+  border-color: #ccc;
+}
+.consultation-feedback-management-btn-toggle.status-hidden:hover,
+.consultation-feedback-management-btn-toggle.status-pending:hover {
+  background-color: #666;
+  color: var(--cfm-white-color);
+  border-color: #666;
+}
+
+@keyframes consultation-feedback-management-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

@@ -1,0 +1,919 @@
+/* client/src/pages/ScheduleManagementPage.css */
+/* PHIÊN BẢN ĐẦY ĐỦ VÀ ĐỒNG BỘ */
+
+:root {
+  --color-primary: #a0d9b5;
+  --color-primary-dark: #81b997;
+  --color-primary-light: #e6f7f2;
+  --color-danger: #f4b6b6;
+  --color-danger-dark: #e09b9b;
+  --color-warning: #fef3c7;
+  --color-warning-dark: #fbbf24;
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #4b5563;
+  --color-border: #e5e7eb;
+  --color-background-light: #f9fafb;
+  --color-background: #ffffff;
+  
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --border-radius: 8px;
+  --transition: all 0.2s ease-in-out;
+}
+
+/* ========== BASE ========== */
+.schedule-management-page__container {
+  padding: 2rem;
+  background-color: var(--color-background-light);
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.schedule-management-page__management-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-background);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.schedule-management-page__page-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.schedule-management-page__loading {
+  padding: 3rem;
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+/* ========== TABS ========== */
+.schedule-management-page__tabs {
+  display: flex;
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 2rem;
+  background-color: var(--color-background-light);
+  flex-wrap: wrap;
+}
+
+.schedule-management-page__tab {
+  padding: 1rem 1.5rem;
+  border: none;
+  background-color: transparent;
+  border-bottom: 3px solid transparent;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.schedule-management-page__tab:hover {
+  color: var(--color-primary-dark);
+}
+
+.schedule-management-page__tab--active {
+  color: var(--color-primary-dark);
+  border-bottom-color: var(--color-primary);
+}
+
+.schedule-management-page__badge-count {
+  background-color: var(--color-danger);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.1rem 0.5rem;
+  border-radius: 12px;
+  margin-left: 0.5rem;
+}
+
+/* ========== TAB CONTENT ========== */
+.schedule-management-page__tab-content {
+  padding: 2rem;
+}
+
+.schedule-management-page__section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.schedule-management-page__section-description {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 2rem;
+}
+
+/* ========== FORM CHUNG ========== */
+.schedule-management-page__form-group {
+  margin-bottom: 1.5rem;
+}
+
+.schedule-management-page__form-group label {
+  display: block;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.schedule-management-page__form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: var(--transition);
+  background-color: var(--color-background);
+}
+
+.schedule-management-page__form-control:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.schedule-management-page__form-row {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.schedule-management-page__form-row > .schedule-management-page__form-group {
+  flex: 1;
+}
+
+/* ========== BUTTONS ========== */
+.schedule-management-page__button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.schedule-management-page__button--primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-primary);
+}
+
+.schedule-management-page__button--primary:hover {
+  background-color: var(--color-primary-dark);
+  color: white;
+}
+
+.schedule-management-page__button--primary:disabled {
+  background-color: var(--color-border);
+  color: var(--color-text-secondary);
+  cursor: not-allowed;
+}
+
+.schedule-management-page__button--secondary {
+  background-color: var(--color-background-light);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.schedule-management-page__button--secondary:hover {
+  background-color: var(--color-border);
+}
+
+.schedule-management-page__button--danger {
+  background-color: var(--color-danger);
+  color: white;
+}
+
+.schedule-management-page__button--danger:hover {
+  background-color: var(--color-danger-dark);
+}
+
+.schedule-management-page__button--danger:disabled {
+  background-color: #f9d5d5;
+  color: #b88383;
+  cursor: not-allowed;
+}
+
+/* ========== TAB 1: CONFIG ========== */
+.schedule-management-page__shift-config-card {
+  background-color: var(--color-background-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+}
+
+.schedule-management-page__shift-header {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.schedule-management-page__shift-header h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.schedule-management-page__shift-body {
+  padding: 1.5rem;
+}
+
+.schedule-management-page__day-checkboxes {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.schedule-management-page__checkbox-label {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.schedule-management-page__checkbox-label input {
+  display: none;
+}
+
+.schedule-management-page__checkbox-label span {
+  display: block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  transition: var(--transition);
+}
+
+.schedule-management-page__checkbox-label input:checked + span {
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary-dark);
+}
+
+.schedule-management-page__checkbox-label:hover span {
+  border-color: var(--color-primary);
+}
+
+/* SWITCH TOGGLE */
+.schedule-management-page__switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+
+.schedule-management-page__switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.schedule-management-page__switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 28px;
+}
+
+.schedule-management-page__switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+.schedule-management-page__switch input:checked + .schedule-management-page__switch-slider {
+  background-color: var(--color-primary);
+}
+
+.schedule-management-page__switch input:checked + .schedule-management-page__switch-slider:before {
+  transform: translateX(22px);
+}
+
+/* ========== TAB 2 & 3: LỊCH BÁC SĨ / NHÂN VIÊN ========== */
+
+/* ── ROW 1: Chọn người dùng ── */
+.schedule-management-page__user-select-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.schedule-management-page__specialty-select {
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background-color: var(--color-background);
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.schedule-management-page__user-select-wrap {
+  flex: 1;
+  min-width: 260px;
+  max-width: 460px;
+  z-index: 10;
+}
+
+/* ── ROW 2: View controls (giống MySchedulePage) ── */
+.schedule-management-page__view-controls-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.schedule-management-page__view-mode-group {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.schedule-management-page__today-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-background);
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+}
+
+.schedule-management-page__today-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary-dark);
+  background-color: var(--color-primary-light);
+}
+
+/* ── ROW 3: Event filter buttons (class mới, tránh xung đột với filter-btn cũ) ── */
+.schedule-management-page__event-filter-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background-color: var(--color-background-light);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.6;
+  transition: var(--transition);
+}
+
+.schedule-management-page__event-filter-btn:hover {
+  opacity: 1;
+  background-color: var(--color-background);
+}
+
+.schedule-management-page__event-filter-btn.active {
+  opacity: 1;
+}
+
+.schedule-management-page__event-filter-btn.active.filter-schedules {
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary-dark);
+  color: var(--color-primary-dark);
+}
+
+.schedule-management-page__event-filter-btn.active.filter-overtime {
+  background-color: #ddd6fe; /* Tím - khớp với event--overtime */
+  border-color: #a78bfa;
+  color: #5b21b6;
+}
+
+.schedule-management-page__event-filter-btn.active.filter-appointments {
+  background-color: #fecaca; /* Đỏ nhạt - khớp với event--appointment */
+  border-color: #f87171;
+  color: #991b1b;
+}
+
+.schedule-management-page__event-filter-btn.active.filter-leaves {
+  background-color: var(--color-warning);
+  border-color: var(--color-warning-dark);
+  color: #a16207;
+}
+
+
+
+/* Header chứa dropdown và các nút điều khiển */
+.schedule-management-page__doctor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; 
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.schedule-management-page__doctor-header > .schedule-management-page__form-group {
+  margin-bottom: 0;
+  min-width: 250px;
+  flex: 1;
+}
+
+/* Tăng z-index để dropdown hiển thị trên các element khác */
+.schedule-management-page__doctor-header > .schedule-management-page__form-group > div[class*="-container"] {
+  z-index: 5;
+}
+
+/* Nhóm các nút điều khiển view */
+.schedule-management-page__view-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Lớp bọc cho nút (Lịch/Bảng, Tuần/Tháng) */
+.schedule-management-page__view-switcher {
+  display: flex;
+  background-color: var(--color-background-light);
+  border-radius: var(--border-radius);
+  padding: 0.25rem;
+  border: 1px solid var(--color-border);
+}
+
+/* Nút chuyển đổi (Lịch/Bảng, Tuần/Tháng) */
+.schedule-management-page__switch-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  background-color: transparent;
+  border-radius: 6px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.schedule-management-page__switch-btn:hover {
+  color: var(--color-text-primary);
+}
+
+.schedule-management-page__switch-btn.active {
+  background-color: var(--color-background);
+  color: var(--color-primary-dark);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--color-border);
+}
+
+/* Bộ lọc loại sự kiện (Lịch làm việc, Tăng ca, Lịch hẹn, Lịch nghỉ) */
+.schedule-management-page__event-type-filters {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.schedule-management-page__event-type-filters span {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.schedule-management-page__event-type-filters .schedule-management-page__filter-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background-color: var(--color-background-light);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.6;
+  transition: var(--transition);
+}
+
+.schedule-management-page__event-type-filters .schedule-management-page__filter-btn:hover {
+  opacity: 1;
+  background-color: var(--color-background);
+}
+
+.schedule-management-page__event-type-filters .schedule-management-page__filter-btn.active {
+  opacity: 1;
+}
+
+/* Gán màu cho từng loại filter -- ĐỒng bộ với màu event trên lịch */
+/* Lịch làm việc: xanh lá (màu theme chính) */
+.schedule-management-page__event-type-filters .schedule-management-page__filter-btn.active.filter-schedules {
+  background-color: #a0d9b5;
+  border-color: #4ade80;
+  color: #166534;
+}
+
+/* Tăng ca: tím (overtime = purple trên CalendarView) */
+.schedule-management-page__event-type-filters .schedule-management-page__filter-btn.active.filter-overtime {
+  background-color: #ddd6fe;
+  border-color: #a78bfa;
+  color: #5b21b6;
+}
+
+/* Lịch hẹn dịch vụ: cam nhạt */
+.schedule-management-page__event-type-filters .schedule-management-page__filter-btn.active.filter-appointment-service {
+  background-color: #ffedd5;
+  border-color: #fb923c;
+  color: #c2410c;
+}
+
+/* Lịch hẹn tư vấn: xanh lam nhạt */
+.schedule-management-page__event-type-filters .schedule-management-page__filter-btn.active.filter-appointment-consultation {
+  background-color: #e0f2fe;
+  border-color: #38bdf8;
+  color: #0369a1;
+}
+
+/* Lịch nghỉ: đỏ cam/vàng cảnh báo */
+.schedule-management-page__event-type-filters .schedule-management-page__filter-btn.active.filter-leaves {
+  background-color: #fff7d6;
+  border-color: #d97706;
+  color: #92400e;
+}
+
+/* Điều hướng tháng/tuần */
+.schedule-management-page__month-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.schedule-management-page__month-navigation h3 {
+  font-size: 1.5rem;
+  color: var(--color-text-primary);
+  text-align: center;
+  flex: 1;
+}
+
+.schedule-management-page__nav-button {
+  background: none;
+  border: 1px solid var(--color-border);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.schedule-management-page__nav-button:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary-dark);
+}
+
+.schedule-management-page__nav-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ========== TAB 4: PHÊ DUYỆT (ĐƠN CHỜ DUYỆT) ========== */
+
+/* Section chứa đơn nghỉ phép */
+.schedule-management-page__pending-leaves-section {
+  margin-top: 1.5rem;
+}
+
+/* Bộ lọc phía trên */
+.schedule-management-page__filter-section {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.schedule-management-page__filter-section label {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+/* Nhóm nút filter (sub-tabs và status) */
+.schedule-management-page__filter-buttons {
+  display: flex;
+  gap: 0.5rem;
+  background-color: var(--color-background-light);
+  border-radius: var(--border-radius);
+  padding: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.schedule-management-page__filter-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: transparent;
+  border-radius: 6px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.schedule-management-page__filter-btn:hover {
+  color: var(--color-text-primary);
+}
+
+.schedule-management-page__filter-btn--active {
+  background-color: var(--color-background);
+  color: var(--color-primary-dark);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Empty state */
+.schedule-management-page__empty-state {
+  padding: 3rem 0;
+  text-align: center;
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+}
+
+.schedule-management-page__empty-state svg {
+  font-size: 1.5rem;
+}
+
+/* ========== MODAL ========== */
+.schedule-management-page__modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.schedule-management-page__modal-content {
+  background: var(--color-background);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md); 
+  width: 90%;
+  max-width: 500px;
+  padding: 2rem;
+  animation: slideUp 0.3s ease-in-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.schedule-management-page__modal-content h2 {
+  font-size: 1.5rem;
+  color: var(--color-text-primary);
+  margin: 0 0 1.5rem 0;
+}
+
+.schedule-management-page__modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* ========== ANIMATION ========== */
+.fa-spin {
+  animation: fa-spin 1s infinite linear;
+}
+
+@keyframes fa-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .schedule-management-page__container {
+    padding: 1rem;
+  }
+
+  .schedule-management-page__page-title {
+    font-size: 1.5rem;
+    padding: 1rem 1.5rem;
+  }
+
+  .schedule-management-page__tab-content {
+    padding: 1.5rem;
+  }
+
+  .schedule-management-page__tabs {
+    padding: 0 1rem;
+  }
+
+  .schedule-management-page__tab {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .schedule-management-page__doctor-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .schedule-management-page__view-controls {
+    justify-content: center;
+  }
+
+  .schedule-management-page__form-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .schedule-management-page__modal-content {
+    width: 95%;
+    padding: 1.5rem;
+  }
+
+  .schedule-management-page__filter-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .schedule-management-page__filter-buttons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .schedule-management-page__container {
+    padding: 0.5rem;
+  }
+
+  .schedule-management-page__page-title {
+    font-size: 1.25rem;
+    padding: 1rem;
+  }
+
+  .schedule-management-page__tab {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .schedule-management-page__section-title {
+    font-size: 1.25rem;
+  }
+
+  .schedule-management-page__button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .schedule-management-page__switch-btn {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+  }
+}
+
+.schedule-management-page__tab-content .schedule-management-page__filter-section {
+  margin-bottom: 1.5rem;
+  max-width: 400px;
+}
+
+/* ========== (MỚI) BỘ LỌC TAB PHÊ DUYỆT ========== */
+
+/* Container chung cho 3 bộ lọc */
+.schedule-management-page__filters-container {
+  display: flex;
+  flex-wrap: wrap; /* Cho phép xuống hàng trên màn hình nhỏ */
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+/* 1. Ô tìm kiếm */
+.schedule-management-page__filter-section--search {
+  flex-grow: 1; /* Cho phép ô tìm kiếm co giãn */
+  min-width: 250px; /* Độ rộng tối thiểu */
+  margin-bottom: 0 !important; /* Ghi đè margin-bottom cũ */
+  max-width: none !important; /* Ghi đè max-width cũ */
+}
+
+/* 2 & 3. Nhóm nút (Role & Status) */
+.schedule-management-page__filters-container .schedule-management-page__filter-buttons {
+  margin-bottom: 0; /* Ghi đè margin-bottom cũ */
+  flex-shrink: 0; /* Không co lại */
+}
+
+/* Ghi đè lại CSS từ PendingLeaveTable.css (nếu có) để đảm bảo đồng bộ */
+.schedule-management-page__filter-buttons {
+  display: flex;
+  gap: 0.5rem;
+  background-color: var(--color-background-light);
+  border-radius: var(--border-radius);
+  padding: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.schedule-management-page__filter-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: transparent;
+  border-radius: 6px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+  display: flex; 
+  align-items: center; 
+  gap: 0.5rem; 
+}
+
+.schedule-management-page__filter-btn:hover {
+  color: var(--color-text-primary);
+}
+
+/* (SỬA) Đổi tên class active cho đúng */
+.schedule-management-page__filter-btn.schedule-management-page__filter-btn--active {
+  background-color: var(--color-background);
+  color: var(--color-primary-dark);
+  box-shadow: var(--shadow-sm);
+}
+
+/* CSS cũ của .schedule-management-page__filter-section (giữ lại) */
+.schedule-management-page__filter-section {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,125 @@
+/* client/src/components/layout/MainLayout.css */
+/* CẬP NHẬT: Sidebar luôn hiện, content không có khoảng trống thừa */
+
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Wrapper cho sidebar và content */
+.layout-body {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 108px);
+  position: relative;
+  /* Đã bỏ overflow: hidden; để không chặn thanh cuộn và cắt xén UI */
+  min-width: 0;
+}
+
+/* Main content - không có sidebar */
+.main-content {
+  flex: 1;
+  min-height: calc(100vh - 108px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Đã bỏ position: relative; và z-index: 1; để giải phóng lớp Modal Overlay */
+}
+
+/* Main content với sidebar */
+.main-content.with-sidebar {
+  margin-left: 0;
+  min-width: 0;    
+  /* Đã bỏ overflow: hidden; để Modal bung được toàn màn hình */
+}
+
+/* Sidebar collapsed */
+.main-content.with-sidebar.collapsed {
+  margin-left: 0;
+}
+
+/* Footer luôn full width */
+.main-layout footer {
+  width: 100%;
+  margin-top: auto;
+  position: relative;
+  z-index: 1;
+  margin-left: 0 !important;
+}
+
+/* ==================== RESPONSIVE - TABLET ==================== */
+@media (max-width: 1024px) {
+  .layout-body {
+    min-height: calc(100vh - 100px);
+  }
+
+  .main-content {
+    min-height: calc(100vh - 100px);
+  }
+}
+
+/* ==================== RESPONSIVE - MOBILE ==================== */
+@media (max-width: 768px) {
+  .main-content {
+    min-height: auto;
+    padding: 0;
+  }
+  
+  /* Mobile: content không cần margin vì sidebar là sticky trong flex */
+  .main-content.with-sidebar,
+  .main-content.with-sidebar.collapsed {
+    margin-left: 0;
+  }
+
+  .layout-body {
+    min-height: auto;
+  }
+}
+
+/* ==================== RESPONSIVE - SMALL MOBILE ==================== */
+@media (max-width: 480px) {
+  .main-content {
+    min-height: auto;
+  }
+
+  .main-content.with-sidebar,
+  .main-content.with-sidebar.collapsed {
+    margin-left: 0;
+  }
+
+  .layout-body {
+    min-height: auto;
+  }
+}
+
+/* ==================== RESPONSIVE - VERY SMALL ==================== */
+@media (max-width: 360px) {
+  .main-content {
+    min-height: auto;
+  }
+
+  .main-content.with-sidebar,
+  .main-content.with-sidebar.collapsed {
+    margin-left: 0;
+  }
+
+  .layout-body {
+    min-height: auto;
+  }
+}
+
+/* Animation cho nội dung */
+.main-content > * {
+  animation: fadeInContent 0.4s ease;
+}
+
+@keyframes fadeInContent {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

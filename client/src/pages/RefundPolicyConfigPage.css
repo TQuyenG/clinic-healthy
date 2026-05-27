@@ -1,0 +1,319 @@
+/* client/src/pages/RefundPolicyConfigPage.css */
+
+:root {
+  --rpc-primary-color: #059669; /* Medical Green */
+  --rpc-primary-hover: #047857;
+  --rpc-bg-color: #ecfdf5; /* Pastel Mint Background */
+  --rpc-card-bg: #ffffff;
+  --rpc-text-main: #1f2937;
+  --rpc-text-sub: #6b7280;
+  --rpc-border-color: #e5e7eb;
+  --rpc-danger: #ef4444;
+  --rpc-blue-soft: #eff6ff;
+  --rpc-blue-text: #1d4ed8;
+}
+
+/* --- Container Chính --- */
+.refund-policy-config-wrapper {
+  background-color: var(--rpc-bg-color);
+  min-height: 100vh;
+  padding: 1.5rem;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: var(--rpc-text-main);
+  font-size: 0.9rem; /* Thu nhỏ font tổng thể */
+}
+
+/* --- Header --- */
+.refund-policy-config-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.refund-policy-config-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--rpc-primary-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.refund-policy-config-btn-save {
+  background-color: var(--rpc-primary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);
+}
+
+.refund-policy-config-btn-save:hover:not(:disabled) {
+  background-color: var(--rpc-primary-hover);
+  transform: translateY(-1px);
+}
+
+.refund-policy-config-btn-save:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* --- Cards (Khung chứa) --- */
+.refund-policy-config-card {
+  background: var(--rpc-card-bg);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--rpc-border-color);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.refund-policy-config-card-header {
+  padding: 0.75rem 1rem;
+  background-color: #f9fafb;
+  border-bottom: 1px solid var(--rpc-border-color);
+  font-weight: 600;
+  color: var(--rpc-text-main);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.refund-policy-config-card-body {
+  padding: 1rem;
+}
+
+/* --- Section: Cấu hình Chung --- */
+.refund-policy-config-general-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.refund-policy-config-toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Toggle Switch Custom nhỏ gọn */
+.refund-policy-config-switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+.refund-policy-config-switch input { opacity: 0; width: 0; height: 0; }
+.refund-policy-config-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 20px;
+}
+.refund-policy-config-slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+input:checked + .refund-policy-config-slider { background-color: var(--rpc-primary-color); }
+input:checked + .refund-policy-config-slider:before { transform: translateX(16px); }
+
+/* --- Section: Lỗi Hệ thống (Guarantee) --- */
+.refund-policy-config-guarantee-box {
+  background-color: var(--rpc-blue-soft);
+  border: 1px dashed #bfdbfe;
+  border-radius: 6px;
+  padding: 0.75rem;
+}
+
+.refund-policy-config-guarantee-title {
+  color: var(--rpc-blue-text);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.refund-policy-config-guarantee-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.refund-policy-config-guarantee-item {
+  background: white;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+.refund-policy-config-guarantee-label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #374151;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.refund-policy-config-guarantee-desc {
+  font-size: 0.75rem;
+  color: var(--rpc-text-sub);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+/* --- Inputs & Groups --- */
+.refund-policy-config-input-group {
+  display: flex;
+  align-items: center;
+}
+
+.refund-policy-config-input-text {
+  border: 1px solid var(--rpc-border-color);
+  padding: 0.35rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.refund-policy-config-input-text:focus {
+  border-color: var(--rpc-primary-color);
+  box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.1);
+}
+
+.refund-policy-config-input-text:disabled {
+  background-color: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.refund-policy-config-addon {
+  background-color: #f3f4f6;
+  border: 1px solid var(--rpc-border-color);
+  border-left: none;
+  padding: 0.35rem 0.5rem;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  font-size: 0.8rem;
+  color: var(--rpc-text-sub);
+}
+
+.refund-policy-config-input-text.has-addon {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* --- Rules List --- */
+.refund-policy-config-booking-fee {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed var(--rpc-border-color);
+}
+
+.refund-policy-config-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--rpc-text-main);
+  margin-bottom: 0.25rem;
+}
+
+.refund-policy-config-rule-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f9fafb;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  border: 1px solid transparent;
+}
+
+.refund-policy-config-rule-row:hover {
+  border-color: #d1d5db;
+  background-color: white;
+}
+
+.refund-policy-config-rule-text {
+  font-size: 0.8rem;
+  color: var(--rpc-text-sub);
+}
+
+.refund-policy-config-input-small {
+  width: 50px;
+  text-align: center;
+  padding: 0.25rem;
+  border: 1px solid var(--rpc-border-color);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--rpc-primary-color);
+}
+
+.refund-policy-config-btn-trash {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 0.2rem;
+  font-size: 0.8rem;
+  margin-left: auto;
+  transition: color 0.2s;
+}
+
+.refund-policy-config-btn-trash:hover {
+  color: var(--rpc-danger);
+}
+
+.refund-policy-config-btn-add {
+  background: none;
+  border: 1px dashed var(--rpc-primary-color);
+  color: var(--rpc-primary-color);
+  width: 100%;
+  padding: 0.4rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: all 0.2s;
+}
+
+.refund-policy-config-btn-add:hover {
+  background-color: #ecfdf5;
+}
+
+/* Grid Layout cho 2 cột */
+.refund-policy-config-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .refund-policy-config-grid {
+    grid-template-columns: 1fr;
+  }
+}

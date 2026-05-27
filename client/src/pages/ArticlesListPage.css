@@ -1,0 +1,235 @@
+/* client/src/pages/ArticlesListPage.css */
+
+/* Variables */
+:root {
+  --article-list-primary: #059669; 
+  --article-list-primary-dark: #047857;
+  --article-list-text: #1f2937;
+  --article-list-text-light: #6b7280;
+  --article-list-border: #e5e7eb;
+  --article-list-bg: #ffffff;
+  --article-list-red: #ef4444; 
+}
+
+.article-list-page-wrapper {
+  background-color: var(--article-list-bg);
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, sans-serif;
+  padding-bottom: 4rem;
+}
+
+.article-list-container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+
+/* =========================================
+   1. THANH MENU XANH LÁ (MARQUEE CÓ MŨI TÊN)
+   ========================================= */
+.article-list-green-navbar { 
+  background-color: var(--article-list-primary); 
+  width: 100%; margin-bottom: 1.5rem; 
+  border-top: 1px solid rgba(255, 255, 255, 0.2); 
+}
+.article-list-marquee-wrapper { position: relative; display: flex; align-items: center; }
+
+.article-list-nav-scroll { 
+  display: flex; overflow-x: hidden; /* Chặn cuộn bằng tay để mượt hơn */
+  width: 100%; white-space: nowrap; 
+}
+.article-list-nav-scroll::-webkit-scrollbar { display: none; }
+
+.article-list-nav-btn { 
+  background: none; border: none; color: rgba(255, 255, 255, 0.85); 
+  padding: 1rem 1.2rem; font-weight: 700; font-size: 0.9rem; 
+  text-transform: uppercase; cursor: pointer; transition: all 0.2s; 
+  border-bottom: 3px solid transparent; 
+}
+.article-list-nav-btn:hover, .article-list-nav-btn.active { 
+  color: #ffffff; background-color: var(--article-list-primary-dark); 
+}
+
+/* Nút mũi tên Left / Right */
+.article-list-nav-arrow {
+  position: absolute; top: 0; bottom: 0; z-index: 10;
+  background: rgba(5, 150, 105, 0.95); color: white;
+  border: none; font-size: 1.2rem; cursor: pointer;
+  padding: 0 0.5rem; transition: background 0.2s;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+.article-list-nav-arrow:hover { background: var(--article-list-primary-dark); }
+.article-list-nav-arrow.left { left: 0; }
+.article-list-nav-arrow.right { right: 0; }
+
+/* =========================================
+   2. BANNER TRÀN VIỀN (FULL WIDTH 100VW)
+   ========================================= */
+.article-list-full-banner { width: 100%; text-align: center; margin-bottom: 1.5rem; background: #f8fafc; }
+.article-list-full-banner img { width: 100%; height: 300px; object-fit: cover; display: block; object-position: center; }
+
+/* =========================================
+   3. HEADER DANH MỤC, SEARCH & MEGA MENU
+   ========================================= */
+.article-list-header-section { 
+  display: flex; align-items: center; border-bottom: 2px solid var(--article-list-border); 
+  padding-bottom: 0.8rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; 
+}
+.article-list-main-title { color: var(--article-list-primary); font-size: 1.3rem; font-weight: 800; margin: 0; display: flex; align-items: center; gap: 0.4rem; text-transform: uppercase; white-space: nowrap; }
+.article-list-main-title svg { font-size: 1rem; color: #cbd5e1; }
+
+.article-list-sub-tabs { display: flex; gap: 1.2rem; flex: 1; overflow-x: auto; scrollbar-width: none; }
+.article-list-sub-tabs::-webkit-scrollbar { display: none; }
+.article-list-tab-item { background: none; border: none; color: var(--article-list-text-light); font-size: 0.95rem; font-weight: 600; cursor: pointer; padding: 0; white-space: nowrap; transition: color 0.2s; }
+.article-list-tab-item:hover { color: var(--article-list-text); }
+.article-list-tab-item.active { color: var(--article-list-red); }
+
+/* Khung chức năng bên phải */
+.article-list-header-actions { display: flex; align-items: center; gap: 1rem; }
+
+.article-list-search-mini { display: flex; background: #f1f5f9; border: 1px solid var(--article-list-border); border-radius: 20px; padding: 0.35rem 1rem; align-items: center; transition: border-color 0.3s; }
+.article-list-search-mini:focus-within { border-color: var(--article-list-primary); }
+.article-list-search-mini input { border: none; background: transparent; outline: none; font-size: 0.85rem; width: 150px; color: var(--article-list-text); }
+.article-list-search-mini button { background: none; border: none; color: var(--article-list-text-light); cursor: pointer; }
+
+/* Mega Menu Logic */
+.article-list-mega-wrapper { position: relative; }
+.article-list-menu-toggle-btn { 
+  display: flex; align-items: center; gap: 0.4rem; background: var(--article-list-primary); 
+  color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; 
+  font-weight: 700; cursor: pointer; transition: background 0.2s;
+}
+.article-list-menu-toggle-btn:hover, .article-list-menu-toggle-btn.active { background: var(--article-list-primary-dark); }
+
+.article-list-mega-menu {
+  position: absolute; top: 110%; right: 0; width: 700px;
+  background: white; border-top: 3px solid var(--article-list-primary);
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15); z-index: 100;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+  padding: 1.5rem; border-radius: 0 0 8px 8px;
+}
+.article-list-mega-col h3 { 
+  font-size: 1.05rem; color: var(--article-list-primary-dark); margin: 0 0 1rem 0; 
+  display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid var(--article-list-border); padding-bottom: 0.5rem;
+}
+.article-list-mega-col ul { list-style: none; padding: 0; margin: 0; }
+.article-list-mega-col li { padding: 0.5rem 0; color: var(--article-list-text); cursor: pointer; transition: color 0.2s; font-size: 0.95rem; }
+.article-list-mega-col li:hover { color: var(--article-list-primary); font-weight: 600; }
+
+/* A-Z ALPHABET & ALERT */
+.article-list-alphabet-filter { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--article-list-border); }
+.article-list-alphabet-btn { background: #f3f4f6; border: 1px solid var(--article-list-border); color: var(--article-list-text-light); padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.article-list-alphabet-btn:hover, .article-list-alphabet-btn.article-list-active { background: var(--article-list-primary); color: white; border-color: var(--article-list-primary); }
+.article-list-filter-alert { background: #f0fdf4; border: 1px solid #bbf7d0; padding: 0.8rem 1rem; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; font-size: 0.9rem;}
+.article-list-filter-alert p { margin: 0; color: #166534; font-weight: 500; }
+.article-list-filter-alert button { background: #ef4444; color: white; border: none; padding: 0.3rem 0.8rem; border-radius: 4px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 0.4rem;}
+
+/* =========================================
+   4. LAYOUT GRID CHÍNH & TẠP CHÍ HERO
+   ========================================= */
+.article-list-layout-grid { display: grid; grid-template-columns: 8fr 4fr; gap: 2rem; }
+.article-list-magazine-top { margin-bottom: 1.5rem; }
+
+.article-list-hero-split { display: grid; grid-template-columns: 2.2fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--article-list-border); padding-bottom: 1.5rem; }
+.article-list-hero-main { cursor: pointer; }
+.article-list-hero-main-img { width: 100%; height: 300px; border-radius: 4px; overflow: hidden; margin-bottom: 0.8rem; }
+.article-list-hero-main-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+.article-list-hero-main:hover .article-list-hero-main-img img { transform: scale(1.05); }
+.article-list-hero-main-title { font-size: 1.5rem; font-weight: 800; color: var(--article-list-primary-dark); margin: 0 0 0.4rem 0; line-height: 1.3; }
+.article-list-hero-main:hover .article-list-hero-main-title { color: var(--article-list-primary); }
+.article-list-hero-main-excerpt { font-size: 0.95rem; color: var(--article-list-text-light); line-height: 1.6; margin: 0.6rem 0 0 0; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+.article-list-hero-side { display: flex; flex-direction: column; gap: 1.2rem; }
+.article-list-side-item { cursor: pointer; display: flex; flex-direction: column; gap: 0.6rem; }
+.article-list-side-item:first-child { border-bottom: 1px dashed var(--article-list-border); padding-bottom: 1.2rem; }
+.article-list-side-img { width: 100%; height: 100px; border-radius: 4px; overflow: hidden; }
+.article-list-side-img img { width: 100%; height: 100%; object-fit: cover; }
+.article-list-side-title { font-size: 1rem; font-weight: 700; color: var(--article-list-text); margin: 0; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.article-list-side-item:hover .article-list-side-title { color: var(--article-list-primary); }
+
+.article-list-hero-bottom { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; border-bottom: 2px solid var(--article-list-border); padding-bottom: 1.5rem; }
+.article-list-bottom-item { cursor: pointer; }
+.article-list-bottom-img { width: 100%; height: 110px; border-radius: 4px; overflow: hidden; margin-bottom: 0.6rem; }
+.article-list-bottom-img img { width: 100%; height: 100%; object-fit: cover; }
+.article-list-bottom-title { font-size: 0.95rem; font-weight: 700; color: var(--article-list-text); margin: 0 0 0.4rem 0; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.article-list-bottom-item:hover .article-list-bottom-title { color: var(--article-list-primary); }
+
+/* =========================================
+   5. DANH SÁCH LIST DỌC
+   ========================================= */
+.article-list-vertical-list { display: flex; flex-direction: column; gap: 1.2rem; }
+.article-list-item-card { display: flex; gap: 1.2rem; cursor: pointer; padding-bottom: 1.2rem; border-bottom: 1px dashed var(--article-list-border); }
+.article-list-item-card:last-child { border-bottom: none; }
+.article-list-item-img { width: 200px; height: 130px; flex-shrink: 0; border-radius: 4px; overflow: hidden; }
+.article-list-item-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+.article-list-item-card:hover .article-list-item-img img { transform: scale(1.05); }
+.article-list-item-info { flex: 1; }
+.article-list-item-title { font-size: 1.15rem; font-weight: 700; color: var(--article-list-text); margin: 0 0 0.4rem 0; line-height: 1.4; }
+.article-list-item-card:hover .article-list-item-title { color: var(--article-list-primary); }
+.article-list-item-excerpt { font-size: 0.9rem; color: var(--article-list-text-light); line-height: 1.6; margin: 0.6rem 0 0 0; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+.article-list-meta { font-size: 0.8rem; color: var(--article-list-text-light); font-weight: 500; display: flex; align-items: center; gap: 0.4rem; margin-top: 0.3rem;}
+.article-list-meta span:first-child { color: var(--article-list-primary); text-transform: uppercase; font-size: 0.75rem; font-weight: 700;}
+
+/* =========================================
+   6. CỘT PHẢI (SIDEBAR)
+   ========================================= */
+.article-list-sidebar { display: flex; flex-direction: column; gap: 2rem; }
+.article-list-ad-box img { width: 100%; border-radius: 4px; border: 1px solid var(--article-list-border); }
+.article-list-widget-title { font-size: 1.05rem; font-weight: 800; color: var(--article-list-text); text-transform: uppercase; border-left: 3px solid var(--article-list-primary); padding-left: 0.6rem; margin-bottom: 1.2rem; }
+
+.article-list-popular-container { display: flex; flex-direction: column; gap: 1rem; }
+.article-list-popular-item { display: flex; gap: 0.8rem; align-items: flex-start; cursor: pointer; border-bottom: 1px dashed var(--article-list-border); padding-bottom: 1rem; }
+.article-list-popular-item:last-child { border-bottom: none; }
+.article-list-popular-rank { font-size: 2.2rem; font-weight: 900; color: #e2e8f0; line-height: 0.8; min-width: 30px; }
+.article-list-popular-item:nth-child(1) .article-list-popular-rank { color: #ef4444; }
+.article-list-popular-item:nth-child(2) .article-list-popular-rank { color: #f97316; }
+.article-list-popular-item:nth-child(3) .article-list-popular-rank { color: #eab308; }
+.article-list-popular-content h4 { font-size: 0.95rem; font-weight: 700; color: var(--article-list-text); margin: 0 0 0.4rem 0; line-height: 1.4; }
+.article-list-popular-item:hover h4 { color: var(--article-list-primary); }
+.article-list-popular-content span { font-size: 0.75rem; color: var(--article-list-text-light); display: flex; align-items: center; gap: 0.3rem;}
+
+.article-list-tags-cloud { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.article-list-tag-btn { background: #f3f4f6; color: var(--article-list-text-light); border: 1px solid var(--article-list-border); padding: 0.4rem 0.6rem; border-radius: 4px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; }
+.article-list-tag-btn:hover, .article-list-tag-btn.active { background: var(--article-list-primary); color: #ffffff; border-color: var(--article-list-primary); }
+
+.article-list-pagination { display: flex; justify-content: center; align-items: center; gap: 0.8rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--article-list-border); }
+.article-list-page-numbers { display: flex; gap: 0.4rem; }
+.article-list-pagination button { padding: 0.4rem 0.8rem; border: 1px solid var(--article-list-border); background: var(--article-list-bg); border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.9rem; color: var(--article-list-text); transition: all 0.2s; }
+.article-list-pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
+.article-list-pagination button.article-list-active, .article-list-pagination button:hover:not(:disabled) { background: var(--article-list-primary); color: #fff; border-color: var(--article-list-primary); }
+.article-list-loading, .article-list-empty { text-align: center; padding: 3rem 1rem; font-size: 1rem; color: var(--article-list-text-light); }
+
+/* =========================================
+   8. RESPONSIVE (MOBILE OPTIMIZED)
+   ========================================= */
+@media (max-width: 1024px) {
+  .article-list-layout-grid { grid-template-columns: 1fr; }
+  .article-list-hero-main-img { height: 350px; }
+  .article-list-sidebar { margin-top: 1.5rem; border-top: 2px solid var(--article-list-border); padding-top: 1.5rem;}
+}
+
+@media (max-width: 768px) {
+  .article-list-page-wrapper { padding-bottom: 2rem; }
+  .article-list-header-section { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+  .article-list-sub-tabs { width: 100%; padding-bottom: 0.4rem; }
+  
+  .article-list-header-actions { flex-direction: column; width: 100%; align-items: stretch; }
+  .article-list-search-mini { width: 100%; }
+  .article-list-search-mini input { width: 100%; }
+  .article-list-mega-wrapper { width: 100%; }
+  .article-list-menu-toggle-btn { justify-content: center; width: 100%; }
+  .article-list-mega-menu { width: 100%; grid-template-columns: 1fr; position: static; box-shadow: none; border: 1px solid var(--article-list-border); margin-top: 0.5rem; }
+  
+  .article-list-full-banner img { height: 150px; }
+
+  .article-list-hero-split { grid-template-columns: 1fr; gap: 1rem; }
+  .article-list-hero-side { flex-direction: column; }
+  .article-list-side-item:first-child { border-bottom: 1px dashed var(--article-list-border); border-right: none; padding-right: 0; padding-bottom: 1rem; }
+  .article-list-side-item { flex-direction: row; align-items: center; gap: 1rem; }
+  .article-list-side-img { width: 100px; height: 75px; margin: 0; }
+  
+  .article-list-hero-bottom { grid-template-columns: 1fr; gap: 1rem; }
+  .article-list-bottom-item { display: flex; gap: 1rem; align-items: center; }
+  .article-list-bottom-img { width: 100px; height: 75px; margin: 0; }
+  
+  .article-list-item-card { flex-direction: column; gap: 0.8rem; }
+  .article-list-item-img { width: 100%; height: 200px; }
+  .article-list-hero-main-title { font-size: 1.3rem; }
+}

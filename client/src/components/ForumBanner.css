@@ -1,0 +1,153 @@
+/* client/src/components/ForumBanner.css */
+.ForumBanner {
+  position: relative;
+  background: var(--primary-dark, #0B2F40);
+  color: white;
+  padding: 40px 0 80px 0;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
+}
+
+.ForumBanner-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      90deg,
+      rgba(11, 47, 64, 0.9) 0%,
+      rgba(11, 47, 64, 0.75) 60%,
+      rgba(11, 47, 64, 0.5) 100%
+    ),
+    url('../assets/images/forum-hero.jpg') center/cover no-repeat;
+  filter: saturate(1.1);
+  z-index: 0;
+}
+
+.ForumBanner-inner {
+  position: relative;
+  z-index: 1;
+  width: min(1200px, 94vw);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+}
+
+.ForumBanner-content {
+  flex: 1;
+}
+
+.ForumBanner-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 193, 7, 0.15);
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffc107;
+  margin-bottom: 16px;
+}
+
+.ForumBanner-title {
+  font-size: 42px;
+  font-weight: 800;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+.ForumBanner-desc {
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin: 0 0 32px 0;
+  max-width: 600px;
+}
+
+.ForumBanner-stats-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.ForumBanner-stat-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 100px;
+}
+
+.ForumBanner-stat-val {
+  font-size: 32px;
+  font-weight: 800;
+  color: #2fbf71;
+  line-height: 1;
+}
+
+.ForumBanner-stat-lbl {
+  font-size: 13px;
+  opacity: 0.75;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ForumBanner-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.ForumBanner-action-card {
+  display: flex;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 12px 20px;
+  border-radius: 12px;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  min-width: 220px;
+}
+
+.ForumBanner-action-card svg {
+  flex-shrink: 0;
+}
+
+.ForumBanner-action-label {
+  font-size: 11px;
+  opacity: 0.8;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ForumBanner-action-value {
+  font-size: 16px;
+  font-weight: 700;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ForumBanner-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ForumBanner-title {
+    font-size: 32px;
+  }
+
+  .ForumBanner-actions {
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .ForumBanner-action-card {
+    width: 100%;
+  }
+}

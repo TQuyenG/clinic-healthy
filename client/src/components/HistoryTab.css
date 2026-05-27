@@ -1,0 +1,373 @@
+/* client/src/components/HistoryTab.css */
+
+/* === CONTAINER CHÍNH === */
+.HistoryTab-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #E0E0E0;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* === HEADER === */
+.HistoryTab-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #E0E0E0;
+  background: white;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.HistoryTab-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #2E7D32;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.HistoryTab-header p {
+  margin: 4px 0 0 0;
+  font-size: 12px;
+  color: #666;
+}
+
+.HistoryTab-badge-total {
+  font-size: 12px;
+  background: #E3F2FD;
+  color: #1976D2;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* === TOOLBAR (QUAN TRỌNG: Gộp chung và Responsive) === */
+.HistoryTab-toolbar {
+  padding: 10px 16px;
+  background: #F9FAFB;
+  border-bottom: 1px solid #E0E0E0;
+  
+  display: flex;        /* Dàn hàng ngang */
+  flex-wrap: wrap;      /* Cho phép xuống dòng khi hết chỗ */
+  align-items: center;  /* Căn giữa dọc */
+  gap: 10px;            /* Khoảng cách giữa tất cả các phần tử */
+  
+  flex-shrink: 0;
+}
+
+/* Wrapper cho ô tìm kiếm để giữ icon bên trong */
+.HistoryTab-search-wrapper {
+  position: relative;
+  flex: 1;              /* Tự động giãn nở */
+  min-width: 200px;     /* Chiều rộng tối thiểu */
+  max-width: 300px;     /* Chiều rộng tối đa */
+}
+
+.HistoryTab-input-search {
+  width: 100%;
+  padding: 6px 12px 6px 30px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  height: 34px;
+  box-sizing: border-box;
+}
+
+.HistoryTab-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 12px;
+}
+
+/* Các input ngày tháng */
+.HistoryTab-input-date {
+  width: 130px;
+  padding: 0 8px;
+  height: 34px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+.HistoryTab-separator-dash {
+  color: #999;
+}
+
+/* Các select dropdown */
+.HistoryTab-select {
+  width: 140px;
+  padding: 0 8px;
+  height: 34px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 12px;
+  background: white;
+  box-sizing: border-box;
+}
+
+/* Nút bấm chung */
+.HistoryTab-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 12px;
+  height: 34px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.HistoryTab-btn-primary { background: #4CAF50; color: white; }
+.HistoryTab-btn-primary:hover { background: #43A047; }
+
+.HistoryTab-btn-secondary { background: white; border-color: #ddd; color: #555; }
+.HistoryTab-btn-secondary:hover { border-color: #4CAF50; color: #4CAF50; }
+
+.HistoryTab-btn-icon-only {
+  background: white; 
+  border-color: #ddd; 
+  color: #555;
+  padding: 0 8px; /* Hẹp hơn chút */
+}
+.HistoryTab-btn-icon-only:hover { border-color: #1976D2; color: #1976D2; }
+
+.HistoryTab-divider-vertical {
+  width: 1px;
+  height: 24px;
+  background: #ddd;
+  margin: 0 2px;
+}
+
+/* === BẢNG DỮ LIỆU === */
+.HistoryTab-content {
+  flex: 1;
+  overflow: auto; /* Scroll cho cả vùng nội dung */
+  position: relative;
+}
+
+.HistoryTab-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 800px; /* Đảm bảo bảng không bị co quá nhỏ */
+}
+
+.HistoryTab-table th {
+  background: #F1F8E9;
+  color: #2E7D32;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 10px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 2px solid #E0E0E0;
+  white-space: nowrap;
+}
+
+.HistoryTab-table td {
+  padding: 10px;
+  border-bottom: 1px solid #F0F0F0;
+  vertical-align: top;
+  color: #333;
+}
+.HistoryTab-table tr:hover { background: #FAFAFA; }
+
+/* Định dạng các cột */
+.HistoryTab-col-time { width: 140px; }
+.HistoryTab-col-user { width: 200px; }
+.HistoryTab-col-action { width: 100px; text-align: center; }
+.HistoryTab-col-target { width: 180px; }
+.HistoryTab-col-detail { flex: 1; min-width: 200px; }
+
+/* Thành phần trong bảng */
+.HistoryTab-time-wrapper { display: flex; align-items: center; gap: 4px; }
+
+.HistoryTab-user-cell { display: flex; align-items: center; gap: 8px; }
+.HistoryTab-user-avatar {
+  width: 28px; height: 28px;
+  background: #E0E0E0; color: #555;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: bold; font-size: 11px;
+}
+.HistoryTab-user-text { display: flex; flex-direction: column; }
+.HistoryTab-user-name { font-weight: 500; color: #333; }
+.HistoryTab-user-role { font-size: 11px; color: #888; }
+
+.HistoryTab-action-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.HistoryTab-target-name { font-weight: 500; }
+.HistoryTab-target-id { font-size: 10px; color: #999; margin-top: 2px; }
+
+.HistoryTab-text-italic { color: #999; font-style: italic; }
+
+/* Chi tiết thay đổi (Detail Box) */
+.HistoryTab-detail-box {
+  font-family: monospace;
+  font-size: 11px;
+  background: #FAFAFA;
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid #eee;
+  max-width: 100%;
+}
+
+.HistoryTab-diff-line { margin-bottom: 2px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.HistoryTab-diff-key { font-weight: 600; color: #555; }
+.HistoryTab-diff-val-old { text-decoration: line-through; color: #999; }
+.HistoryTab-diff-arrow { font-size: 10px; color: #1976D2; }
+.HistoryTab-diff-val-new { color: #2E7D32; font-weight: 600; }
+.HistoryTab-diff-val-normal { color: #333; }
+
+/* === FOOTER === */
+.HistoryTab-footer {
+  padding: 10px 16px;
+  border-top: 1px solid #E0E0E0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  background: white;
+  flex-shrink: 0;
+}
+
+.HistoryTab-pagination-group { display: flex; gap: 4px; }
+.HistoryTab-pagination {
+  padding: 16px;
+  border-top: 1px solid #E0E0E0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  background: white;
+}
+.HistoryTab-pagination-info {
+  color: #666;
+  font-weight: 500;
+}
+.HistoryTab-pagination-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.HistoryTab-pagination-page {
+  padding: 6px 12px;
+  background: #f5f5f5;
+  border-radius: 6px;
+  font-weight: 600;
+  color: #333;
+}
+.HistoryTab-btn-page {
+  padding: 4px 12px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.HistoryTab-btn-page:hover:not(:disabled) { background: #f0f0f0; border-color: #bbb; }
+.HistoryTab-btn-page:disabled { opacity: 0.5; cursor: default; }
+
+/* Loading State */
+.HistoryTab-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 16px;
+  min-height: 400px;
+}
+
+.HistoryTab-loading .spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #E0E0E0;
+  border-top-color: #5fab5b;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.HistoryTab-loading p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Empty State - Đẹp hơn với animation và gradient */
+.HistoryTab-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  gap: 20px;
+  min-height: 400px;
+  background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+  border-radius: 8px;
+}
+
+.HistoryTab-empty svg {
+  color: #d1f5ea;
+  filter: drop-shadow(0 4px 8px rgba(95, 171, 91, 0.1));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.HistoryTab-empty p {
+  margin: 0;
+  font-size: 16px;
+  color: #666;
+  font-weight: 500;
+  text-align: center;
+}
+
+.HistoryTab-empty .empty-subtitle {
+  font-size: 13px;
+  color: #999;
+  font-weight: 400;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+/* Loading / Empty State (fallback) */
+.HistoryTab-state-container {
+  display: flex; 
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  height: 100%; 
+  color: #999;
+  gap: 10px;
+}

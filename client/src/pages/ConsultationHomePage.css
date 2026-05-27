@@ -1,0 +1,1416 @@
+/* Consultation Home Page - New Modern Design */
+/* Color Scheme: White + Green (#20bf6b) */
+
+:root {
+  --consultation-home-primary: #20bf6b;
+  --consultation-home-primary-dark: #199c56;
+  --consultation-home-primary-light: #d4f4e8;
+  --consultation-home-white: #ffffff;
+  --consultation-home-bg: #f5f8f7;
+  --consultation-home-text: #2d3436;
+  --consultation-home-text-light: #636e72;
+  --consultation-home-border: #e0e6e5;
+  --consultation-home-shadow-sm: 0 2px 4px rgba(32, 191, 107, 0.08);
+  --consultation-home-shadow-md: 0 4px 12px rgba(32, 191, 107, 0.12);
+  --consultation-home-shadow-lg: 0 8px 24px rgba(32, 191, 107, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.consultation-home-page {
+  width: 100%;
+  background-color: var(--consultation-home-bg);
+  color: var(--consultation-home-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.consultation-home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ================================ */
+/* HERO / BANNER SECTION */
+/* ================================ */
+
+.consultation-home-banner {
+  background: linear-gradient(135deg, var(--consultation-home-primary) 0%, var(--consultation-home-primary-dark) 100%);
+  color: var(--consultation-home-white);
+  padding: 32px 16px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.consultation-home-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(100px, -100px);
+}
+
+.consultation-home-banner-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+}
+
+.consultation-home-banner-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+.consultation-home-banner-subtitle {
+  font-size: 14px;
+  opacity: 0.95;
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+.consultation-home-banner-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ================================ */
+/* TABS SECTION */
+/* ================================ */
+
+.consultation-home-methods-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.consultation-home-tab {
+  flex: 1;
+  min-width: 150px;
+  background: var(--consultation-home-white);
+  border: 2px solid var(--consultation-home-border);
+  border-radius: 8px;
+  padding: 12px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.consultation-home-tab:hover {
+  border-color: var(--consultation-home-primary);
+  box-shadow: var(--consultation-home-shadow-md);
+}
+
+.consultation-home-tab.consultation-home-tab-active {
+  background: var(--consultation-home-primary);
+  color: var(--consultation-home-white);
+  border-color: var(--consultation-home-primary);
+  box-shadow: var(--consultation-home-shadow-md);
+}
+
+.consultation-home-tab-label {
+  font-weight: 600;
+  font-size: 13px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.consultation-home-tab-desc {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.consultation-home-tab.consultation-home-tab-active .consultation-home-tab-desc {
+  opacity: 0.9;
+}
+
+/* ================================ */
+/* STATS SECTION */
+/* ================================ */
+
+.consultation-home-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.consultation-home-stat-card {
+  background: var(--consultation-home-white);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--consultation-home-border);
+  text-align: center;
+  box-shadow: var(--consultation-home-shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.consultation-home-stat-card:hover {
+  box-shadow: var(--consultation-home-shadow-md);
+  border-color: var(--consultation-home-primary);
+}
+
+.consultation-home-stat-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--consultation-home-primary-light);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--consultation-home-primary);
+  font-size: 16px;
+  margin: 0 auto 8px;
+}
+
+.consultation-home-stat-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--consultation-home-text);
+  margin: 0 0 4px 0;
+}
+
+.consultation-home-stat-label {
+  font-size: 11px;
+  color: var(--consultation-home-text-light);
+  margin: 0;
+}
+
+/* ================================ */
+/* METHODS CARDS SECTION */
+/* ================================ */
+
+.consultation-home-methods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.consultation-home-method-card {
+  background: var(--consultation-home-white);
+  border: 2px solid var(--consultation-home-border);
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.consultation-home-method-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--consultation-home-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.consultation-home-method-card:hover {
+  border-color: var(--consultation-home-primary);
+  box-shadow: var(--consultation-home-shadow-lg);
+}
+
+.consultation-home-method-card:hover::before {
+  transform: scaleX(1);
+}
+
+.consultation-home-method-badge {
+  display: inline-block;
+  background: var(--consultation-home-primary-light);
+  color: var(--consultation-home-primary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  width: fit-content;
+  margin-bottom: 8px;
+}
+
+.consultation-home-method-icon {
+  font-size: 28px;
+  color: var(--consultation-home-primary);
+  margin-bottom: 8px;
+}
+
+.consultation-home-method-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--consultation-home-text);
+  margin: 0 0 4px 0;
+}
+
+.consultation-home-method-subtitle {
+  font-size: 12px;
+  color: var(--consultation-home-text-light);
+  margin: 0 0 8px 0;
+}
+
+.consultation-home-method-features {
+  flex: 1;
+  font-size: 12px;
+  color: var(--consultation-home-text-light);
+  margin-bottom: 12px;
+}
+
+.consultation-home-method-features li {
+  margin: 4px 0 4px 16px;
+}
+
+.consultation-home-method-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--consultation-home-primary);
+  margin-bottom: 12px;
+}
+
+.consultation-home-method-price-unit {
+  font-size: 12px;
+  color: var(--consultation-home-text-light);
+  display: block;
+  font-weight: 400;
+}
+
+.consultation-home-method-btn {
+  background: var(--consultation-home-primary);
+  color: var(--consultation-home-white);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.consultation-home-method-btn:hover {
+  background: var(--consultation-home-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--consultation-home-shadow-md);
+}
+
+.consultation-home-method-btn:active {
+  transform: translateY(0);
+}
+
+/* ================================ */
+/* DOCTORS LIST SECTION */
+/* ================================ */
+
+.consultation-home-doctors-section {
+  margin-bottom: 32px;
+}
+
+.consultation-home-section-header {
+  margin-bottom: 16px;
+}
+
+.consultation-home-section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--consultation-home-text);
+  margin: 0 0 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.consultation-home-section-title-icon {
+  color: var(--consultation-home-primary);
+  font-size: 20px;
+}
+
+.consultation-home-section-subtitle {
+  font-size: 12px;
+  color: var(--consultation-home-text-light);
+  margin: 0;
+}
+
+/* Filter & Search */
+.consultation-home-filter-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.consultation-home-filter-item {
+  position: relative;
+  min-width: 140px;
+}
+
+.consultation-home-filter-item select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--consultation-home-border);
+  border-radius: 6px;
+  background: var(--consultation-home-white);
+  color: var(--consultation-home-text);
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.consultation-home-filter-item select:focus {
+  outline: none;
+  border-color: var(--consultation-home-primary);
+  box-shadow: 0 0 0 3px var(--consultation-home-primary-light);
+}
+
+.consultation-home-search-box {
+  position: relative;
+  flex: 1;
+  min-width: 180px;
+}
+
+.consultation-home-search-box input {
+  width: 100%;
+  padding: 8px 12px 8px 32px;
+  border: 1px solid var(--consultation-home-border);
+  border-radius: 6px;
+  font-size: 12px;
+  transition: border-color 0.3s ease;
+}
+
+.consultation-home-search-box input:focus {
+  outline: none;
+  border-color: var(--consultation-home-primary);
+  box-shadow: 0 0 0 3px var(--consultation-home-primary-light);
+}
+
+.consultation-home-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--consultation-home-text-light);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+/* Doctors Grid */
+.consultation-home-doctors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.consultation-home-doctor-card {
+  background: var(--consultation-home-white);
+  border: 1px solid var(--consultation-home-border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: var(--consultation-home-shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.consultation-home-doctor-card:hover {
+  box-shadow: var(--consultation-home-shadow-lg);
+  border-color: var(--consultation-home-primary);
+  transform: translateY(-4px);
+}
+
+.consultation-home-doctor-avatar-section {
+  position: relative;
+  padding: 12px;
+  background: var(--consultation-home-primary-light);
+  text-align: center;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.consultation-home-doctor-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--consultation-home-white);
+  box-shadow: var(--consultation-home-shadow-md);
+}
+
+.consultation-home-online-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--consultation-home-primary);
+  color: var(--consultation-home-white);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.consultation-home-pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--consultation-home-white);
+  border-radius: 50%;
+  animation: consultation-home-pulse 2s infinite;
+}
+
+@keyframes consultation-home-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.consultation-home-doctor-info {
+  padding: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.consultation-home-doctor-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--consultation-home-text);
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.consultation-home-doctor-specialty {
+  font-size: 11px;
+  color: var(--consultation-home-primary);
+  margin: 0 0 6px 0;
+  font-weight: 600;
+}
+
+.consultation-home-doctor-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+
+.consultation-home-star {
+  color: #ffc107;
+  font-size: 12px;
+}
+
+.consultation-home-rating-text {
+  color: var(--consultation-home-text);
+  font-weight: 600;
+}
+
+.consultation-home-rating-count {
+  color: var(--consultation-home-text-light);
+}
+
+.consultation-home-experience {
+  font-size: 11px;
+  color: var(--consultation-home-text-light);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.consultation-home-pricing {
+  padding: 8px 12px;
+  background: var(--consultation-home-primary-light);
+  border-radius: 6px;
+  font-size: 11px;
+  margin-bottom: 8px;
+  flex: 1;
+}
+
+.consultation-home-price-label {
+  color: var(--consultation-home-text-light);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.consultation-home-price-value {
+  color: var(--consultation-home-primary);
+  font-weight: 700;
+}
+
+.consultation-home-doctor-actions {
+  display: flex;
+  gap: 6px;
+  padding: 0 12px 12px 12px;
+}
+
+.consultation-home-action-btn {
+  flex: 1;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.consultation-home-btn-profile {
+  background: var(--consultation-home-border);
+  color: var(--consultation-home-text);
+}
+
+.consultation-home-btn-profile:hover {
+  background: #d0d6d5;
+}
+
+.consultation-home-btn-chat {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.consultation-home-btn-chat:hover {
+  background: #bbdefb;
+}
+
+.consultation-home-btn-video {
+  background: var(--consultation-home-primary);
+  color: var(--consultation-home-white);
+}
+
+.consultation-home-btn-video:hover {
+  background: var(--consultation-home-primary-dark);
+}
+
+/* ================================ */
+/* TOP RATED DOCTORS SECTION */
+/* ================================ */
+
+.consultation-home-top-doctors-section {
+  background: linear-gradient(135deg, var(--consultation-home-primary-light) 0%, var(--consultation-home-white) 100%);
+  padding: 32px 16px;
+  margin-bottom: 32px;
+  border-radius: 12px;
+}
+
+.consultation-home-top-doctors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.consultation-home-top-doctor-card {
+  background: var(--consultation-home-white);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: var(--consultation-home-shadow-md);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.consultation-home-top-doctor-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--consultation-home-shadow-lg);
+}
+
+.consultation-home-top-doctor-rank {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  background: var(--consultation-home-primary);
+  color: var(--consultation-home-white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.consultation-home-top-doctor-avatar-wrapper {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 12px;
+}
+
+.consultation-home-top-doctor-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--consultation-home-primary);
+}
+
+.consultation-home-top-star-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  background: var(--consultation-home-primary);
+  color: var(--consultation-home-white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  border: 2px solid var(--consultation-home-white);
+}
+
+.consultation-home-top-doctor-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--consultation-home-text);
+  margin: 8px 0 4px 0;
+  line-height: 1.3;
+}
+
+.consultation-home-top-doctor-specialty {
+  font-size: 11px;
+  color: var(--consultation-home-primary);
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.consultation-home-top-rating-stars {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+.consultation-home-star-filled {
+  color: #ffc107;
+}
+
+.consultation-home-star-empty {
+  color: #ddd;
+}
+
+.consultation-home-rating-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--consultation-home-text);
+  display: block;
+}
+
+.consultation-home-review-count {
+  font-size: 11px;
+  color: var(--consultation-home-text-light);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.consultation-home-btn-top-doctor {
+  width: 100%;
+  padding: 8px 12px;
+  background: var(--consultation-home-primary);
+  color: var(--consultation-home-white);
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.consultation-home-btn-top-doctor:hover {
+  background: var(--consultation-home-primary-dark);
+  transform: translateY(-2px);
+}
+
+/* ================================ */
+/* WHY CHOOSE US SECTION */
+/* ================================ */
+
+.consultation-home-why-choose-section {
+  padding: 32px 16px;
+  margin-bottom: 32px;
+}
+
+.consultation-home-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.consultation-home-feature-card {
+  background: var(--consultation-home-white);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: var(--consultation-home-shadow-sm);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.consultation-home-feature-card:hover {
+  border-color: var(--consultation-home-primary);
+  box-shadow: var(--consultation-home-shadow-lg);
+  transform: translateY(-4px);
+}
+
+.consultation-home-feature-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 16px;
+  background: var(--consultation-home-primary-light);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: var(--consultation-home-primary);
+}
+
+.consultation-home-feature-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--consultation-home-text);
+  margin: 0 0 8px 0;
+}
+
+.consultation-home-feature-card p {
+  font-size: 12px;
+  color: var(--consultation-home-text-light);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ================================ */
+/* CTA SECTION */
+/* ================================ */
+
+.consultation-home-cta-section {
+  position: relative;
+  background: linear-gradient(135deg, var(--consultation-home-primary) 0%, var(--consultation-home-primary-dark) 100%);
+  color: var(--consultation-home-white);
+  padding: 48px 16px;
+  margin-bottom: 32px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.consultation-home-cta-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.1;
+}
+
+.consultation-home-cta-shape {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--consultation-home-white);
+}
+
+.consultation-home-cta-shape-1 {
+  width: 300px;
+  height: 300px;
+  top: -100px;
+  right: -100px;
+}
+
+.consultation-home-cta-shape-2 {
+  width: 200px;
+  height: 200px;
+  bottom: -50px;
+  left: 10%;
+}
+
+.consultation-home-cta-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.consultation-home-cta-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  line-height: 1.3;
+}
+
+.consultation-home-cta-description {
+  font-size: 14px;
+  opacity: 0.95;
+  margin: 0 0 20px 0;
+  line-height: 1.6;
+}
+
+.consultation-home-cta-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.consultation-home-cta-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.consultation-home-cta-btn-primary {
+  background: var(--consultation-home-white);
+  color: var(--consultation-home-primary);
+}
+
+.consultation-home-cta-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.consultation-home-cta-btn-secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--consultation-home-white);
+  border: 2px solid var(--consultation-home-white);
+}
+
+.consultation-home-cta-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.consultation-home-cta-note {
+  font-size: 12px;
+  opacity: 0.9;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* ================================ */
+/* LOAD MORE SECTION */
+/* ================================ */
+
+.consultation-home-load-more-section {
+  text-align: center;
+  padding: 20px 0;
+  margin-bottom: 20px;
+}
+
+.consultation-home-btn-load-more {
+  background: var(--consultation-home-white);
+  color: var(--consultation-home-primary);
+  border: 2px solid var(--consultation-home-primary);
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.consultation-home-btn-load-more:hover {
+  background: var(--consultation-home-primary);
+  color: var(--consultation-home-white);
+  transform: translateY(-2px);
+  box-shadow: var(--consultation-home-shadow-lg);
+}
+
+/* ================================ */
+/* EMPTY STATE */
+/* ================================ */
+
+.consultation-home-empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--consultation-home-white);
+  border-radius: 8px;
+  border: 1px solid var(--consultation-home-border);
+}
+
+.consultation-home-empty-icon {
+  font-size: 48px;
+  color: var(--consultation-home-primary-light);
+  margin-bottom: 16px;
+}
+
+.consultation-home-empty-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--consultation-home-text);
+  margin: 0 0 8px 0;
+}
+
+.consultation-home-empty-text {
+  font-size: 13px;
+  color: var(--consultation-home-text-light);
+  margin: 0;
+}
+
+/* ================================ */
+/* LOADING SPINNER */
+/* ================================ */
+
+.consultation-home-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  color: var(--consultation-home-primary);
+}
+
+.consultation-home-spinner {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--consultation-home-primary-light);
+  border-top-color: var(--consultation-home-primary);
+  border-radius: 50%;
+  animation: consultation-home-spin 0.8s linear infinite;
+}
+
+@keyframes consultation-home-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ================================ */
+/* RESPONSIVE DESIGN */
+/* ================================ */
+
+/* Tablet (iPad) */
+@media (max-width: 768px) {
+  .consultation-home-page {
+    font-size: 13px;
+  }
+
+  .consultation-home-container {
+    padding: 0 12px;
+  }
+
+  .consultation-home-banner {
+    padding: 24px 12px;
+    margin-bottom: 16px;
+  }
+
+  .consultation-home-banner-title {
+    font-size: 20px;
+  }
+
+  .consultation-home-banner-subtitle {
+    font-size: 13px;
+  }
+
+  .consultation-home-methods-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .consultation-home-method-card {
+    padding: 12px;
+  }
+
+  .consultation-home-method-icon {
+    font-size: 24px;
+    margin-bottom: 6px;
+  }
+
+  .consultation-home-method-title {
+    font-size: 14px;
+  }
+
+  .consultation-home-method-subtitle {
+    font-size: 11px;
+  }
+
+  .consultation-home-section-title {
+    font-size: 16px;
+  }
+
+  .consultation-home-doctors-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+  }
+
+  .consultation-home-filter-bar {
+    gap: 8px;
+  }
+
+  .consultation-home-filter-item {
+    min-width: 120px;
+  }
+
+  .consultation-home-top-doctors-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  .consultation-home-features-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+  }
+
+  .consultation-home-cta-section {
+    padding: 32px 12px;
+    margin-bottom: 24px;
+  }
+
+  .consultation-home-cta-title {
+    font-size: 22px;
+  }
+
+  .consultation-home-cta-description {
+    font-size: 13px;
+  }
+}
+
+/* Mobile Phone */
+@media (max-width: 480px) {
+  .consultation-home-page {
+    font-size: 12px;
+  }
+
+  .consultation-home-container {
+    padding: 0 8px;
+  }
+
+  .consultation-home-banner {
+    padding: 16px 8px;
+    margin-bottom: 12px;
+  }
+
+  .consultation-home-banner::before {
+    width: 200px;
+    height: 200px;
+  }
+
+  .consultation-home-banner-title {
+    font-size: 18px;
+  }
+
+  .consultation-home-banner-subtitle {
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+
+  .consultation-home-methods-tabs {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .consultation-home-tab {
+    min-width: 100px;
+    padding: 10px 8px;
+  }
+
+  .consultation-home-tab-label {
+    font-size: 12px;
+  }
+
+  .consultation-home-tab-desc {
+    font-size: 10px;
+  }
+
+  .consultation-home-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .consultation-home-stat-card {
+    padding: 10px;
+  }
+
+  .consultation-home-stat-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  .consultation-home-stat-value {
+    font-size: 16px;
+  }
+
+  .consultation-home-stat-label {
+    font-size: 10px;
+  }
+
+  .consultation-home-methods-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .consultation-home-method-card {
+    padding: 12px;
+  }
+
+  .consultation-home-method-icon {
+    font-size: 24px;
+  }
+
+  .consultation-home-method-title {
+    font-size: 13px;
+  }
+
+  .consultation-home-method-subtitle {
+    font-size: 11px;
+  }
+
+  .consultation-home-method-price {
+    font-size: 14px;
+  }
+
+  .consultation-home-method-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .consultation-home-section-title {
+    font-size: 15px;
+  }
+
+  .consultation-home-section-subtitle {
+    font-size: 11px;
+  }
+
+  .consultation-home-filter-bar {
+    gap: 6px;
+    margin-bottom: 12px;
+    flex-direction: column;
+  }
+
+  .consultation-home-filter-item,
+  .consultation-home-search-box {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .consultation-home-filter-item select {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .consultation-home-search-box input {
+    padding: 6px 10px 6px 28px;
+    font-size: 11px;
+  }
+
+  .consultation-home-doctors-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .consultation-home-doctor-card {
+    padding: 0;
+  }
+
+  .consultation-home-doctor-avatar-section {
+    padding: 8px;
+    min-height: 100px;
+  }
+
+  .consultation-home-doctor-avatar {
+    width: 70px;
+    height: 70px;
+  }
+
+  .consultation-home-doctor-info {
+    padding: 8px;
+  }
+
+  .consultation-home-doctor-name {
+    font-size: 12px;
+  }
+
+  .consultation-home-doctor-specialty {
+    font-size: 10px;
+  }
+
+  .consultation-home-doctor-actions {
+    gap: 4px;
+    padding: 0 8px 8px 8px;
+  }
+
+  .consultation-home-action-btn {
+    padding: 6px 6px;
+    font-size: 10px;
+  }
+
+  .consultation-home-top-doctors-section {
+    padding: 20px 8px;
+  }
+
+  .consultation-home-top-doctors-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+  }
+
+  .consultation-home-top-doctor-avatar {
+    width: 70px;
+    height: 70px;
+  }
+
+  .consultation-home-top-doctor-name {
+    font-size: 12px;
+  }
+
+  .consultation-home-top-doctor-specialty {
+    font-size: 10px;
+  }
+
+  .consultation-home-btn-top-doctor {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .consultation-home-why-choose-section {
+    padding: 20px 8px;
+  }
+
+  .consultation-home-features-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .consultation-home-feature-card {
+    padding: 16px;
+  }
+
+  .consultation-home-feature-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+  }
+
+  .consultation-home-feature-card h3 {
+    font-size: 13px;
+  }
+
+  .consultation-home-feature-card p {
+    font-size: 11px;
+  }
+
+  .consultation-home-cta-section {
+    padding: 24px 8px;
+    margin-bottom: 20px;
+  }
+
+  .consultation-home-cta-shape-1 {
+    width: 200px;
+    height: 200px;
+  }
+
+  .consultation-home-cta-shape-2 {
+    width: 150px;
+    height: 150px;
+  }
+
+  .consultation-home-cta-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .consultation-home-cta-description {
+    font-size: 12px;
+    margin-bottom: 16px;
+  }
+
+  .consultation-home-cta-buttons {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .consultation-home-cta-btn {
+    flex: 1;
+    min-width: 140px;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .consultation-home-cta-note {
+    font-size: 11px;
+  }
+
+  .consultation-home-btn-load-more {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+}
+
+/* Very Small Mobile */
+@media (max-width: 360px) {
+  .consultation-home-banner-title {
+    font-size: 16px;
+  }
+
+  .consultation-home-methods-grid {
+    gap: 6px;
+  }
+
+  .consultation-home-doctors-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .consultation-home-method-card {
+    padding: 10px;
+  }
+
+  .consultation-home-cta-buttons {
+    flex-direction: column;
+  }
+
+  .consultation-home-cta-btn {
+    width: 100%;
+  }
+}

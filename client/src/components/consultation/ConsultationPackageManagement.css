@@ -1,0 +1,518 @@
+/* ========================================================================== */
+/* ConsultationPackageManagement.css - COMPACT MEDICAL THEME */
+/* ========================================================================== */
+
+:root {
+  /* Pastel Green Palette - Dịu mắt */
+  --cpm-primary: #20bf6b; /* Xanh lá tươi nhưng êm */
+  --cpm-primary-dark: #199c56;
+  --cpm-primary-bg: #e8f5e9; /* Nền xanh rất nhạt */
+  
+  --cpm-bg: #f8f9fa; /* Trắng xám nhẹ */
+  --cpm-white: #ffffff;
+  
+  --cpm-text: #2d3436; /* Xám đậm thay vì đen tuyền */
+  --cpm-text-light: #636e72;
+  --cpm-border: #dfe6e9;
+  
+  /* Status Colors (Pastel versions) */
+  --cpm-success: #26de81;
+  --cpm-success-bg: #e6ffea;
+  --cpm-warning: #fdcb6e;
+  --cpm-warning-bg: #fffbf0;
+  --cpm-info: #74b9ff;
+  --cpm-info-bg: #f0f8ff;
+  --cpm-danger: #ff7675;
+  --cpm-danger-bg: #fff0f0;
+
+  --cpm-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  --cpm-radius: 6px;
+  --cpm-font-size: 13px; /* Kích thước font chuẩn nhỏ gọn */
+}
+
+/* ==================== LAYOUT CHUNG ==================== */
+.cpm-container {
+  padding: 12px;
+  background: var(--cpm-bg);
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: var(--cpm-font-size);
+  color: var(--cpm-text);
+}
+
+/* ==================== HEADER ==================== */
+.cpm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  background: var(--cpm-white);
+  padding: 10px 15px;
+  border-radius: var(--cpm-radius);
+  box-shadow: var(--cpm-shadow);
+}
+
+.cpm-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cpm-header-icon {
+  font-size: 18px;
+  color: var(--cpm-primary);
+}
+
+.cpm-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--cpm-text);
+}
+
+/* Price Input Group - Currency Display */
+.cpm-price-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cpm-price-input-group .cpm-input {
+  flex: 1;
+  padding-right: 50px;
+}
+
+.cpm-price-display {
+  position: absolute;
+  right: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cpm-primary);
+  white-space: nowrap;
+  pointer-events: none;
+}
+/* ==================== STATS CARDS (Compact) ==================== */
+.cpm-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.cpm-stat-card {
+  background: var(--cpm-white);
+  padding: 10px;
+  border-radius: var(--cpm-radius);
+  box-shadow: var(--cpm-shadow);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--cpm-border);
+}
+
+.cpm-stat-icon-wrapper {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cpm-stat-icon { font-size: 16px; color: var(--cpm-white); }
+.cpm-bg-primary { background-color: var(--cpm-primary); }
+.cpm-bg-success { background-color: var(--cpm-success); }
+.cpm-bg-info { background-color: var(--cpm-info); }
+.cpm-bg-warning { background-color: var(--cpm-warning); }
+
+.cpm-stat-info { display: flex; flex-direction: column; }
+.cpm-stat-value { font-size: 18px; font-weight: 700; line-height: 1.1; }
+.cpm-stat-label { font-size: 11px; color: var(--cpm-text-light); }
+
+/* ==================== FILTER BAR ==================== */
+.cpm-filters {
+  background: var(--cpm-white);
+  padding: 10px;
+  border-radius: var(--cpm-radius);
+  margin-bottom: 12px;
+  box-shadow: var(--cpm-shadow);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap; /* Cho phép xuống dòng khi màn hình nhỏ */
+}
+
+.cpm-search-box {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.cpm-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #b2bec3;
+  font-size: 12px;
+}
+
+.cpm-filter-group {
+  display: flex;
+  gap: 8px;
+}
+
+.cpm-select-wrapper {
+  position: relative;
+  min-width: 140px;
+}
+
+.cpm-select-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #b2bec3;
+  font-size: 12px;
+  z-index: 1;
+}
+
+/* ==================== INPUTS & BUTTONS (Compact) ==================== */
+.cpm-input, .cpm-select {
+  width: 100%;
+  padding: 6px 10px 6px 30px; /* Left padding cho icon */
+  border: 1px solid var(--cpm-border);
+  border-radius: var(--cpm-radius);
+  font-size: 13px;
+  outline: none;
+  background: var(--cpm-white);
+  color: var(--cpm-text);
+  height: 32px; /* Fixed height nhỏ gọn */
+  transition: border 0.2s;
+}
+
+.cpm-input:focus, .cpm-select:focus {
+  border-color: var(--cpm-primary);
+}
+
+.cpm-textarea {
+  height: auto;
+  padding: 8px;
+  min-height: 60px;
+  resize: vertical;
+}
+
+.cpm-btn {
+  padding: 0 12px;
+  height: 32px;
+  border: none;
+  border-radius: var(--cpm-radius);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: opacity 0.2s;
+}
+
+.cpm-btn:hover { opacity: 0.9; }
+
+.cpm-btn-primary { background: var(--cpm-primary); color: var(--cpm-white); }
+.cpm-btn-secondary { background: #f1f2f6; color: var(--cpm-text); border: 1px solid var(--cpm-border); }
+
+.cpm-btn-icon {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s;
+  font-size: 13px;
+}
+
+.cpm-btn-icon:hover { background: #f1f2f6; }
+.cpm-text-info { color: #0984e3; }
+.cpm-text-warning { color: #fdcb6e; }
+.cpm-text-danger { color: #d63031; }
+.cpm-text-success { color: #00b894; }
+.cpm-text-muted { color: #b2bec3; }
+
+/* ==================== TABLE RESPONSIVE ==================== */
+.cpm-table-container {
+  background: var(--cpm-white);
+  border-radius: var(--cpm-radius);
+  box-shadow: var(--cpm-shadow);
+  margin-bottom: 12px;
+  overflow: hidden; /* Bo góc cho container */
+}
+
+.cpm-table-wrapper {
+  width: 100%;
+  overflow-x: auto; /* Cho phép cuộn ngang */
+  -webkit-overflow-scrolling: touch; /* Mượt trên mobile */
+}
+
+.cpm-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px; /* Đảm bảo bảng không bị co quá nhỏ, sẽ hiện scrollbar */
+}
+
+.cpm-table thead {
+  background: var(--cpm-primary-bg);
+}
+
+.cpm-table th {
+  padding: 8px 10px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cpm-primary-dark);
+  text-transform: uppercase;
+  white-space: nowrap; /* Không xuống dòng tiêu đề */
+}
+
+.cpm-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #f1f2f6;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.cpm-table tr:hover { background-color: #fcfcfc; }
+
+/* Table Content Styling */
+.cpm-cell-primary { font-weight: 500; color: var(--cpm-text); }
+.cpm-code {
+  font-family: monospace;
+  background: #f1f2f6;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+.cpm-type-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.cpm-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: transparent;
+}
+.cpm-status-active { color: var(--cpm-success); background: var(--cpm-success-bg); border-color: rgba(38, 222, 129, 0.2); }
+.cpm-status-inactive { color: var(--cpm-danger); background: var(--cpm-danger-bg); border-color: rgba(255, 118, 117, 0.2); }
+
+.cpm-price { font-weight: 600; color: var(--cpm-primary-dark); font-size: 12px; }
+.cpm-actions { display: flex; justify-content: flex-end; gap: 4px; }
+
+/* ==================== PAGINATION ==================== */
+.cpm-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.cpm-page-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--cpm-border);
+  background: var(--cpm-white);
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--cpm-primary);
+}
+.cpm-page-btn:disabled { opacity: 0.5; cursor: default; }
+
+.cpm-page-info { font-size: 12px; color: var(--cpm-text-light); }
+
+/* ==================== MODAL ==================== */
+.cpm-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 10px; /* Để modal không dính mép màn hình mobile */
+}
+
+.cpm-modal-box {
+  background: var(--cpm-white);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 550px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  animation: slideUp 0.2s ease-out;
+}
+
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.cpm-modal-header {
+  padding: 12px 16px;
+  background: var(--cpm-primary);
+  color: var(--cpm-white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px 8px 0 0;
+}
+.cpm-modal-header h3 { margin: 0; font-size: 15px; font-weight: 600; }
+.cpm-modal-header button { background: none; border: none; color: white; cursor: pointer; font-size: 14px; }
+
+.cpm-modal-body { padding: 16px; overflow-y: auto; }
+.cpm-modal-footer { padding: 12px 16px; border-top: 1px solid var(--cpm-border); display: flex; justify-content: flex-end; gap: 8px; background: #fcfcfc; border-radius: 0 0 8px 8px; }
+
+/* Detail Modal Styles */
+.cpm-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13px; }
+.cpm-detail-group { display: flex; flex-direction: column; gap: 2px; }
+.cpm-detail-group.full-width { grid-column: 1 / -1; }
+.cpm-detail-group label { font-size: 11px; color: var(--cpm-text-light); text-transform: uppercase; font-weight: 600; }
+.cpm-text-block { background: #f9f9f9; padding: 8px; border-radius: 4px; border: 1px solid #eee; line-height: 1.4; }
+.cpm-text-block.sm { font-size: 12px; color: #666; font-style: italic; }
+.cpm-divider { grid-column: 1 / -1; height: 1px; background: var(--cpm-border); margin: 4px 0; }
+.cpm-detail-row { display: flex; justify-content: space-between; border-bottom: 1px dashed #eee; padding-bottom: 4px; }
+
+/* Form Styles */
+.cpm-form { display: flex; flex-direction: column; gap: 12px; }
+.cpm-form-row { display: flex; gap: 12px; }
+.cpm-form-row.three-col > * { flex: 1; }
+.cpm-form-group { display: flex; flex-direction: column; gap: 4px; }
+.cpm-form-group.full { flex: 1; }
+.cpm-form-group label { font-size: 12px; font-weight: 500; }
+.cpm-req { color: var(--cpm-danger); }
+
+/* ==================== FORM ALIGNMENT (Service-like) ==================== */
+.cpm-form {
+  gap: 14px;
+}
+
+.cpm-form-row.three-col {
+  align-items: flex-start;
+}
+
+.cpm-price-input-group .cpm-input {
+  padding-right: 54px;
+}
+
+.cpm-price-display {
+  right: 12px;
+  color: var(--cpm-primary-dark);
+  font-weight: 700;
+}
+
+.cpm-react-select .cpm-select__control {
+  min-height: 42px;
+  border: 1px solid var(--cpm-border);
+  border-radius: var(--cpm-radius);
+  box-shadow: none;
+}
+
+.cpm-react-select .cpm-select__control:hover {
+  border-color: var(--cpm-primary);
+}
+
+.cpm-react-select .cpm-select__control--is-focused {
+  border-color: var(--cpm-primary);
+  box-shadow: 0 0 0 3px rgba(32, 191, 107, 0.12);
+}
+
+.cpm-react-select .cpm-select__value-container {
+  padding: 2px 8px;
+}
+
+.cpm-react-select .cpm-select__multi-value {
+  background: var(--cpm-primary-bg);
+  border-radius: 4px;
+}
+
+.cpm-react-select .cpm-select__multi-value__label {
+  color: var(--cpm-primary-dark);
+  font-weight: 600;
+}
+
+.cpm-react-select .cpm-select__multi-value__remove {
+  color: var(--cpm-primary-dark);
+}
+
+.cpm-react-select .cpm-select__multi-value__remove:hover {
+  background: rgba(32, 191, 107, 0.12);
+  color: var(--cpm-primary-dark);
+}
+
+.cpm-form-group.full > label svg {
+  vertical-align: middle;
+}
+
+.cpm-form-group small {
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.cpm-form .cpm-btn.cpm-btn-secondary {
+  min-width: 140px;
+}
+
+/* ==================== LOADING & NO DATA ==================== */
+.cpm-loading { text-align: center; padding: 30px; }
+.cpm-spinner { width: 30px; height: 30px; border: 3px solid #eee; border-top-color: var(--cpm-primary); border-radius: 50%; animation: spin 1s infinite linear; margin: 0 auto 10px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.cpm-no-data { text-align: center; padding: 30px; color: var(--cpm-text-light); }
+.cpm-no-data-content { display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 13px; }
+.cpm-no-data-content svg { font-size: 24px; color: #dfe6e9; }
+
+/* ==================== MOBILE RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  /* Bộ lọc xếp chồng */
+  .cpm-filters { flex-direction: column; align-items: stretch; }
+  .cpm-filter-group { flex-direction: row; }
+  .cpm-select-wrapper { flex: 1; }
+  
+  /* Modal chiếm gần hết màn hình */
+  .cpm-modal-box { max-height: 95vh; margin: 10px; width: 100%; }
+  
+  /* Form trên mobile chuyển thành 1 cột */
+  .cpm-form-row, .cpm-form-row.three-col { flex-direction: column; gap: 10px; }
+  
+  /* Ẩn các cột không quan trọng nếu cần (tùy chọn) */
+  /* .cpm-table th:nth-child(3), .cpm-table td:nth-child(3) { display: none; } */
+}
+
+@media (max-width: 480px) {
+  .cpm-header h2 { font-size: 14px; }
+  .cpm-btn span { display: none; } /* Chỉ hiện icon nút thêm */
+  .cpm-btn { width: 32px; padding: 0; }
+  .cpm-page-info { display: none; } /* Ẩn text phân trang */
+  
+  /* Grid thống kê thành 2 cột */
+  .cpm-stats { grid-template-columns: 1fr 1fr; }
+}

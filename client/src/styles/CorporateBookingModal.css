@@ -1,0 +1,243 @@
+/* client/src/styles/CorporateBookingModal.css */
+
+.corp-booking-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.corp-booking-modal {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.corp-booking-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.corp-booking-modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.corp-booking-modal-close {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.corp-booking-modal-close:hover {
+  transform: scale(1.1);
+}
+
+.corp-booking-modal-body {
+  padding: 30px 20px;
+}
+
+.corp-booking-step {
+  animation: fadeIn 0.3s ease-in;
+}
+
+.corp-booking-step h4 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.corp-booking-step p {
+  margin: 0 0 20px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.corp-booking-text {
+  background: #f0f4ff;
+  padding: 12px;
+  border-left: 4px solid #667eea;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+
+.corp-booking-form-group {
+  margin-bottom: 15px;
+}
+
+.corp-booking-form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.corp-booking-input,
+.corp-booking-form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.corp-booking-input:focus,
+.corp-booking-form-group select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.corp-booking-input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.corp-booking-form-group small {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #999;
+}
+
+.corp-booking-btn {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.corp-booking-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.corp-booking-btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.corp-booking-btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+}
+
+.corp-booking-btn-secondary {
+  background: #f0f0f0;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.corp-booking-btn-secondary:hover:not(:disabled) {
+  background: #e0e0e0;
+}
+
+.corp-booking-success {
+  text-align: center;
+}
+
+.corp-booking-success-icon {
+  font-size: 48px;
+  color: #28a745;
+  margin-bottom: 15px;
+  animation: pulse 0.6s ease-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.corp-booking-success h4 {
+  color: #28a745;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.corp-booking-success p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .corp-booking-modal {
+    max-width: 100%;
+    width: 95%;
+    border-radius: 8px;
+  }
+
+  .corp-booking-modal-body {
+    padding: 20px 15px;
+  }
+
+  .corp-booking-btn {
+    font-size: 13px;
+    padding: 10px 14px;
+  }
+}

@@ -1,0 +1,809 @@
+/* client/src/components/common/Sidebar.css */
+/* CẬP NHẬT: Tất cả class có prefix sidebar- để tránh trùng lặp */
+
+.sidebar {
+  width: 224px;
+  background: white;
+  padding: 0;
+  box-shadow: 2px 0 10px rgba(34, 197, 94, 0.1);
+  position: sticky;
+  top: 70px;
+  left: 0;
+  height: calc(100vh - 70px);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 999;
+  border-right: 3px solid #4CAF50;
+  flex-shrink: 0;
+}
+
+/* Wrapper cho scroll - chứa nav */
+.sidebar-scroll-wrapper {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.35rem 0;
+}
+
+/* Scrollbar cho wrapper */
+.sidebar-scroll-wrapper::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-scroll-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(34, 197, 94, 0.2);
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.sidebar-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 197, 94, 0.4);
+}
+
+.sidebar-scroll-wrapper {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(34, 197, 94, 0.2) transparent;
+}
+
+/* Scrolled state */
+.sidebar.sidebar-scrolled {
+  top: 70px;
+  height: calc(100vh - 70px);
+}
+
+/* ==================== COLLAPSED STATE ==================== */
+/* Thu nhỏ chỉ hiện icon - KHÔNG ẨN */
+.sidebar.sidebar-collapsed {
+  width: 46px;
+}
+
+.sidebar.sidebar-collapsed .sidebar-nav {
+  padding: 0 0.15rem;
+}
+
+.sidebar.sidebar-collapsed .sidebar-menu-label {
+  display: none;
+}
+
+.sidebar.sidebar-collapsed .sidebar-link,
+.sidebar.sidebar-collapsed .sidebar-menu-toggle {
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.sidebar.sidebar-collapsed .sidebar-chevron-icon {
+  display: none;
+}
+
+.sidebar.sidebar-collapsed .sidebar-menu-group .sidebar-submenu {
+  display: none;
+}
+
+/* ==================== NAV LAYOUT ==================== */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 0.35rem;
+}
+
+/* ==================== USER HEADER & SECTION LABELS ==================== */
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.75rem;
+  color: #0f5132;
+}
+.sidebar-user-avatar {
+  font-size: 1.15rem;
+  color: #16a34a;
+  flex-shrink: 0;
+}
+.sidebar-user-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.sidebar-user-name {
+  font-weight: 700;
+  font-size: 0.86rem;
+  color: #064e3b;
+}
+.sidebar-user-role {
+  font-size: 0.72rem;
+  color: #25603a;
+  opacity: 0.9;
+}
+
+.sidebar-user-actions {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sidebar-action-btn {
+  width: 19px;
+  height: 19px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: #166534;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.sidebar-action-btn:hover {
+  background: #f0fdf4;
+}
+
+.sidebar-action-btn-save {
+  color: #9ca3af;
+}
+
+.sidebar-action-btn-save.is-dirty {
+  color: #166534;
+  background: #e8fce9;
+}
+
+.sidebar-action-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+.sidebar-section-label {
+  padding: 0.25rem 0.75rem;
+  color: #065f46;
+  font-weight: 700;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  opacity: 0.82;
+}
+.sidebar-section-label-management {
+  margin-top: 0.9rem;
+  margin-bottom: 0.35rem;
+}
+
+/* Horizontal divider between top 'Chung' and management sections */
+.sidebar-divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 0.35rem 0.5rem;
+  border-radius: 2px;
+  opacity: 0.9;
+}
+
+/* Hide labels/divider when sidebar collapsed to keep compact look */
+.sidebar.sidebar-collapsed .sidebar-section-label,
+.sidebar.sidebar-collapsed .sidebar-section-label-management,
+.sidebar.sidebar-collapsed .sidebar-divider,
+.sidebar.sidebar-collapsed .sidebar-user {
+  display: none;
+}
+
+/* Slightly larger gap below 'Chung' */
+.sidebar-section-label + .sidebar-nav {
+  margin-bottom: 0.4rem;
+}
+
+/* ==================== MENU ITEMS ==================== */
+.sidebar-link,
+.sidebar-menu-toggle {
+  padding: 0.55rem 0.75rem;
+  color: #166534;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  border-radius: 7px;
+  font-weight: 500;
+  font-size: 0.8rem;
+  position: relative;
+  overflow: visible;
+  white-space: normal;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.sidebar-link::before,
+.sidebar-menu-toggle::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: #22c55e;
+  transform: scaleY(0);
+  transition: transform 0.25s ease;
+  border-radius: 0 2px 2px 0;
+}
+
+.sidebar-link:hover,
+.sidebar-menu-toggle:hover {
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  color: #14532d;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.12);
+}
+
+.sidebar-link:hover::before,
+.sidebar-menu-toggle:hover::before {
+  transform: scaleY(1);
+}
+
+/* Active state */
+.sidebar-link.sidebar-active {
+  background: #16a34a;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  font-weight: 600;
+}
+
+.sidebar-link.sidebar-active::before {
+  transform: scaleY(1);
+  background: white;
+}
+
+/* Dropdown toggle open state */
+.sidebar-menu-toggle.sidebar-open {
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  color: #14532d;
+  font-weight: 600;
+}
+
+.sidebar-menu-toggle.sidebar-open::before {
+  transform: scaleY(1);
+}
+
+/* Icons */
+.sidebar-link svg,
+.sidebar-menu-toggle svg {
+  font-size: 0.9rem;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.sidebar-link:hover svg,
+.sidebar-menu-toggle:hover svg {
+  transform: scale(1.1);
+}
+
+.sidebar-link.sidebar-active svg {
+  filter: drop-shadow(0 1px 4px rgba(255, 255, 255, 0.4));
+}
+
+/* Menu label */
+.sidebar-menu-label {
+  flex: 1;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  line-height: 1.25;
+}
+
+/* ==================== DROPDOWN MENU ==================== */
+.sidebar-menu-group {
+  position: relative;
+}
+
+.sidebar-menu-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  flex: 1;
+}
+
+.sidebar-chevron-icon {
+  font-size: 0.65rem;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.sidebar-chevron-icon.sidebar-rotated {
+  transform: rotate(180deg);
+}
+
+/* Submenu */
+.sidebar-submenu {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0.2rem 0 0.2rem 0.4rem;
+  margin-left: 1rem;
+  border-left: 2px solid #e5e7eb;
+  animation: sidebar-slideDown 0.25s ease;
+}
+
+@keyframes sidebar-slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sidebar-submenu .sidebar-submenu-link {
+  padding: 0.45rem 0.6rem;
+  font-size: 0.76rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  color: #166534;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.25s ease;
+  position: relative;
+  font-weight: 500;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  line-height: 1.3;
+}
+
+.sidebar-submenu .sidebar-submenu-link .sidebar-submenu-dot {
+  color: #22c55e;
+  font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.sidebar-submenu .sidebar-submenu-link:hover {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  color: #14532d;
+}
+
+.sidebar-submenu .sidebar-submenu-link.sidebar-active {
+  background: #16a34a;
+  color: white;
+  font-weight: 600;
+}
+
+.sidebar-submenu .sidebar-submenu-link.sidebar-active .sidebar-submenu-dot {
+  color: white;
+}
+
+/* ==================== TOGGLE BUTTON ==================== */
+/* Button tròn nằm giữa cạnh phải sidebar */
+.sidebar-toggle-btn {
+  position: absolute;
+  top: 50%;
+  right: -12px;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  border: 3px solid white;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 50%;
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+  font-size: 0.58rem;
+  z-index: 1001;
+}
+
+.sidebar-toggle-btn:hover {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+  box-shadow: 0 3px 12px rgba(34, 197, 94, 0.4);
+}
+
+.sidebar-toggle-btn:active {
+  background: linear-gradient(135deg, #15803d 0%, #166534 100%);
+}
+
+/* Toggle button khi collapsed - vẫn giữ vị trí */
+.sidebar.sidebar-collapsed .sidebar-toggle-btn {
+  right: -12px;
+}
+
+/* ==================== OVERLAY (MOBILE) ==================== */
+.sidebar-overlay {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  animation: sidebar-fadeIn 0.3s ease;
+}
+
+@keyframes sidebar-fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar-overlay {
+    top: 52px;
+  }
+}
+
+@media (max-width: 360px) {
+  .sidebar-overlay {
+    top: 48px;
+  }
+}
+
+/* ==================== RESPONSIVE - TABLET ==================== */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 204px;
+  }
+
+  .sidebar-link,
+  .sidebar-menu-toggle {
+    padding: 0.5rem 0.65rem;
+    font-size: 0.76rem;
+    gap: 0.5rem;
+  }
+
+  .sidebar-link svg,
+  .sidebar-menu-toggle svg {
+    font-size: 0.84rem;
+  }
+
+  .sidebar-submenu .sidebar-submenu-link {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.72rem;
+  }
+
+  .sidebar.sidebar-collapsed {
+    width: 42px;
+  }
+}
+
+/* ==================== RESPONSIVE - MOBILE ==================== */
+@media (max-width: 768px) {
+  /* Mobile: sidebar sticky trong layout-body */
+  .sidebar {
+    position: sticky;
+    top: 56px;
+    left: 0;
+    width: 42px;
+    height: fit-content;
+    max-height: calc(100vh - 56px);
+    z-index: 999;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    align-self: flex-start;
+    flex-shrink: 0;
+  }
+  
+  /* Mobile collapsed: thu nhỏ còn icon */
+  .sidebar.sidebar-mobile.sidebar-collapsed {
+    width: 42px;
+  }
+
+  /* Mobile mở: sidebar mở rộng, vẫn sticky không fixed */
+  .sidebar.sidebar-mobile:not(.sidebar-collapsed) {
+    position: sticky;
+    width: 224px;
+    z-index: 1001;
+  }
+
+  .sidebar.sidebar-mobile.sidebar-collapsed .sidebar-nav {
+    padding: 0 0.2rem;
+  }
+
+  .sidebar.sidebar-mobile.sidebar-collapsed .sidebar-menu-label {
+    display: none;
+  }
+
+  .sidebar.sidebar-mobile.sidebar-collapsed .sidebar-link,
+  .sidebar.sidebar-mobile.sidebar-collapsed .sidebar-menu-toggle {
+    justify-content: center;
+    padding: 0.45rem;
+  }
+
+  .sidebar.sidebar-mobile.sidebar-collapsed .sidebar-chevron-icon {
+    display: none;
+  }
+
+  .sidebar.sidebar-mobile.sidebar-collapsed .sidebar-menu-group .sidebar-submenu {
+    display: none;
+  }
+  
+  .sidebar-link svg,
+  .sidebar-menu-toggle svg {
+    font-size: 0.84rem;
+  }
+
+  .sidebar-toggle-btn {
+    width: 22px;
+    height: 22px;
+    right: -11px;
+    font-size: 0.55rem;
+    border-width: 2px;
+  }
+
+  .sidebar.sidebar-scrolled {
+    top: 56px;
+    height: calc(100vh - 56px);
+  }
+}
+
+/* ==================== RESPONSIVE - SMALL MOBILE ==================== */
+@media (max-width: 480px) {
+  .sidebar {
+    top: 52px;
+    max-height: calc(100vh - 52px);
+  }
+
+  .sidebar.sidebar-mobile.sidebar-collapsed {
+    width: 40px;
+  }
+
+  .sidebar.sidebar-mobile:not(.sidebar-collapsed) {
+    width: 204px;
+  }
+
+  .sidebar.sidebar-mobile.sidebar-collapsed .sidebar-link,
+  .sidebar.sidebar-mobile.sidebar-collapsed .sidebar-menu-toggle {
+    padding: 0.4rem;
+  }
+
+  .sidebar-link svg,
+  .sidebar-menu-toggle svg {
+    font-size: 0.78rem;
+  }
+
+  .sidebar-toggle-btn {
+    width: 20px;
+    height: 20px;
+    right: -10px;
+    font-size: 0.5rem;
+  }
+
+  .sidebar.sidebar-scrolled {
+    top: 52px;
+  }
+}
+
+/* ==================== RESPONSIVE - VERY SMALL ==================== */
+@media (max-width: 360px) {
+  .sidebar {
+    top: 48px;
+    max-height: calc(100vh - 48px);
+  }
+
+  .sidebar.sidebar-mobile.sidebar-collapsed {
+    width: 38px;
+  }
+
+  .sidebar.sidebar-mobile:not(.sidebar-collapsed) {
+    width: 170px;
+  }
+
+  .sidebar.sidebar-mobile.sidebar-collapsed .sidebar-link,
+  .sidebar.sidebar-mobile.sidebar-collapsed .sidebar-menu-toggle {
+    padding: 0.35rem;
+  }
+
+  .sidebar-link svg,
+  .sidebar-menu-toggle svg {
+    font-size: 0.74rem;
+  }
+
+  .sidebar-toggle-btn {
+    width: 18px;
+    height: 18px;
+    right: -9px;
+    font-size: 0.46rem;
+  }
+
+  .sidebar.sidebar-scrolled {
+    top: 48px;
+  }
+}
+
+/* ==================== HOVER EFFECTS ==================== */
+.sidebar-link svg,
+.sidebar-menu-toggle svg {
+  filter: drop-shadow(0 0 0 transparent);
+  transition: all 0.25s ease;
+}
+
+.sidebar-link:hover svg,
+.sidebar-menu-toggle:hover svg {
+  filter: drop-shadow(0 1px 3px rgba(34, 197, 94, 0.25));
+}
+
+/* ==================== DRAG & DROP VISUALS ==================== */
+.sidebar-draggable {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+  border-radius: 8px;
+  position: relative;
+}
+
+.sidebar-drag-handle {
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #6b7280;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  z-index: 2;
+}
+
+.sidebar-drag-handle:hover {
+  background: #f3f4f6;
+  color: #15803d;
+}
+
+.sidebar-reorder-mode .sidebar-link,
+.sidebar-reorder-mode .sidebar-menu-toggle {
+  padding-left: 1.5rem;
+}
+.sidebar-draggable:hover {
+  z-index: 2;
+}
+.sidebar-draggable.sidebar-dragging {
+  opacity: 0.9;
+  transform: translateX(2px);
+  box-shadow: 0 6px 14px rgba(16, 185, 129, 0.12);
+  cursor: grabbing;
+}
+.sidebar-draggable.sidebar-dragging {
+  border: 1px dashed rgba(16,185,129,0.6);
+  background: rgba(16,185,129,0.04);
+}
+.sidebar-draggable.sidebar-drop-target {
+  background: rgba(34,197,94,0.06);
+  border: 1px dashed rgba(34,197,94,0.25);
+}
+
+/* Dim other items while dragging */
+.sidebar-is-dragging .sidebar-draggable:not(.sidebar-dragging) {
+  opacity: 0.7;
+  transform: none;
+  filter: none;
+}
+.sidebar-draggable[draggable] {
+  cursor: grab;
+}
+
+.sidebar:not(.sidebar-reorder-mode) .sidebar-draggable[draggable="false"] {
+  cursor: default;
+}
+
+/* ==================== TOAST ==================== */
+.sidebar-toast {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 18px;
+  background: rgba(62, 157, 87, 0.95);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.18);
+  animation: sidebar-toast-in 0.18s ease, sidebar-toast-out 0.18s ease 1.5s forwards;
+  z-index: 1200;
+}
+
+@keyframes sidebar-toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(6px) scale(0.98); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+
+@keyframes sidebar-toast-out {
+  to { opacity: 0; transform: translateX(-50%) translateY(8px) scale(0.98); }
+}
+
+/* ==================== DRAG & DROP VISUALS ==================== */
+.sidebar-draggable {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px;
+  position: relative;
+  /* Tăng vùng tương tác cho dễ kéo */
+  margin: 2px 0;
+}
+
+/* Hiệu ứng hover - báo hiệu có thể kéo */
+.sidebar-draggable[draggable]:hover {
+  cursor: grab;
+  transform: translateX(2px);
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.03), transparent);
+}
+
+.sidebar-draggable[draggable]:active {
+  cursor: grabbing;
+}
+
+/* Khi đang kéo item */
+.sidebar-draggable.sidebar-dragging {
+  opacity: 0.92;
+  transform: translateX(2px);
+  box-shadow: 0 8px 18px rgba(34, 197, 94, 0.16);
+  cursor: grabbing !important;
+  z-index: 1000;
+  background: rgba(220, 252, 231, 0.95);
+  border-radius: 10px;
+}
+
+/* Vùng drop target - nơi item sẽ được thả */
+.sidebar-draggable.sidebar-drop-target {
+  background: rgba(34, 197, 94, 0.08);
+  border: 2px solid rgba(34, 197, 94, 0.4);
+  border-radius: 10px;
+  transform: none;
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.1);
+}
+
+/* Animation cho drop target */
+.sidebar-draggable.sidebar-drop-target::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    #22c55e 20%, 
+    #22c55e 80%, 
+    transparent);
+  border-radius: 2px;
+  animation: none;
+}
+
+@keyframes sidebar-pulse {
+  0%, 100% { opacity: 0.6; transform: scaleX(0.95); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+
+/* Làm mờ các items khác khi đang kéo */
+.sidebar-is-dragging .sidebar-draggable:not(.sidebar-dragging):not(.sidebar-drop-target) {
+  opacity: 0.75;
+  transform: none;
+  filter: none;
+}
+
+/* Tăng opacity cho drop target khi đang drag */
+.sidebar-is-dragging .sidebar-draggable.sidebar-drop-target {
+  opacity: 1;
+  filter: none;
+}
+
+/* Cursor states */
+.sidebar-is-dragging {
+  cursor: grabbing !important;
+}
+
+.sidebar-is-dragging * {
+  cursor: grabbing !important;
+}

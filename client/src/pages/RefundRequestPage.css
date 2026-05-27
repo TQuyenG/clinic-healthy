@@ -1,0 +1,210 @@
+/* client/src/pages/RefundRequestPage.css */
+
+:root {
+  --rr-primary: #10b981; /* Green-500 */
+  --rr-primary-hover: #059669; /* Green-600 */
+  --rr-bg: #f0fdf4; /* Green-50 */
+  --rr-surface: #ffffff;
+  --rr-border: #e5e7eb;
+  --rr-text-main: #1f2937;
+  --rr-text-sub: #6b7280;
+  --rr-danger: #ef4444;
+  --rr-warning: #f59e0b;
+  --rr-blue: #3b82f6;
+  --rr-radius: 6px;
+}
+
+.refund-request-page-container {
+  background-color: var(--rr-bg);
+  min-height: 100vh;
+  padding: 1rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--rr-text-main);
+  font-size: 13px; /* Size chữ nhỏ gọn */
+}
+
+.refund-request-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.refund-request-page-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--rr-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Filters */
+.refund-request-page-filter-bar {
+  background: var(--rr-surface);
+  padding: 0.75rem;
+  border-radius: var(--rr-radius);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 1rem;
+  border: 1px solid var(--rr-border);
+}
+
+.refund-request-page-input {
+  border: 1px solid var(--rr-border);
+  border-radius: var(--rr-radius);
+  padding: 0.4rem 0.6rem;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.refund-request-page-input:focus {
+  border-color: var(--rr-primary);
+}
+
+.refund-request-page-btn-filter {
+  background-color: var(--rr-surface);
+  border: 1px solid var(--rr-border);
+  color: var(--rr-text-main);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--rr-radius);
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.refund-request-page-btn-filter.active {
+  background-color: var(--rr-primary);
+  color: white;
+  border-color: var(--rr-primary);
+}
+
+/* Table */
+.refund-request-page-table-wrapper {
+  background: var(--rr-surface);
+  border-radius: var(--rr-radius);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  overflow: hidden;
+  border: 1px solid var(--rr-border);
+}
+
+.refund-request-page-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.refund-request-page-table th {
+  background-color: #f9fafb;
+  color: var(--rr-text-sub);
+  font-weight: 600;
+  text-align: center;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--rr-border);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.refund-request-page-table td {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+.refund-request-page-table tr:hover {
+  background-color: #f0fdf4;
+}
+
+/* Badges & Text */
+.refund-request-page-badge {
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.refund-request-page-badge.pending { background: #fff7ed; color: #c2410c; border: 1px solid var(--rr-border); }
+.refund-request-page-badge.completed { background: #ecfdf5; color: #047857; border: 1px solid var(--rr-border); }
+.refund-request-page-badge.rejected { background: #fef2f2; color: #b91c1c; border: 1px solid var(--rr-border); }
+
+.refund-request-page-amount {
+  color: var(--rr-danger);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Buttons */
+.refund-request-page-btn-action {
+  padding: 0.42rem 0.75rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  justify-content: flex-start;
+  min-width: 92px;
+  transition: opacity 0.2s;
+}
+.refund-request-page-btn-action:hover { opacity: 0.9; }
+.btn-process { background-color: var(--rr-primary); color: white; }
+.btn-view { background-color: white; border: 1px solid var(--rr-border); color: var(--rr-text-sub); }
+
+/* Modal Styles */
+.refund-request-page-modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+.refund-request-page-modal {
+  background: white;
+  width: 90%; max-width: 860px;
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+  max-height: 90vh; /* Giới hạn chiều cao tối đa bằng 90% màn hình */
+  overflow-y: auto; /* Tự động hiện thanh cuộn dọc nếu nội dung quá dài */
+  overflow-x: hidden;
+  animation: slideDown 0.2s ease-out;
+}
+@keyframes slideDown { from {transform: translateY(-20px); opacity:0;} to {transform: translateY(0); opacity:1;} }
+
+.refund-request-page-modal-header {
+  padding: 1rem;
+  border-bottom: none;
+  display: flex; justify-content: space-between; align-items: center;
+  background-color: #fff;
+}
+.refund-request-page-modal-title { font-size: 1.1rem; font-weight: 700; color: var(--rr-text-main); display: inline-flex; align-items: center; gap: 0.45rem; }
+.refund-request-page-modal-close { background: none; border: none; cursor: pointer; color: #999; display: inline-flex; align-items: center; justify-content: center; padding: 4px; line-height: 0; }
+
+.refund-request-page-modal-body { padding: 1.5rem; }
+
+.refund-request-page-qr-section {
+  display: flex; gap: 1.5rem; align-items: flex-start;
+  background: #fff; padding: 1rem; border-radius: 8px; border: 1px solid var(--rr-border);
+  margin-bottom: 1.5rem;
+}
+.refund-request-page-qr-img { width: 140px; height: 140px; object-fit: contain; border: none; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+
+.refund-request-page-info-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem 1rem; margin-bottom: 1rem;
+}
+.refund-request-page-info-label { font-size: 12px; color: var(--rr-text-sub); margin-bottom: 2px; }
+.refund-request-page-info-val { font-size: 13px; font-weight: 600; color: var(--rr-text-main); }
+
+.refund-request-page-form-group { margin-bottom: 1rem; }
+.refund-request-page-textarea { width: 100%; min-height: 80px; resize: vertical; }
+
+.refund-request-page-modal-footer {
+  padding: 1rem; border-top: none;
+  display: flex; justify-content: flex-end; gap: 0.5rem; background-color: #fff;
+}
+.btn-reject { background-color: var(--rr-danger); color: white; }
+.btn-complete { background-color: var(--rr-primary); color: white; }
+.btn-cancel { background-color: #e5e7eb; color: #374151; }

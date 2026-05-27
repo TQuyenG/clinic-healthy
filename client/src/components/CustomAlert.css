@@ -1,0 +1,172 @@
+/* client/src/components/CustomAlert.css */
+
+.custom-alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.custom-alert {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  min-width: 350px;
+  max-width: 500px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  position: relative;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.custom-alert__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #999;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.custom-alert__close:hover {
+  color: #333;
+}
+
+.custom-alert__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.custom-alert__icon {
+  font-size: 32px;
+}
+
+.custom-alert__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.custom-alert__message {
+  color: #666;
+  line-height: 1.6;
+  margin: 0 0 20px 44px;
+  font-size: 0.95rem;
+}
+
+.custom-alert__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.custom-alert__btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+/* Success Theme */
+.custom-alert--success .custom-alert__icon {
+  color: #4CAF50;
+}
+
+.custom-alert--success .custom-alert__btn--success {
+  background: #4CAF50;
+  color: white;
+}
+
+.custom-alert--success .custom-alert__btn--success:hover {
+  background: #45a049;
+}
+
+/* Error Theme */
+.custom-alert--error .custom-alert__icon {
+  color: #F44336;
+}
+
+.custom-alert--error .custom-alert__btn--error {
+  background: #F44336;
+  color: white;
+}
+
+.custom-alert--error .custom-alert__btn--error:hover {
+  background: #d32f2f;
+}
+
+/* Warning Theme */
+.custom-alert--warning .custom-alert__icon {
+  color: #FF9800;
+}
+
+.custom-alert--warning .custom-alert__btn--warning {
+  background: #FF9800;
+  color: white;
+}
+
+.custom-alert--warning .custom-alert__btn--warning:hover {
+  background: #f57c00;
+}
+
+/* Info Theme */
+.custom-alert--info .custom-alert__icon {
+  color: #2196F3;
+}
+
+.custom-alert--info .custom-alert__btn--info {
+  background: #2196F3;
+  color: white;
+}
+
+.custom-alert--info .custom-alert__btn--info:hover {
+  background: #1976d2;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .custom-alert {
+    min-width: 90%;
+    max-width: 90%;
+    padding: 20px;
+  }
+  
+  .custom-alert__message {
+    margin-left: 0;
+  }
+}

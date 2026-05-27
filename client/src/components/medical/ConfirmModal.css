@@ -1,0 +1,180 @@
+/* client/src/components/medical/ConfirmModal.css */
+/* Giao diện Modal Xác nhận Chung */
+
+:root {
+  /* Màu chủ đạo (Xanh lá y tế) */
+  --cm-primary: #22c55e; /* green-500 */
+  --cm-primary-dark: #16a34a; /* green-600 */
+  --cm-primary-light: #dcfce7; /* green-100 */
+  --cm-bg: #f0fdf4; /* green-50 (Màu nền pastel) */
+  
+  /* Màu Cảnh báo (Dùng cho tiêu đề) */
+  --cm-warning-bg: #fef9c3; /* yellow-100 */
+  --cm-warning-text: #854d0e; /* yellow-800 */
+
+  /* Màu chữ */
+  --cm-text-primary: #1f2937; /* gray-800 */
+  --cm-text-secondary: #4b5563; /* gray-600 */
+
+  /* Màu nền & Viền */
+  --cm-card-bg: #ffffff;
+  --cm-border: #e5e7eb; /* gray-200 */
+  --cm-input-bg: #f9fafb; /* gray-50 */
+  
+  /* Kích thước (Thu nhỏ) */
+  --cm-radius: 6px;
+  --cm-font-size-base: 0.875rem; /* 14px */
+  --cm-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --cm-overlay-bg: rgba(16, 22, 19, 0.6);
+}
+
+/* === Lớp phủ Overlay === */
+.confirm-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--cm-overlay-bg);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: cm-fadeIn 0.2s ease-out;
+}
+
+/* === Nội dung Modal === */
+.confirm-modal-content {
+  background-color: var(--cm-card-bg);
+  border-radius: var(--cm-radius);
+  box-shadow: var(--cm-shadow);
+  width: 100%;
+  max-width: 420px;
+  overflow: hidden;
+  animation: cm-slideUp 0.3s ease-out;
+}
+
+/* === Header === */
+.confirm-modal-header {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  /* Dùng màu vàng cảnh báo cho header */
+  background-color: var(--cm-warning-bg); 
+  border-bottom: 1px solid var(--cm-warning-bg);
+}
+.confirm-modal-header-icon {
+  font-size: 1.1rem;
+  color: var(--cm-warning-text); /* Màu icon vàng đậm */
+}
+.confirm-modal-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--cm-warning-text); /* Màu chữ vàng đậm */
+  margin: 0;
+  margin-left: 0.5rem;
+  flex-grow: 1;
+}
+.confirm-modal-btn-close {
+  background: none;
+  border: none;
+  color: var(--cm-warning-text);
+  font-size: 1rem;
+  padding: 0.25rem;
+  cursor: pointer;
+  border-radius: var(--cm-radius);
+  transition: all 0.2s;
+}
+.confirm-modal-btn-close:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
+/* === Body === */
+.confirm-modal-body {
+  padding: 1.25rem;
+}
+.confirm-modal-text {
+  font-size: var(--cm-font-size-base);
+  color: var(--cm-text-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* === Footer (Actions) === */
+.confirm-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--cm-input-bg);
+  border-top: 1px solid var(--cm-border);
+}
+
+/* Nút bấm (Thu nhỏ) */
+.confirm-modal-btn-primary,
+.confirm-modal-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  font-size: var(--cm-font-size-base);
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: var(--cm-radius);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.confirm-modal-btn-primary {
+  /* Mặc định là nút xanh */
+  background-color: var(--cm-primary);
+  color: white;
+}
+.confirm-modal-btn-primary:hover {
+  background-color: var(--cm-primary-dark);
+}
+/* Nếu là hành động nguy hiểm, component cha có thể thêm class 'btn-danger' */
+.confirm-modal-btn-primary.btn-danger {
+  background-color: var(--apm-danger-text);
+  color: white;
+}
+.confirm-modal-btn-primary.btn-danger:hover {
+   background-color: #b91c1c;
+}
+
+.confirm-modal-btn-secondary {
+  background-color: var(--cm-card-bg);
+  color: var(--cm-text-secondary);
+  border-color: var(--cm-border);
+}
+.confirm-modal-btn-secondary:hover {
+  background-color: var(--cm-border);
+}
+
+.confirm-modal-btn-primary:disabled,
+.confirm-modal-btn-secondary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* === Animations === */
+.confirm-modal-spin-icon {
+  font-size: 0.8rem;
+  animation: cm-spin 1s linear infinite;
+}
+@keyframes cm-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes cm-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes cm-slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

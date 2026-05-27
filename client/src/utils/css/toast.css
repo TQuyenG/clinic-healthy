@@ -1,0 +1,55 @@
+/* Override react-toastify so it always appears above floating widgets */
+.Toastify__toast-container {
+	z-index: 40000 !important;
+	bottom: 96px !important;
+	right: 24px !important;
+}
+
+.Toastify__toast {
+	min-height: 56px;
+	border-radius: 14px;
+	box-shadow: 0 14px 30px rgba(15, 23, 42, 0.18);
+	font-size: 0.95rem;
+}
+
+.app-toastify-toast {
+	border-radius: 10px !important;
+	box-shadow: 0 10px 30px rgba(2, 6, 23, 0.12) !important;
+}
+
+.Toastify__toast-body {
+	padding: 2px 4px;
+	line-height: 1.45;
+}
+
+.Toastify__toast--error {
+	border-left: 4px solid #ef4444;
+}
+
+.Toastify__toast--success {
+	border-left: 4px solid #10b981;
+}
+
+.Toastify__toast--warning {
+	border-left: 4px solid #f59e0b;
+}
+
+.Toastify__toast--info {
+	border-left: 4px solid #3b82f6;
+}
+
+@media (max-width: 480px) {
+	.Toastify__toast-container {
+		left: 12px !important;
+		right: 12px !important;
+		width: auto !important;
+		padding: 0 !important;
+		bottom: 96px !important;
+	}
+
+	.Toastify__toast {
+		width: 100% !important;
+		margin-bottom: 8px;
+		font-size: 0.9rem;
+	}
+}

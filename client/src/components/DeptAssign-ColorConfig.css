@@ -1,0 +1,99 @@
+
+/* Color Config Modal */
+.DeptAssign-modal-color {
+  max-width: 650px;
+  width: 90%;
+}
+
+.DeptAssign-color-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 16px;
+}
+
+/* Responsive: 2 cột trên tablet */
+@media (max-width: 768px) {
+  .DeptAssign-color-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Responsive: 1 cột trên mobile */
+@media (max-width: 480px) {
+  .DeptAssign-modal-color {
+    width: 95%;
+    max-width: 100%;
+  }
+  
+  .DeptAssign-color-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px;
+  }
+}
+
+.DeptAssign-color-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: #F5F9FF;
+  border-radius: 8px;
+  border: 2px solid #E3F2FD;
+  transition: all 0.2s;
+}
+
+.DeptAssign-color-item:hover {
+  border-color: #1976D2;
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.15);
+  transform: translateY(-2px);
+}
+
+.DeptAssign-color-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #333;
+  font-size: 13px;
+}
+
+.DeptAssign-color-picker-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: white;
+  border-radius: 6px;
+  border: 2px solid #E0E0E0;
+}
+
+.DeptAssign-color-input {
+  width: 40px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.DeptAssign-color-hex {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  flex: 1;
+}
+
+.DeptAssign-color-preview {
+  height: 45px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.DeptAssign-color-preview:hover {
+  transform: scale(1.05);
+}

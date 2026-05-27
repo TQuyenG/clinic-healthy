@@ -1,0 +1,443 @@
+/* client/src/pages/MyGroupsManagementPage.css */
+
+.mygroupspage-page {
+  min-height: 100vh;
+  background: #f5f7fa;
+  padding: 12px;
+  color: #333;
+}
+
+.mygroupspage-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.mygroupspage-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  background: #fff;
+}
+
+.mygroupspage-header h1 {
+  margin: 0;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #2e7d32;
+}
+
+.mygroupspage-header p {
+  margin: 4px 0 0;
+  color: #666;
+  font-size: 12px;
+}
+
+.mygroupspage-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  background: #fafafa;
+}
+
+.mygroupspage-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.mygroupspage-search-icon {
+  color: #888;
+  flex-shrink: 0;
+}
+
+.mygroupspage-search-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  background: transparent;
+}
+
+.mygroupspage-filter-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mygroupspage-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  background: transparent;
+  color: #666;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.mygroupspage-filter-btn:hover {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.mygroupspage-filter-btn.active {
+  background: #4caf50;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(76, 175, 80, 0.2);
+}
+
+.mygroupspage-content {
+  padding: 12px;
+}
+
+.mygroupspage-state,
+.mygroupspage-empty-state,
+.mygroupspage-empty-state-section,
+.mygroupspage-page--empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.mygroupspage-state {
+  padding: 28px 16px;
+  color: #666;
+  gap: 10px;
+}
+
+.mygroupspage-spinner {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  border: 4px solid #e0e0e0;
+  border-top-color: #4caf50;
+  border-radius: 50%;
+  animation: mygroupspage-spin 0.8s linear infinite;
+}
+
+@keyframes mygroupspage-spin {
+  to { transform: rotate(360deg); }
+}
+
+.mygroupspage-section {
+  margin-bottom: 18px;
+}
+
+.mygroupspage-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.mygroupspage-section-head h2 {
+  margin: 0;
+  font-size: 14px;
+  color: #2e7d32;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mygroupspage-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mygroupspage-card {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mygroupspage-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.mygroupspage-card-stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  min-width: 88px;
+  padding-right: 8px;
+  border-right: 1px solid #eee;
+}
+
+.mygroupspage-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+.mygroupspage-stat-item.highlight {
+  background: #e8f5e9;
+}
+
+.mygroupspage-stat-val {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2e7d32;
+}
+
+.mygroupspage-stat-lbl {
+  font-size: 10px;
+  color: #666;
+}
+
+.mygroupspage-card-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mygroupspage-card-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #222;
+  line-height: 1.35;
+}
+
+.mygroupspage-card-excerpt {
+  margin: 0;
+  color: #666;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.mygroupspage-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.mygroupspage-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #777;
+}
+
+.mygroupspage-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  background: #f3f4f6;
+  color: #555;
+}
+
+.mygroupspage-status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.mygroupspage-status-active {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.mygroupspage-status-pending {
+  background: #fff8e1;
+  color: #f57c00;
+}
+
+.mygroupspage-status-rejected {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.mygroupspage-actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding-left: 8px;
+}
+
+.mygroupspage-btn-primary,
+.mygroupspage-btn-outline,
+.mygroupspage-btn-danger,
+.mygroupspage-btn-muted {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mygroupspage-btn-primary {
+  background: #4caf50;
+  color: #fff;
+}
+
+.mygroupspage-btn-primary:hover {
+  background: #388e3c;
+}
+
+.mygroupspage-btn-outline {
+  background: #fff;
+  border-color: #d9d9d9;
+  color: #555;
+}
+
+.mygroupspage-btn-outline:hover {
+  background: #f1f8f2;
+  border-color: #b7dfbc;
+  color: #2e7d32;
+}
+
+.mygroupspage-btn-danger {
+  background: #fff;
+  border-color: #efc7c7;
+  color: #c62828;
+}
+
+.mygroupspage-btn-danger:hover {
+  background: #ffebee;
+}
+
+.mygroupspage-btn-muted {
+  background: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.mygroupspage-empty-state-section {
+  gap: 10px;
+  padding: 28px 16px;
+  border: 1px dashed #e0e0e0;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.mygroupspage-page--empty {
+  max-width: 1000px;
+  margin: 0 auto;
+  min-height: calc(100vh - 24px);
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+.mygroupspage-empty-icon {
+  color: #bdbdbd;
+  font-size: 42px;
+  margin-bottom: 8px;
+}
+
+.mygroupspage-alert-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.mygroupspage-alert {
+  width: min(420px, calc(100vw - 32px));
+  background: #fff;
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
+}
+
+.mygroupspage-alert-title {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.mygroupspage-alert-message {
+  margin: 0 0 14px;
+  color: #666;
+  font-size: 13px;
+}
+
+.mygroupspage-alert--success .mygroupspage-alert-title { color: #2e7d32; }
+.mygroupspage-alert--error .mygroupspage-alert-title { color: #c62828; }
+.mygroupspage-alert--warning .mygroupspage-alert-title { color: #f57c00; }
+.mygroupspage-alert--info .mygroupspage-alert-title { color: #1565c0; }
+
+@media (max-width: 768px) {
+  .mygroupspage-page {
+    padding: 10px;
+  }
+
+  .mygroupspage-container {
+    border-radius: 8px;
+  }
+
+  .mygroupspage-card {
+    flex-direction: column;
+  }
+
+  .mygroupspage-card-stats {
+    flex-direction: row;
+    min-width: 0;
+    border-right: 0;
+    border-bottom: 1px solid #eee;
+    padding-right: 0;
+    padding-bottom: 8px;
+  }
+
+  .mygroupspage-actions {
+    padding-left: 0;
+    justify-content: flex-end;
+  }
+
+  .mygroupspage-toolbar {
+    padding: 12px;
+  }
+}
