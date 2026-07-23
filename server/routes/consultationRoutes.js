@@ -371,6 +371,14 @@ router.post(
   consultationController.resendConsultationOtp
 );
 
+// MỚI: Xác thực mật khẩu để vào phòng chat
+router.post(
+  '/:id/verify-password',
+  authMiddleware,
+  authorize('patient', 'doctor'),
+  consultationController.verifyRoomPassword
+);
+
 /**
  * Gửi Báo cáo Vấn đề (Từ phòng chat)
  * POST /api/consultations/:id/report
@@ -507,7 +515,7 @@ router.put(
 router.put(
   '/admin/realtime/:id/cancel-confirmed',
   authMiddleware,
-  roleMiddleware('consultations:close'),
+  roleMiddleware('consultations:close', ['admin', 'staff', 'patient', 'doctor']),
   consultationAdminController.cancelConfirmedConsultation
 );
 

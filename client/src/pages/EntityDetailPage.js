@@ -14,7 +14,7 @@ import './EntityDetailPage.css';
 const EntityDetailPage = ({ entityType }) => {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const API_BASE_URL = 'http://localhost:3001';
+  const API_BASE_URL = process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001';
   const containerRef = useRef(null);
   
   const [entity, setEntity] = useState(null);

@@ -23,7 +23,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import axios from 'axios';
-import { FaSave, FaTrash, FaPlus, FaSpinner, FaChevronDown, FaChevronUp, FaTimes, FaDownload, FaFileExcel, FaFileCsv, FaCheckCircle, FaExclamationCircle, FaHome, FaInfoCircle, FaBuilding, FaTools, FaCog, FaBars, FaEnvelope, FaShieldAlt, FaFileContract, FaPhone, FaClock, FaMapMarkerAlt, FaFacebook, FaTwitter, FaInstagram, FaYoutube, FaLink, FaDatabase, FaUserCheck, FaUserShield, FaLock, FaComments, FaHistory, FaFilter, FaSearch } from 'react-icons/fa';
+import { FaSave, FaTrash, FaPlus, FaSpinner, FaChevronDown, FaChevronUp, FaTimes, FaDownload, FaFileExcel, FaFileCsv, FaCheckCircle, FaExclamationCircle, FaHome, FaInfoCircle, FaBuilding, FaTools, FaCog, FaBars, FaEnvelope, FaShieldAlt, FaFileContract, FaPhone, FaClock, FaMapMarkerAlt, FaFacebook, FaTwitter, FaInstagram, FaYoutube, FaLink, FaDatabase, FaUserCheck, FaUserShield, FaLock, FaComments, FaHistory, FaFilter, FaSearch, FaStethoscope } from 'react-icons/fa';
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
 import * as FiIcons from 'react-icons/fi';
@@ -41,7 +41,7 @@ import usePermissions from '../hooks/usePermissions';
 import 'react-tabs/style/react-tabs.css';
 import './SystemSettingsPage.css';
 
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 
 // Danh sách icon - MỞ RỘNG với nhiều thư viện
 const iconLibraries = [
@@ -327,6 +327,38 @@ const SystemSettingsPage = () => {
     contact_phone: '(028) 3822 1234'
   };
 
+  const defaultServicesPageData = {
+    hospital_hero: {
+      image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=2000',
+      title: 'Dịch Vụ Y Tế Chuyên Sâu',
+      subtitle: 'Trải nghiệm quy trình khám chữa bệnh hiện đại, tận tâm tại bệnh viện.'
+    },
+    consultation_hero: {
+      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=2000',
+      title: 'Bác Sĩ Trực Tuyến 24/7',
+      subtitle: 'Kết nối ngay với chuyên gia y tế qua Video / Chat — mọi lúc, mọi nơi.'
+    },
+    hero_stats: [
+      { num: '500+', lbl: 'Bác sĩ' },
+      { num: '200+', lbl: 'Dịch vụ' },
+      { num: '50k+', lbl: 'Bệnh nhân' },
+      { num: '4.9★', lbl: 'Đánh giá' }
+    ],
+    consultation_steps: [
+      { num: '01', icon: 'FaUserPlus',      label: 'Chọn Bác sĩ',     desc: 'Tìm bác sĩ phù hợp với chuyên khoa và nhu cầu của bạn.' },
+      { num: '02', icon: 'FaCalendarCheck', label: 'Đặt Lịch hẹn',    desc: 'Chọn khung giờ trống, xác nhận thông tin và thanh toán.' },
+      { num: '03', icon: 'FaVideo',          label: 'Bắt đầu Tư vấn', desc: 'Tham gia phòng tư vấn qua Video hoặc Chat đúng giờ hẹn.' }
+    ],
+    why_choose: [
+      { icon: 'FaUserMd',    title: '500+ Bác Sĩ Giỏi',  desc: 'Đội ngũ chuyên gia đầu ngành từ các bệnh viện lớn.', color: '#0ea5a4' },
+      { icon: 'FaBolt',      title: 'Kết Nối Tức Thì',    desc: 'Không xếp hàng, kết nối bác sĩ chỉ sau vài giây.',  color: '#f39c12' },
+      { icon: 'FaShieldAlt', title: 'Bảo Mật Tuyệt Đối', desc: 'Hồ sơ bệnh án được mã hóa chuẩn quốc tế.',          color: '#3b82f6' },
+      { icon: 'FaWallet',    title: 'Chi Phí Hợp Lý',     desc: 'Tiết kiệm chi phí đi lại và thời gian chờ đợi.',    color: '#8b5cf6' }
+    ],
+    hospital_cta: { title: 'Cần hỗ trợ chọn dịch vụ?', subtitle: 'Đội ngũ tư vấn sẵn sàng giúp bạn 24/7.', phone: '1900 1234' },
+    consultation_cta: { title: 'Sẵn sàng gặp bác sĩ ngay hôm nay?', subtitle: 'Đặt lịch chỉ mất 2 phút.' }
+  };
+
   // State
   const [homeData, setHomeData] = useState(defaultHomeData);
   const [aboutData, setAboutData] = useState(defaultAboutData);
@@ -376,6 +408,7 @@ const SystemSettingsPage = () => {
   };
   const [privacyData, setPrivacyData] = useState(defaultPrivacyData);
   const [termsData, setTermsData] = useState(defaultTermsData);
+  const [servicesPageData, setServicesPageData] = useState(defaultServicesPageData);
   
   const [loading, setLoading] = useState(false);
   const [toasts, setToasts] = useState([]);
@@ -387,7 +420,8 @@ const SystemSettingsPage = () => {
     headerNavFooter: { header: true, navbar: true, footer: true },
     contact: { hero: true, info_cards: true, departments: true, faqs: true, map: true, social: true, branches: true },
     privacy: { hero: true, sections: true, contact: true },
-    terms: { hero: true, intro: true, sections: true, contact: true }
+    terms: { hero: true, intro: true, sections: true, contact: true },
+    servicesPage: { hospital_hero: true, consultation_hero: true, hero_stats: true, consultation_steps: true, why_choose: true, cta: true }
   });
   const [imageOptions, setImageOptions] = useState({});
 
@@ -402,6 +436,7 @@ const SystemSettingsPage = () => {
   const canEditContact = isAdmin || hasPermission('system_settings', 'edit_contact');
   const canEditPrivacy = isAdmin || hasPermission('system_settings', 'edit_privacy');
   const canEditTerms = isAdmin || hasPermission('system_settings', 'edit_terms');
+  const canEditServicesPage = isAdmin || hasPermission('system_settings', 'edit_services_page');
   const canViewAuditLogs = isAdmin || hasPermission('system_settings', 'view_audit_logs');
 
   // Toast Management
@@ -431,7 +466,7 @@ const SystemSettingsPage = () => {
         if (!token) throw new Error('Vui lòng đăng nhập lại.');
         
         const headers = { Authorization: `Bearer ${token}` };
-        const [homeRes, aboutRes, facilitiesRes, equipmentRes, headerNavFooterRes, contactRes, privacyRes, termsRes] = await Promise.all([
+        const [homeRes, aboutRes, facilitiesRes, equipmentRes, headerNavFooterRes, contactRes, privacyRes, termsRes, servicesPageRes] = await Promise.all([
           axios.get(`${API_BASE_URL}/settings/home`, { headers }),
           axios.get(`${API_BASE_URL}/settings/about`, { headers }),
           axios.get(`${API_BASE_URL}/settings/facilities`, { headers }),
@@ -439,7 +474,8 @@ const SystemSettingsPage = () => {
           axios.get(`${API_BASE_URL}/settings/header-nav-footer`, { headers }),
           axios.get(`${API_BASE_URL}/settings/contact`, { headers }),
           axios.get(`${API_BASE_URL}/settings/privacy`, { headers }),
-          axios.get(`${API_BASE_URL}/settings/terms`, { headers })
+          axios.get(`${API_BASE_URL}/settings/terms`, { headers }),
+          axios.get(`${API_BASE_URL}/settings/services_page`, { headers })
         ]);
 
         setHomeData({ ...defaultHomeData, ...(homeRes.data || {}) });
@@ -450,6 +486,7 @@ const SystemSettingsPage = () => {
         setContactData({ ...defaultContactData, ...(contactRes.data || {}) });
         setPrivacyData({ ...defaultPrivacyData, ...(privacyRes.data || {}) });
         setTermsData({ ...defaultTermsData, ...(termsRes.data || {}) });
+        setServicesPageData({ ...defaultServicesPageData, ...(servicesPageRes.data || {}) });
         
         addToast('Tải dữ liệu thành công!', 'success');
       } catch (err) {
@@ -683,6 +720,7 @@ const SystemSettingsPage = () => {
       contact: contactData,
       privacy: privacyData,
       terms: termsData,
+      servicesPage: servicesPageData,
       exportedAt: new Date().toISOString()
     };
 
@@ -787,6 +825,13 @@ const SystemSettingsPage = () => {
                 </Tab>
               )}
               
+              {canEditServicesPage && (
+                <Tab className="sys-settings-tab-horizontal">
+                  <FaStethoscope />
+                  <span>Dịch vụ</span>
+                </Tab>
+              )}
+
               {/* Tab Lịch sử - CHỈ HIỂN THỊ NẾU CÓ QUYỀN */}
               {canViewAuditLogs && (
                 <Tab className="sys-settings-tab-horizontal">
@@ -808,7 +853,8 @@ const SystemSettingsPage = () => {
                     saveData('header-nav-footer', headerNavFooterData, 'Lưu Header/Nav/Footer thành công!'),
                     saveData('contact', contactData, 'Lưu Contact thành công!'),
                     saveData('privacy', privacyData, 'Lưu Privacy thành công!'),
-                    saveData('terms', termsData, 'Lưu Terms thành công!')
+                    saveData('terms', termsData, 'Lưu Terms thành công!'),
+                    saveData('services_page', servicesPageData, 'Lưu Trang Dịch vụ thành công!')
                   ]);
                 }}
                 className="sys-settings-btn sys-settings-btn-primary"
@@ -4282,8 +4328,239 @@ const SystemSettingsPage = () => {
         </TabPanel>
         )}
 
+        {/* ==================== TAB DỊCH VỤ (SERVICES PAGE) ==================== */}
+        {canEditServicesPage && (
+          <TabPanel className="sys-settings-tab-panel">
+
+            {/* SECTION 1: HERO TAB BỆNH VIỆN */}
+            <section className="sys-settings-section">
+              <div className="sys-settings-section-header" onClick={() => toggleSection('servicesPage', 'hospital_hero')}>
+                <h3 className="sys-settings-section-title">1. Hero — Tab Khám tại Bệnh viện</h3>
+                <div className="sys-settings-section-actions">
+                  <button onClick={(e) => { e.stopPropagation(); saveData('services_page', servicesPageData, 'Lưu thành công!'); }}
+                    className="sys-settings-section-save-inline" type="button"><FaSave /> Lưu</button>
+                  {openSections.servicesPage.hospital_hero ? <FaChevronUp /> : <FaChevronDown />}
+                </div>
+              </div>
+              {openSections.servicesPage.hospital_hero && (
+                <div className="sys-settings-section-content">
+                  <div className="sys-settings-grid">
+                    <div className="sys-settings-card">
+                      <label className="sys-settings-label">Tiêu đề</label>
+                      <input type="text" className="sys-settings-input"
+                        value={servicesPageData.hospital_hero?.title || ''}
+                        onChange={(e) => setServicesPageData(prev => ({ ...prev, hospital_hero: { ...prev.hospital_hero, title: e.target.value } }))} />
+
+                      <label className="sys-settings-label">Mô tả phụ</label>
+                      <input type="text" className="sys-settings-input"
+                        value={servicesPageData.hospital_hero?.subtitle || ''}
+                        onChange={(e) => setServicesPageData(prev => ({ ...prev, hospital_hero: { ...prev.hospital_hero, subtitle: e.target.value } }))} />
+
+                      <label className="sys-settings-label">URL ảnh nền</label>
+                      <input type="text" className="sys-settings-input"
+                        value={servicesPageData.hospital_hero?.image || ''}
+                        onChange={(e) => setServicesPageData(prev => ({ ...prev, hospital_hero: { ...prev.hospital_hero, image: e.target.value } }))} />
+                      <label className="sys-settings-label">Hoặc upload ảnh</label>
+                      <input type="file" accept="image/*" onChange={(e) => {
+                        if (e.target.files[0]) uploadBannerImage(e.target.files[0], (url) =>
+                          setServicesPageData(prev => ({ ...prev, hospital_hero: { ...prev.hospital_hero, image: url } })), 'hosp_hero');
+                      }} className="sys-settings-input" />
+                      {servicesPageData.hospital_hero?.image && (
+                        <img src={servicesPageData.hospital_hero.image} alt="preview" style={{ width: '100%', maxHeight: 140, objectFit: 'cover', borderRadius: 8, marginTop: 8 }} />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </section>
+
+            {/* SECTION 2: HERO TAB TƯ VẤN */}
+            <section className="sys-settings-section">
+              <div className="sys-settings-section-header" onClick={() => toggleSection('servicesPage', 'consultation_hero')}>
+                <h3 className="sys-settings-section-title">2. Hero — Tab Tư vấn Trực tuyến</h3>
+                <div className="sys-settings-section-actions">
+                  <button onClick={(e) => { e.stopPropagation(); saveData('services_page', servicesPageData, 'Lưu thành công!'); }}
+                    className="sys-settings-section-save-inline" type="button"><FaSave /> Lưu</button>
+                  {openSections.servicesPage.consultation_hero ? <FaChevronUp /> : <FaChevronDown />}
+                </div>
+              </div>
+              {openSections.servicesPage.consultation_hero && (
+                <div className="sys-settings-section-content">
+                  <div className="sys-settings-grid">
+                    <div className="sys-settings-card">
+                      <label className="sys-settings-label">Tiêu đề</label>
+                      <input type="text" className="sys-settings-input"
+                        value={servicesPageData.consultation_hero?.title || ''}
+                        onChange={(e) => setServicesPageData(prev => ({ ...prev, consultation_hero: { ...prev.consultation_hero, title: e.target.value } }))} />
+
+                      <label className="sys-settings-label">Mô tả phụ</label>
+                      <input type="text" className="sys-settings-input"
+                        value={servicesPageData.consultation_hero?.subtitle || ''}
+                        onChange={(e) => setServicesPageData(prev => ({ ...prev, consultation_hero: { ...prev.consultation_hero, subtitle: e.target.value } }))} />
+
+                      <label className="sys-settings-label">URL ảnh nền</label>
+                      <input type="text" className="sys-settings-input"
+                        value={servicesPageData.consultation_hero?.image || ''}
+                        onChange={(e) => setServicesPageData(prev => ({ ...prev, consultation_hero: { ...prev.consultation_hero, image: e.target.value } }))} />
+                      <label className="sys-settings-label">Hoặc upload ảnh</label>
+                      <input type="file" accept="image/*" onChange={(e) => {
+                        if (e.target.files[0]) uploadBannerImage(e.target.files[0], (url) =>
+                          setServicesPageData(prev => ({ ...prev, consultation_hero: { ...prev.consultation_hero, image: url } })), 'con_hero');
+                      }} className="sys-settings-input" />
+                      {servicesPageData.consultation_hero?.image && (
+                        <img src={servicesPageData.consultation_hero.image} alt="preview" style={{ width: '100%', maxHeight: 140, objectFit: 'cover', borderRadius: 8, marginTop: 8 }} />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </section>
+
+            {/* SECTION 3: SỐ LIỆU HERO */}
+            <section className="sys-settings-section">
+              <div className="sys-settings-section-header" onClick={() => toggleSection('servicesPage', 'hero_stats')}>
+                <h3 className="sys-settings-section-title">3. Số liệu nổi bật (Hero Stats)</h3>
+                <div className="sys-settings-section-actions">
+                  <button onClick={(e) => { e.stopPropagation(); saveData('services_page', servicesPageData, 'Lưu thành công!'); }}
+                    className="sys-settings-section-save-inline" type="button"><FaSave /> Lưu</button>
+                  {openSections.servicesPage.hero_stats ? <FaChevronUp /> : <FaChevronDown />}
+                </div>
+              </div>
+              {openSections.servicesPage.hero_stats && (
+                <div className="sys-settings-section-content">
+                  <div className="sys-settings-grid">
+                    {(servicesPageData.hero_stats || []).map((stat, idx) => (
+                      <div key={idx} className="sys-settings-card">
+                        <label className="sys-settings-label">Số ({idx + 1})</label>
+                        <input type="text" className="sys-settings-input" value={stat.num || ''}
+                          placeholder="500+" onChange={(e) => {
+                            const arr = [...(servicesPageData.hero_stats || [])];
+                            arr[idx] = { ...arr[idx], num: e.target.value };
+                            setServicesPageData(prev => ({ ...prev, hero_stats: arr }));
+                          }} />
+                        <label className="sys-settings-label">Nhãn</label>
+                        <input type="text" className="sys-settings-input" value={stat.lbl || ''}
+                          placeholder="Bác sĩ" onChange={(e) => {
+                            const arr = [...(servicesPageData.hero_stats || [])];
+                            arr[idx] = { ...arr[idx], lbl: e.target.value };
+                            setServicesPageData(prev => ({ ...prev, hero_stats: arr }));
+                          }} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </section>
+
+            {/* SECTION 4: QUY TRÌNH 3 BƯỚC */}
+            <section className="sys-settings-section">
+              <div className="sys-settings-section-header" onClick={() => toggleSection('servicesPage', 'consultation_steps')}>
+                <h3 className="sys-settings-section-title">4. Quy trình 3 bước (Tab Tư vấn)</h3>
+                <div className="sys-settings-section-actions">
+                  <button onClick={(e) => { e.stopPropagation(); saveData('services_page', servicesPageData, 'Lưu thành công!'); }}
+                    className="sys-settings-section-save-inline" type="button"><FaSave /> Lưu</button>
+                  {openSections.servicesPage.consultation_steps ? <FaChevronUp /> : <FaChevronDown />}
+                </div>
+              </div>
+              {openSections.servicesPage.consultation_steps && (
+                <div className="sys-settings-section-content">
+                  <div className="sys-settings-grid">
+                    {(servicesPageData.consultation_steps || []).map((step, idx) => (
+                      <div key={idx} className="sys-settings-card">
+                        <label className="sys-settings-label">Số thứ tự</label>
+                        <input type="text" className="sys-settings-input" value={step.num || ''}
+                          onChange={(e) => { const arr = [...(servicesPageData.consultation_steps || [])]; arr[idx] = { ...arr[idx], num: e.target.value }; setServicesPageData(prev => ({ ...prev, consultation_steps: arr })); }} />
+                        <label className="sys-settings-label">Tiêu đề bước</label>
+                        <input type="text" className="sys-settings-input" value={step.label || ''}
+                          onChange={(e) => { const arr = [...(servicesPageData.consultation_steps || [])]; arr[idx] = { ...arr[idx], label: e.target.value }; setServicesPageData(prev => ({ ...prev, consultation_steps: arr })); }} />
+                        <label className="sys-settings-label">Mô tả</label>
+                        <textarea rows={2} className="sys-settings-textarea" value={step.desc || ''}
+                          onChange={(e) => { const arr = [...(servicesPageData.consultation_steps || [])]; arr[idx] = { ...arr[idx], desc: e.target.value }; setServicesPageData(prev => ({ ...prev, consultation_steps: arr })); }} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </section>
+
+            {/* SECTION 5: CAM KẾT (WHY CHOOSE) */}
+            <section className="sys-settings-section">
+              <div className="sys-settings-section-header" onClick={() => toggleSection('servicesPage', 'why_choose')}>
+                <h3 className="sys-settings-section-title">5. Cam kết — Tại sao chọn chúng tôi</h3>
+                <div className="sys-settings-section-actions">
+                  <button onClick={(e) => { e.stopPropagation(); saveData('services_page', servicesPageData, 'Lưu thành công!'); }}
+                    className="sys-settings-section-save-inline" type="button"><FaSave /> Lưu</button>
+                  {openSections.servicesPage.why_choose ? <FaChevronUp /> : <FaChevronDown />}
+                </div>
+              </div>
+              {openSections.servicesPage.why_choose && (
+                <div className="sys-settings-section-content">
+                  <div className="sys-settings-grid">
+                    {(servicesPageData.why_choose || []).map((item, idx) => (
+                      <div key={idx} className="sys-settings-card">
+                        <label className="sys-settings-label">Tiêu đề ({idx + 1})</label>
+                        <input type="text" className="sys-settings-input" value={item.title || ''}
+                          onChange={(e) => { const arr = [...(servicesPageData.why_choose || [])]; arr[idx] = { ...arr[idx], title: e.target.value }; setServicesPageData(prev => ({ ...prev, why_choose: arr })); }} />
+                        <label className="sys-settings-label">Mô tả</label>
+                        <textarea rows={2} className="sys-settings-textarea" value={item.desc || ''}
+                          onChange={(e) => { const arr = [...(servicesPageData.why_choose || [])]; arr[idx] = { ...arr[idx], desc: e.target.value }; setServicesPageData(prev => ({ ...prev, why_choose: arr })); }} />
+                        <label className="sys-settings-label">Màu icon</label>
+                        <input type="color" value={item.color || '#0ea5a4'}
+                          onChange={(e) => { const arr = [...(servicesPageData.why_choose || [])]; arr[idx] = { ...arr[idx], color: e.target.value }; setServicesPageData(prev => ({ ...prev, why_choose: arr })); }} />
+                      </div>
+                    ))}
+                  </div>
+                  <button type="button" className="sys-settings-btn sys-settings-btn-secondary" style={{ marginTop: 12 }}
+                    onClick={() => setServicesPageData(prev => ({ ...prev, why_choose: [...(prev.why_choose || []), { icon: 'FaCheckCircle', title: '', desc: '', color: '#0ea5a4' }] }))}>
+                    <FaPlus /> Thêm mục
+                  </button>
+                </div>
+              )}
+            </section>
+
+            {/* SECTION 6: CTA BANNERS */}
+            <section className="sys-settings-section">
+              <div className="sys-settings-section-header" onClick={() => toggleSection('servicesPage', 'cta')}>
+                <h3 className="sys-settings-section-title">6. Banner kêu gọi hành động (CTA)</h3>
+                <div className="sys-settings-section-actions">
+                  <button onClick={(e) => { e.stopPropagation(); saveData('services_page', servicesPageData, 'Lưu thành công!'); }}
+                    className="sys-settings-section-save-inline" type="button"><FaSave /> Lưu</button>
+                  {openSections.servicesPage.cta ? <FaChevronUp /> : <FaChevronDown />}
+                </div>
+              </div>
+              {openSections.servicesPage.cta && (
+                <div className="sys-settings-section-content">
+                  <div className="sys-settings-grid">
+                    <div className="sys-settings-card">
+                      <h4 style={{ marginBottom: 12, color: '#667eea', fontWeight: 'bold' }}>Tab Bệnh viện</h4>
+                      <label className="sys-settings-label">Tiêu đề</label>
+                      <input type="text" className="sys-settings-input" value={servicesPageData.hospital_cta?.title || ''}
+                        onChange={(e) => setServicesPageData(prev => ({ ...prev, hospital_cta: { ...prev.hospital_cta, title: e.target.value } }))} />
+                      <label className="sys-settings-label">Mô tả phụ</label>
+                      <input type="text" className="sys-settings-input" value={servicesPageData.hospital_cta?.subtitle || ''}
+                        onChange={(e) => setServicesPageData(prev => ({ ...prev, hospital_cta: { ...prev.hospital_cta, subtitle: e.target.value } }))} />
+                      <label className="sys-settings-label">Số điện thoại</label>
+                      <input type="text" className="sys-settings-input" value={servicesPageData.hospital_cta?.phone || ''}
+                        onChange={(e) => setServicesPageData(prev => ({ ...prev, hospital_cta: { ...prev.hospital_cta, phone: e.target.value } }))} />
+                    </div>
+                    <div className="sys-settings-card">
+                      <h4 style={{ marginBottom: 12, color: '#667eea', fontWeight: 'bold' }}>Tab Tư vấn</h4>
+                      <label className="sys-settings-label">Tiêu đề</label>
+                      <input type="text" className="sys-settings-input" value={servicesPageData.consultation_cta?.title || ''}
+                        onChange={(e) => setServicesPageData(prev => ({ ...prev, consultation_cta: { ...prev.consultation_cta, title: e.target.value } }))} />
+                      <label className="sys-settings-label">Mô tả phụ</label>
+                      <input type="text" className="sys-settings-input" value={servicesPageData.consultation_cta?.subtitle || ''}
+                        onChange={(e) => setServicesPageData(prev => ({ ...prev, consultation_cta: { ...prev.consultation_cta, subtitle: e.target.value } }))} />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </section>
+
+          </TabPanel>
+        )}
+
         {/* ==================== TAB LỊCH SỬ (SYSTEM AUDIT) ==================== */}
-        {/* CHỈ RENDER NẾU CÓ QUYỀN view_audit_logs */}
         {canViewAuditLogs && (
           <TabPanel className="sys-settings-tab-panel">
             <SystemAuditTab />

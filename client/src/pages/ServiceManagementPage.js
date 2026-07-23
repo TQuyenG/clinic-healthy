@@ -277,7 +277,7 @@ const ServiceManagementPage = () => {
       const formDataUpload = new FormData();
       formDataUpload.append('image', file);
 
-      const response = await fetch('http://localhost:3001/api/upload/image', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/upload/image`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
         body: formDataUpload
@@ -510,7 +510,7 @@ const ServiceManagementPage = () => {
   const getImageUrl = (url) => {
     if (!url) return null;
     if (url.startsWith('http')) return url;
-    return `http://localhost:3001${url.startsWith('/') ? '' : '/'}${url}`;
+    return `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${url.startsWith('/') ? '' : '/'}${url}`;
   };
 
   if (loading) return <div className="smp-page-container"><div className="smp-loading">Đang tải dữ liệu...</div></div>;

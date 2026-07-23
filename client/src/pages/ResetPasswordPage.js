@@ -49,7 +49,7 @@ const ResetPasswordPage = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:3001/api/users/verify-reset-token?token=${token}`
+        `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/verify-reset-token?token=${token}`
       );
 
       if (response.data.success) {
@@ -91,7 +91,7 @@ const ResetPasswordPage = () => {
     try {
       const token = searchParams.get('token');
       const response = await axios.post(
-        'http://localhost:3001/api/users/reset-password-with-token',
+        `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/reset-password-with-token`,
         { token, newPassword }
       );
 

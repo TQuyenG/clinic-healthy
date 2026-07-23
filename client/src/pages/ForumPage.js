@@ -301,7 +301,7 @@ const AskQuestionModal = ({
         newPreviews.push(URL.createObjectURL(file));
         const formData = new FormData();
         formData.append('image', file);
-        const response = await fetch('http://localhost:3001/api/upload/image', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/upload/image`, {
           method: 'POST',
           headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
           body: formData,
@@ -340,7 +340,7 @@ const AskQuestionModal = ({
       for (const file of files) {
         const formData = new FormData();
         formData.append('image', file);
-        const response = await fetch('http://localhost:3001/api/upload/image', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/upload/image`, {
           method: 'POST',
           headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
           body: formData,
@@ -522,7 +522,7 @@ const AskQuestionModal = ({
                     {previewImages.map((url, index) => (
                       <div key={index} className="forumpage-image-preview-item">
                         <img
-                          src={url && url.startsWith('http') ? url : `http://localhost:3001${url?.startsWith('/') ? '' : '/'}${url}`}
+                          src={url && url.startsWith('http') ? url : `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${url?.startsWith('/') ? '' : '/'}${url}`}
                           alt={`Preview ${index + 1}`}
                           onError={(e) => { e.target.src = 'https://via.placeholder.com/100x100?text=Lỗi'; }}
                         />
@@ -731,7 +731,7 @@ const CreateGroupModal = ({ onClose, onSuccess }) => {
                    <div style={{ textAlign: 'center' }}>
                       <input type="file" id="group-avatar-file" accept="image/*" style={{ display: 'none' }} onChange={(e) => handleGroupImageUpload(e, 'avatar_image')} disabled={uploading} />
                       <label htmlFor="group-avatar-file" style={{ display: 'inline-flex', width: '60px', height: '60px', borderRadius: '50%', border: '2px dashed #4CAF50', cursor: 'pointer', alignItems: 'center', justifyContent: 'center', background: '#f1f8f4', overflow: 'hidden' }}>
-                         {formData.avatar_image ? <img src={formData.avatar_image.startsWith('http') ? formData.avatar_image : `http://localhost:3001${formData.avatar_image}`} alt="" style={{width: '100%', height:'100%', objectFit:'cover'}} /> : GROUP_ICONS_MAP[formData.icon] || <FaUsers size={24} color="#4CAF50"/>}
+                         {formData.avatar_image ? <img src={formData.avatar_image.startsWith('http') ? formData.avatar_image : `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${formData.avatar_image}`} alt="" style={{width: '100%', height:'100%', objectFit:'cover'}} /> : GROUP_ICONS_MAP[formData.icon] || <FaUsers size={24} color="#4CAF50"/>}
                       </label>
                    </div>
                 </div>
@@ -740,7 +740,7 @@ const CreateGroupModal = ({ onClose, onSuccess }) => {
               <div className="forumpage-form-group">
                 <label>Ảnh bìa nhóm</label>
                 <input type="file" id="group-cover-file" accept="image/*" style={{ display: 'none' }} onChange={(e) => handleGroupImageUpload(e, 'cover_image')} disabled={uploading} />
-                <label htmlFor="group-cover-file" style={{ display: 'flex', height: '100px', borderRadius: '10px', border: '2px dashed #4CAF50', cursor: 'pointer', alignItems: 'center', justifyContent: 'center', background: formData.cover_image ? `url(${formData.cover_image.startsWith('http') ? formData.cover_image : `http://localhost:3001${formData.cover_image}`}) center/cover` : '#f1f8f4', color: '#4CAF50' }}>
+                <label htmlFor="group-cover-file" style={{ display: 'flex', height: '100px', borderRadius: '10px', border: '2px dashed #4CAF50', cursor: 'pointer', alignItems: 'center', justifyContent: 'center', background: formData.cover_image ? `url(${formData.cover_image.startsWith('http') ? formData.cover_image : `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${formData.cover_image}`}) center/cover` : '#f1f8f4', color: '#4CAF50' }}>
                    {!formData.cover_image && <span>{uploading ? 'Đang tải...' : 'Bấm chọn ảnh'}</span>}
                 </label>
               </div>
@@ -1267,7 +1267,7 @@ const ForumPage = () => {
             <div className="forumpage-groups-grid">
               {groups.map(g => (
                 <div key={g.id} className="forumpage-group-card">
-                  <div className="forumpage-group-cover" style={{ background: g.cover_image ? `url(${g.cover_image.startsWith('http') ? g.cover_image : `http://localhost:3001${g.cover_image}`}) center/cover` : 'linear-gradient(135deg,#4CAF50,#2E7D32)' }}>
+                  <div className="forumpage-group-cover" style={{ background: g.cover_image ? `url(${g.cover_image.startsWith('http') ? g.cover_image : `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${g.cover_image}`}) center/cover` : 'linear-gradient(135deg,#4CAF50,#2E7D32)' }}>
                     <span className="forumpage-group-icon">{!g.cover_image && (GROUP_ICONS_MAP[g.icon] || <FaUsers />)}</span>
                     {g.type === 'official' && <span className="forumpage-group-official">✓ Chính thống</span>}
                   </div>
@@ -1360,7 +1360,7 @@ const ForumPage = () => {
                                 {question.images.slice(0, 3).map((img, idx) => (
                                   <img
                                     key={idx}
-                                    src={img && img.startsWith('http') ? img : `http://localhost:3001${img?.startsWith('/') ? '' : '/'}${img}`}
+                                    src={img && img.startsWith('http') ? img : `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${img?.startsWith('/') ? '' : '/'}${img}`}
                                     alt={`Minh họa ${idx + 1}`}
                                     onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/300x200?text=Anh'; }}
                                   />

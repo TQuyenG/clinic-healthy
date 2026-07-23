@@ -49,7 +49,7 @@ function getColumnName(key) {
 const ArticleManagementPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const API_BASE_URL = 'http://localhost:3001';
+  const API_BASE_URL = process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001';
   const { user: authUser, canAccessModule, hasPermission, isAdmin } = usePermissions();
 
   // ── STATE ──────────

@@ -51,7 +51,7 @@ const RegisterPage = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:3001/api/users/register', formData);
+      const res = await axios.post(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/register`, formData);
       
       if (res.data.success) {
         setSuccess('Đăng ký thành công! Vui lòng kiểm tra email để xác thực tài khoản.');

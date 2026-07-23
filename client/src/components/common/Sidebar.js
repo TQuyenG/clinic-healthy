@@ -330,7 +330,6 @@ const Sidebar = ({ onToggle }) => {
         items: [
           { to: '/khuyen-mai', label: 'Kho Voucher' },
           { to: '/su-kien', label: 'Sự kiện nổi bật' },
-          { to: '/san-qua', label: 'Vòng quay may mắn' } // Game
         ]
       });
       // don't return early here so shared post-processing (e.g. moving saved-articles)

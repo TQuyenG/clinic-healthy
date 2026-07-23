@@ -166,7 +166,7 @@ const EventManagementPage = () => {
       formDataUpload.append('image', file);
 
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3001/api/upload/image', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/upload/image`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -720,7 +720,7 @@ const EventManagementPage = () => {
                             const fData = new FormData();
                             fData.append('image', file);
                             const token = localStorage.getItem('token');
-                            const response = await fetch('http://localhost:3001/api/upload/image', {
+                            const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/upload/image`, {
                               method: 'POST',
                               headers: { 'Authorization': `Bearer ${token}` },
                               body: fData

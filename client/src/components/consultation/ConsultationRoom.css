@@ -495,6 +495,28 @@
 
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
 
+/* Countdown Badge */
+.countdown-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffc107;
+  min-width: 80px;
+  justify-content: center;
+}
+.countdown-badge.countdown-now {
+  background: #d4edda;
+  color: #155724;
+  border-color: #28a745;
+  animation: pulse 1.2s infinite;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .consultation-room-header {
@@ -515,4 +537,26 @@
   .consultation-room-body {
     padding: 10px;
   }
+}
+
+/* Countdown Badge */
+.countdown-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffc107;
+  min-width: 80px;
+  justify-content: center;
+}
+.countdown-badge.countdown-now {
+  background: #d4edda;
+  color: #155724;
+  border-color: #28a745;
+  animation: pulse 1.2s infinite;
 }

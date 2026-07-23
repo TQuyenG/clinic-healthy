@@ -38,10 +38,10 @@ const VerifyEmailPage = () => {
     }
 
     try {
-      console.log('Gửi request xác thực tới:', `http://localhost:3001/api/users/verify-email?token=${token}`);
+      console.log('Gửi request xác thực tới:', `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/verify-email?token=${token}`);
       
       const res = await axios.get(
-        `http://localhost:3001/api/users/verify-email?token=${token}`
+        `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/verify-email?token=${token}`
       );
 
       console.log('Response nhận được:', {
@@ -83,7 +83,7 @@ const VerifyEmailPage = () => {
     try {
       const token = searchParams.get('token');
       
-      await axios.post('http://localhost:3001/api/users/request-manual-verification', {
+      await axios.post(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/request-manual-verification`, {
         verification_token: token
       });
       

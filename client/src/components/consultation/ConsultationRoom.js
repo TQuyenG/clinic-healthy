@@ -51,6 +51,80 @@ const { showToast } = useToast();
   const heartbeatRef = useRef(null);
   const reconnectCountRef = useRef(0);
 
+  // ===== ĐẾM NGƯỢC TỚI GIỜ HẸN & THỜI GIAN TƯ VẤN =====
+  const [countdown, setCountdown] = useState(null);
+  // null = chưa tính, số dương = còn X giây trước giờ hẹn
+  
+  const [sessionCountdown, setSessionCountdown] = useState(null);
+  // null = chưa bắt đầu đếm, số dương = còn X giây của phiên tư vấn
+  
+  const [sessionExpired, setSessionExpired] = useState(false);
+  // true = hết giờ, khóa chat
+  
+  const warnedRef = useRef(false); // tránh toast cảnh báo 2 phút bị lặp
+
+  useEffect(() => {
+    if (!consultation?.appointment_time) return;
+
+    console.log('🔍 DEBUG consultation:', {
+      appointment_time: consultation.appointment_time,
+      package: consultation.package,
+      duration_minutes: consultation.duration_minutes,
+      status: consultation.status,
+      allKeys: Object.keys(consultation)
+    });
+    const durationMinutes = consultation.package?.duration_minutes || 30;
+    const durationSeconds = durationMinutes * 60;
+
+    const tick = () => {
+      const now = new Date();
+      const apptTime = new Date(consultation.appointment_time);
+      const secondsToStart = Math.floor((apptTime - now) / 1000);
+
+      if (secondsToStart > 0) {
+        // Chưa tới giờ → hiện đếm ngược tới giờ hẹn
+        setCountdown(secondsToStart);
+        setSessionCountdown(null);
+        setSessionExpired(false);
+        warnedRef.current = false;
+      } else {
+        // Đã tới hoặc đang trong giờ tư vấn
+        setCountdown(null);
+        const elapsed = Math.abs(secondsToStart); // số giây đã trôi qua kể từ giờ hẹn
+        const remaining = durationSeconds - elapsed;
+
+        if (remaining > 0) {
+          setSessionCountdown(remaining);
+          setSessionExpired(false);
+
+          // Cảnh báo khi còn 2 phút (120 giây)
+          if (remaining <= 120 && !warnedRef.current) {
+            warnedRef.current = true;
+            showToast({ type: 'warning', message: '⏰ Còn 2 phút kết thúc buổi tư vấn!' });
+          }
+        } else {
+          // Hết giờ
+          setSessionCountdown(0);
+          setSessionExpired(true);
+        }
+      }
+    };
+
+    tick();
+    const timer = setInterval(tick, 1000);
+    return () => clearInterval(timer);
+  }, [consultation?.appointment_time, consultation?.package?.duration_minutes]);
+
+  const formatCountdown = (seconds) => {
+    if (seconds == null || seconds <= 0) return null;
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    if (h > 0) return `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  };
+  // ===== KẾT THÚC ĐẾM NGƯỢC =====
+
   useEffect(() => {
     if (!id || !user) return () => { chatService.disconnect(); };
 
@@ -424,6 +498,27 @@ const { showToast } = useToast();
         </div>
 
        <div className="header-right">
+          {/* Đếm ngược trước giờ hẹn */}
+          {countdown !== null && countdown > 0 && (
+            <span className="countdown-badge">
+              <FaClock /> Bắt đầu sau {formatCountdown(countdown)}
+            </span>
+          )}
+
+          {/* Đếm ngược thời gian tư vấn đang diễn ra */}
+          {sessionCountdown !== null && sessionCountdown > 0 && !sessionExpired && (
+            <span className={`countdown-badge ${sessionCountdown <= 120 ? 'countdown-warning' : 'countdown-now'}`}>
+              <FaClock /> Còn {formatCountdown(sessionCountdown)}
+            </span>
+          )}
+
+          {/* Hết giờ */}
+          {sessionExpired && (
+            <span className="countdown-badge countdown-expired">
+              <FaClock /> Hết giờ tư vấn
+            </span>
+          )}
+
           {/* Indicator kết nối */}
           <span className={`connection-badge connection-${connectionStatus}`}>
             <FaWifi />
@@ -518,6 +613,13 @@ const { showToast } = useToast();
 
       <div className="consultation-room-body">
         <div className="messages-container">
+          {/* Banner hết giờ */}
+          {sessionExpired && (
+            <div className="system-message-banner" style={{ background: '#f8d7da', borderColor: '#f5c6cb', color: '#721c24' }}>
+              <FaClock /> <strong>Buổi tư vấn đã kết thúc.</strong> Bạn không thể gửi thêm tin nhắn.
+            </div>
+          )}
+
           {/* Tin nhắn từ admin (ghim đầu) */}
           {systemMessages.length > 0 && (
             <div className="system-message-banner">
@@ -612,16 +714,16 @@ const { showToast } = useToast();
           <input
             type="text"
             className="message-input"
-            placeholder="Nhập tin nhắn..."
+            placeholder={sessionExpired ? "⏰ Buổi tư vấn đã kết thúc" : "Nhập tin nhắn..."}
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
-            disabled={sending}
+            disabled={sending || sessionExpired}
           />
 
           <button 
             type="submit" 
             className="btn-send"
-            disabled={!newMessage.trim() || sending}
+            disabled={!newMessage.trim() || sending || sessionExpired}
           >
             <FaPaperPlane />
           </button>

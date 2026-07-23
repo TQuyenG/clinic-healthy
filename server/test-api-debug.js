@@ -5,7 +5,7 @@
 require('dotenv').config({ path: './.env' });
 const axios = require('axios');
 
-const API_BASE = 'http://localhost:3001';
+const API_BASE = process.env.API_URL || 'http://localhost:3001';
 let token = '';
 
 async function login() {

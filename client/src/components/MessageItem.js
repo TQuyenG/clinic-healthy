@@ -90,9 +90,9 @@ const MessageItem = ({ message, isMyMessage, onReply, onDelete }) => {
             {message.content && <p className="messageitem-image-caption">{message.content}</p>}
             {!imageError ? (
               <img 
-                src={`http://localhost:3001${message.file_url}`}
+                src={`${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${message.file_url}`}
                 alt="Hình ảnh"
-                onClick={() => window.open(`http://localhost:3001${message.file_url}`, '_blank')}
+                onClick={() => window.open(`${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${message.file_url}`, '_blank')}
                 onError={() => setImageError(true)}
                 className="messageitem-image-img"
               />
@@ -118,7 +118,7 @@ const MessageItem = ({ message, isMyMessage, onReply, onDelete }) => {
               )}
             </div>
             <a 
-              href={`http://localhost:3001${message.file_url}`}
+              href={`${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${message.file_url}`}
               download
               className="messageitem-file-download"
               title="Tải xuống"
@@ -132,7 +132,7 @@ const MessageItem = ({ message, isMyMessage, onReply, onDelete }) => {
         return (
           <div className="messageitem-voice">
             <audio controls className="messageitem-voice-audio">
-               <source src={`http://localhost:3001${message.file_url}`} type="audio/mpeg" />
+               <source src={`${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${message.file_url}`} type="audio/mpeg" />
 
               Trình duyệt không hỗ trợ phát âm thanh.
             </audio>

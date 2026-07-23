@@ -135,7 +135,7 @@ async function checkAndCancelExpiredPayments() {
         {
           model: models.Doctor,
           as: 'Doctor',
-          include: [{ model: models.User, as: 'User', attributes: ['full_name', 'email'] }]
+          include: [{ model: models.User, as: 'user', attributes: ['full_name', 'email'] }]
         },
         { model: models.Service, as: 'Service', attributes: ['name', 'price'] }
       ],

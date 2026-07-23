@@ -37,7 +37,7 @@ const getImageUrl = (url, isAvatar = false) => {
   const fallback = isAvatar ? defaultAvatar : 'https://via.placeholder.com/400x300?text=No+Image';
   if (!url) return fallback;
   if (url.startsWith('data:') || url.startsWith('http') || url.startsWith('blob:')) return url;
-  return `http://localhost:3001${url.startsWith('/') ? '' : '/'}${url}`;
+  return `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${url.startsWith('/') ? '' : '/'}${url}`;
 };
 
 const formatTime = (dt) => {

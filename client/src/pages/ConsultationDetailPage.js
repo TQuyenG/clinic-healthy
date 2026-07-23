@@ -8,6 +8,7 @@ import consultationService from '../services/consultationService';
 import marketingService from '../services/marketingService';
 import axios from 'axios';
 import AppointmentRatingModal from '../components/appointments/AppointmentRatingModal';
+import InRoomResultPanel from '../components/medical/InRoomResultPanel';
 import {
   FaUserMd, FaUser, FaClock, FaMoneyBillWave, FaComments, FaStar,
   FaCheckCircle, FaTimesCircle, FaFileAlt, FaPaperclip, FaArrowLeft,
@@ -42,6 +43,7 @@ const ConsultationDetailPage = () => {
   const [selectedVoucher, setSelectedVoucher] = useState(null);
   const [calculatedFees, setCalculatedFees] = useState({ discount: 0, final: 0 });
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [showResultPanel, setShowResultPanel] = useState(false);
   const [cancelReason, setCancelReason] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
@@ -99,7 +101,7 @@ const ConsultationDetailPage = () => {
   }, [selectedVoucher, consultation]);
 
   useEffect(() => {
-    const timer = setInterval(() => setNowTs(Date.now()), 30000);
+    const timer = setInterval(() => setNowTs(Date.now()), 1000);
     return () => clearInterval(timer);
   }, []);
 
@@ -115,6 +117,14 @@ const ConsultationDetailPage = () => {
     autoOpenResultRef.current = true;
     handleStartChat();
   }, [consultation, searchParams, user?.id, user?.role]);
+
+  useEffect(() => {
+    if (!loading && consultation && window.location.hash === '#ket-qua') {
+      setTimeout(() => {
+        document.getElementById('ket-qua')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  }, [loading, consultation]);
 
   const fetchConsultationDetail = async () => {
     try {
@@ -389,6 +399,24 @@ const isDoctorOwner = user?.role === 'doctor' && (
     finally { setSubmitting(false); }
   };
 
+  // ===== ĐẾM NGƯỢC TỚI GIỜ HẸN =====
+  const getCountdown = () => {
+    if (!consultation?.appointment_time) return null;
+    if (!['confirmed', 'pending'].includes(consultation.status)) return null;
+    const diffSeconds = Math.floor((new Date(consultation.appointment_time).getTime() - nowTs) / 1000);
+    if (diffSeconds <= 0 && diffSeconds > -600) return { type: 'now', text: '⏰ Đã tới giờ hẹn!' };
+    if (diffSeconds <= 0) return null;
+    const h = Math.floor(diffSeconds / 3600);
+    const m = Math.floor((diffSeconds % 3600) / 60);
+    const s = diffSeconds % 60;
+    const timeStr = h > 0
+      ? `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`
+      : `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    return { type: 'counting', text: `⏳ Còn ${timeStr} tới giờ hẹn` };
+  };
+  const countdown = getCountdown();
+  // ===== KẾT THÚC ĐẾM NGƯỢC =====
+
   return (
     <div className="cdp-page">
       <div className="cdp-wrapper">
@@ -437,6 +465,30 @@ const isDoctorOwner = user?.role === 'doctor' && (
                     {new Date(consultation.appointment_time).toLocaleString('vi-VN')}
                   </span>
                 </div>
+
+                {/* Đếm ngược */}
+                {countdown && (
+                  <div className="cdp-info-item" style={{ gridColumn: '1 / -1' }}>
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        padding: '6px 14px',
+                        borderRadius: 20,
+                        fontWeight: 700,
+                        fontSize: 15,
+                        background: countdown.type === 'now' ? '#d4edda' : '#fff3cd',
+                        color: countdown.type === 'now' ? '#155724' : '#856404',
+                        border: `1px solid ${countdown.type === 'now' ? '#28a745' : '#ffc107'}`,
+                        animation: countdown.type === 'now' ? 'cdp-pulse 1.2s infinite' : 'none',
+                      }}
+                    >
+                      {countdown.text}
+                    </span>
+                  </div>
+                )}
+
                 <div className="cdp-info-item">
                   <span className="cdp-info-label"><FaClock /> Thời lượng</span>
                   <span className="cdp-info-value">{consultation.duration_minutes} phút</span>
@@ -541,7 +593,7 @@ const isDoctorOwner = user?.role === 'doctor' && (
               )}
 
               {consultation.status === 'completed' && consultation.diagnosis && (
-                <div className="cdp-result-box">
+                <div className="cdp-result-box" id="ket-qua">
                   <div className="cdp-result-header">
                     <FaCheckCircle /> Kết luận của bác sĩ
                   </div>
@@ -652,26 +704,32 @@ const isDoctorOwner = user?.role === 'doctor' && (
 
             {/* --- Kết quả khám (Doctor/Admin) --- */}
             {!isResultView && (isDoctorOwner || user?.role === 'admin') && (
-                <div className="cdp-card">
-                  <div className="cdp-card-title">
-                    <FaNotesMedical /> Kết quả khám
-                  </div>
-                <button
-                  type="button"
-                  onClick={handleStartChat}
-                  className="cdp-btn-main full"
-                >
-                  <FaNotesMedical />
-                  {consultation.diagnosis ? 'Mở phòng để cập nhật kết quả' : 'Mở phòng để nhập kết quả'}
-                </button>
-                {!canWriteResult && (
-                  <p className="cdp-hint">
-                    <FaInfoCircle />
-                    Có thể nhập kết quả khi ca tư vấn ở trạng thái đã xác nhận hoặc đang diễn ra.
-                  </p>
-                )}
-              </div>
-            )}
+              <div className="cdp-card">
+                <div className="cdp-card-title">
+                  <FaNotesMedical /> Kết quả khám
+                </div>
+              <button
+                type="button"
+                onClick={consultation.status === 'completed'
+                  ? () => setShowResultPanel(true)
+                  : handleStartChat
+                }
+                className="cdp-btn-main full"
+              >
+                <FaNotesMedical />
+                {consultation.status === 'completed'
+                  ? (consultation.diagnosis ? 'Cập nhật kết quả khám' : 'Nhập kết quả khám')
+                  : (consultation.diagnosis ? 'Mở phòng để cập nhật kết quả' : 'Mở phòng để nhập kết quả')
+                }
+              </button>
+              {!canWriteResult && consultation.status !== 'completed' && (
+                <p className="cdp-hint">
+                  <FaInfoCircle />
+                  Có thể nhập kết quả khi ca tư vấn ở trạng thái đã xác nhận hoặc đang diễn ra.
+                </p>
+              )}
+            </div>
+          )}
 
             {/* --- Thao tác --- */}
               {!isResultView && (
@@ -990,6 +1048,14 @@ const isDoctorOwner = user?.role === 'doctor' && (
             <button onClick={() => setRatingSuccessMsg('')}>Đóng</button>
           </div>
         </div>
+      )}
+
+      {showResultPanel && (
+        <InRoomResultPanel
+          consultationCode={consultation.consultation_code}
+          consultationId={consultation.id}
+          onClose={() => setShowResultPanel(false)}
+        />
       )}
 
       <AppointmentRatingModal

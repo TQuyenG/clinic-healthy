@@ -36,7 +36,7 @@ const MyMedicalRecordsPage = () => {
   const [activeTab, setActiveTab] = useState('records'); // 'records' | 'health'
   const [searchText, setSearchText] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
-  const [recordType, setRecordType] = useState('offline'); // 'offline' | 'online' | 'all'
+  const [recordType, setRecordType] = useState('all'); // 'offline' | 'online' | 'all'
 
   // State cho modal bảo mật
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -107,17 +107,17 @@ const MyMedicalRecordsPage = () => {
 
   // Lọc records theo search
   const filteredRecords = records.filter(record => {
-    const keyword = searchText.toLowerCase();
-    const code = (record.Appointment?.code || '').toLowerCase();
-    const doctor = (record.Doctor?.user?.full_name || '').toLowerCase();
-    const matchSearch = !keyword || code.includes(keyword) || doctor.includes(keyword);
-    const recType = record.record_type || record.Appointment?.appointment_type || 'offline';
-    const matchType = recordType === 'all' ? true : recType === recordType;
-    return matchSearch && matchType;
-  });
+  const keyword = searchText.toLowerCase();
+  const code = (record.Appointment?.code || '').toLowerCase();
+  const doctor = (record.Doctor?.user?.full_name || '').toLowerCase();
+  const matchSearch = !keyword || code.includes(keyword) || doctor.includes(keyword);
+  const recType = record.record_type || 'offline'; // dùng record_type trực tiếp
+  const matchType = recordType === 'all' ? true : recType === recordType;
+  return matchSearch && matchType;
+});
 
-  const offlineCount = records.filter(r => (r.record_type || r.Appointment?.appointment_type || 'offline') === 'offline').length;
-  const onlineCount = records.filter(r => (r.record_type || r.Appointment?.appointment_type || 'offline') === 'online').length;
+  const offlineCount = records.filter(r => (r.record_type || 'offline') === 'offline').length;
+  const onlineCount = records.filter(r => r.record_type === 'online').length;
 
   return (
     <>

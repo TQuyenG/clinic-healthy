@@ -31,12 +31,17 @@ export const AuthProvider = ({ children }) => {
   // ============================================
   const login = useCallback(async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:3001/api/users/login', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/login`, {
         email,
         password,
       });
 
-      const { token, user: userData } = response.data;
+      const token = response.data.token;
+      const userData = response.data.user || response.data.data || response.data;
+
+      if (!token || !userData || !userData.id) {
+        throw new Error('Phản hồi từ server không hợp lệ');
+      }
 
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(userData));
@@ -94,17 +99,24 @@ export const AuthProvider = ({ children }) => {
     try {
       console.log('🔍 Fetching user profile...');
       
-      const response = await axios.get('http://localhost:3001/api/users/profile', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/profile`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
-      const userData = response.data.user;
+      // Hỗ trợ cả 2 cấu trúc: { user: {...} } hoặc { data: {...} } hoặc trực tiếp
+      const userData = response.data.user || response.data.data || response.data;
+      
+      if (!userData || !userData.id) {
+        console.error('❌ API trả về data không hợp lệ:', response.data);
+        throw new Error('Không lấy được thông tin user từ server');
+      }
+
       setUser(userData);
       setIsAuthenticated(true);
 
       localStorage.setItem('user', JSON.stringify(userData));
 
-      console.log('✅ Profile loaded:', userData.full_name);
+      console.log('✅ Profile loaded:', userData.full_name || userData.email);
       return userData;
       
     } catch (error) {

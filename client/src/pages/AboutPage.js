@@ -78,7 +78,7 @@ const AboutPage = () => {
   useEffect(() => {
     const fetchAboutData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/settings/about');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/settings/about`);
         if (response.data) {
           setAboutData(response.data);
           setError(null);
@@ -91,7 +91,7 @@ const AboutPage = () => {
 
     const fetchSpecialties = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/specialties');
+        const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/specialties`);
         const data = await response.json();
         if (data.success && data.specialties) setSpecialties(data.specialties);
       } catch (error) {}
@@ -99,7 +99,7 @@ const AboutPage = () => {
 
     const fetchDoctors = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/users/doctors?limit=6&random=true');
+        const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/doctors?limit=6&random=true`);
         const data = await response.json();
         if (data.success && data.doctors) {
           const { normalizeUserList } = await import('../utils/normalizeUser');

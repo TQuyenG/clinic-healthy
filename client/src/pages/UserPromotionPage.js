@@ -547,6 +547,58 @@ const UserPromotionPage = ({ tab = 'vouchers' }) => {
               <div className="upp-game-area">
                 <div className="upp-game-content">
 
+                  {/* Chưa có vòng quay nào được tạo */}
+                  {wheelRewards.length === 1 && wheelRewards[0]?.is_miss ? (
+                    <div style={{
+                      display: 'flex', flexDirection: 'column', alignItems: 'center',
+                      justifyContent: 'center', padding: '40px 20px', textAlign: 'center'
+                    }}>
+                      <div style={{
+                        fontSize: 72, marginBottom: 16,
+                        animation: 'uppBounce 1.2s infinite alternate'
+                      }}>🎡</div>
+                      <div style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 6,
+                        background: 'linear-gradient(135deg, #fef3c7, #fde68a)',
+                        border: '1.5px solid #f59e0b', borderRadius: 20,
+                        padding: '5px 16px', fontSize: 12, fontWeight: 700,
+                        color: '#92400e', marginBottom: 14, letterSpacing: 0.3
+                      }}>
+                        ⏳ Sắp Ra Mắt
+                      </div>
+                      <h3 style={{
+                        fontSize: 22, fontWeight: 800, color: 'var(--upp-n900)',
+                        margin: '0 0 10px'
+                      }}>Vòng Quay May Mắn</h3>
+                      <p style={{
+                        fontSize: 14, color: 'var(--upp-n500)', maxWidth: 320,
+                        lineHeight: 1.7, margin: '0 0 24px'
+                      }}>
+                        Chúng tôi đang chuẩn bị những phần thưởng hấp dẫn. Hãy
+                        điểm danh mỗi ngày để tích điểm và sẵn sàng quay thưởng!
+                      </p>
+                      
+                      <div style={{
+                        background: 'linear-gradient(135deg, #064e3b, #16a34a)',
+                        borderRadius: 14, padding: '16px 24px',
+                        color: '#fff', fontSize: 13, maxWidth: 300, width: '100%'
+                      }}>
+                        <div style={{ fontWeight: 700, marginBottom: 6 }}>
+                          💡 Điểm tích lũy của bạn
+                        </div>
+                        <div style={{
+                          fontSize: 28, fontWeight: 800, color: '#fde68a',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6
+                        }}>
+                          <FaStar style={{ fontSize: 20 }} /> {userPoints ?? '—'}
+                        </div>
+                        <div style={{ fontSize: 11, opacity: 0.8, marginTop: 4 }}>
+                          Điểm danh hằng ngày để tích thêm điểm!
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                  <>
                   {/* Điểm hiện tại */}
                   <div className="upp-spin-cost">
                     <FaStar /> Điểm của bạn: <b>{userPoints}</b>
@@ -605,10 +657,11 @@ const UserPromotionPage = ({ tab = 'vouchers' }) => {
                       💡 Điểm danh hằng ngày để nhận +{currentCheckinPoints} điểm mỗi ngày!
                     </p>
                   )}
+                  </>
+                  )}
                 </div>
               </div>
             )}
-
             {/* ── History ── */}
             {gameSubTab === 'history' && (
               gameHistory.length === 0

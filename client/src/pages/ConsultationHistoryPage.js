@@ -19,6 +19,10 @@ const ConsultationHistoryPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Lấy role thực của user để truyền đúng vào ConsultationRealtimeList
+  const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+  const userRole = currentUser?.role || 'patient';
+
   // State quản lý Tab đang chọn: 'list' | 'chat' | 'video'
   const [activeTab, setActiveTab] = useState(() => {
     const params = new URLSearchParams(location.search);
@@ -101,13 +105,18 @@ const ConsultationHistoryPage = () => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Lấy thống kê cho Patient
+  // Lấy thống kê — phân biệt patient và doctor
   const fetchStats = async () => {
     try {
       setLoading(true);
-      const res = await consultationService.getPatientStats();
+      let res;
+      if (userRole === 'doctor') {
+        res = await consultationService.getDoctorStats();
+      } else {
+        res = await consultationService.getPatientStats();
+      }
       if (res.data.success) {
-        setStats(res.data.data.stats);
+        setStats(res.data.data.stats || res.data.data);
       }
     } catch (error) {
       console.error("Lỗi tải thống kê:", error);
@@ -253,16 +262,15 @@ const ConsultationHistoryPage = () => {
       {/* 4. Content Area */}
       <div className="crm-content-area">
         {activeTab === 'list' && (
-           /* Truyền prop type=all để lấy tất cả */
-           <ConsultationRealtimeList initialType="all" role="patient" />
+          <ConsultationRealtimeList initialType="all" role={userRole} />
         )}
 
         {activeTab === 'chat' && (
-          <ConsultationRealtimeList initialType="chat" role="patient" />
+          <ConsultationRealtimeList initialType="chat" role={userRole} />
         )}
 
         {activeTab === 'video' && (
-          <ConsultationRealtimeList initialType="video" role="patient" />
+          <ConsultationRealtimeList initialType="video" role={userRole} />
         )}
 
         {activeTab === 'reports' && (
@@ -282,13 +290,13 @@ const ConsultationHistoryPage = () => {
                       report.status === 'investigating' ? '#f39c12' : '#e74c3c'
                     }`
                   }}>
-                    {/* Header báo cáo */}
-                    <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: 8}}>
-                      <span style={{fontWeight: 600}}>
+                    {/* Header: loại sự cố + trạng thái */}
+                    <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: 10}}>
+                      <span style={{fontWeight: 700, fontSize: 15}}>
                         {({
                           technical:       '🔧 Kỹ thuật',
                           behavior:        '⚠️ Hành vi',
-                          emergency:       '🚨 Khẩn cấp',
+                          emergency:       '🚨 Khẩn cấp y tế / an toàn',
                           security:        '🔒 Bảo mật',
                           no_video:        '📹 Không có video',
                           no_audio:        '🔇 Không có âm thanh',
@@ -315,27 +323,79 @@ const ConsultationHistoryPage = () => {
                       </span>
                     </div>
 
-                    {/* Mô tả */}
-                    <p style={{margin: '4px 0', color: '#555'}}>{report.description}</p>
+                    {/* Thông tin chi tiết lịch hẹn */}
+                    <div style={{
+                      display: 'grid', gridTemplateColumns: '1fr 1fr',
+                      gap: '6px 16px', marginBottom: 10,
+                      background: '#f8fafc', borderRadius: 8, padding: '10px 14px',
+                      fontSize: 13
+                    }}>
+                      <div>
+                        <span style={{color:'#888'}}>📋 Mã tư vấn: </span>
+                        <strong>{report.consultation?.consultation_code || 'N/A'}</strong>
+                      </div>
+                      <div>
+                        <span style={{color:'#888'}}>⏰ Giờ báo cáo: </span>
+                        <strong>{new Date(report.created_at).toLocaleString('vi-VN')}</strong>
+                      </div>
+                      <div>
+                        <span style={{color:'#888'}}>📅 Giờ hẹn: </span>
+                        <strong>
+                          {report.consultation?.appointment_time
+                            ? new Date(report.consultation.appointment_time).toLocaleString('vi-VN')
+                            : 'N/A'}
+                        </strong>
+                      </div>
+                      <div>
+                        <span style={{color:'#888'}}>🎁 Gói tư vấn: </span>
+                        <strong>
+                          {report.consultation?.package?.package_name ||
+                           report.consultation?.consultation_type?.toUpperCase() || 'N/A'}
+                        </strong>
+                      </div>
+                      <div>
+                        <span style={{color:'#888'}}>👤 Người báo cáo: </span>
+                        <strong>{report.reporter?.full_name || 'N/A'}</strong>
+                      </div>
+                      <div>
+                        <span style={{color:'#888'}}>🩺 Bác sĩ phụ trách: </span>
+                        <strong>{report.consultation?.doctor?.full_name || 'N/A'}</strong>
+                      </div>
+                      <div>
+                        <span style={{color:'#888'}}>🏥 Bệnh nhân: </span>
+                        <strong>{report.consultation?.patient?.full_name || 'N/A'}</strong>
+                      </div>
+                      <div>
+                        <span style={{color:'#888'}}>⚡ Mức độ: </span>
+                        <strong style={{
+                          color: report.priority === 'urgent' ? '#e74c3c' :
+                                 report.priority === 'high' ? '#e67e22' : '#27ae60'
+                        }}>
+                          {report.priority === 'urgent' ? '🔴 Khẩn cấp' :
+                           report.priority === 'high' ? '🟠 Cao' :
+                           report.priority === 'medium' ? '🟡 Trung bình' : '🟢 Thấp'}
+                        </strong>
+                      </div>
+                    </div>
 
-                    {/* Phản hồi admin từ admin_notes */}
+                    {/* Mô tả sự cố */}
+                    <div style={{marginBottom: 10, padding: '8px 12px', background: '#fffbe6', borderRadius: 6, fontSize: 13, borderLeft: '3px solid #f0a500'}}>
+                      <strong>📝 Ghi chú:</strong> {report.description}
+                    </div>
+
+                    {/* Phản hồi từ admin */}
                     {report.admin_notes && (
-                      <div style={{marginTop: 8, padding: '8px 12px', background: '#f0f8ff', borderRadius: 6, fontSize: 13}}>
+                      <div style={{marginBottom: 10, padding: '8px 12px', background: '#f0f8ff', borderRadius: 6, fontSize: 13, borderLeft: '3px solid #2471a3'}}>
                         <strong>💬 Phản hồi từ hệ thống:</strong> {report.admin_notes}
                       </div>
                     )}
 
-                    {/* Footer + nút xem tin nhắn */}
-                    <div style={{marginTop: 8, display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-                      <div style={{fontSize: 12, color: '#999'}}>
-                        Mã tư vấn: <strong>{report.consultation?.consultation_code || 'N/A'}</strong>
-                        &nbsp;·&nbsp;
-                        {new Date(report.created_at).toLocaleString('vi-VN')}
-                      </div>
+                    {/* Footer: nút xem tin nhắn */}
+                    <div style={{display:'flex', justifyContent:'flex-end'}}>
                       <button
                         onClick={() => handleToggleReport(report)}
                         style={{
-                          fontSize: 12, padding: '4px 12px', borderRadius: 6, cursor: 'pointer',
+                          fontSize: 12, padding: '5px 14px', borderRadius: 6, cursor: 'pointer',
                           background: expandedReport === report.id ? '#eaf4fb' : '#f8f9fa',
                           border: '1px solid #ddd', color: '#2471a3'
                         }}

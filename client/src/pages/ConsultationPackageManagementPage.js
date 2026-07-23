@@ -57,12 +57,16 @@ const ConsultationPackageManagementPage = () => {
   const [createData, setCreateData] = useState({
     package_name: '',
     description: '',
+    image_url: '',
+    features: [],
     package_type: 'chat',
     duration_minutes: 30,
     price: 0,
     is_active: true,
     doctor_codes: []
   });
+  const [imageUploadTab, setImageUploadTab] = useState('url');
+  const [featureInput, setFeatureInput] = useState('');
   
   const [filters, setFilters] = useState({
     search: '',
@@ -131,7 +135,7 @@ const ConsultationPackageManagementPage = () => {
 
   const fetchDoctors = async () => {
     try {
-      const docRes = await axios.get('http://localhost:3001/api/users/doctors/public');
+      const docRes = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/doctors/public`);
       
       if (docRes.data.success) {
         const rawDoctors = docRes.data.doctors || [];
@@ -188,6 +192,8 @@ const ConsultationPackageManagementPage = () => {
       const dataToSend = {
         package_name: createData.package_name,
         description: createData.description,
+        image_url: createData.image_url || null,
+        features: createData.features || [],
         package_type: createData.package_type,
         duration_minutes: parseInt(createData.duration_minutes),
         price: parseInt(createData.price) || 0,
@@ -219,6 +225,8 @@ const ConsultationPackageManagementPage = () => {
       const dataToSend = {
         package_name: editData.package_name,
         description: editData.description,
+        image_url: editData.image_url || null,
+        features: editData.features || [],
         package_type: editData.package_type,
         duration_minutes: parseInt(editData.duration_minutes),
         price: parseInt(editData.price) || 0,
@@ -290,6 +298,8 @@ const ConsultationPackageManagementPage = () => {
     setEditData({
       package_name: pkg.package_name || '',
       description: pkg.description || '',
+      image_url: pkg.image_url || '',
+      features: Array.isArray(pkg.features) ? pkg.features : [],
       package_type: pkg.package_type || 'chat',
       duration_minutes: pkg.duration_minutes || 30,
       price: pkg.price ?? 100000,
@@ -452,6 +462,7 @@ const ConsultationPackageManagementPage = () => {
                 <thead>
                   <tr>
                     <th style={{width: '50px'}}>#</th>
+                    <th style={{width: '60px'}}>Hình ảnh</th>
                     <th>Tên gói dịch vụ</th>
                     <th>Mã gói</th>
                     <th>Hình thức</th>
@@ -476,6 +487,19 @@ const ConsultationPackageManagementPage = () => {
                     packages.map((pkg, index) => (
                       <tr key={pkg.id}>
                         <td>{(pagination.page - 1) * pagination.limit + index + 1}</td>
+                        <td>
+                          {pkg.image_url ? (
+                            <img
+                              src={pkg.image_url}
+                              alt={pkg.package_name}
+                              style={{ width: 52, height: 36, objectFit: 'cover', borderRadius: 6, border: '1px solid #e2e8f0' }}
+                            />
+                          ) : (
+                            <div style={{ width: 52, height: 36, background: '#f1f5f9', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, color: '#94a3b8', border: '1px dashed #e2e8f0' }}>
+                              No img
+                            </div>
+                          )}
+                        </td>
                         <td>
                           <div className="cpm-cell-primary">
                             <strong>{pkg.package_name}</strong>
@@ -628,6 +652,16 @@ const ConsultationPackageManagementPage = () => {
             setSelectedSpecialtyFilter={setSelectedSpecialtyFilter}
             filteredDoctors={filteredDoctors}
             selectAllFilteredDoctors={selectAllFilteredDoctors}
+            imageUploadTab={imageUploadTab}
+            setImageUploadTab={setImageUploadTab}
+            featureInput={featureInput}
+            setFeatureInput={setFeatureInput}
+            handleAddFeature={() => {
+              if (!featureInput.trim()) return;
+              setEditData(prev => ({ ...prev, features: [...(prev.features || []), featureInput.trim()] }));
+              setFeatureInput('');
+            }}
+            handleRemoveFeature={(idx) => setEditData(prev => ({ ...prev, features: prev.features.filter((_, i) => i !== idx) }))}
           />
         </ModalWrapper>
       )}
@@ -647,6 +681,16 @@ const ConsultationPackageManagementPage = () => {
             setSelectedSpecialtyFilter={setSelectedSpecialtyFilter}
             filteredDoctors={filteredDoctors}
             selectAllFilteredDoctors={selectAllFilteredDoctors}
+            imageUploadTab={imageUploadTab}
+            setImageUploadTab={setImageUploadTab}
+            featureInput={featureInput}
+            setFeatureInput={setFeatureInput}
+            handleAddFeature={() => {
+              if (!featureInput.trim()) return;
+              setCreateData(prev => ({ ...prev, features: [...(prev.features || []), featureInput.trim()] }));
+              setFeatureInput('');
+            }}
+            handleRemoveFeature={(idx) => setCreateData(prev => ({ ...prev, features: prev.features.filter((_, i) => i !== idx) }))}
           />
         </ModalWrapper>
       )}
@@ -656,7 +700,9 @@ const ConsultationPackageManagementPage = () => {
 
 const PackageForm = ({ 
   data, setData, onSubmit, onCancel, isEdit, allDoctors, selectedDoctors, setSelectedDoctors,
-  specialtyOptions, selectedSpecialtyFilter, setSelectedSpecialtyFilter, filteredDoctors, selectAllFilteredDoctors
+  specialtyOptions, selectedSpecialtyFilter, setSelectedSpecialtyFilter, filteredDoctors, selectAllFilteredDoctors,
+  imageUploadTab, setImageUploadTab, featureInput, setFeatureInput,
+  handleAddFeature, handleRemoveFeature
 }) => {
   const formatCurrency = (value) => {
     if (value === null || value === undefined || value === '') return '';
@@ -692,6 +738,121 @@ const PackageForm = ({
         <div className="cpm-form-group full">
           <label>Mô tả</label>
           <textarea className="cpm-input cpm-textarea" value={data.description} onChange={e => setData({ ...data, description: e.target.value })} rows="2" />
+        </div>
+      </div>
+
+      {/* Ảnh đại diện */}
+      <div className="cpm-form-row">
+        <div className="cpm-form-group full">
+          <label>Ảnh đại diện</label>
+          <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+            <button
+              type="button"
+              onClick={() => setImageUploadTab('url')}
+              style={{
+                padding: '4px 12px', borderRadius: 20, fontSize: 12, cursor: 'pointer',
+                background: imageUploadTab === 'url' ? '#0ea5a4' : '#f1f5f9',
+                color: imageUploadTab === 'url' ? '#fff' : '#475569',
+                border: '1px solid #e2e8f0', fontWeight: 600
+              }}
+            >🔗 URL</button>
+            <button
+              type="button"
+              onClick={() => setImageUploadTab('file')}
+              style={{
+                padding: '4px 12px', borderRadius: 20, fontSize: 12, cursor: 'pointer',
+                background: imageUploadTab === 'file' ? '#0ea5a4' : '#f1f5f9',
+                color: imageUploadTab === 'file' ? '#fff' : '#475569',
+                border: '1px solid #e2e8f0', fontWeight: 600
+              }}
+            >📁 Tải lên</button>
+          </div>
+          {imageUploadTab === 'url' ? (
+            <input
+              className="cpm-input"
+              type="text"
+              placeholder="https://..."
+              value={data.image_url || ''}
+              onChange={e => setData({ ...data, image_url: e.target.value })}
+            />
+          ) : (
+            <div
+              onClick={() => document.getElementById('pkg-img-upload').click()}
+              style={{
+                border: '2px dashed #e2e8f0', borderRadius: 10, padding: 16,
+                textAlign: 'center', cursor: 'pointer', background: '#fafbfc'
+              }}
+            >
+              <div style={{ fontSize: 24, marginBottom: 4 }}>📷</div>
+              <p style={{ margin: 0, fontSize: 12, color: '#64748b' }}>Click để chọn ảnh</p>
+              <input
+                id="pkg-img-upload"
+                type="file"
+                accept="image/*"
+                style={{ display: 'none' }}
+                onChange={async e => {
+                  const file = e.target.files[0];
+                  if (!file) return;
+                  const fd = new FormData();
+                  fd.append('image', file);
+                  try {
+                    const res = await axios.post(
+                      `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/upload/image`,
+                      fd, { headers: { 'Content-Type': 'multipart/form-data' } }
+                    );
+                    setData({ ...data, image_url: res.data.url });
+                  } catch {
+                    alert('Upload ảnh thất bại');
+                  }
+                }}
+              />
+            </div>
+          )}
+          {data.image_url && (
+            <img
+              src={data.image_url} alt="preview"
+              style={{ width: '100%', maxHeight: 120, objectFit: 'contain', borderRadius: 8, marginTop: 8, border: '1px solid #e2e8f0' }}
+            />
+          )}
+        </div>
+      </div>
+
+      {/* Tính năng nổi bật */}
+      <div className="cpm-form-row">
+        <div className="cpm-form-group full">
+          <label>Tính năng nổi bật</label>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <input
+              className="cpm-input"
+              type="text"
+              placeholder="VD: Chat 24/7, Hỗ trợ tài liệu..."
+              value={featureInput}
+              onChange={e => setFeatureInput(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleAddFeature(); }}}
+            />
+            <button
+              type="button"
+              className="cpm-btn cpm-btn-primary"
+              onClick={handleAddFeature}
+              style={{ whiteSpace: 'nowrap' }}
+            >+ Thêm</button>
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 8 }}>
+            {(data.features || []).map((f, i) => (
+              <span key={i} style={{
+                background: '#e0f7f7', color: '#0d8f8e',
+                padding: '3px 10px', borderRadius: 20, fontSize: 12,
+                display: 'flex', alignItems: 'center', gap: 5
+              }}>
+                {f}
+                <button
+                  type="button"
+                  onClick={() => handleRemoveFeature(i)}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#0d8f8e', fontWeight: 700, fontSize: 14 }}
+                >×</button>
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 

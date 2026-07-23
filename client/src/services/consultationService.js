@@ -114,6 +114,11 @@ const consultationService = {
     return await api.get('/consultations/admin/realtime/incidents');
   },
 
+  // Bác sĩ/Bệnh nhân xem báo cáo sự cố do mình tạo ra
+  getMyIncidents: async (params = {}) => {
+    return await api.get('/consultations/my-reports', { params });
+  },
+
   // Bệnh nhân xem báo cáo của mình
   getMyReports: async (params = {}) => {
     return await api.get('/consultations/my-reports', { params });

@@ -23,7 +23,7 @@ const NotificationDropdown = () => {
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
-  const API_BASE_URL = 'http://localhost:3001';
+  const API_BASE_URL = process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001';
 
   useEffect(() => {
     fetchUnreadCount();
@@ -142,15 +142,36 @@ const NotificationDropdown = () => {
     }
   };
 
+  // SAU
   const handleNotificationClick = (notification) => {
     if (!notification.is_read) {
       markAsRead(notification.id);
     }
-    
+
     if (notification.link) {
-      navigate(notification.link);
+      const content = notification.content || notification.message || '';
+      const isResultNotif =
+        content.includes('gửi kết quả') ||
+        content.includes('đã gửi kết') ||
+        content.includes('hoàn thành. Bác sĩ');
+
+      const isOldConsultLink = isResultNotif && /\/tu-van\/\d+/.test(notification.link);
+
+      // Thông báo "Lịch tư vấn mới cần phê duyệt" từ admin/staff
+      const isNewConsultNotif =
+        content.includes('cần phê duyệt') ||
+        content.includes('Lịch tư vấn mới') ||
+        content.includes('tư vấn mới');
+
+      if (isOldConsultLink) {
+        navigate('/danh-sach-ho-so?tab=records');
+      } else if (isNewConsultNotif) {
+        navigate('/quan-ly-tu-van/realtime');
+      } else {
+        navigate(notification.link);
+      }
     }
-    
+
     setIsOpen(false);
   };
 

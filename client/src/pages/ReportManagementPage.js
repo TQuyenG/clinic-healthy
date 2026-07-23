@@ -9,7 +9,7 @@ import {
 } from 'react-icons/fa';
 import { FORUM_QUESTION_ROUTE } from '../utils/constants';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 
 const ReportManagementPage = () => {
   const navigate = useNavigate();

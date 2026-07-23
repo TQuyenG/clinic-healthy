@@ -498,3 +498,8 @@
   .cdp-info-grid { grid-template-columns: 1fr; }
   .cdp-title { font-size: 1.1rem; }
 }
+
+@keyframes cdp-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}

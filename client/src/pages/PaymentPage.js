@@ -70,7 +70,7 @@ const PaymentPage = () => {
   const fetchMyVouchers = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:3001/api/marketing/my-vouchers', {
+      const res = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/marketing/my-vouchers`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
@@ -257,7 +257,7 @@ const PaymentPage = () => {
     setApplyingVoucher(true);
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:3001/api/marketing/validate-voucher', {
+      const res = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/marketing/validate-voucher`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({
@@ -519,7 +519,7 @@ const PaymentPage = () => {
                       <div className="bank-transfer-layout">
                          <div className="qr-block">
                             <img 
-                                src={`https://img.vietqr.io/image/${config.bank.bank_name}-${config.bank.account_no}-compact.png?amount=${appliedVoucher ? appliedVoucher.final_amount : appointment.amount}&addInfo=TKPQT2 ${appointment.code}`}
+                                src={`https://img.vietqr.io/image/${config.bank.bank_name}-${config.bank.account_no}-compact.png?amount=${appliedVoucher ? appliedVoucher.final_amount : appointment.amount}&addInfo=${appointment.code}`}
                                 alt="VietQR" 
                             />
                             <span className="small-note">Quét bằng App Ngân hàng</span>
@@ -544,8 +544,8 @@ const PaymentPage = () => {
                             <div className="info-row highlight-box">
                                <span>Nội dung:</span> 
                                <div className="copy-wrapper">
-                                  <strong className="text-danger">TKPQT2 {appointment.code}</strong>
-                                  <FaCopy onClick={() => copyToClipboard(`TKPQT2 ${appointment.code}`)}/>
+                                  <strong className="text-danger">{appointment.code}</strong>
+                                  <FaCopy onClick={() => copyToClipboard(appointment.code)}/>
                                </div>
                             </div>
                             <div className="auto-check-msg">

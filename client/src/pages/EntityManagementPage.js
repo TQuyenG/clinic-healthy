@@ -17,7 +17,7 @@ import './EntityManagementPage.css';
 
 const EntityManagementPage = ({ entityType }) => {
   const navigate = useNavigate();
-  const API_BASE_URL = 'http://localhost:3001';
+  const API_BASE_URL = process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001';
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user'));
   const userRole = user?.role;

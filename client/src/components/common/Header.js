@@ -4,7 +4,7 @@ import { FaPhone, FaEnvelope, FaClock } from 'react-icons/fa';
 import axios from 'axios';
 import './Header.css';
 
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 
 const Header = () => {
   const [headerData, setHeaderData] = useState({

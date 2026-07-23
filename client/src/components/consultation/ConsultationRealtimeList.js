@@ -6,7 +6,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import consultationService from '../../services/consultationService';
 import { 
   FaSearch, FaCheckCircle, FaTimesCircle, FaEye, FaMoneyBillWave,
-  FaFileExport, FaSpinner, FaCalendarTimes, 
+  FaFileExport, FaSpinner, FaCalendarTimes, FaComments,
   FaClock, FaBan, FaCheck, FaHourglassHalf, FaStar, FaExclamationTriangle
 } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -177,6 +177,13 @@ export const ConsultationRealtimeList = ({ initialType, doctorId, role }) => {
     fetchConsultations();
   }, [fetchConsultations]);
 
+  // Tự reload khi consultation được complete từ phòng chat
+  useEffect(() => {
+    const handleReload = () => fetchConsultations();
+    window.addEventListener('consultation:reload_list', handleReload);
+    return () => window.removeEventListener('consultation:reload_list', handleReload);
+  }, [fetchConsultations]);
+
   const handleFilterChange = (field, value) => {
     setFilters(prev => ({ ...prev, [field]: value, page: 1 }));
   };
@@ -295,11 +302,18 @@ const handleReject = (code) => {
     setActionLoading(selectedConsultation.consultation_code);
     setIsCancelModalOpen(false);
     try {
-      await consultationService.adminCancelConfirmedConsultation(selectedConsultation.consultation_code, { 
-        reason: cancelReason.trim() || 'Admin hủy' 
-      });
+      const isPatient = role === 'patient' || user?.role === 'patient';
+      if (isPatient) {
+        await consultationService.cancelConsultation(selectedConsultation.id, { 
+          reason: cancelReason.trim() || 'Bệnh nhân hủy' 
+        });
+      } else {
+        await consultationService.adminCancelConfirmedConsultation(selectedConsultation.consultation_code, { 
+          reason: cancelReason.trim() || 'Admin hủy' 
+        });
+      }
       fetchConsultations();
-    } catch (error) { alert(error.message); } 
+    } catch (error) { alert(getErrMsg(error)); } 
     finally {
       setActionLoading(null);
       setSelectedConsultation(null);
@@ -555,13 +569,24 @@ const handleReject = (code) => {
                                       </button>
                                     )}
                                     {isCompleted(item) && (
-                                      <button
-                                        className="crl-btn-action info"
-                                        onClick={() => navigate(`/tu-van/${item.id}`)}
-                                        title={item.rating ? 'Xem đánh giá' : 'Đánh giá'}
-                                      >
-                                        <FaStar /> <span>{item.rating ? 'Xem đánh giá' : 'Đánh giá'}</span>
-                                      </button>
+                                      <>
+                                        <button
+                                          className="crl-btn-action info"
+                                          onClick={() => navigate(`/tu-van/${item.id}`)}
+                                          title={item.rating ? 'Xem đánh giá' : 'Đánh giá'}
+                                        >
+                                          <FaStar /> <span>{item.rating ? 'Xem đánh giá' : 'Đánh giá'}</span>
+                                        </button>
+                                        {item.consultation_type === 'chat' && (
+                                          <button
+                                            className="crl-btn-action view"
+                                            onClick={() => navigate(`/tu-van/${item.id}/chat`)}
+                                            title="Xem lại cuộc trò chuyện"
+                                          >
+                                            <FaComments /> <span>Xem lại chat</span>
+                                          </button>
+                                        )}
+                                      </>
                                     )}
                                   </>
                                 ) : (
@@ -591,6 +616,15 @@ const handleReject = (code) => {
                                         title="Vào phòng"
                                       >
                                         <FaCheck /> <span>Vào phòng</span>
+                                      </button>
+                                    )}
+                                    {item.status === 'completed' && item.consultation_type === 'chat' && (
+                                      <button
+                                        className="crl-btn-action view"
+                                        onClick={() => navigate(`/tu-van/${item.id}/chat`)}
+                                        title="Xem lại cuộc trò chuyện"
+                                      >
+                                        <FaComments /> <span>Xem lại chat</span>
                                       </button>
                                     )}
                                   </>

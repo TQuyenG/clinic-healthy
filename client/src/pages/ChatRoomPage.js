@@ -32,10 +32,17 @@ const ChatRoomPage = ({ isAIChatbot = false }) => {
     }
   }, [isAIChatbot]);
   const [otherUserTyping, setOtherUserTyping] = useState(false);
+const [otherUserOnline, setOtherUserOnline] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showInfoPanel, setShowInfoPanel] = useState(true);
+  const [needsPassword, setNeedsPassword] = useState(true); // Bắt buộc nhập pass khi vào
+  const [roomPassword, setRoomPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordVerified, setPasswordVerified] = useState(false);
+  const [verifyingPassword, setVerifyingPassword] = useState(false);
+  // Giữ lại để không lỗi tham chiếu
   const [needsOtp, setNeedsOtp] = useState(false);
   const [otp, setOtp] = useState('');
   const [otpError, setOtpError] = useState('');
@@ -43,7 +50,7 @@ const ChatRoomPage = ({ isAIChatbot = false }) => {
   const [timeRemaining, setTimeRemaining] = useState(null);
   const [showReportModal, setShowReportModal] = useState(false);
   const [reportData, setReportData] = useState({ 
-    report_type: '',
+    report_type: 'technical',
     description: ''
   });
   const [reportSuccess, setReportSuccess] = useState(false);
@@ -53,6 +60,9 @@ const ChatRoomPage = ({ isAIChatbot = false }) => {
 
   const [warning10MinShown, setWarning10MinShown] = useState(false);
   const [timeUpModalShown, setTimeUpModalShown] = useState(false);
+  const [preCountdown, setPreCountdown] = useState(null); // đếm ngược trước giờ hẹn (ms)
+  const [sessionExpired, setSessionExpired] = useState(false); // hết giờ → khóa chat
+  const warned2MinRef = useRef(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [showInRoomPanel, setShowInRoomPanel] = useState(searchParams.get('openResult') === '1');
@@ -169,6 +179,10 @@ const ChatRoomPage = ({ isAIChatbot = false }) => {
     // Join consultation room
     chatService.joinConsultation(consultationId);
 
+    // Khi mình vào phòng, giả định người kia có thể đang online
+    // Sẽ cập nhật chính xác khi nhận sự kiện user_joined/user_left
+    setOtherUserOnline(false); // reset trước
+
     // Register event listeners
     chatService.on('message', handleNewMessage);
     chatService.on('new_message', handleNewMessage); 
@@ -195,50 +209,53 @@ const ChatRoomPage = ({ isAIChatbot = false }) => {
   }, [messages]);
 
  // Đếm ngược thời gian tư vấn
-useEffect(() => {
-  if (!consultation || consultation.status !== 'in_progress') return;
-  // Nếu không có package/duration thì vẫn giữ timer cũ, không reset
-  if (!consultation.started_at || !consultation.package?.duration_minutes) {
-    setTimeRemaining(prev => prev); // giữ nguyên, không reset về null
-    return;
-  }
+  useEffect(() => {
+    if (!consultation?.appointment_time) return;
 
-  // Dùng ref để tránh closure stale, không cần đưa vào dependency
-  const warning10MinShownRef = { current: false };
-  const timeUpModalShownRef = { current: false };
+    const durationMinutes =
+      consultation.package?.duration_minutes ||
+      consultation.duration_minutes ||
+      30;
 
-  const startTime = new Date(consultation.started_at).getTime();
-  const duration = consultation.package.duration_minutes * 60 * 1000;
-  const endTime = startTime + duration;
+    const appointmentTime = new Date(consultation.appointment_time).getTime();
+    const durationMs = durationMinutes * 60 * 1000;
+    const endTime = appointmentTime + durationMs;
 
-  const timer = setInterval(() => {
-    const now = Date.now();
-    const remaining = endTime - now;
+    warned2MinRef.current = false;
 
-    if (remaining <= 0) {
-      setTimeRemaining(0);
-      clearInterval(timer);
+    const timer = setInterval(() => {
+      const now = Date.now();
+      const msToStart = appointmentTime - now;
 
-      if (user.role === 'doctor' && !timeUpModalShownRef.current) {
-        timeUpModalShownRef.current = true;
-        setTimeUpModalShown(true);
-        alert('Thời gian tư vấn đã hết. Vui lòng hoàn thành buổi tư vấn và gửi ghi chú cho bệnh nhân.');
+      if (msToStart > 0) {
+        // Chưa tới giờ hẹn → hiện đếm ngược trước giờ
+        setPreCountdown(msToStart);
+        setTimeRemaining(null);
+        setSessionExpired(false);
+      } else {
+        // Đã tới giờ hẹn → đếm ngược thời gian tư vấn
+        setPreCountdown(null);
+        const remaining = endTime - now;
+
+        if (remaining <= 0) {
+          setTimeRemaining(0);
+          setSessionExpired(true);
+          clearInterval(timer);
+        } else {
+          setTimeRemaining(remaining);
+          setSessionExpired(false);
+
+          // Cảnh báo còn 2 phút (120000ms)
+          if (remaining <= 120000 && !warned2MinRef.current) {
+            warned2MinRef.current = true;
+            alert('⏰ Còn 2 phút kết thúc buổi tư vấn!');
+          }
+        }
       }
-    } else {
-      setTimeRemaining(remaining);
+    }, 1000);
 
-      if (remaining <= 600000 && !warning10MinShownRef.current) {
-        warning10MinShownRef.current = true;
-        setWarning10MinShown(true);
-        const minutesLeft = Math.floor(remaining / 60000);
-        alert(`Thời gian tư vấn của bạn sắp hết. Còn khoảng ${minutesLeft} phút.`);
-      }
-    }
-  }, 1000);
-
-  return () => clearInterval(timer);
-}, [consultation?.id, consultation?.status]); // Chỉ re-run khi id hoặc status thay đổi
-
+    return () => clearInterval(timer);
+  }, [consultation?.appointment_time, consultation?.package?.duration_minutes, consultation?.duration_minutes]);
   // ========== KẾT THÚC ĐOẠN SỬA ==========
 
   // Format thời gian còn lại
@@ -251,6 +268,39 @@ useEffect(() => {
   };
 
   // XỬ LÝ OTP
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+    setPasswordError('');
+    if (!roomPassword) {
+      setPasswordError('Vui lòng nhập mật khẩu');
+      return;
+    }
+    try {
+      setVerifyingPassword(true);
+      const token = localStorage.getItem('token');
+      const API_BASE = process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001';
+      const res = await fetch(`${API_BASE}/api/consultations/${consultationId}/verify-password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ password: roomPassword })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setPasswordVerified(true);
+        setNeedsPassword(false);
+      } else {
+        setPasswordError(data.message || 'Mật khẩu không chính xác');
+      }
+    } catch (err) {
+      setPasswordError('Lỗi kết nối, vui lòng thử lại');
+    } finally {
+      setVerifyingPassword(false);
+    }
+  };
+
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
     setOtpError('');
@@ -283,11 +333,18 @@ useEffect(() => {
   // Handle user joined
   const handleUserJoined = (data) => {
     console.log('User joined:', data);
+    const otherUserId = getOtherUserId();
+    if (data?.user_id && parseInt(data.user_id) === parseInt(otherUserId)) {
+      setOtherUserOnline(true);
+    }
   };
 
-  // Handle user left
   const handleUserLeft = (data) => {
     console.log('User left:', data);
+    const otherUserId = getOtherUserId();
+    if (data?.user_id && parseInt(data.user_id) === parseInt(otherUserId)) {
+      setOtherUserOnline(false);
+    }
   };
 
   // Send message
@@ -492,7 +549,88 @@ useEffect(() => {
 
   const otherUser = getOtherUser();
 
-  
+  // Hiện màn hình nhập mật khẩu nếu chưa xác thực
+  if (!passwordVerified) {
+    return (
+      <div style={{
+        minHeight: '100vh', display: 'flex', alignItems: 'center',
+        justifyContent: 'center', background: '#f0f9ff'
+      }}>
+        <div style={{
+          background: '#fff', borderRadius: '16px', padding: '40px 32px',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.12)', width: '100%', maxWidth: '400px'
+        }}>
+          <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+            <div style={{
+              width: '64px', height: '64px', background: '#eff6ff',
+              borderRadius: '50%', display: 'flex', alignItems: 'center',
+              justifyContent: 'center', margin: '0 auto 16px', fontSize: '28px'
+            }}>🔒</div>
+            <h2 style={{ margin: '0 0 8px', fontSize: '1.3rem', fontWeight: 700, color: '#1e3a5f' }}>
+              Xác thực để vào phòng
+            </h2>
+            <p style={{ margin: 0, color: '#6b7280', fontSize: '0.9rem' }}>
+              Nhập mật khẩu đăng nhập của bạn để tiếp tục
+            </p>
+          </div>
+
+          <form onSubmit={handlePasswordSubmit}>
+            <div style={{ marginBottom: '16px' }}>
+              <label style={{
+                display: 'block', fontWeight: 600, fontSize: '0.85rem',
+                color: '#374151', marginBottom: '6px'
+              }}>
+                Mật khẩu tài khoản
+              </label>
+              <input
+                type="password"
+                value={roomPassword}
+                onChange={e => { setRoomPassword(e.target.value); setPasswordError(''); }}
+                placeholder="Nhập mật khẩu đăng nhập..."
+                autoFocus
+                style={{
+                  width: '100%', padding: '10px 14px', borderRadius: '8px',
+                  border: passwordError ? '1.5px solid #ef4444' : '1.5px solid #d1d5db',
+                  fontSize: '0.95rem', boxSizing: 'border-box', outline: 'none'
+                }}
+              />
+              {passwordError && (
+                <p style={{ margin: '6px 0 0', color: '#ef4444', fontSize: '0.82rem' }}>
+                  {passwordError}
+                </p>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              disabled={verifyingPassword || !roomPassword}
+              style={{
+                width: '100%', padding: '11px', borderRadius: '8px', border: 'none',
+                background: verifyingPassword || !roomPassword ? '#bfdbfe' : '#2563eb',
+                color: '#fff', fontWeight: 700, fontSize: '0.95rem',
+                cursor: verifyingPassword || !roomPassword ? 'not-allowed' : 'pointer'
+              }}
+            >
+              {verifyingPassword ? 'Đang xác thực...' : 'Vào phòng tư vấn'}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              style={{
+                width: '100%', padding: '10px', borderRadius: '8px',
+                border: '1.5px solid #d1d5db', background: '#fff',
+                color: '#374151', fontWeight: 600, fontSize: '0.9rem',
+                cursor: 'pointer', marginTop: '10px'
+              }}
+            >
+              Quay lại
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="chatroompage-container">
@@ -518,8 +656,14 @@ useEffect(() => {
                 </>
               ) : (
                 <>
-                  <span className={`chatroompage-header-status-dot ${consultation?.status === 'in_progress' ? 'chatroompage-header-status-online' : ''}`}></span>
-                  {consultation?.status === 'in_progress' ? 'Đang hoạt động' : 'Không hoạt động'}
+                  <span className={`chatroompage-header-status-dot ${
+                    otherUserOnline || ['confirmed', 'in_progress'].includes(consultation?.status)
+                      ? 'chatroompage-header-status-online' 
+                      : ''
+                  }`}></span>
+                  {otherUserOnline || ['confirmed', 'in_progress'].includes(consultation?.status)
+                    ? 'Đang hoạt động' 
+                    : 'Không hoạt động'}
                 </>
               )}
             </span>
@@ -527,13 +671,29 @@ useEffect(() => {
         </div>
 
         <div className="chatroompage-header-actions">
-          {consultation?.status === 'in_progress' && (
-            <div className={`chatroompage-header-timer ${timeRemaining !== null && timeRemaining < 300000 ? 'chatroompage-header-timer-warning' : ''}`}>
+          {/* Đếm ngược trước giờ hẹn */}
+          {preCountdown !== null && preCountdown > 0 && (
+            <div className="chatroompage-header-timer">
               <i className="fas fa-clock"></i>
-              <span>{timeRemaining !== null ? formatTimeRemaining(timeRemaining) : '--:--'}</span>
+              <span>Bắt đầu sau {formatTimeRemaining(preCountdown)}</span>
             </div>
           )}
 
+          {/* Đếm ngược thời gian tư vấn */}
+          {preCountdown === null && timeRemaining !== null && timeRemaining > 0 && (
+            <div className={`chatroompage-header-timer ${timeRemaining < 120000 ? 'chatroompage-header-timer-warning' : ''}`}>
+              <i className="fas fa-clock"></i>
+              <span>Còn {formatTimeRemaining(timeRemaining)}</span>
+            </div>
+          )}
+
+          {/* Hết giờ */}
+          {sessionExpired && (
+            <div className="chatroompage-header-timer chatroompage-header-timer-warning">
+              <i className="fas fa-clock"></i>
+              <span>Hết giờ tư vấn</span>
+            </div>
+          )}
           {user.role === 'doctor' && ['confirmed', 'in_progress'].includes(consultation?.status) && (
             <button
               className="chatroompage-header-end-button"
@@ -618,12 +778,21 @@ useEffect(() => {
             </div>
           )}
 
+          {sessionExpired && (
+            <div style={{
+              padding: '12px 20px', background: '#fee2e2',
+              borderTop: '1px solid #fca5a5', textAlign: 'center',
+              fontSize: '14px', color: '#991b1b', fontWeight: 600
+            }}>
+              ⏰ Buổi tư vấn đã kết thúc. Bạn không thể gửi thêm tin nhắn.
+            </div>
+          )}
           <ChatInput
             value={inputValue}
             onChange={setInputValue}
             onSend={handleSendMessage}
             onTyping={handleUserTyping}
-            disabled={uploading || consultation?.status === 'completed'}
+            disabled={uploading || consultation?.status === 'completed' || sessionExpired}
             uploading={uploading}
             replyingTo={replyingTo} 
             onCancelReply={() => setReplyingTo(null)} 
@@ -762,13 +931,14 @@ useEffect(() => {
       {/* Report Modal */}
       {/* In-room result panel (embedded medical form) */}
       {showInRoomPanel && (
-        <InRoomResultPanel
-          consultationId={consultation?.id}
-          consultationCode={consultation?.consultation_code}
-          appointmentCode={consultation?.appointment_code}
-          onClose={closeInRoomPanel}
-        />
-      )}
+          <InRoomResultPanel
+            consultationId={consultation?.id}
+            consultationCode={consultation?.consultation_code}
+            appointmentCode={consultation?.appointment_code}
+            onClose={closeInRoomPanel}
+            onSuccess={() => { closeInRoomPanel(); loadConsultationData(); }}
+          />
+        )}
       {showReportModal && (
         <div className="chatroompage-modal-overlay">
           <div className="chatroompage-modal-content">
@@ -972,6 +1142,7 @@ useEffect(() => {
                         await consultationService.completeConsultation(consultationId, {
                           diagnosis: consultation.diagnosis
                         });
+                        window.dispatchEvent(new CustomEvent('consultation:reload_list'));
                         setShowEndConfirmModal(false);
                         navigate('/lich-hen-cua-toi');
                       } catch (err) {

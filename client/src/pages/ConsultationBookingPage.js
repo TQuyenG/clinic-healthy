@@ -112,7 +112,7 @@ const ConsultationBookingPage = () => {
   const selectedDoctorCardImage = selectedDoctor?.avatar_url
     ? (selectedDoctor.avatar_url.startsWith('http')
       ? selectedDoctor.avatar_url
-      : `http://localhost:3001${selectedDoctor.avatar_url.startsWith('/') ? '' : '/'}${selectedDoctor.avatar_url}`)
+      : `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${selectedDoctor.avatar_url.startsWith('/') ? '' : '/'}${selectedDoctor.avatar_url}`)
     : require('../assets/images/avatar-default.jpg');
 
   const normalizedSearch = searchTerm.trim().toLowerCase();

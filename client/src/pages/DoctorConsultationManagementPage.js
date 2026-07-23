@@ -55,12 +55,25 @@ const DoctorConsultationManagementPage = ({ isAdminView = false }) => {
   });
 
   const fetchData = useCallback(async () => {
-    try {} catch (error) {
+    try {
+      setLoading(true);
+      const params = { page: filters.page, limit: filters.limit };
+      const res = isAdminView
+        ? await consultationService.getAllConsultationsRealtime(params)
+        : await consultationService.getDoctorConsultations(params);
+
+      if (res.data.success) {
+        const data = isAdminView
+          ? res.data.data.consultations
+          : res.data.data;
+        setConsultations(Array.isArray(data) ? data : []);
+      }
+    } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
       setLoading(false);
     }
-  }, [isAdminView, filters.page, filters.limit]); // Đã bổ sung dependency để tránh warning
+  }, [isAdminView, filters.page, filters.limit]);
 
   useEffect(() => {
     fetchData();
@@ -221,11 +234,27 @@ const DoctorConsultationManagementPage = ({ isAdminView = false }) => {
           </button>
         )}
 
-        {consultation.status === 'completed' && (
-          <button 
+        {consultation.status === 'completed' && !consultation.diagnosis && (
+          <button
+            className="dcm-btn dcm-btn-primary"
+            style={{ background: '#dc2626', position: 'relative' }}
+            onClick={() => navigate(`/tu-van/video/${consultation.id}?openResult=1`)}
+            title="Chưa nhập kết quả"
+          >
+            <span style={{
+              position: 'absolute', top: -6, right: -6,
+              width: 10, height: 10, borderRadius: '50%',
+              background: '#ff4444', border: '2px solid #fff'
+            }} />
+            <FaStethoscope /> Nhập kết quả
+          </button>
+        )}
+
+        {consultation.status === 'completed' && consultation.diagnosis && (
+          <button
             className="dcm-btn dcm-btn-icon warning"
-            onClick={() => navigate(consultation.consultation_type === 'video' ? `/tu-van/video/${consultation.id}` : `/tu-van/${consultation.id}/chat`)}
-            title="Lịch sử"
+            onClick={() => navigate(`/tu-van/${consultation.id}`)}
+            title="Xem lịch sử"
           >
             <FaHistory />
           </button>

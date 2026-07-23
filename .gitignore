@@ -1,8 +1,11 @@
-node_modules/
+﻿node_modules/
 .env
-client/build/
-server/logs/
+.env.local
+build/
+dist/
 *.log
-server/uploads/images/
-server/uploads/medical-files/
-server/.env
+.DS_Store
+server.zip
+server/uploads/
+_fix_localhost_log.txt
+fix_all_localhost.py

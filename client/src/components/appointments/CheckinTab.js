@@ -854,7 +854,7 @@ const CheckinTab = () => {
     if (!window.confirm('Bạn chắc chắn muốn hủy cuộc hẹn này?')) return;
     try {
       const token = localStorage.getItem('token');
-      await fetch(`http://localhost:3001/api/appointments/${appointmentId}/status`, {
+      await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/appointments/${appointmentId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

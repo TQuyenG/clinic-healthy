@@ -1,6 +1,7 @@
 // client/src/components/common/Chatbot.js
 
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   FaComments, 
   FaTimes, 
@@ -17,59 +18,110 @@ import {
   FaStethoscope,
   FaQuestionCircle,
   FaVideo,
-  FaHospital
+  FaHospital,
+  FaTrash
 } from 'react-icons/fa';
 import './Chatbot.css';
 import chatService from '../../services/chatService'; 
 
-const Chatbot = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [showScrollTop, setShowScrollTop] = useState(false);
-  const [showGreeting, setShowGreeting] = useState(true);
-  const MAX_RETRY_ATTEMPTS = 2;
+// ✅ Key lưu lịch sử vào localStorage
+const CHAT_HISTORY_KEY = 'chatbot_history';
+const MAX_HISTORY = 100; // Giới hạn số tin nhắn lưu
 
-  // Expose function để mở chatbot từ các nút khác trên trang web (VD: nút "Hỏi bác sĩ" ở trang chủ)
-  useEffect(() => {
-    window.openChatbot = () => {
-      setIsOpen(true);
-    };
-    
-    return () => {
-      delete window.openChatbot;
-    };
-  }, []);
-
-  // Hide greeting tooltip after 4 seconds - show only once
-  useEffect(() => {
-    if (showGreeting) {
-      const timer = setTimeout(() => {
-        setShowGreeting(false);
-      }, 4000);
-      return () => clearTimeout(timer);
+const getInitialMessages = () => {
+  try {
+    const saved = localStorage.getItem(CHAT_HISTORY_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
     }
-  }, [showGreeting]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 240);
-    };
-
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const [messages, setMessages] = useState([
+  } catch (_) {}
+  return [
     {
       id: 1,
       text: 'Xin chào! Tôi là trợ lý AI thông minh của Easy Medify. Bạn đang gặp vấn đề gì về sức khỏe, hoặc cần tôi hỗ trợ thông tin gì về phòng khám?',
       sender: 'bot',
       time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })
     }
-  ]);
+  ];
+};
+
+const Chatbot = () => {
+  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [showGreeting, setShowGreeting] = useState(true);
+  const MAX_RETRY_ATTEMPTS = 2;
+
+  // Drag state
+  const [dragPos, setDragPos] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStart = useRef({ mouseX: 0, mouseY: 0, elX: 0, elY: 0 });
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    dragStart.current = {
+      mouseX: e.clientX,
+      mouseY: e.clientY,
+      elX: dragPos.x,
+      elY: dragPos.y,
+    };
+    e.preventDefault();
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    setDragPos({
+      x: dragStart.current.elX + (e.clientX - dragStart.current.mouseX),
+      y: dragStart.current.elY + (e.clientY - dragStart.current.mouseY),
+    });
+  };
+
+  const handleMouseUp = () => setIsDragging(false);
+
+  useEffect(() => {
+    if (isDragging) {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+    }
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging]);
+
+  useEffect(() => {
+    window.openChatbot = () => setIsOpen(true);
+    return () => { delete window.openChatbot; };
+  }, []);
+
+  useEffect(() => {
+    if (showGreeting) {
+      const timer = setTimeout(() => setShowGreeting(false), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [showGreeting]);
+
+  useEffect(() => {
+    const handleScroll = () => setShowScrollTop(window.scrollY > 240);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // ✅ Khởi tạo messages từ localStorage
+  const [messages, setMessages] = useState(getInitialMessages);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
+
+  // ✅ Lưu lịch sử vào localStorage mỗi khi messages thay đổi
+  useEffect(() => {
+    try {
+      const toSave = messages.slice(-MAX_HISTORY);
+      localStorage.setItem(CHAT_HISTORY_KEY, JSON.stringify(toSave));
+    } catch (_) {}
+  }, [messages]);
 
   const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -78,7 +130,6 @@ const Chatbot = () => {
     return !status || status === 429 || status === 503 || status >= 500;
   };
 
-  // Auto scroll to bottom khi có tin nhắn mới
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -87,13 +138,22 @@ const Chatbot = () => {
     scrollToBottom();
   }, [messages]);
 
-  // Xử lý gửi tin nhắn tới Backend (Gemini AI)
+  // ✅ Xóa lịch sử chat
+  const handleClearHistory = () => {
+    const initial = [{
+      id: Date.now(),
+      text: 'Lịch sử chat đã được xóa. Xin chào! Tôi có thể giúp gì cho bạn?',
+      sender: 'bot',
+      time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })
+    }];
+    setMessages(initial);
+    localStorage.removeItem(CHAT_HISTORY_KEY);
+  };
+
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    
     if (inputMessage.trim() === '') return;
 
-    // Thêm tin nhắn của user vào UI
     const userMessage = {
       id: Date.now(), 
       text: inputMessage,
@@ -103,7 +163,22 @@ const Chatbot = () => {
 
     setMessages(prev => [...prev, userMessage]);
     setInputMessage('');
-    setIsTyping(true); // Hiển thị hiệu ứng AI đang xử lý
+    setIsTyping(true);
+
+    // ✅ Kiểm tra điều hướng nhanh TRƯỚC khi gọi AI
+    const quickRoute = getQuickRoute(inputMessage.trim());
+    if (quickRoute) {
+      setIsTyping(false);
+      setMessages(prev => [...prev, {
+        id: Date.now() + 1,
+        text: quickRoute.message,
+        sender: 'bot',
+        navRoute: quickRoute.route,
+        navLabel: quickRoute.label,
+        time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })
+      }]);
+      return;
+    }
 
     try {
       let response = null;
@@ -111,48 +186,37 @@ const Chatbot = () => {
 
       for (let attempt = 0; attempt <= MAX_RETRY_ATTEMPTS; attempt += 1) {
         try {
-          // Gọi API Gemini
           response = await chatService.sendAIMessage(userMessage.text);
           finalError = null;
           break;
         } catch (error) {
           finalError = error;
-          if (!isRetryableAIError(error) || attempt === MAX_RETRY_ATTEMPTS) {
-            break;
-          }
-
+          if (!isRetryableAIError(error) || attempt === MAX_RETRY_ATTEMPTS) break;
           setMessages(prev => [...prev, {
             id: Date.now() + attempt + 100,
             text: `AI đang bận, hệ thống sẽ thử lại (${attempt + 1}/${MAX_RETRY_ATTEMPTS})...`,
             sender: 'bot',
             time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })
           }]);
-
           await wait(Math.min(1500 * (attempt + 1), 3500));
         }
       }
 
-      if (!response) {
-        throw finalError || new Error('Không thể nhận phản hồi từ AI');
-      }
+      if (!response) throw finalError || new Error('Không thể nhận phản hồi từ AI');
 
       const aiData = response.data?.data;
-
-      // Xây dựng tin nhắn phản hồi của bot
-      const botMessage = {
+      setMessages(prev => [...prev, {
         id: Date.now() + 1,
         text: aiData?.text || 'Xin lỗi, tôi chưa thể xử lý yêu cầu lúc này.',
         sender: 'bot',
-        action: aiData?.suggested_action, // BOOK_OFFLINE hoặc BOOK_ONLINE
+        action: aiData?.suggested_action,
         specialtyData: {
           id: aiData?.suggested_specialty_id,
           name: aiData?.suggested_specialty_name
         },
-        packageId: aiData?.suggested_package_id, // Lấy ID gói online
+        packageId: aiData?.suggested_package_id,
         time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })
-      };
-      
-      setMessages(prev => [...prev, botMessage]);
+      }]);
     } catch (error) {
       console.error("AI Error:", error);
       setMessages(prev => [...prev, {
@@ -162,25 +226,84 @@ const Chatbot = () => {
         time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })
       }]);
     } finally {
-      setIsTyping(false); // Tắt hiệu ứng xử lý
+      setIsTyping(false);
     }
   };
 
-  // Hàm chuyển hướng đi đặt lịch trực tiếp tại phòng khám
+  // ✅ Map từ khóa → route đúng trong hệ thống
+  const getQuickRoute = (text) => {
+    const lower = text.toLowerCase();
+
+    if (lower.includes('đặt lịch khám') || lower.includes('lịch khám')) {
+      return {
+        route: '/dat-lich-kham',
+        label: 'Đến trang đặt lịch khám',
+        message: 'Tôi sẽ dẫn bạn đến trang đặt lịch khám trực tiếp tại phòng khám.'
+      };
+    }
+    if (lower.includes('tư vấn') || lower.includes('tu van') || lower.includes('online')) {
+      return {
+        route: '/tu-van',
+        label: 'Đến trang tư vấn online',
+        message: 'Tôi sẽ dẫn bạn đến trang đặt lịch tư vấn trực tuyến với bác sĩ.'
+      };
+    }
+    if (lower.includes('bác sĩ') || lower.includes('bac si') || lower.includes('danh sách bác sĩ')) {
+      return {
+        route: '/bac-si',
+        label: 'Xem danh sách bác sĩ',
+        message: 'Đây là danh sách bác sĩ của phòng khám Easy Medify.'
+      };
+    }
+    if (lower.includes('dịch vụ') || lower.includes('chi phí') || lower.includes('giá')) {
+      return {
+        route: '/dich-vu',
+        label: 'Xem dịch vụ & chi phí',
+        message: 'Tôi sẽ dẫn bạn đến trang danh sách dịch vụ và bảng giá chi tiết.'
+      };
+    }
+    if (lower.includes('giờ làm việc') || lower.includes('địa chỉ') || lower.includes('liên hệ')) {
+      return {
+        route: '/lien-he',
+        label: 'Xem thông tin liên hệ',
+        message: 'Phòng khám làm việc T2-T7: 7:00-20:00, CN: 8:00-17:00. Bạn có thể xem địa chỉ chi tiết tại đây.'
+      };
+    }
+    if (lower.includes('cấp cứu') || lower.includes('khẩn cấp')) {
+      return {
+        route: '/lien-he',
+        label: 'Liên hệ khẩn cấp',
+        message: '🚨 Trường hợp khẩn cấp, vui lòng gọi ngay: 1900 1234 (24/7). Hoặc đến phòng cấp cứu gần nhất.'
+      };
+    }
+    if (lower.includes('hồ sơ') || lower.includes('lịch sử khám') || lower.includes('kết quả')) {
+      return {
+        route: '/ho-so-suc-khoe',
+        label: 'Xem hồ sơ sức khỏe',
+        message: 'Tôi sẽ dẫn bạn đến trang hồ sơ sức khỏe của bạn.'
+      };
+    }
+    return null;
+  };
+
+  // ✅ Điều hướng đúng route
+  const handleNavigate = (route) => {
+    setIsOpen(false);
+    navigate(route);
+  };
+
+  // ✅ Route đúng cho đặt lịch offline
   const handleBookOffline = (specialtyId) => {
     setIsOpen(false);
-    // Dẫn link tới trang đặt lịch khám offline của bạn
-    window.location.href = `/dat-lich?specialty_id=${specialtyId || ''}`; 
+    navigate(`/dat-lich-kham${specialtyId ? `?specialty_id=${specialtyId}` : ''}`);
   };
 
-  // Hàm chuyển hướng đi đặt lịch tư vấn Online (Video/Chat)
+  // ✅ Route đúng cho tư vấn online
   const handleBookOnline = (packageId) => {
     setIsOpen(false);
-    // Dẫn link tới trang đặt lịch tư vấn từ xa
-    window.location.href = `/tu-van-truc-tuyen?package_id=${packageId || ''}`; 
+    navigate(`/tu-van${packageId ? `?package_id=${packageId}` : ''}`);
   };
 
-  // Quick reply buttons gợi ý cho tin nhắn đầu tiên
   const quickReplies = [
     { text: 'Tư vấn triệu chứng bệnh', icon: FaStethoscope },
     { text: 'Đặt lịch khám', icon: FaCalendarAlt },
@@ -211,10 +334,14 @@ const Chatbot = () => {
         </button>
       )}
 
-      {/* Chat Button (Nút nổi góc màn hình) */}
       <button
-        className={`chatbot-toggle-btn ${isOpen ? 'open' : ''}`}
-        onClick={() => setIsOpen(!isOpen)}
+        className={`chatbot-toggle-btn ${isOpen ? 'open' : ''} ${isDragging ? 'dragging' : ''}`}
+        onMouseDown={handleMouseDown}
+        onClick={() => { if (!isDragging) setIsOpen(!isOpen); }}
+        style={{
+          transform: `translate(${dragPos.x}px, ${dragPos.y}px)`,
+          cursor: isDragging ? 'grabbing' : 'grab',
+        }}
         aria-label="Mở chat hỗ trợ"
       >
         {isOpen ? <FaTimes /> : <FaComments />}
@@ -225,7 +352,6 @@ const Chatbot = () => {
         )}
       </button>
 
-      {/* Chat Window (Khung chat chính) */}
       {isOpen && (
         <div className="chatbot-window">
           {/* Header */}
@@ -242,13 +368,24 @@ const Chatbot = () => {
                 </div>
               </div>
             </div>
-            <button 
-              className="chatbot-close-icon-btn" 
-              onClick={() => setIsOpen(false)}
-              aria-label="Đóng cửa sổ chat"
-            >
-              <FaTimes />
-            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              {/* ✅ Nút xóa lịch sử */}
+              <button
+                className="chatbot-close-icon-btn"
+                onClick={handleClearHistory}
+                title="Xóa lịch sử chat"
+                aria-label="Xóa lịch sử chat"
+              >
+                <FaTrash style={{ fontSize: 15 }} />
+              </button>
+              <button 
+                className="chatbot-close-icon-btn" 
+                onClick={() => setIsOpen(false)}
+                aria-label="Đóng cửa sổ chat"
+              >
+                <FaTimes />
+              </button>
+            </div>
           </div>
 
           {/* Messages Body */}
@@ -268,7 +405,18 @@ const Chatbot = () => {
                   <div className="chatbot-bubble">
                     <p>{message.text}</p>
                     
-                    {/* Render UI Động từ AI: Thẻ Gợi ý Khám TRỰC TIẾP (OFFLINE) */}
+                    {/* ✅ Nút điều hướng nhanh (từ getQuickRoute) */}
+                    {message.sender === 'bot' && message.navRoute && (
+                      <button
+                        className="action-card-btn"
+                        style={{ marginTop: 10, background: '#16a34a' }}
+                        onClick={() => handleNavigate(message.navRoute)}
+                      >
+                        <FaCalendarAlt /> {message.navLabel}
+                      </button>
+                    )}
+
+                    {/* Thẻ đặt lịch OFFLINE từ AI */}
                     {message.sender === 'bot' && message.action === 'BOOK_OFFLINE' && (
                       <div className="chatbot-action-card" style={{ borderColor: '#86efac' }}>
                         <div className="action-card-info" style={{ color: '#166534' }}>
@@ -291,7 +439,7 @@ const Chatbot = () => {
                       </div>
                     )}
 
-                    {/* Render UI Động từ AI: Thẻ Gợi ý Tư vấn ONLINE (VIDEO/CHAT) */}
+                    {/* Thẻ đặt lịch ONLINE từ AI */}
                     {message.sender === 'bot' && message.action === 'BOOK_ONLINE' && (
                       <div className="chatbot-action-card" style={{ borderColor: '#bbf7d0' }}>
                         <div className="action-card-info" style={{ color: '#166534' }}>
@@ -310,7 +458,6 @@ const Chatbot = () => {
                         </button>
                       </div>
                     )}
-
                   </div>
                   <span className="chatbot-time">{message.time}</span>
                 </div>
@@ -323,7 +470,6 @@ const Chatbot = () => {
               </div>
             ))}
             
-            {/* Hiệu ứng AI đang suy nghĩ */}
             {isTyping && (
               <div className="chatbot-message-row bot typing">
                 <div className="chatbot-avatar bot-msg-avatar">
@@ -342,7 +488,7 @@ const Chatbot = () => {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Quick Replies - Gợi ý khi mới mở chat */}
+          {/* Quick Replies */}
           {messages.length <= 1 && (
             <div className="chatbot-quick-replies">
               <p className="quick-reply-title">Chọn câu hỏi nhanh hoặc nhập triệu chứng:</p>
@@ -364,7 +510,7 @@ const Chatbot = () => {
             </div>
           )}
 
-          {/* Input Form Footer */}
+          {/* Input Footer */}
           <form id="chatbot-form" className="chatbot-input-area" onSubmit={handleSendMessage}>
             <input
               type="text"

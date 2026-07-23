@@ -66,7 +66,7 @@ const CategoryManagementPage = () => {
   const fetchCategories = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:3001/api/categories');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/categories`);
       if (response.data.success) setCategories(response.data.categories);
     } catch (error) {
       alert('Không thể tải dữ liệu danh mục.');
@@ -101,7 +101,7 @@ const CategoryManagementPage = () => {
       formDataUpload.append('image', file);
 
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3001/api/upload/image', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/upload/image`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -171,8 +171,8 @@ const CategoryManagementPage = () => {
     try {
       const token = localStorage.getItem('token');
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      if (editMode && currentCategory) await axios.put(`http://localhost:3001/api/categories/${currentCategory.id}`, formData, config);
-      else await axios.post('http://localhost:3001/api/categories', formData, config);
+      if (editMode && currentCategory) await axios.put(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/categories/${currentCategory.id}`, formData, config);
+      else await axios.post(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/categories`, formData, config);
       alert('Lưu thành công!'); fetchCategories(); closeModals();
     } catch (error) { alert('Có lỗi xảy ra khi lưu!'); }
   };
@@ -181,7 +181,7 @@ const CategoryManagementPage = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.put('http://localhost:3001/api/categories/bulk/bulk-ads', bulkData, { headers: { Authorization: `Bearer ${token}` } });
+      const res = await axios.put(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/categories/bulk/bulk-ads`, bulkData, { headers: { Authorization: `Bearer ${token}` } });
       alert(res.data.message); fetchCategories(); closeModals();
     } catch (error) { alert('Có lỗi xảy ra khi áp dụng hàng loạt!'); }
   };
@@ -189,7 +189,7 @@ const CategoryManagementPage = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Chắc chắn muốn xóa danh mục này?')) {
       try {
-        await axios.delete(`http://localhost:3001/api/categories/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+        await axios.delete(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/categories/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
         alert('Xóa thành công!'); fetchCategories();
       } catch (error) { alert(error.response?.data?.message || 'Lỗi xóa!'); }
     }

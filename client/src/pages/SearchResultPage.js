@@ -13,7 +13,7 @@ import './SearchResultPage.css';
 const SearchResultPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const API_BASE_URL = 'http://localhost:3001';
+  const API_BASE_URL = process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001';
   
   const query = searchParams.get('q') || '';
   const type = searchParams.get('type') || 'all';

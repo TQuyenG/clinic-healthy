@@ -16,7 +16,7 @@ import {
 import axios from 'axios';
 import './Footer.css';
 
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();

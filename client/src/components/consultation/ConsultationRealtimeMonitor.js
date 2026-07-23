@@ -21,8 +21,23 @@ import {
 import './ConsultationRealtimeMonitor.css';
 
 // Component Card Sự cố (Đã đổi class name)
-const IncidentCard = ({ report, onResolve, onAction }) => {
-  
+const IncidentCard = ({ report, onResolve, onAction, isReadOnly = false }) => {
+  const [showMessages, setShowMessages] = React.useState(false);
+  const [messages, setMessages] = React.useState([]);
+  const [msgLoading, setMsgLoading] = React.useState(false);
+
+  const handleViewMessages = async () => {
+    if (showMessages) { setShowMessages(false); return; }
+    setShowMessages(true);
+    if (messages.length > 0) return;
+    try {
+      setMsgLoading(true);
+      const res = await consultationService.getMyConsultationMessages(report.consultation_id || report.consultation?.id);
+      setMessages((res.data.data || []).filter(m => m.is_system_message || m.message_type === 'system'));
+    } catch { setMessages([]); }
+    finally { setMsgLoading(false); }
+  };
+
   const INCIDENT_META = {
     technical:        { icon: <FaHeadset />,          title: "Lỗi kỹ thuật" },
     behavior:         { icon: <FaUserShield />,        title: "Vấn đề thái độ/hành vi" },
@@ -61,52 +76,145 @@ const IncidentCard = ({ report, onResolve, onAction }) => {
       
       {/* Thân Card */}
       <div className="consultation-realtime-monitor-card-body">
-        <p className="consultation-realtime-monitor-card-description">
-          <strong>Ghi chú:</strong> {report.description}
-        </p>
-        <div className="consultation-realtime-monitor-card-meta">
-          <span><strong>Mã phiên:</strong> {consultation?.consultation_code}</span>
-          <span><strong>Người báo cáo:</strong> {report.reporter?.full_name} (ID: {report.reporter_id})</span>
+
+        {/* Grid thông tin chi tiết — hiển thị cho cả admin lẫn bác sĩ */}
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1fr 1fr',
+          gap: '5px 16px', marginBottom: 10,
+          background: '#f8fafc', borderRadius: 8, padding: '10px 14px', fontSize: 13
+        }}>
+          <div><span style={{color:'#888'}}>📋 Mã phiên: </span>
+            <strong>{consultation?.consultation_code || 'N/A'}</strong></div>
+          <div><span style={{color:'#888'}}>⏰ Giờ báo cáo: </span>
+            <strong>{new Date(report.created_at).toLocaleString('vi-VN')}</strong></div>
+          <div><span style={{color:'#888'}}>📅 Giờ hẹn: </span>
+            <strong>{consultation?.appointment_time
+              ? new Date(consultation.appointment_time).toLocaleString('vi-VN')
+              : 'N/A'}</strong></div>
+          <div><span style={{color:'#888'}}>🎁 Gói tư vấn: </span>
+            <strong>{consultation?.package?.package_name ||
+              consultation?.consultation_type?.toUpperCase() || 'N/A'}</strong></div>
+          <div><span style={{color:'#888'}}>👤 Người báo cáo: </span>
+            <strong>{report.reporter?.full_name || 'N/A'} (ID: {report.reporter_id})</strong></div>
+          <div><span style={{color:'#888'}}>🩺 Bác sĩ phụ trách: </span>
+            <strong>{consultation?.doctor?.full_name || 'N/A'}</strong></div>
+          <div><span style={{color:'#888'}}>🏥 Bệnh nhân: </span>
+            <strong>{consultation?.patient?.full_name || 'N/A'}</strong></div>
+          <div><span style={{color:'#888'}}>⚡ Mức độ: </span>
+            <strong style={{color: report.priority === 'urgent' ? '#e74c3c' :
+                                   report.priority === 'high' ? '#e67e22' : '#27ae60'}}>
+              {report.priority === 'urgent' ? '🔴 Khẩn cấp' :
+               report.priority === 'high' ? '🟠 Cao' :
+               report.priority === 'medium' ? '🟡 Trung bình' : '🟢 Thấp'}
+            </strong></div>
         </div>
+
+        <p className="consultation-realtime-monitor-card-description">
+          <strong>📝 Ghi chú:</strong> {report.description}
+        </p>
+
+        {/* Phản hồi từ admin — hiển thị cho bác sĩ biết */}
+        {report.admin_notes && (
+          <div style={{marginTop: 8, padding: '8px 12px', background: '#f0f8ff',
+            borderRadius: 6, fontSize: 13, borderLeft: '3px solid #2471a3'}}>
+            <strong>💬 Phản hồi từ admin:</strong> {report.admin_notes}
+          </div>
+        )}
       </div>
       
-      {/* Nút hành động */}
       <div className="consultation-realtime-monitor-card-actions">
-        <button 
-          className="consultation-realtime-monitor-action-button"
-          onClick={() => onAction('message_user', consultation.id, patientId)}
-          title="Gửi tin nhắn riêng cho Bệnh nhân"
-        >
-          <FaPaperPlane /> Gửi BN
-        </button>
-        <button 
-          className="consultation-realtime-monitor-action-button"
-          onClick={() => onAction('message_doctor', consultation.id, doctorId)}
-          title="Gửi tin nhắn riêng cho Bác sĩ"
-        >
-          <FaPaperPlane /> Gửi BS
-        </button>
+        {isReadOnly ? (
+          <>
+            {/* Bác sĩ: xem trạng thái + nút xem tin nhắn hệ thống */}
+            <div style={{display:'flex', alignItems:'center', gap: 10, flexWrap:'wrap'}}>
+              <span style={{
+                padding: '6px 14px', borderRadius: 20, fontSize: 13, fontWeight: 600,
+                background: report.status === 'resolved' ? '#dcfce7' :
+                            report.status === 'investigating' ? '#fef9c3' : '#fee2e2',
+                color: report.status === 'resolved' ? '#166534' :
+                       report.status === 'investigating' ? '#854d0e' : '#991b1b',
+              }}>
+                {report.status === 'resolved' ? '✅ Đã giải quyết' :
+               report.status === 'investigating' ? '🔍 Đang điều tra' :
+               report.status === 'wont_fix' ? '🚫 Không xử lý' : '⏳ Chờ xử lý'}
+              </span>
+              <button onClick={handleViewMessages} style={{
+                fontSize: 12, padding: '5px 12px', borderRadius: 6, cursor: 'pointer',
+                background: showMessages ? '#eaf4fb' : '#f8f9fa',
+                border: '1px solid #ddd', color: '#2471a3'
+              }}>
+                {showMessages ? '▲ Ẩn tin nhắn' : '💬 Xem tin nhắn hệ thống'}
+              </button>
+            </div>
+
+            {/* Khu vực tin nhắn hệ thống dành cho bác sĩ */}
+            {showMessages && (
+              <div style={{marginTop: 10, background: '#f9f9f9', borderRadius: 8, padding: 12}}>
+                {msgLoading ? (
+                  <div style={{textAlign:'center', color:'#999', fontSize:13}}>⏳ Đang tải...</div>
+                ) : messages.length === 0 ? (
+                  <div style={{textAlign:'center', color:'#999', fontSize:13}}>Chưa có tin nhắn nào từ hệ thống.</div>
+                ) : messages.map(msg => (
+                  <div key={msg.id} style={{
+                    marginBottom: 8, padding: '6px 10px', borderRadius: 6,
+                    background: '#fff3cd', fontSize: 13, borderLeft: '3px solid #f0a500'
+                  }}>
+                    <div style={{fontWeight:600, fontSize:12, color:'#888', marginBottom:2}}>
+                      🔔 Hệ thống · {new Date(msg.created_at).toLocaleTimeString('vi-VN', {hour:'2-digit', minute:'2-digit'})}
+                    </div>
+                    <div>{msg.content || msg.message}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+       ) : (
+      <>
+        {/* Admin / staff: đầy đủ nút hành động */}
         <button
-          className="consultation-realtime-monitor-action-button"
-          onClick={() => onAction('view_chat', consultation.id)}
-          title="Xem lịch sử chat"
-        >
-          💬 Xem chat
-        </button>
-        <button 
-          className="consultation-realtime-monitor-action-button consultation-realtime-monitor-action-terminate"
-          onClick={() => onAction('terminate', consultation.id)}
-          title="Buộc kết thúc phiên"
-        >
-          <FaTimes /> Kết thúc
-        </button>
-        <button 
-          className="consultation-realtime-monitor-action-button consultation-realtime-monitor-action-resolve"
-          onClick={() => onResolve(report.id)}
-          title="Đánh dấu là đã xử lý"
-        >
-          <FaCheck /> Xử lý
-        </button>
+              className="consultation-realtime-monitor-action-button"
+              onClick={() => onAction('message_user', consultation.id, patientId)}
+              title="Gửi tin nhắn riêng cho Bệnh nhân"
+            >
+              <FaPaperPlane /> Gửi BN
+            </button>
+            <button
+              className="consultation-realtime-monitor-action-button"
+              onClick={() => onAction('message_doctor', consultation.id, doctorId)}
+              title="Gửi tin nhắn riêng cho Bác sĩ"
+            >
+              <FaPaperPlane /> Gửi BS
+            </button>
+            {['technical', 'no_video', 'no_audio', 'connection_lost', 'poor_quality', 'network_issue', 'server_error'].includes(report.report_type) && (
+              <button
+                className="consultation-realtime-monitor-action-button consultation-realtime-monitor-action-reopen"
+                onClick={() => onAction('reopen_room', consultation.id)}
+              >
+                🔄 Mở phòng mới
+              </button>
+            )}
+            {['behavior', 'security', 'emergency', 'other'].includes(report.report_type) && (
+              <button
+                className="consultation-realtime-monitor-action-button"
+                onClick={() => onAction('view_chat', consultation.id)}
+              >
+                💬 Xem chat
+              </button>
+            )}
+            <button
+              className="consultation-realtime-monitor-action-button consultation-realtime-monitor-action-terminate"
+              onClick={() => onAction('terminate', consultation.id)}
+            >
+              <FaTimes /> Kết thúc
+            </button>
+            <button
+              className="consultation-realtime-monitor-action-button consultation-realtime-monitor-action-resolve"
+              onClick={() => onResolve(report.id)}
+            >
+              <FaCheck /> Xử lý
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
@@ -114,17 +222,24 @@ const IncidentCard = ({ report, onResolve, onAction }) => {
 };
 
 // Component Monitor chính (Đã đổi class name)
-export const ConsultationRealtimeMonitor = () => {
+export const ConsultationRealtimeMonitor = ({ currentUser: userProp }) => {
   const [incidents, setIncidents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const wsListenerAttached = useRef(false);
 
-  // --- LOGIC GIỮ NGUYÊN ---
+  const currentUser = userProp || (() => {
+    try { return JSON.parse(localStorage.getItem('user') || '{}'); }
+    catch { return {}; }
+  })();
+  const isAdminOrStaff = ['admin', 'staff'].includes(currentUser?.role);
+
   const fetchIncidents = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await consultationService.getPendingIncidents();
+      const response = isAdminOrStaff
+        ? await consultationService.getPendingIncidents()
+        : await consultationService.getMyIncidents();
       if (response.data.success) {
         setIncidents(response.data.data);
       }
@@ -134,7 +249,7 @@ export const ConsultationRealtimeMonitor = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [isAdminOrStaff]);
 
   const handleNewIncident = (incident) => {
     console.log('Sự cố mới từ WebSocket:', incident);
@@ -191,6 +306,10 @@ export const ConsultationRealtimeMonitor = () => {
       handleViewChat(consultationId);
       return;
     }
+    if (actionType === 'reopen_room') {
+      handleReopenRoom(consultationId);
+      return;
+    }
     setActionModal({ actionType, consultationId, targetUserId, message: '', reason: '' });
   };
 
@@ -235,6 +354,25 @@ export const ConsultationRealtimeMonitor = () => {
       setChatHistoryLoading(false);
     }
   };
+  const handleReopenRoom = async (consultationId) => {
+    if (!window.confirm('Xác nhận tạo phòng mới để khắc phục lỗi kỹ thuật? Phòng cũ sẽ bị đóng.')) return;
+    try {
+      await consultationService.forceEndConsultation(consultationId, {
+        reason: '[ADMIN] Tạo phòng mới để khắc phục lỗi kỹ thuật'
+      });
+      // Thông báo 2 bên qua tin nhắn hệ thống
+      await consultationService.sendSystemMessage(consultationId, {
+        message: '[HỆ THỐNG] Phòng tư vấn gặp lỗi kỹ thuật. Admin đã mở phòng mới — vui lòng vào lại từ trang lịch sử tư vấn.',
+        type: 'system',
+        notify_both: true
+      });
+      alert('✅ Đã đóng phòng cũ và thông báo cho bệnh nhân & bác sĩ mở phòng mới.');
+      setIncidents(prev => prev.filter(inc => inc.consultation?.id !== consultationId));
+    } catch (err) {
+      alert('Lỗi: ' + (err.response?.data?.message || err.message));
+    }
+  };
+
   // --- KẾT THÚC LOGIC ---
 
   return (
@@ -276,11 +414,12 @@ export const ConsultationRealtimeMonitor = () => {
       {/* Danh sách Card sự cố */}
       <div className="consultation-realtime-monitor-list">
         {incidents.map((report) => (
-          <IncidentCard 
-            key={report.id} 
+          <IncidentCard
+            key={report.id}
             report={report}
             onResolve={handleResolve}
             onAction={handleAdminAction}
+            isReadOnly={!isAdminOrStaff}
           />
         ))}
       </div>

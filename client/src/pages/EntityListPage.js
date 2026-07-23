@@ -1,7 +1,7 @@
 // client/src/pages/EntityListPage.js - VERSION 2.0 - HOÀN CHỈNH
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import api from '../services/api';
 import Breadcrumb from '../components/Breadcrumb';
 import { 
   FaSearch, FaTimes, FaCalendar, FaImage, FaIndustry,
@@ -11,7 +11,6 @@ import './EntityListPage.css';
 
 const EntityListPage = ({ entityType }) => {
   const navigate = useNavigate();
-  const API_BASE_URL = 'http://localhost:3001';
   
   const [entities, setEntities] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -46,6 +45,20 @@ const EntityListPage = ({ entityType }) => {
 
   const currentConfig = config[entityType];
 
+  const { slug } = useParams();
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const categoryIdFromUrl = searchParams.get('category_id');
+    if (categoryIdFromUrl) {
+      setFilters(prev => ({ ...prev, category_id: categoryIdFromUrl, page: 1 }));
+    } else if (slug && categories.length > 0) {
+      const matchedCat = categories.find(c => c.slug === slug);
+      if (matchedCat) {
+        setFilters(prev => ({ ...prev, category_id: String(matchedCat.id), page: 1 }));
+      }
+    }
+  }, [slug, categories, searchParams]);
   useEffect(() => {
     fetchCategories();
   }, [entityType]);
@@ -56,11 +69,25 @@ const EntityListPage = ({ entityType }) => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/articles/categories`);
+      const response = await api.get(`/articles/categories`);
       if (response.data.success) {
-        setCategories(response.data.categories.filter(c => 
-          c.category_type === (entityType === 'medicine' ? 'thuoc' : 'benh_ly')
-        ));
+        const allCategories = response.data.categories;
+        
+        console.log("📦 Toàn bộ danh mục từ API:", allCategories);
+        console.log("👉 Đang hiển thị cho trang:", entityType);
+        
+        setCategories(allCategories.filter(c => {
+          // Chuyển về chữ thường để so sánh tránh lỗi viết hoa/thường
+          const type = c.category_type ? c.category_type.toLowerCase() : '';
+          
+          if (entityType === 'medicine') {
+            // Mở rộng các từ khóa khớp với danh mục thuốc
+            return type === 'thuoc' || type === 'medicine' || type === 'thuốc' || type === 'pharmacy';
+          } else {
+            // Mở rộng các từ khóa khớp với danh mục bệnh lý
+            return type === 'benh_ly' || type === 'disease' || type === 'bệnh lý';
+          }
+        }));
       }
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -74,8 +101,8 @@ const EntityListPage = ({ entityType }) => {
         Object.entries({ ...filters, hidden: 'false' }).filter(([_, v]) => v !== '')
       ).toString();
 
-      const response = await axios.get(
-        `${API_BASE_URL}/api/articles/${currentConfig.apiPath}?${params}`
+      const response = await api.get(
+        `/articles/${currentConfig.apiPath}?${params}`
       );
 
       if (response.data.success) {

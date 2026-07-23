@@ -94,6 +94,7 @@ import ServiceManagementPage from './pages/ServiceManagementPage';
 import ChatRoomPage from './pages/ChatRoomPage';
 import ConsultationDetailPage from './pages/ConsultationDetailPage';
 import ConsultationBookingPage from './pages/ConsultationBookingPage';
+import ConsultationPackageDetailPage from './pages/ConsultationPackageDetailPage';
 import VideoCallRoomPage from './pages/VideoCallRoomPage';
 import ConsultationHistoryPage from './pages/ConsultationHistoryPage';
 import ConsultationResultViewPage from './pages/ConsultationResultViewPage';
@@ -350,11 +351,11 @@ function App() {
             <Route path="/bai-viet" element={<ArticlesListPage />} />
             <Route path="/articles" element={<ArticlesListPage />} />
             <Route path="/tin-tuc" element={<ArticlesListPage type="tin_tuc" />} />
-            <Route path="/thuoc" element={<ArticlesListPage type="thuoc" />} />
-            <Route path="/benh-ly" element={<ArticlesListPage type="benh_ly" />} />
+            <Route path="/thuoc" element={<EntityListPage entityType="medicine" />} />
+            <Route path="/benh-ly" element={<EntityListPage entityType="disease" />} />
             <Route path="/tin-tuc/:slug" element={<ArticleOrCategoryPage type="tin-tuc" />} />
-            <Route path="/thuoc/:slug" element={<ArticleOrCategoryPage type="thuoc" />} />
-            <Route path="/benh-ly/:slug" element={<ArticleOrCategoryPage type="benh_ly" />} />
+            <Route path="/thuoc/:slug" element={<EntityListPage entityType="medicine" />} />
+            <Route path="/benh-ly/:slug" element={<EntityListPage entityType="disease" />} />
             <Route path="/bai-viet/:slug" element={<ArticleDetailPage />} />
             <Route path="/danh-muc/:slug" element={<CategoryArticlesPage />} />
             
@@ -390,6 +391,7 @@ function App() {
             <Route path="/dich-vu" element={<ServicesPage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/dich-vu/:id" element={<ServiceDetailPage />} />
+            <Route path="/goi-tu-van/:id" element={<ConsultationPackageDetailPage />} />
             <Route path="/danh-muc-dich-vu/:slug" element={<ServiceCategoryDetailPage />} />
             <Route path="/chuyen-khoa" element={<SpecialtiesListPage />} />
             <Route path="/specialties" element={<SpecialtiesListPage />} />

@@ -86,16 +86,18 @@ const [myVouchers,     setMyVouchers]     = useState([]); // Lưu danh sách vou
     return `${year}-${month}-${day}`;
   };
 
-  const formatCheckinSlotLabel = (timeStr) => {
-    if (!timeStr) return '';
-    const [hourStr, minuteStr] = String(timeStr).slice(0, 5).split(':');
-    const hour = Number(hourStr);
-    const minute = Number(minuteStr);
-    if (!Number.isFinite(hour) || !Number.isFinite(minute)) return String(timeStr).slice(0, 5);
-    const startLabel = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
-    const endLabel = `${String((hour + 1) % 24).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
-    return `${startLabel} - ${endLabel}`;
-  };
+  // SAU — dùng duration của service, fallback 60 phút
+  const formatCheckinSlotLabel = (timeStr, durationMinutes = 60) => {
+      if (!timeStr) return '';
+      const [hourStr, minuteStr] = String(timeStr).slice(0, 5).split(':');
+      const hour = Number(hourStr);
+      const minute = Number(minuteStr);
+      if (!Number.isFinite(hour) || !Number.isFinite(minute)) return String(timeStr).slice(0, 5);
+      const startLabel = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+      const totalEnd = hour * 60 + minute + durationMinutes;
+      const endLabel = `${String(Math.floor(totalEnd / 60) % 24).padStart(2, '0')}:${String(totalEnd % 60).padStart(2, '0')}`;
+      return `${startLabel} - ${endLabel}`;
+    };
 
   const getNextThreeDays = () => {
     const days = [];
@@ -354,7 +356,7 @@ const [myVouchers,     setMyVouchers]     = useState([]); // Lưu danh sách vou
   const selectedDoctorCardImage = selectedDoctor?.avatar_url
     ? (selectedDoctor.avatar_url.startsWith('http')
       ? selectedDoctor.avatar_url
-      : `http://localhost:3001${selectedDoctor.avatar_url.startsWith('/') ? '' : '/'}${selectedDoctor.avatar_url}`)
+      : `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${selectedDoctor.avatar_url.startsWith('/') ? '' : '/'}${selectedDoctor.avatar_url}`)
     : require('../assets/images/avatar-default.jpg');
 
   // ── Tính tiền sau giảm giá ──────────────────────────────────
@@ -728,7 +730,7 @@ const [myVouchers,     setMyVouchers]     = useState([]); // Lưu danh sách vou
                                   className={`abp-slot-btn ${formData.time === shift.time ? 'active' : ''}`}
                                   onClick={() => handleShiftSelect(shift)}
                                 >
-                                  <strong>{shift.label || formatCheckinSlotLabel(shift.time)}</strong>
+                                  <strong>{shift.label || formatCheckinSlotLabel(shift.time, selectedService?.duration)}</strong>
                                 </button>
                               ))}
                             </div>
@@ -974,7 +976,7 @@ const [myVouchers,     setMyVouchers]     = useState([]); // Lưu danh sách vou
                 <div className="abp-confirm-row"><span>Dịch vụ</span><strong>{selectedService?.name}</strong></div>
                 <div className="abp-confirm-row"><span>Bác sĩ</span><strong>{selectedDoctor ? `BS. ${selectedDoctor.full_name}` : 'Sẽ được phân công'}</strong></div>
                 <div className="abp-confirm-row"><span>Ngày khám</span><strong>{formData.date}</strong></div>
-                <div className="abp-confirm-row"><span>Thời gian checkin</span><strong>{formatCheckinSlotLabel(formData.time)}</strong></div>
+                <div className="abp-confirm-row"><span>Thời gian checkin</span><strong>{formatCheckinSlotLabel(formData.time, selectedService?.duration)}</strong></div>
                 <div className="abp-confirm-row"><span>Khách hàng</span><strong>{formData.name}</strong></div>
                 {voucherInfo && discountAmount > 0 && (
                 <div className="abp-confirm-row" style={{ color: '#16a34a' }}>

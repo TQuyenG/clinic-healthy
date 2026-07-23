@@ -180,19 +180,20 @@ exports.register = async (req, res) => {
     await transaction.commit();
 
     // Gửi email xác thực
-    try {
-      const verificationLink = `${process.env.CLIENT_URL}/verify-email?token=${verification_token}`;
-      await sendVerificationEmail(email, full_name || email, verificationLink);
-      console.log('Email xác thực đã gửi đến:', email);
-    } catch (emailError) {
-      console.error('Không thể gửi email xác thực:', emailError.message);
+    const verificationLink = `${process.env.CLIENT_URL}/verify-email?token=${verification_token}`;
+    const emailResult = await sendVerificationEmail(email, full_name || email, verificationLink);
+    
+    if (!emailResult.success) {
+      console.error('Không thể gửi email xác thực:', emailResult.error);
       return res.status(201).json({
         success: true,
-        message: 'Đăng ký thành công nhưng không thể gửi email xác thực. Vui lòng liên hệ admin để kích hoạt tài khoản.',
+        message: 'Đăng ký thành công nhưng không thể gửi email xác thực do lỗi cấu hình Mail. Vui lòng liên hệ Admin.',
         userId: newUser.id,
         emailError: true
       });
     }
+    
+    console.log('Email xác thực đã gửi đến:', email);
 
     res.status(201).json({
       success: true,
@@ -509,7 +510,14 @@ exports.resendVerification = async (req, res) => {
 
     const verificationLink = `${process.env.CLIENT_URL}/verify-email?token=${verification_token}`;
 
-    await sendVerificationEmail(email, user.full_name || user.username, verificationLink);
+    const emailResult = await sendVerificationEmail(email, user.full_name || user.username, verificationLink);
+
+    if (!emailResult.success) {
+      return res.status(500).json({
+        success: false,
+        message: 'Không thể gửi email lúc này do lỗi cấu hình Mail. Vui lòng liên hệ Admin.'
+      });
+    }
 
     res.status(200).json({
       success: true,
@@ -620,27 +628,6 @@ exports.requestPasswordReset = async (req, res) => {
     user.reset_token = reset_token;
     user.reset_expires = reset_expires;
     await user.save();
-
-      // Nếu user đã là staff, cho phép cập nhật department/rank/permissions khi admin gửi
-      if (user.role === 'staff' && (department !== undefined || rank !== undefined)) {
-        const staff = await models.Staff.findOne({ where: { user_id: userId } });
-        if (staff) {
-          if (department !== undefined) staff.department = department;
-          if (rank !== undefined) staff.rank = rank;
-          // Cập nhật permissions theo template khi department/rank thay đổi
-          try {
-            staff.permissions = getPermissionsTemplate(staff.department || null, staff.rank || 'staff');
-          } catch (err) {
-            // Nếu template không hợp lệ, giữ nguyên permissions hiện có
-            console.warn('Không thể cập nhật permissions từ template:', err.message);
-          }
-          await staff.save();
-        } else {
-          // Nếu chưa có bản ghi staff (hiếm), tạo mới
-          const perms = getPermissionsTemplate(department || null, rank || 'staff');
-          await models.Staff.create({ user_id: userId, department: department || null, rank: rank || 'staff', permissions: perms });
-        }
-      }
 
     console.log('[requestPasswordReset] Đã lưu token vào DB');
 

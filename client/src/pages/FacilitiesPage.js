@@ -71,7 +71,7 @@ const FacilitiesPage = () => {
   useEffect(() => {
     const fetchFacilitiesData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/settings/facilities');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/settings/facilities`);
         if (response.data) {
           setFacilitiesData(response.data);
           setError(null);

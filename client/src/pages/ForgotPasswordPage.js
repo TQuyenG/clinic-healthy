@@ -24,7 +24,7 @@ const ForgotPasswordPage = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:3001/api/users/request-password-reset',
+        `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/request-password-reset`,
         { email }
       );
 

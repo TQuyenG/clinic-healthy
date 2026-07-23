@@ -58,7 +58,7 @@ const EventPopup = ({ data, onClose }) => {
           <img 
             src={data.thumbnail?.startsWith('http') 
               ? data.thumbnail 
-              : `http://localhost:3001${data.thumbnail}`} 
+              : `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${data.thumbnail}`} 
             alt={data.title} 
             className="popup-image"
             onError={(e) => {

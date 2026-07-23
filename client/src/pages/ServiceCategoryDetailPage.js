@@ -17,7 +17,7 @@ const ServiceCategoryDetailPage = () => {
     const fetchCategoryDetails = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:3001/api/service-categories/slug/${slug}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/service-categories/slug/${slug}`);
         if (response.data.success) {
           setCategory(response.data.data);
           setServices(response.data.data.services || []);

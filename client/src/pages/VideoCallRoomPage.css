@@ -38,7 +38,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%; /* SỬA: Đổi từ 100vh sang 100% */
+  min-height: calc(100vh - 65px);
+  height: 100%;
   background: var(--video-call-bg-light);
   color: var(--video-call-text-primary);
 }
@@ -150,7 +151,10 @@
 .video-call-room-page-status-group {
   display: flex;
   align-items: center;
-  gap: 0.6rem; /* SỬA: Giảm gap */
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 60%;
 }
 
 .video-call-room-page-connection-indicator {

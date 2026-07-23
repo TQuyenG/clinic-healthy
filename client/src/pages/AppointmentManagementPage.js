@@ -100,12 +100,12 @@ const AppointmentManagementPage = () => {
       if (user && user.role === 'staff') {
         try {
           const token = localStorage.getItem('token');
-          const profileRes = await axios.get('http://localhost:3001/api/staff/my-profile', {
+          const profileRes = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/staff/my-profile`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           if (profileRes.data.success) {
             const staffId = profileRes.data.data.id;
-            const doctorsRes = await axios.get(`http://localhost:3001/api/staff/${staffId}/doctors`, {
+            const doctorsRes = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/staff/${staffId}/doctors`, {
               headers: { Authorization: `Bearer ${token}` }
             });
             if (doctorsRes.data.success) {
@@ -543,7 +543,7 @@ const AppointmentManagementPage = () => {
       setIsSubmitting(true);
       const token = localStorage.getItem('token');
       await axios.put(
-        `http://localhost:3001/api/appointments/${selectedAppointment.id}/payment`,
+        `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/appointments/${selectedAppointment.id}/payment`,
         paymentData,
         { headers: { Authorization: `Bearer ${token}` } }
       );

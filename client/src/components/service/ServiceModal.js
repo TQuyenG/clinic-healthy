@@ -99,7 +99,7 @@ const ServiceModal = ({ isOpen, onClose, serviceId, onSuccess }) => {
         // SỬA: Gọi đúng endpoint /api/users/doctors/public
         // Endpoint này được chứng minh là hoạt động ở file DoctorsListPage.js
         // Chúng ta dùng axios vì DoctorsListPage cũng dùng (và nó trả về data đúng)
-        const docRes = await axios.get('http://localhost:3001/api/users/doctors/public');
+        const docRes = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/doctors/public`);
         
         let doctorOptions = [];
         if (docRes.data.success) {
@@ -294,7 +294,7 @@ const ServiceModal = ({ isOpen, onClose, serviceId, onSuccess }) => {
       const formDataUpload = new FormData();
       formDataUpload.append('image', file);
 
-      const response = await fetch('http://localhost:3001/api/upload/image', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/upload/image`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`

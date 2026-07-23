@@ -132,7 +132,7 @@ export const ConsultationPackageManagement = () => {
   // Hàm load danh sách bác sĩ
   const fetchDoctors = async () => {
     try {
-      const docRes = await axios.get('http://localhost:3001/api/users/doctors/public');
+      const docRes = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/doctors/public`);
       
       if (docRes.data.success) {
         const rawDoctors = docRes.data.doctors || [];

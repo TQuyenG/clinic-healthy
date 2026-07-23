@@ -403,7 +403,7 @@ connect: function(userId, consultationId = null) {
         if (consultationId) {
           setTimeout(() => {
             this.joinConsultation(consultationId);
-          }, 200); // Delay 200ms để đảm bảo register đã xong
+          }, 500); // Tăng lên 500ms để chắc chắn register đã được server xử lý
         }
         
         resolve();
@@ -514,18 +514,17 @@ isConnected: function() {
 
   // ========== BẮT ĐẦU THÊM MỚI: GỬI TÍN HIỆU WEBRTC ==========
   sendWebRTCOffer: function(consultationId, sdp) {
-    console.log('[WS Send] Gửi OFFER');
-    this.send('webrtc_offer', { sdp });
+    console.log('[WS Send] Gửi OFFER cho room:', consultationId);
+    this.send('webrtc_offer', { consultation_id: consultationId, sdp });
   },
 
   sendWebRTCAnswer: function(consultationId, sdp) {
-    console.log('[WS Send] Gửi ANSWER');
-    this.send('webrtc_answer', { sdp });
+    console.log('[WS Send] Gửi ANSWER cho room:', consultationId);
+    this.send('webrtc_answer', { consultation_id: consultationId, sdp });
   },
 
   sendWebRTCICECandidate: function(consultationId, candidate) {
-    // console.log('[WS Send] Gửi ICE Candidate'); // (Tắt log này đi vì nó chạy rất nhiều)
-    this.send('webrtc_ice_candidate', { candidate });
+    this.send('webrtc_ice_candidate', { consultation_id: consultationId, candidate });
   },
 
   /**
@@ -599,6 +598,9 @@ isConnected: function() {
     if (type === 'consultation_ended') {
       window.dispatchEvent(new CustomEvent('consultation:ended', { detail: payload }));
     }
+
+    // ✅ THÊM: Debug log để xác nhận event có về không
+    console.log('📨 [WS] handleMessage type:', type, payload);
 
     if (this.listeners[type]) {
       this.listeners[type].forEach(callback => callback(payload));

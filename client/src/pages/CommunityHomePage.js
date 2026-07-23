@@ -201,7 +201,7 @@ const GroupCard = ({ group, onJoinClick }) => {
     <div className="chp-group-card">
       <div className="chp-card-cover">
         {group.cover_image ? (
-          <img src={group.cover_image.startsWith('http') ? group.cover_image : `http://localhost:3001${group.cover_image}`} alt={group.name} />
+          <img src={group.cover_image.startsWith('http') ? group.cover_image : `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${group.cover_image}`} alt={group.name} />
         ) : (
           <div className="chp-card-cover-placeholder" style={{ fontSize: '48px' }}>
             {GROUP_ICONS_MAP[group.icon] || <FaUsers />}
@@ -316,7 +316,7 @@ const CreateGroupModal = ({ onClose, onSuccess }) => {
                 <div className="chp-avatar-uploader">
                   <input type="file" id="chp-avatar-upload" accept="image/*" style={{ display: 'none' }} onChange={(e) => handleGroupImageUpload(e, 'avatar_image')} disabled={uploading} />
                   <label htmlFor="chp-avatar-upload" className="chp-avatar-preview">
-                    {formData.avatar_image ? <img src={formData.avatar_image.startsWith('http') ? formData.avatar_image : `http://localhost:3001${formData.avatar_image}`} alt="Avatar" /> : <div className="chp-avatar-placeholder">{GROUP_ICONS_MAP[formData.icon] || <FaUsers />}</div>}
+                    {formData.avatar_image ? <img src={formData.avatar_image.startsWith('http') ? formData.avatar_image : `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${formData.avatar_image}`} alt="Avatar" /> : <div className="chp-avatar-placeholder">{GROUP_ICONS_MAP[formData.icon] || <FaUsers />}</div>}
                   </label>
                   <small>{uploading ? 'Đang tải...' : 'Tải lên Avatar'}</small>
                 </div>
@@ -325,7 +325,7 @@ const CreateGroupModal = ({ onClose, onSuccess }) => {
             <div className="chp-form-group">
               <label>Ảnh bìa nhóm (Cover)</label>
               <input type="file" id="chp-cover-upload" accept="image/*" style={{ display: 'none' }} onChange={(e) => handleGroupImageUpload(e, 'cover_image')} disabled={uploading} />
-              <label htmlFor="chp-cover-upload" className="chp-cover-preview" style={formData.cover_image ? { backgroundImage: `url(${formData.cover_image.startsWith('http') ? formData.cover_image : `http://localhost:3001${formData.cover_image}`})` } : {}}>
+              <label htmlFor="chp-cover-upload" className="chp-cover-preview" style={formData.cover_image ? { backgroundImage: `url(${formData.cover_image.startsWith('http') ? formData.cover_image : `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${formData.cover_image}`})` } : {}}>
                 {!formData.cover_image && <div className="chp-cover-placeholder"><FaImage size={24} /><span>{uploading ? 'Đang tải...' : 'Bấm để chọn ảnh bìa'}</span></div>}
               </label>
             </div>

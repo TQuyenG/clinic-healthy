@@ -82,7 +82,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const searchRef = useRef(null);
   const searchTimeoutRef = useRef(null);
-  const API_BASE_URL = 'http://localhost:3001';
+  const API_BASE_URL = process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001';
 
   useEffect(() => {
     if (authUser) {
@@ -752,7 +752,7 @@ const Navbar = () => {
                         {categories.thuoc.slice(0, 5).map((cat, index) => (
                           <Link 
                             key={cat.id ?? index}
-                            to={`/thuoc/${cat.slug}`}
+                            to={`/tra-cuu-thuoc?category_id=${cat.id}`}
                             onClick={closeAllDropdowns}
                           >
                             {cat.name}
@@ -786,7 +786,7 @@ const Navbar = () => {
                         {categories.benh_ly.slice(0, 5).map((cat, index) => (
                           <Link 
                             key={cat.id ?? index}
-                            to={`/benh-ly/${cat.slug}`}
+                            to={`/tra-cuu-benh-ly?category_id=${cat.id}`}
                             onClick={closeAllDropdowns}
                           >
                             {cat.name}

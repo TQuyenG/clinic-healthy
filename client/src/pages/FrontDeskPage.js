@@ -80,7 +80,7 @@ const FrontDeskPage = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await axios.get('http://localhost:3001/api/services');
+        const res = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/services`);
         if (res.data.success) setServicesList(res.data.data || []);
       } catch (error) { console.error("Lỗi tải dịch vụ:", error); }
     };
@@ -91,7 +91,7 @@ const FrontDeskPage = () => {
     const fetchPaymentConfig = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:3001/api/payments/config', {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/payments/config`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (res.data.success && res.data.data.bank) setBankConfig(res.data.data.bank);
@@ -317,7 +317,7 @@ const FrontDeskPage = () => {
 
           let medList = [];
           try {
-             const medRes = await axios.get('http://localhost:3001/api/articles/medicines?limit=5000', { headers: { Authorization: `Bearer ${token}` } });
+             const medRes = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/articles/medicines?limit=5000`, { headers: { Authorization: `Bearer ${token}` } });
              const rawData = medRes.data;
              if (Array.isArray(rawData.data)) medList = rawData.data; 
              else if (rawData.data && Array.isArray(rawData.data.rows)) medList = rawData.data.rows; 
@@ -367,7 +367,7 @@ const FrontDeskPage = () => {
   const loadWalkInDoctors = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:3001/api/users/by-role?role=doctor&limit=100', {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/by-role?role=doctor&limit=100`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setWalkInDoctors(res.data.users || res.data.data || []);
@@ -435,7 +435,7 @@ const FrontDeskPage = () => {
 
       const res = isOnlineBooking
         ? await appointmentService.createAppointment(payload)
-        : await axios.post('http://localhost:3001/api/appointments/walk-in', walkInForm, {
+        : await axios.post(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/appointments/walk-in`, walkInForm, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
           });
 
@@ -473,7 +473,7 @@ const FrontDeskPage = () => {
 
     try {
         const token = localStorage.getItem('token');
-        const res = await axios.post(`http://localhost:3001/api/payments`, {
+        const res = await axios.post(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/payments`, {
             appointment_id: selectedBill.id, 
             payment_method: paymentMethod, 
             amount: totalAmount,
@@ -514,7 +514,7 @@ const FrontDeskPage = () => {
     if(!selectedPrescription) return;
     try {
         const token = localStorage.getItem('token');
-        const res = await axios.put(`http://localhost:3001/api/appointments/${selectedPrescription.appointment_id}/payment`, {
+        const res = await axios.put(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/appointments/${selectedPrescription.appointment_id}/payment`, {
             payment_status: 'paid_at_clinic', payment_method: paymentMethod, amount: selectedPrescription.total
         }, { headers: { Authorization: `Bearer ${token}` } });
 
@@ -553,7 +553,7 @@ const FrontDeskPage = () => {
     if (!window.confirm('Bạn có chắc chắn muốn hủy lượt tiếp đón này không?')) return;
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:3001/api/appointments/${apptId}/cancel`, {}, { headers: { Authorization: `Bearer ${token}` } });
+      await axios.put(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/appointments/${apptId}/cancel`, {}, { headers: { Authorization: `Bearer ${token}` } });
       toast.success('Đã hủy thành công');
       loadReceptionData(); 
     } catch (error) { toast.error('Lỗi khi hủy'); }
@@ -583,7 +583,7 @@ const FrontDeskPage = () => {
       const token = localStorage.getItem('token');
       
       const response = await axios.put(
-        `http://localhost:3001/api/appointments/${selectedApptForPayment.code}/payment`,
+        `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/appointments/${selectedApptForPayment.code}/payment`,
         {
           payment_status: 'paid_at_clinic',
           payment_method: paymentUpdateForm.payment_method,
@@ -610,12 +610,12 @@ const FrontDeskPage = () => {
     try {
       const token = localStorage.getItem('token');
       if (modalMode === 'start') {
-        const res = await axios.post('http://localhost:3001/api/work-shifts/cashier/start', {
+        const res = await axios.post(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/work-shifts/cashier/start`, {
           opening_cash: amount, opening_note: note, shift_config_id: shift_config_id || null
         }, { headers: { Authorization: `Bearer ${token}` } });
         if (res.data.success) { toast.success(res.data.message); setShift(res.data.data); setShowShiftModal(false); }
       } else {
-        const res = await axios.post('http://localhost:3001/api/work-shifts/cashier/end', {
+        const res = await axios.post(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/work-shifts/cashier/end`, {
           closing_cash_actual: amount, closing_note: note
         }, { headers: { Authorization: `Bearer ${token}` } });
         if (res.data.success) {
@@ -1026,7 +1026,7 @@ const FrontDeskPage = () => {
                                     try {
                                         const token = localStorage.getItem('token');
                                         // Gọi API lấy thông tin thanh toán chi tiết từ Database (đã sửa ở Bước 1)
-                                        const res = await axios.get(`http://localhost:3001/api/payments/appointment/${p.id}`, {
+                                        const res = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/payments/appointment/${p.id}`, {
                                             headers: { Authorization: `Bearer ${token}` }
                                         });
                                         
@@ -1224,7 +1224,7 @@ const FrontDeskPage = () => {
                         const token = localStorage.getItem('token');
                         let paymentData = null;
                         try {
-                          const res = await axios.get(`http://localhost:3001/api/payments/appointment/${selectedBill.id}`, { headers: { Authorization: `Bearer ${token}` } });
+                          const res = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/payments/appointment/${selectedBill.id}`, { headers: { Authorization: `Bearer ${token}` } });
                           if (res.data.success && res.data.data) {
                             const rawInfo = res.data.data.payment_info;
                             paymentData = { ...res.data.data, info: typeof rawInfo === 'string' ? JSON.parse(rawInfo) : rawInfo };
@@ -1593,7 +1593,7 @@ const FrontDeskPage = () => {
     try {
         const token = localStorage.getItem('token');
         // Gọi API cập nhật thanh toán
-        await axios.put(`http://localhost:3001/api/appointments/${selectedPrescription.appointment_id}/payment`, {
+        await axios.put(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/appointments/${selectedPrescription.appointment_id}/payment`, {
             payment_status: 'paid_at_clinic',
             payment_method: paymentMethod,
             amount: finalTotal

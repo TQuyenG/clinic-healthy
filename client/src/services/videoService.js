@@ -28,6 +28,7 @@ class VideoService {
     this.onLocalStream = null;
     this.onRemoteStream = null;
     this.onCallEnded = null;
+    this.onConnectionStateChange = null; // ✅ THÊM
   }
 
   /**
@@ -79,22 +80,41 @@ senders.forEach(sender => {
 });
 
   // 2. Lắng nghe khi stream từ xa được thêm vào
-        this.peerConnection.ontrack = (event) => {
-        console.log('[WebRTC] Nhận được remote stream');
-        if (event.streams && event.streams[0]) {
-            this.remoteStream = event.streams[0];
-            
-            // ✅ THÊM: Debug audio tracks
-            const audioTracks = this.remoteStream.getAudioTracks();
-            const videoTracks = this.remoteStream.getVideoTracks();
-            console.log('🎤 [WebRTC] Audio tracks:', audioTracks.length, audioTracks);
-            console.log('📹 [WebRTC] Video tracks:', videoTracks.length, videoTracks);
-            
-            if (this.onRemoteStream) {
-            this.onRemoteStream(this.remoteStream);
-            }
+  this.peerConnection.ontrack = (event) => {
+    console.log('[WebRTC] Nhận được remote stream');
+    if (event.streams && event.streams[0]) {
+      this.remoteStream = event.streams[0];
+      setTimeout(() => {
+        if (this.onRemoteStream) {
+          this.onRemoteStream(this.remoteStream);
         }
-        };
+      }, 100);
+    }
+  };
+
+  // ✅ Fallback khi ontrack không fire + expose state ra ngoài
+  this.peerConnection.onconnectionstatechange = () => {
+    const state = this.peerConnection?.connectionState;
+    console.log('🔗 [WebRTC] connectionState:', state);
+    if (state === 'connected' || state === 'completed') {
+      if (this.onRemoteStream && this.remoteStream) {
+        this.onRemoteStream(this.remoteStream);
+      }
+    }
+    if (this.onConnectionStateChange) {
+      this.onConnectionStateChange(state);
+    }
+  };
+
+  this.peerConnection.oniceconnectionstatechange = () => {
+    const state = this.peerConnection?.iceConnectionState;
+    console.log('🧊 [WebRTC] iceConnectionState:', state);
+    if (state === 'connected' || state === 'completed') {
+      if (this.onRemoteStream && this.remoteStream) {
+        this.onRemoteStream(this.remoteStream);
+      }
+    }
+  };
 
   // 3. Lắng nghe ICE candidates
   this.peerConnection.onicecandidate = (event) => {

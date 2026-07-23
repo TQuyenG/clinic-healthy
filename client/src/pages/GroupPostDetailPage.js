@@ -12,7 +12,7 @@ import './GroupPostDetailPage.css';
 const getImageUrl = (url) => {
   if (!url) return null;
   if (url.startsWith('http') || url.startsWith('data:')) return url;
-  return `http://localhost:3001${url.startsWith('/') ? '' : '/'}${url}`;
+  return `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${url.startsWith('/') ? '' : '/'}${url}`;
 };
 
 const formatTime = (dt) => {

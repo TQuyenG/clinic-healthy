@@ -1,7 +1,7 @@
 // client/src/pages/ArticlesListPage.js
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 import Breadcrumb from '../components/Breadcrumb';
 import { 
   FaSearch, FaEye, FaCalendar, FaTimes, FaTags, 
@@ -19,7 +19,6 @@ const formatAdLink = (url) => {
 const ArticlesListPage = ({ type, categoryData }) => { 
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const API_BASE_URL = 'http://localhost:3001';
   
   const [articles, setArticles] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -92,9 +91,9 @@ const ArticlesListPage = ({ type, categoryData }) => {
   const fetchInitialData = async () => {
     try {
       const [catsRes, tagsRes, popRes] = await Promise.all([
-        axios.get(`${API_BASE_URL}/api/articles/categories`),
-        axios.get(`${API_BASE_URL}/api/articles/tags/all`),
-        axios.get(`${API_BASE_URL}/api/articles/public?limit=5&sort_by=views&sort_order=DESC${type ? `&category_type=${type}` : ''}${activeCategoryId ? `&category_id=${activeCategoryId}` : ''}`)
+        api.get(`/articles/categories`),
+        api.get(`/articles/tags/all`),
+        api.get(`/articles/public?limit=5&sort_by=views&sort_order=DESC${type ? `&category_type=${type}` : ''}${activeCategoryId ? `&category_id=${activeCategoryId}` : ''}`)
       ]);
       if (catsRes.data.success) setCategories(catsRes.data.categories || []);
       if (tagsRes.data.success) setAvailableTags((tagsRes.data.tags || []).slice(0, 15));
@@ -116,7 +115,7 @@ const ArticlesListPage = ({ type, categoryData }) => {
       params.append('page', filters.page);
       params.append('limit', filters.limit);
 
-      const response = await axios.get(`${API_BASE_URL}/api/articles/public?${params.toString()}`);
+      const response = await api.get(`/articles/public?${params.toString()}`);
       if (response.data.success) {
         setArticles(response.data.articles || []);
         setPagination(response.data.pagination || {});

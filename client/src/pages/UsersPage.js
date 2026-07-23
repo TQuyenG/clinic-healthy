@@ -213,7 +213,7 @@ const UsersPage = () => {
         }
       });
 
-      const res = await axios.get('http://localhost:3001/api/users/search', {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/search`, {
         params,
         ...axiosConfig
       });
@@ -236,7 +236,7 @@ const UsersPage = () => {
 
   const fetchSpecialties = async () => {
     try {
-      const res = await axios.get('http://localhost:3001/api/specialties');
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/specialties`);
       if (res.data.success) {
         setSpecialties(res.data.specialties || []);
       }
@@ -255,7 +255,7 @@ const UsersPage = () => {
       setShowDetailModal(true);
       
       const res = await axios.get(
-        `http://localhost:3001/api/users/${user.id}`, 
+        `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/${user.id}`, 
         axiosConfig
       );
 
@@ -281,7 +281,7 @@ const UsersPage = () => {
 
     try {
       const res = await axios.put(
-        `http://localhost:3001/api/users/${detailUser.id}/toggle-verification`,
+        `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/${detailUser.id}/toggle-verification`,
         { is_verified: !detailUser.is_verified },
         axiosConfig
       );
@@ -302,7 +302,7 @@ const UsersPage = () => {
 
     try {
       const res = await axios.put(
-        `http://localhost:3001/api/users/${detailUser.id}/toggle-status`,
+        `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/${detailUser.id}/toggle-status`,
         { is_active: !detailUser.is_active },
         axiosConfig
       );
@@ -333,7 +333,7 @@ const UsersPage = () => {
     try {
       setPasswordDialog(prev => ({ ...prev, loading: true }));
       const res = await axios.put(
-        `http://localhost:3001/api/users/${passwordDialog.userId}/reset-password-admin`,
+        `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/${passwordDialog.userId}/reset-password-admin`,
         { new_password: newPassword },
         axiosConfig
       );
@@ -364,7 +364,7 @@ const UsersPage = () => {
     // Fetch full user profile to get Staff/Doctor details before editing
     (async () => {
       try {
-        const res = await axios.get(`http://localhost:3001/api/users/${user.id}`, axiosConfig);
+        const res = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/${user.id}`, axiosConfig);
         if (res.data.success) {
           const u = res.data.user || {};
           setEditingUser(u);
@@ -398,7 +398,7 @@ const UsersPage = () => {
     
     try {
       const res = await axios.post(
-        'http://localhost:3001/api/users/register',
+        `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/register`,
         newUserData,
         axiosConfig
       );
@@ -420,7 +420,7 @@ const UsersPage = () => {
     
     try {
       const res = await axios.put(
-        `http://localhost:3001/api/users/${editingUser.id}`,
+        `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/${editingUser.id}`,
         newUserData,
         axiosConfig
       );
@@ -443,7 +443,7 @@ const UsersPage = () => {
       async () => {
         try {
           const res = await axios.put(
-            `http://localhost:3001/api/users/${userId}/toggle-verification`,
+            `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/${userId}/toggle-verification`,
             { is_verified: !currentStatus },
             axiosConfig
           );
@@ -467,7 +467,7 @@ const UsersPage = () => {
       async () => {
         try {
           const res = await axios.put(
-            `http://localhost:3001/api/users/${userId}/toggle-status`,
+            `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/${userId}/toggle-status`,
             { is_active: !currentStatus },
             axiosConfig
           );
@@ -494,7 +494,7 @@ const UsersPage = () => {
     try {
       const promises = selectedUsers.map(userId =>
         axios.put(
-          `http://localhost:3001/api/users/${userId}/reset-password-admin`,
+          `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/${userId}/reset-password-admin`,
           { new_password: bulkPassword },
           axiosConfig
         )

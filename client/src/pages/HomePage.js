@@ -88,7 +88,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchHomeSettings = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/settings/home');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/settings/home`);
         if (response.data) setHomeSettings(response.data);
       } catch (error) {
         setError('Không thể tải dữ liệu trang chủ. Vui lòng thử lại sau.');
@@ -97,7 +97,7 @@ const HomePage = () => {
 
     const fetchPopupEvent = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/marketing/events/popup');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/marketing/events/popup`);
         if (response.data && response.data.success && response.data.event) {
           const event = response.data.event;
           const frequency = event.popup_config?.frequency || 'once_per_day';
@@ -127,7 +127,7 @@ const HomePage = () => {
 
     const fetchSpecialties = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/specialties');
+        const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/specialties`);
         const data = await response.json();
         if (data.success && data.specialties) {
           const specialtiesWithIcons = data.specialties.map(spec => ({
@@ -141,7 +141,7 @@ const HomePage = () => {
     // ĐÃ SỬA: Hàm fetchDoctors dùng axios và không qua normalizeUserList để giữ đủ dữ liệu
     const fetchDoctors = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/users/doctors', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/doctors`, {
           params: { limit: 3, random: true }
         });
         
@@ -174,7 +174,7 @@ const HomePage = () => {
 
     const fetchBannerAdEvent = async () => {
         try {
-          const res = await axios.get('http://localhost:3001/api/marketing/events/banner-ad');
+          const res = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/marketing/events/banner-ad`);
           if (res.data?.event) {
             setBannerAdEvent(res.data.event);
             // Hiện popup sau 2 giây nếu chưa đóng trong session

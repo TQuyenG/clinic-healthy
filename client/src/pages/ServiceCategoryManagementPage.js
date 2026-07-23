@@ -113,7 +113,7 @@ const ServiceCategoryManagementPage = () => {
       formDataUpload.append('image', file);
 
       console.log('🔵 2. Sending request to:', 'http://localhost:3001/api/upload/image');
-      const response = await fetch('http://localhost:3001/api/upload/image', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/upload/image`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`

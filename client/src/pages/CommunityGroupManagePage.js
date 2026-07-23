@@ -249,7 +249,7 @@ const CommunityGroupManagePage = () => {
                           <div className="cgmp-info-cell">
                             <div className="cgmp-icon-box">
                               {g.avatar_image ? (
-                                <img src={g.avatar_image.startsWith('http') ? g.avatar_image : `http://localhost:3001${g.avatar_image}`} alt="Avatar" onError={(e) => { e.target.style.display = 'none'; }} />
+                                <img src={g.avatar_image.startsWith('http') ? g.avatar_image : `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${g.avatar_image}`} alt="Avatar" onError={(e) => { e.target.style.display = 'none'; }} />
                               ) : (
                                 <span>{GROUP_ICONS_MAP[g.icon] || <FaUsers />}</span>
                               )}

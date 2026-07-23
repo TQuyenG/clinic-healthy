@@ -923,7 +923,7 @@ const WalkInReceptionModal = ({ show, onHide, onSuccess }) => {
                           >
                             <img
                               className="wrm-doctor-avatar"
-                              src={selectedConsultationDoctor.avatar_url ? (selectedConsultationDoctor.avatar_url.startsWith('http') ? selectedConsultationDoctor.avatar_url : `http://localhost:3001${selectedConsultationDoctor.avatar_url.startsWith('/') ? '' : '/'}${selectedConsultationDoctor.avatar_url}`) : require('../../assets/images/avatar-default.jpg')}
+                              src={selectedConsultationDoctor.avatar_url ? (selectedConsultationDoctor.avatar_url.startsWith('http') ? selectedConsultationDoctor.avatar_url : `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${selectedConsultationDoctor.avatar_url.startsWith('/') ? '' : '/'}${selectedConsultationDoctor.avatar_url}`) : require('../../assets/images/avatar-default.jpg')}
                               alt={selectedConsultationDoctor.full_name || selectedConsultationDoctor.fullName || selectedConsultationDoctor.name}
                               onError={(e) => { e.target.onerror = null; e.target.src = require('../../assets/images/avatar-default.jpg'); }}
                             />

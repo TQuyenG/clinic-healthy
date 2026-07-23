@@ -79,7 +79,7 @@ const EquipmentPage = () => {
     const fetchEquipmentData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('http://localhost:3001/api/settings/equipment');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/settings/equipment`);
         if (response.data) {
           setEquipmentData(response.data);
           setError(null);

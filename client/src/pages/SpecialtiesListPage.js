@@ -37,7 +37,7 @@ const SpecialtiesListPage = () => {
   const [search, setSearch] = useState('');
   const [filteredSpecialties, setFilteredSpecialties] = useState([]);
 
-  const API_BASE_URL = 'http://localhost:3001';
+  const API_BASE_URL = process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001';
 
   useEffect(() => {
     fetchSpecialties();

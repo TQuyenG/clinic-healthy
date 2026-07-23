@@ -11,7 +11,7 @@ import './SuggestionModal.css';
 const SuggestionModal = ({ entityType, mode, entity, suggestion, categories, onClose, onSuccess }) => {
   // mode: 'create' | 'update' | 'review'
   
-  const API_BASE_URL = 'http://localhost:3001';
+  const API_BASE_URL = process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001';
   const token = localStorage.getItem('token');
   const userRole = JSON.parse(localStorage.getItem('user'))?.role;
 

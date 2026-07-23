@@ -20,31 +20,31 @@ import {
 import './DashboardPage.css';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
-const DASHBOARD_LAYOUT_STORAGE_KEY = 'easymedify-dashboard-layout-v4';
+const DASHBOARD_LAYOUT_STORAGE_KEY = 'easymedify-dashboard-layout-v5';
 
 // Layout mặc định đã được thiết kế lại to, rõ, đẹp mắt cho lần đầu truy cập
 const DEFAULT_LAYOUTS = {
   lg: [
-    { i: 'articles', x: 0, y: 0, w: 4, h: 4, minW: 3, minH: 3 },
-    { i: 'appointments', x: 4, y: 0, w: 4, h: 4, minW: 4, minH: 3 },
-    { i: 'payments', x: 8, y: 0, w: 4, h: 4, minW: 3, minH: 3 },
-    { i: 'schedules', x: 0, y: 4, w: 4, h: 4, minW: 3, minH: 3 },
-    { i: 'forum', x: 4, y: 4, w: 4, h: 4, minW: 3, minH: 3 },
-    { i: 'community', x: 8, y: 4, w: 4, h: 4, minW: 3, minH: 3 },
-    { i: 'staff', x: 0, y: 8, w: 4, h: 4, minW: 3, minH: 3 },
-    { i: 'contact', x: 4, y: 8, w: 4, h: 4, minW: 3, minH: 3 },
-    { i: 'statistics', x: 8, y: 8, w: 4, h: 4, minW: 3, minH: 3 }
+    { i: 'articles', x: 0, y: 0, w: 4, h: 5, minW: 3, minH: 4 },
+    { i: 'appointments', x: 4, y: 0, w: 4, h: 5, minW: 4, minH: 4 },
+    { i: 'payments', x: 8, y: 0, w: 4, h: 5, minW: 3, minH: 4 },
+    { i: 'schedules', x: 0, y: 5, w: 4, h: 5, minW: 3, minH: 4 },
+    { i: 'forum', x: 4, y: 5, w: 4, h: 5, minW: 3, minH: 4 },
+    { i: 'community', x: 8, y: 5, w: 4, h: 5, minW: 3, minH: 4 },
+    { i: 'staff', x: 0, y: 10, w: 4, h: 5, minW: 3, minH: 4 },
+    { i: 'contact', x: 4, y: 10, w: 4, h: 5, minW: 3, minH: 4 },
+    { i: 'statistics', x: 8, y: 10, w: 4, h: 5, minW: 3, minH: 4 }
   ],
   md: [
-    { i: 'articles', x: 0, y: 0, w: 4, h: 4 },
-    { i: 'appointments', x: 4, y: 0, w: 4, h: 4 },
-    { i: 'payments', x: 8, y: 0, w: 4, h: 4 },
-    { i: 'schedules', x: 0, y: 4, w: 4, h: 4 },
-    { i: 'forum', x: 4, y: 4, w: 4, h: 4 },
-    { i: 'community', x: 8, y: 4, w: 4, h: 4 },
-    { i: 'staff', x: 0, y: 8, w: 4, h: 4 },
-    { i: 'contact', x: 4, y: 8, w: 4, h: 4 },
-    { i: 'statistics', x: 8, y: 8, w: 4, h: 4 }
+    { i: 'articles', x: 0, y: 0, w: 6, h: 5 },
+    { i: 'appointments', x: 6, y: 0, w: 6, h: 5 },
+    { i: 'payments', x: 0, y: 5, w: 6, h: 5 },
+    { i: 'schedules', x: 6, y: 5, w: 6, h: 5 },
+    { i: 'forum', x: 0, y: 10, w: 6, h: 5 },
+    { i: 'community', x: 6, y: 10, w: 6, h: 5 },
+    { i: 'staff', x: 0, y: 15, w: 6, h: 5 },
+    { i: 'contact', x: 6, y: 15, w: 6, h: 5 },
+    { i: 'statistics', x: 0, y: 20, w: 12, h: 5 }
   ],
   sm: [
     { i: 'articles', x: 0, y: 0, w: 12, h: 4 },
@@ -164,7 +164,7 @@ const DashboardPage = () => {
       if (user?.role !== 'staff' && !isAdmin) return;
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:3001/api/users/profile/role-info', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/users/profile/role-info`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (response.data?.success && response.data.user?.roleData) {
@@ -184,7 +184,7 @@ const DashboardPage = () => {
       try {
         setLoadingArticleStats(true);
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:3001/api/articles', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/articles`, {
           params: { page: 1, limit: 1, sort_by: 'created_at', sort_order: 'DESC' },
           headers: { Authorization: `Bearer ${token}` }
         });
@@ -266,7 +266,7 @@ const DashboardPage = () => {
         const token = localStorage.getItem('token');
         // Nếu là admin, chỉ lấy lịch của chính mình
         const params = isAdmin && user?.id ? { user_id: user.id } : {};
-        const response = await axios.get('http://localhost:3001/api/schedules/stats', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/schedules/stats`, {
           headers: { Authorization: `Bearer ${token}` },
           params
         });
@@ -289,7 +289,7 @@ const DashboardPage = () => {
       if (!canViewForumWorkload) return;
       try {
         setLoadingForumStats(true);
-        const response = await axios.get('http://localhost:3001/api/forum/stats/overview');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/forum/stats/overview`);
         if (response.data?.success) {
           setForumStats(response.data.data || {});
         }
@@ -309,7 +309,7 @@ const DashboardPage = () => {
       try {
         setLoadingContactStats(true);
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:3001/api/contact/messages', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/contact/messages`, {
           headers: { Authorization: `Bearer ${token}` },
           params: { page: 1, limit: 1, status: 'all' }
         });
@@ -351,7 +351,7 @@ const DashboardPage = () => {
       try {
         setLoadingStaffStats(true);
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:3001/api/staff/statistics/by-department', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/staff/statistics/by-department`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (response.data?.success) {
@@ -385,7 +385,7 @@ const DashboardPage = () => {
         setLoadingCommunityStats(true);
         const token = localStorage.getItem('token');
         // API trả về danh sách nhóm user là leader, mỗi nhóm có stats riêng
-        const response = await axios.get('http://localhost:3001/api/community/groups/managed', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/community/groups/managed`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         // Debug log dữ liệu trả về từ API nhóm cộng đồng
@@ -415,7 +415,7 @@ const DashboardPage = () => {
       try {
         setLoadingLeaveStats(true);
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:3001/api/leave-requests/pending', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/leave-requests/pending`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (response.data?.success) {
@@ -441,7 +441,7 @@ const DashboardPage = () => {
       try {
         setLoadingOvertimeStats(true);
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:3001/api/schedules/pending-overtimes', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/schedules/pending-overtimes`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (response.data?.success) {
@@ -467,7 +467,7 @@ const DashboardPage = () => {
       try {
         setLoadingRegistrationStats(true);
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:3001/api/schedules/pending-registrations', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/schedules/pending-registrations`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (response.data?.success) {
@@ -510,7 +510,7 @@ const DashboardPage = () => {
           types: 'schedules,appointments,leaves',
           ...(isAdmin && user?.id ? { user_id: user.id } : {})
         };
-        const response = await axios.get('http://localhost:3001/api/calendar/view', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/calendar/view`, {
           params,
           headers: { Authorization: `Bearer ${token}` }
         });
@@ -983,17 +983,18 @@ const DashboardPage = () => {
         <main className="dashboard-main">
           
           <ResponsiveGridLayout
-            className="dashboard-grid-layout"
-            layouts={layouts}
-            breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-            cols={{ lg: 12, md: 12, sm: 8, xs: 4, xxs: 2 }}
-            rowHeight={80}
-            onLayoutChange={handleLayoutChange}
-            isDraggable={isBoardEditMode}
-            isResizable={isBoardEditMode}
-            margin={[16, 16]}
-            useCSSTransforms={true}
-          >
+          className="dashboard-grid-layout"
+          layouts={layouts}
+          breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+          cols={{ lg: 12, md: 12, sm: 12, xs: 4, xxs: 2 }}
+          rowHeight={100}
+          onLayoutChange={handleLayoutChange}
+          isDraggable={isBoardEditMode}
+          isResizable={isBoardEditMode}
+          margin={[16, 16]}
+          useCSSTransforms={true}
+          containerPadding={[0, 0]}
+        >
             {visibleWidgets.map((widget) => {
               if (widget.id !== 'community') {
                 const WidgetIcon = widget.totalIcon;

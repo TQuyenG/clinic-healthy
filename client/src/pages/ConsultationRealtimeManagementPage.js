@@ -72,13 +72,13 @@ const ConsultationRealtimeManagementPage = () => {
       if (user && user.role === 'staff') {
         try {
           const token = localStorage.getItem('token');
-          const profileRes = await axios.get('http://localhost:3001/api/staff/my-profile', {
+          const profileRes = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/staff/my-profile`, {
             headers: { Authorization: `Bearer ${token}` }
           });
 
           if (profileRes.data.success) {
             const staffId = profileRes.data.data.id;
-            const doctorsRes = await axios.get(`http://localhost:3001/api/staff/${staffId}/doctors`, {
+            const doctorsRes = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/staff/${staffId}/doctors`, {
               headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -355,6 +355,7 @@ const ConsultationRealtimeManagementPage = () => {
           <ConsultationRealtimeMonitor 
             activeCount={dashboardStats?.active_consultations || 0}
             onFixIssue={handleFixIssue}
+            currentUser={user}
           />
         )}
 

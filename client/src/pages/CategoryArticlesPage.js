@@ -1,14 +1,13 @@
 // client/src/pages/CategoryArticlesPage.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 import Breadcrumb from '../components/Breadcrumb';
 import { FaSearch, FaEye, FaCalendar, FaFolder, FaChevronRight, FaTags } from 'react-icons/fa';
 import './ArticlesListPage.css'; // Dùng chung CSS với trang danh sách chính
 
 const CategoryArticlesPage = ({ category, categoryType }) => {
   const navigate = useNavigate();
-  const API_BASE_URL = 'http://localhost:3001';
 
   // --- STATE DỮ LIỆU BÀI VIẾT ---
   const [articles, setArticles] = useState([]);
@@ -42,8 +41,8 @@ const CategoryArticlesPage = ({ category, categoryType }) => {
   const fetchSidebarData = async () => {
     try {
       const [popRes, tagsRes] = await Promise.all([
-        axios.get(`${API_BASE_URL}/api/articles/public?category_id=${category.id}&limit=5&sort_by=views&sort_order=DESC`),
-        axios.get(`${API_BASE_URL}/api/articles/tags/all`)
+        api.get(`/articles/public?category_id=${category.id}&limit=5&sort_by=views&sort_order=DESC`),
+        api.get(`/articles/tags/all`)
       ]);
       if (popRes.data.success) setPopularArticles(popRes.data.articles || []);
       if (tagsRes.data.success) setAvailableTags((tagsRes.data.tags || []).slice(0, 15));
@@ -64,7 +63,7 @@ const CategoryArticlesPage = ({ category, categoryType }) => {
       if (letterFilter) params.letter = letterFilter;
       if (searchInput) params.search = searchInput;
       
-      const response = await axios.get(`${API_BASE_URL}/api/articles/public`, { params });
+      const response = await api.get(`/articles/public`, { params });
 
       if (response.data.success) {
         setArticles(response.data.articles || []);

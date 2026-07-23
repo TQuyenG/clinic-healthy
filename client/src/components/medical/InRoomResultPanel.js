@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import './InRoomResultPanel.css';
 import MedicalRecordFormPage from '../../pages/MedicalRecordFormPage';
 
-const InRoomResultPanel = ({ appointmentCode, consultationCode, consultationId, onClose }) => {
+const InRoomResultPanel = ({ appointmentCode, consultationCode, consultationId, onClose, onSubmitSuccess }) => {
   const panelCode = consultationCode || appointmentCode;
   console.log('🔍 InRoomResultPanel - code:', panelCode, 'consultationId:', consultationId);
 
@@ -154,7 +154,7 @@ const InRoomResultPanel = ({ appointmentCode, consultationCode, consultationId, 
         </div>
 
         <div className="inroom-result-panel-body" style={{overflow: 'auto', flex: 1}}>
-          <MedicalRecordFormPage embeddedCode={panelCode} embeddedConsultationId={consultationId} embeddedActiveRecordId={embeddedActiveRecordId} onClose={onClose} />
+          <MedicalRecordFormPage embeddedCode={panelCode} embeddedConsultationId={consultationId} embeddedActiveRecordId={embeddedActiveRecordId} onClose={onClose} onSubmitSuccess={onSubmitSuccess} />
         </div>
         <div ref={dragHandleRef} className="inroom-result-panel-handle" role="separator" aria-orientation="vertical" title="Kéo để thay đổi kích thước">
           <span className="inroom-result-panel-handle-icon">⋮⋮</span>

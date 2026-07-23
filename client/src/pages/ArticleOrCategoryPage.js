@@ -13,7 +13,7 @@ const ArticleOrCategoryPage = ({ type }) => {
   const [contentType, setContentType] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const API_BASE_URL = 'http://localhost:3001';
+  const API_BASE_URL = process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001';
 
   useEffect(() => {
     fetchContent();

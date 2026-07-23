@@ -519,10 +519,10 @@ const QuestionDetailPage = () => {
                   {ensureArray(question.images).map((img, i) => (
                     <img
                       key={i}
-                      src={img.startsWith('http') ? img : `http://localhost:3001${img.startsWith('/') ? '' : '/'}${img}`}
+                      src={img.startsWith('http') ? img : `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${img.startsWith('/') ? '' : '/'}${img}`}
                       alt={`Hình ${i + 1}`}
                       className="qdp-gallery-img"
-                      onClick={() => setLightboxImg(img.startsWith('http') ? img : `http://localhost:3001${img.startsWith('/') ? '' : '/'}${img}`)}
+                      onClick={() => setLightboxImg(img.startsWith('http') ? img : `${process.env.REACT_APP_UPLOAD_URL || 'http://localhost:3001'}${img.startsWith('/') ? '' : '/'}${img}`)}
                       onError={(e) => { e.target.style.display = 'none'; }}
                     />
                   ))}

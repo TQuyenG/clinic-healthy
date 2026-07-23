@@ -168,7 +168,7 @@ const SpecialtyManagementPage = () => {
   const fetchSpecialties = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:3001/api/specialties');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/specialties`);
       if (response.data.success) {
         setSpecialties(response.data.specialties);
       }
@@ -243,14 +243,14 @@ const SpecialtyManagementPage = () => {
 
       if (editMode) {
         await axios.put(
-          `http://localhost:3001/api/specialties/${currentSpecialty.id}`,
+          `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/specialties/${currentSpecialty.id}`,
           formData,
           config
         );
         alert('Cập nhật chuyên khoa thành công!');
       } else {
         await axios.post(
-          'http://localhost:3001/api/specialties',
+          `${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/specialties`,
           formData,
           config
         );
@@ -276,7 +276,7 @@ const SpecialtyManagementPage = () => {
         headers: { Authorization: `Bearer ${token}` }
       };
 
-      await axios.delete(`http://localhost:3001/api/specialties/${id}`, config);
+      await axios.delete(`${process.env.REACT_APP_API_URL || 'http://localhost:3001/api'}/specialties/${id}`, config);
       alert('Xóa chuyên khoa thành công!');
       fetchSpecialties();
     } catch (error) {
